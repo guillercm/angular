@@ -1,0 +1,1 @@
+git checkout -- . Para reconstruir todo al ultimo commit

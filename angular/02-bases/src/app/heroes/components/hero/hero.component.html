@@ -1,0 +1,22 @@
+
+<div class="container">
+  <h1>{{name | uppercase}}</h1>
+  <dl class="px-4">
+    <td>Nombre:</td>
+    <dd> {{name}} </dd>
+    <td>Edad:</td>
+    <dd> {{age}} </dd>
+    <td>Método:</td>
+    <dd> {{ getHeroeDescription() }} </dd>
+    <td>Capitalizado:</td>
+    <dd> {{name | uppercase}} </dd>
+  </dl>
+  <button class="btn btn-primary mx-2" (click)="changeName()">
+    Cambiar nombre
+  </button>
+  <button class="btn btn-primary" (click)="changeAge()">
+    Cambiar edad
+  </button>
+  <p *ngIf="!name" class="bg-danger">El nombre es obligatorio</p>
+
+</div>
