@@ -1,0 +1,18 @@
+<shared-menu></shared-menu>
+
+<router-outlet></router-outlet>
+
+<h1>{{title}}</h1>
+<p>{{ title | uppercase }}</p>
+<p>{{ title | lowercase }}</p>
+<p>{{ title | titlecase }}...</p>
+<p>{{ title | slice:0:5 | titlecase }}...</p>
+
+<p-button label="Submit" />
+<button
+    pButton
+    pRipple
+    label="Submit"
+    class="p-button-success">
+</button>
+<p-button label="Submit" icon="pi pi-check" iconPos="right" />
