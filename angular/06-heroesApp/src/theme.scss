@@ -1,0 +1,26 @@
+@use '@angular/material' as mat;
+@use '@angular/material-experimental' as matx;
+
+// $theme: mat.define-theme((
+//   color: (
+//     theme-type: light,
+//     primary: mat.$azure-palette,
+//     tertiary: mat.$blue-palette,
+//   )
+// ));
+
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+
+
+// @include mat.core();
+// @include mat.color-variants-back-compat($theme);
+
+
+:root {
+//   @include mat.all-component-themes($theme);
+//   @include mat.toolbar-overrides((
+//     container-background-color: var(--mat-sys-primary-container),
+//     container-text-color: var(--mat-sys-primary),
+//   ));
+}

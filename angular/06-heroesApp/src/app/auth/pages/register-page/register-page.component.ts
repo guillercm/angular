@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class RegisterPageComponent {
+    protected value = "";
 
+    protected onInput(event: Event) {
+        this.value = (event.target as HTMLInputElement).value;
+    }
 }
