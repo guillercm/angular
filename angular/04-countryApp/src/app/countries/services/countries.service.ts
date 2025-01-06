@@ -8,22 +8,6 @@ import { Region } from '../interfaces/region.type';
 @Injectable({
   providedIn: 'root'
 })
-/*
-Pips:
-  map: Al igual que Array.prototype.map(), 
-      pasa cada valor de origen a través de una función de transformación
-      para obtener los valores de salida correspondientes.
-  tap: Tap está diseñado para permitir que el desarrollador
-      tenga un lugar designado para realizar efectos secundarios. 
-  switchMap: Proyecta cada valor de origen en un Observable que se fusiona en el Observable de salida,
-      emitiendo valores solo desde el Observable proyectado más recientemente.
-  catchError: Captura errores en el observable que se manejarán devolviendo
-      un nuevo observable o arrojando un error.
-  delay: Para que espere unos milisegundos
-  debouncerTime: Secuencias rápidas de eventos y solo se preocupa
-    de actuar sobre el último evento después de una duración específica
-
-*/
 export class CountriesService {
 
   private apiUrl = 'https://restcountries.com/v3.1/';
