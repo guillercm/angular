@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-
-interface MenuItem {
-  title: string;
-  route: string;
-}
-
+import { MenuItem } from '../../interfaces/menu-item';
 
 @Component({
   selector: 'shared-side-menu',
@@ -22,6 +17,10 @@ export class SideMenuComponent {
 
   public authMenu: MenuItem[] = [
     { title: 'Registro', route: './auth' },
+  ];
+
+  public selectorsMenu: MenuItem[] = [
+    { title: 'Países', route: './selector' },
   ];
 
 }
