@@ -23,4 +23,9 @@ export class SideMenuComponent {
     { title: 'Países', route: './selector' },
   ];
 
+  public lifeCycleMenu: MenuItem[] = [
+    { title: 'Productos', route: './lifeCycle/product' },
+    { title: 'Life Cycle Hooks', route: './lifeCycle/lifeCycleHooks' },    
+  ];
+
 }
