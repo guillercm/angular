@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControl, ValidationErrors, FormGroup, AbstractControl } from '@angular/forms';
+import { Observable, delay, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ValidatorsService {
@@ -8,7 +9,7 @@ export class ValidatorsService {
   public emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
 
-  public cantBeStrider = ( control: FormControl ): ValidationErrors | null => {
+  public cantBeStrider = (control: FormControl): ValidationErrors | null => {
 
     const value: string = control.value.trim().toLowerCase();
 
@@ -21,19 +22,19 @@ export class ValidatorsService {
     return null;
   }
 
-  public isValidField( form: FormGroup, field: string ) {
+  public isValidField(form: FormGroup, field: string) {
     return form.controls[field].errors && form.controls[field].touched;
   }
 
 
-  public isFieldOneEqualFieldTwo( field1: string, field2: string ) {
+  public isFieldOneEqualFieldTwo(field1: string, field2: string) {
 
-    return ( formGroup: AbstractControl ): ValidationErrors | null => {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
 
       const fieldValue1 = formGroup.get(field1)?.value;
       const fieldValue2 = formGroup.get(field2)?.value;
 
-      if ( fieldValue1 !== fieldValue2 ) {
+      if (fieldValue1 !== fieldValue2) {
         formGroup.get(field2)?.setErrors({ notEqual: true });
         return { notEqual: true }
       }
@@ -42,6 +43,21 @@ export class ValidatorsService {
       return null;
     }
 
+  }
+
+  public isFieldOneEqualFieldTwoAsycn(field1: string, field2: string) {
+    return (formGroup: AbstractControl): Observable<ValidationErrors | null> => {
+      const fieldValue1 = formGroup.get(field1)?.value;
+      const fieldValue2 = formGroup.get(field2)?.value;
+
+      if (fieldValue1 !== fieldValue2) {
+        formGroup.get(field2)?.setErrors({ notEqual: true });
+        return of({ notEqual: true });
+      }
+
+      formGroup.get(field2)?.setErrors(null);
+      return of(null);
+    }
   }
 
 

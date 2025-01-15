@@ -19,8 +19,8 @@ export class RegisterPageComponent {
     password2: ['', [ Validators.required ]],
   }, {
     validators: [
-      this.validatorsService.isFieldOneEqualFieldTwo('password','password2')
-    ]
+      this.validatorsService.isFieldOneEqualFieldTwoAsycn('password','password2')
+    ],
   });
 
 
