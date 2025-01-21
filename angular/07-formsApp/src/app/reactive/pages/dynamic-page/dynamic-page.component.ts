@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
-  templateUrl: './dynamic-page.component.html',
+    templateUrl: './dynamic-page.component.html',
+    standalone: false
 })
 export class DynamicPageComponent {
 

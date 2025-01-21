@@ -4,7 +4,8 @@ import { LoggerService } from '../../services/logger.service';
 @Component({
     selector: 'life-cycle-hooks',
     templateUrl: './life-cycle-hooks.component.html',
-    styleUrls: ['./life-cycle-hooks.component.css']
+    styleUrls: ['./life-cycle-hooks.component.css'],
+    standalone: false
 })
 export class LifeCycleHooksComponent {
 

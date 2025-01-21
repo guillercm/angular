@@ -9,9 +9,9 @@ const rtx5090 = {
 
 
 @Component({
-  templateUrl: './basic-page.component.html',
-  styles: [
-  ]
+    templateUrl: './basic-page.component.html',
+    styles: [],
+    standalone: false
 })
 export class BasicPageComponent implements OnInit {
 

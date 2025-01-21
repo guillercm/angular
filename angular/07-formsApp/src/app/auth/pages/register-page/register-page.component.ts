@@ -6,7 +6,8 @@ import { ValidatorsService } from '../../../shared/service/validators.service';
 import { EmailValidator } from '../../../shared/validators/email-validator.service';
 
 @Component({
-  templateUrl: './register-page.component.html',
+    templateUrl: './register-page.component.html',
+    standalone: false
 })
 export class RegisterPageComponent {
 

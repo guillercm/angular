@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  templateUrl: './switches-page.component.html',
+    templateUrl: './switches-page.component.html',
+    standalone: false
 })
 export class SwitchesPageComponent implements OnInit {
 

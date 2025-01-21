@@ -6,10 +6,10 @@ import { CountriesService } from '../../services/countries.service';
 import { Region, SmallCountry } from '../../interfaces/country.interfaces';
 
 @Component({
-  selector: 'app-selector-page',
-  templateUrl: './selector-page.component.html',
-  styles: [
-  ]
+    selector: 'app-selector-page',
+    templateUrl: './selector-page.component.html',
+    styles: [],
+    standalone: false
 })
 export class SelectorPageComponent implements OnInit {
 

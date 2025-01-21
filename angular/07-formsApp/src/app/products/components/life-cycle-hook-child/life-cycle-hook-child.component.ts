@@ -14,9 +14,10 @@ import {
 import { LoggerService } from '../../services/logger.service';
 
 @Component({
-  selector: 'life-cycle-hook-child',
-  templateUrl: './life-cycle-hook-child.component.html',
-  styleUrls: ['./life-cycle-hook-child.component.css']
+    selector: 'life-cycle-hook-child',
+    templateUrl: './life-cycle-hook-child.component.html',
+    styleUrls: ['./life-cycle-hook-child.component.css'],
+    standalone: false
 })
 export class LifeCycleHookChildComponent implements OnChanges, OnInit, DoCheck,
 AfterContentInit, AfterContentChecked,

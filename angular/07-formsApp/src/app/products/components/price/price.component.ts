@@ -2,9 +2,10 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleCha
 import { Subscription, interval, take } from 'rxjs';
 
 @Component({
-  selector: 'products-price',
-  templateUrl: './price.component.html',
-  styleUrls: ['./price.component.css']
+    selector: 'products-price',
+    templateUrl: './price.component.html',
+    styleUrls: ['./price.component.css'],
+    standalone: false
 })
 export class PriceComponent implements OnInit, OnChanges, OnDestroy {
 
