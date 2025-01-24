@@ -25,11 +25,12 @@ export class SideMenuComponent {
 
   public lifeCycleMenu: MenuItem[] = [
     { title: 'Productos', route: './lifeCycle/product' },
-    { title: 'Life Cycle Hooks', route: './lifeCycle/lifeCycleHooks' },    
+    { title: 'Life Cycle Hooks', route: './lifeCycle/lifeCycleHooks' },
   ];
 
   public directiveSignals: MenuItem[] = [
-    { title: 'directiveSignals', route: './directiveSignals' },   
+    { title: 'Directives', route: './directives' },
+    { title: 'Signals', route: './signals' },
   ];
 
 }

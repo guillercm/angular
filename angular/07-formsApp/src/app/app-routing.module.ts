@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, signal } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -19,8 +19,12 @@ const routes: Routes = [
     loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
   },
   {
-    path: 'directiveSignals',
-    loadChildren: () => import('./directivesignals/directivesignals.module').then(m => m.DirectivesignalsModule),
+    path: 'directives',
+    loadChildren: () => import('./directives/directives.module').then(m => m.DirectivesModule),
+  },
+  {
+    path: 'signals',
+    loadChildren: () => import('./signals/signals.module').then(m => m.SignalsModule),
   },
   {
     path: '**',

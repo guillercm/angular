@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: ProductPageComponent,
-    
+
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DirectivesignalsRoutingModule { }
+export class DirectivesRoutingModule { }

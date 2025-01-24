@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DirectivesignalsRoutingModule } from './directivesignals-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { DirectivesRoutingModule } from './directives-routing.module';
 
 
 @NgModule({
@@ -12,8 +12,8 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    DirectivesignalsRoutingModule,
+    DirectivesRoutingModule,
     SharedModule,
   ]
 })
-export class DirectivesignalsModule { }
+export class DirectivesModule { }
