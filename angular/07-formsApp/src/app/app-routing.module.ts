@@ -4,19 +4,23 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'reactive',
-    loadChildren: () => import('./reactive/reactive.module').then( m => m.ReactiveModule ),
+    loadChildren: () => import('./reactive/reactive.module').then(m => m.ReactiveModule),
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule ),
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
     path: 'selector',
-    loadChildren: () => import('./countries/countries.module').then( m => m.CountriesModule ),
+    loadChildren: () => import('./countries/countries.module').then(m => m.CountriesModule),
   },
   {
     path: 'lifeCycle',
-    loadChildren: () => import('./products/products.module').then( m => m.ProductsModule ),
+    loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
+  },
+  {
+    path: 'directiveSignals',
+    loadChildren: () => import('./directivesignals/directivesignals.module').then(m => m.DirectivesignalsModule),
   },
   {
     path: '**',

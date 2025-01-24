@@ -28,4 +28,8 @@ export class SideMenuComponent {
     { title: 'Life Cycle Hooks', route: './lifeCycle/lifeCycleHooks' },    
   ];
 
+  public directiveSignals: MenuItem[] = [
+    { title: 'directiveSignals', route: './directiveSignals' },   
+  ];
+
 }
