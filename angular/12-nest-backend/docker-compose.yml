@@ -1,0 +1,11 @@
+version: '3' # Especifica la versión del formato de archivo de Docker Compose. La versión 3 introduce nuevas características y mejoras en comparación con versiones anteriores.
+
+services:
+  db:
+    container_name: mean-db
+    image: mongo:8.0
+    volumes: 
+      - ./mongo:/data/db
+    ports:
+      - 27017:27017 # Mapea el puerto 27017 del contenedor al puerto 27017 del host para permitir el acceso a la base de datos MongoDB desde fuera del contenedor.
+    restart: always # Para que cuando se reinicie docker destop, la base de datos se levante sola.
