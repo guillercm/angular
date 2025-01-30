@@ -1,0 +1,44 @@
+<app-title title="Defer views / Blocs" [number]="'4'" withShadow />
+<section class="grid grid-cols-1">
+    <div #greeting>Makes me hover!</div>
+    @defer (on hover(greeting)) {
+        <app-heavy-loaders-slow cssClass="bg-red-200" />
+    }
+    @defer (on hover) {
+        <app-heavy-loaders-slow cssClass="bg-blue-500" />
+    } @placeholder {
+        <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">
+          Cargando...
+        </p>
+    }
+    
+    @defer (on idle) {
+        <app-heavy-loaders-slow cssClass="bg-green-500" />
+    } @placeholder {
+        <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">
+          Cargando...
+        </p>
+    }
+    
+    @defer (on viewport) {
+        <app-heavy-loaders-slow cssClass="bg-purple-500" />
+    } @placeholder {
+        <p class="h-[600px] w-full bg-gradient-to-r from-gray-200 to-gray-400 animate-pulse">
+          Cargando...
+        </p>
+    }
+<!-- 
+    @defer (on immediate) {
+        <app-heavy-loaders-slow cssClass="bg-red-200" style="display: none;"/>
+        <code>timer cargado</code>
+    } @placeholder {
+        <code>timer cargando...</code>
+    }
+    @defer ( prefetch on idle  ) {
+        <code>prefetch on idle cargado</code>
+        <app-heavy-loaders-slow cssClass="bg-purple-500" style="display: none;" />
+    } @placeholder {
+        <code>prefetch on idle cargando...</code>
+    } -->
+    
+</section>

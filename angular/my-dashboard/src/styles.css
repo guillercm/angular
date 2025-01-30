@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+.view-transition {
+    transition-duration: 5s; /* Duración de 300ms */
+    transition-timing-function: ease-in-out;
+  }
