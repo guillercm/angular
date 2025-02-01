@@ -8,9 +8,13 @@
 
   ``https://github.com/Klerith/mas-talento/tree/main/nest``
 
+  ``https://github.com/Klerith/mas-talento/tree/main/angular``
+
   ``https://cursos.devtalles.com/pages/mas-talento``
 
   ``https://hub.docker.com/_/mongo/tags``
+
+
 
 ## Desinstalar paquetes (opcional)
 ```
