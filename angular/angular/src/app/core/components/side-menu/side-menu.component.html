@@ -1,0 +1,13 @@
+<div class="flex-shrink-0 p-3">
+  <div class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+    <shared-image url="favicon.ico" classes="bi pe-none me-2" [imageWidth]="30" [imageHeight]="30"></shared-image>
+    <span class="fs-5 fw-semibold">Angular</span>
+    <core-theme-item-menu/>
+  </div>
+  <ul class="list-unstyled ps-0">
+    @for (route of getRoutes(); track $index; let i = $index) {
+    <core-item-menu [route]="route" [index]="i"></core-item-menu>
+    }
+    <li class="border-top my-3"></li>
+  </ul>
+</div>

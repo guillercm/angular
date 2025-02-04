@@ -1,0 +1,13 @@
+<!--  class="border-top my-3" -->
+<li class="mb-1">
+  <button [routerLink]="route().path" routerLinkActive="active" (click)="toggleCollapse()" class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#home-collapse" [attr.aria-expanded]="isCollapsed ? 'false' : 'true'">
+    {{ (index() + 1) + ". " + route().title }}
+  </button>
+  <div class="collapse show" [(ngbCollapse)]="isCollapsed">
+    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      @for (children of route().children; track $index; let i = $index) {
+        <li><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" [routerLink]="route().path + '/' + children.path" routerLinkActive="active">{{ (i + 1) + ". " }} {{ children.title }}</a></li>
+      }
+    </ul>
+  </div>
+</li>

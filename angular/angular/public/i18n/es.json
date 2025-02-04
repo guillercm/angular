@@ -1,0 +1,10 @@
+{
+  "app": {
+    "hello": "hello {{value}}",
+    "message": "Holaa",
+    "title": "Translation Demo"
+  },
+  "login": {
+    "label": "username"
+  }
+}

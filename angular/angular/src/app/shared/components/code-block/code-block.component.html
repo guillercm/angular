@@ -1,0 +1,9 @@
+<div class="position-relative">
+  <pre><code class="codeBlock">{{ codeprettier() }}</code></pre>
+  @if (showButtonCopied()) {
+  <button class="btn btn-sm copy-btn btn-success"><i class="bi bi-check"></i> Copied!</button>
+  } @else {
+  <button class="btn btn-sm copy-btn btn-outline-secondary" (click)="copyCode()"><i class="bi bi-clipboard"></i>
+    Copy</button>
+  }
+</div>
