@@ -9,6 +9,8 @@ import { ClassesComponent } from './typescript-intro/pages/classes/classes.compo
 import { GenericsComponent } from './typescript-intro/pages/generics/generics.component';
 import { DecoratorsComponent } from './typescript-intro/pages/decorators/decorators.component';
 import { InstallationComponent } from './translate/pages/installation/installation.component';
+import ConfigurationUseComponent from './translate/pages/configuration-use/configuration-use.component';
+import OpcionalChainingComponent from './typescript-intro/pages/optional-chaining/optional-chaining.component';
 
 export const featuresRoutes: Routes = [
   {
@@ -60,6 +62,11 @@ export const featuresRoutes: Routes = [
         path: 'decorators',
         title: 'Decoradores',
         component: DecoratorsComponent
+      },
+      {
+        path: 'optional-chaining',
+        title: 'Encadenamiento Opcional',
+        component: OpcionalChainingComponent
       }
     ]
   },
@@ -73,7 +80,17 @@ export const featuresRoutes: Routes = [
         title: 'Instalación',
         component: InstallationComponent
       },
+      {
+        path: 'configuration-use',
+        title: 'Configuración y uso',
+        component: ConfigurationUseComponent
+      },
     ]
+  },
+  {
+    path: 'simpsons',
+    title: 'Simpsons',
+    loadComponent: () => import('./simpsons/pages/simpsons/simpsons.component'),
   },
   {
     path: '**',

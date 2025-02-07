@@ -7,7 +7,7 @@ import { CodeBlockComponent } from '@shared/components/code-block/code-block.com
   template: `<shared-code-block [code]="code"></shared-code-block>`,
 })
 export class GenericsComponent {
-  public readonly code = `
+  protected readonly code = `
     export function whatsMyTipe<T>(argument: T): T {
         return argument;
     }

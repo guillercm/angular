@@ -38,8 +38,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environments.ts",
-                  "with": "src/environments/environments.prod.ts"
+                  "replace": "@environments/environments.ts",
+                  "with": "@environments/environments.prod.ts"
                 }
               ],
               "budgets": [

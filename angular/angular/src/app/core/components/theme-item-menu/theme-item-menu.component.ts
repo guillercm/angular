@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
+import { Theme } from '@core/interfaces/theme/theme.type';
 import { ThemeService } from '@core/services/theme/theme.service';
-import { Theme } from '../../types/theme/theme.type';
 import { ClickOutsideDirective } from '@shared/directives/click-outside/click-outside.directive';
 
 @Component({

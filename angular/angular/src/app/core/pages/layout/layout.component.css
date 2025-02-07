@@ -1,0 +1,7 @@
+@media (min-width: 992px) {
+    .collapse {
+        display: block !important;
+        visibility: visible !important;
+        height: auto !important;
+    }
+}

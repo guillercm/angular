@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Theme } from '../../types/theme/theme.type';
 import { SessionService } from '../session/session.service';
+import { Theme } from '@core/interfaces/theme/theme.type';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +19,12 @@ export class ThemeService {
   }
 
   private initialize() {
-    this._theme.set(this._sessionService.getItem<Theme>("theme", this._defaultTheme))
+    this._theme.set(this._sessionService.getItem<Theme>("theme", this._defaultTheme) || this._defaultTheme);
   }
 
   public setTheme(newTheme: Theme) {
     this._theme.set(newTheme);
-    this._sessionService.setItem("theme", newTheme)
+    this._sessionService.setItem("theme", newTheme);
   }
 
 }

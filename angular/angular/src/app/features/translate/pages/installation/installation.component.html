@@ -1,26 +1,26 @@
-<shared-code-block code="https://ngx-translate.org/"></shared-code-block>
-
+<h2 class="pt-4">Instalación</h2>
+<p>Para instalar este paquete ejecutaremos:</p>
 <shared-code-block code="npm i @ngx-translate/core
-npm i @ngx-translate/http-loader"></shared-code-block>
-<shared-code-block code="import {ApplicationConfig, provideZoneChangeDetection} from &quot;@angular/core&quot;;
-import {provideHttpClient} from &quot;@angular/common/http&quot;;
-import {provideTranslateService, TranslateLoader} from &quot;@ngx-translate/core&quot;;
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient} from '@angular/common/http';
-
-const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
-     new TranslateHttpLoader(http, './i18n/', '.json');
-
-export const appConfig: ApplicationConfig = {
-  providers: [
-      provideZoneChangeDetection({ eventCoalescing: true }),
-      provideHttpClient(),
-      provideTranslateService({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: httpLoaderFactory,
-          deps: [HttpClient],
-        },
-      })
-  ],
-};"></shared-code-block>
+npm i @ngx-translate/http-loader" type="terminal"></shared-code-block>
+<pre>
+    <code>
+        src/
+        ├── app/
+        │   ├── core/
+        │   │   ├── services/
+        │   │   │   ├── auth.service.ts
+        │   │   │   ├── user.service.ts
+        │   │   │   └── data.service.ts
+        │   │   ├── interceptors/
+        │   │   ├── guards/
+        │   │   └── models/
+        │   ├── shared/
+        │   │   ├── components/
+        │   │   │   ├── button/
+        │   │   │   ├── form/
+        │   │   └── directives/
+        │   │   └── pipes/
+        │   ├── features/
+        │   └── app.module.ts
+    </code>
+</pre>

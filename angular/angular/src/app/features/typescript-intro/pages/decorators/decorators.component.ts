@@ -7,7 +7,7 @@ import { CodeBlockComponent } from '@shared/components/code-block/code-block.com
   template: `<shared-code-block [code]="code"></shared-code-block>`,
 })
 export class DecoratorsComponent {
-  public readonly code = `
+    protected readonly code = `
     function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
         return class extends constructor {
             newProperty = "hola";

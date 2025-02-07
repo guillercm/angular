@@ -9,7 +9,7 @@ import { CodeBlockComponent } from '@shared/components/code-block/code-block.com
 })
 export class TypesComponent {
 
-  public readonly code = `
+  protected readonly code = `
     interface Address {
       calle: string,
       pais: string,

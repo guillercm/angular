@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal } from '@angular/core';
 import { ItemMenuComponent } from "../item-menu/item-menu.component";
 import { Route, Routes } from '@angular/router';
 import { ImageComponent } from "../../../shared/components/image/image.component";
@@ -14,12 +14,28 @@ import { ThemeItemMenuComponent } from "../theme-item-menu/theme-item-menu.compo
 })
 export class SideMenuComponent {
 
-
   public routes = input.required<Routes>();
+
+  public onCollapsed = output<boolean>();
 
   public getRoutes = computed<Route[]>(() => this.routes().filter((route) => route && route.path !== "**") )
 
   effect = effect(() => console.log(this.getRoutes()))
+
+  private _isCollapsed = signal<boolean>(true);
+
+  get isCollapsed(): boolean {
+    return this._isCollapsed();
+  }
+
+  set isCollapsed(value: boolean) {
+    this._isCollapsed.set(value);
+  }
+
+  public toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
+    this.onCollapsed.emit(this.isCollapsed);
+  }
 
 
 }

@@ -28,6 +28,5 @@ export class ItemMenuComponent {
 
   toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
-    console.log(this.route())
   }
 }

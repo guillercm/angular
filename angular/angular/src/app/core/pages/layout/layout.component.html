@@ -1,10 +1,10 @@
 <div>
-  <div class="row g-0 min-vh-100">
+  <div class="row g-0">
     <div class="col-lg-3">
-      <core-side-menu [routes]="ROUTES"></core-side-menu>
+      <core-side-menu [routes]="ROUTES" (onCollapsed)="onCollapsed($event)"></core-side-menu>
     </div>
-    <div class="col border-start">
-      <div class="container p-4">
+    <div class="col-lg-9 border-start">
+      <div class="p-5"  [(ngbCollapse)]="isCollapsed">
         <h1>Angular {{VERSION}}</h1>
         <shared-breadcrumb/>
         <router-outlet/>

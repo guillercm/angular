@@ -8,7 +8,7 @@ import { CodeBlockComponent } from '@shared/components/code-block/code-block.com
 })
 export default class ObjectInterfaceComponent {
 
-  public readonly code = `
+  protected readonly code = `
     const skills: string[] = ['Bash', 'Counter', 'Healing'];
 
     interface Character {

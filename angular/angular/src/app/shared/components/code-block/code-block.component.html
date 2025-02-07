@@ -1,5 +1,16 @@
+@if (type() === 'code') {
+  @for (item of getDataCode(); track $index; let i = $index) {
+    @if (item["label"]) {
+      <span class="tab" (click)="changeCodeActive(i)">{{item["label"]}}</span>
+    }
+  }
+} @else {
+  <div class="terminal d-flex justify-content-left border-bottom-radius-0">
+    <shared-image [url]="theme() === 'light' ? 'terminal-bg.svg' : 'terminal-bg-dark.svg'" [imageWidth]="33.6" [imageHeight]="8.95"></shared-image>
+  </div>
+}
 <div class="position-relative">
-  <pre><code class="codeBlock">{{ codeprettier() }}</code></pre>
+  <pre [class.border-top-radius-0]="type() === 'terminal'"><code class="codeBlock">{{ codeprettier() }}</code></pre>
   @if (showButtonCopied()) {
   <button class="btn btn-sm copy-btn btn-success"><i class="bi bi-check"></i> Copied!</button>
   } @else {

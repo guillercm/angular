@@ -7,7 +7,7 @@ import { CodeBlockComponent } from '@shared/components/code-block/code-block.com
   template: `<shared-code-block [code]="code"></shared-code-block>`
 })
 export class ClassesComponent {
-  public readonly code = `
+  protected readonly code = `
     export class Person {
 
       // public name: string;

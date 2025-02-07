@@ -8,7 +8,7 @@ import { CodeBlockComponent } from '@shared/components/code-block/code-block.com
 })
 export class BasicTypesComponent {
 
-  public readonly code = `
+  protected readonly code = `
     let name: string = "hola";
     let points: number | string = "hola";
     points = 2;

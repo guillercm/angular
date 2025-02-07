@@ -1,0 +1,21 @@
+{
+    "apis": {
+        "pets": {
+            "baseUrl": "https://petstore.swagger.io/v2",
+            "endpoints": {
+                "getPetById": "/pet/{id}"
+            }
+        },
+        "simpsons": {
+            "baseUrl": "http://localhost:3000",
+            "endpoints": {
+                "getSimpsons": "/simpsons",
+                "getSimpsonById": "/simpsons/{id}"
+            }
+        }
+    },
+    "languages": {
+        "availables": ["es"],
+        "default": "es"
+    }
+}

@@ -7,8 +7,7 @@
       "@core/*": ["./src/app/core/*"],
       "@features/*": ["./src/app/features/*"],
       "@shared/*": ["./src/app/shared/*"],
-      "@types/*": ["./src/app/core/types/*"],
-      "@services/*": ["./src/app/services/*"]
+      "@environments/*": ["./src/environments/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

@@ -1,8 +1,8 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { AvailableLanguages } from '@core/types/language/availableLanguages.type';
 import { InterpolatableTranslationObject, InterpolationParameters, TranslateService } from '@ngx-translate/core';
 import { tap } from 'rxjs';
+import { AppConfigService } from '../configuration/app-config.service';
 
 
 @Injectable({
@@ -12,17 +12,18 @@ export class LanguageService {
 
   private readonly _translate = inject(TranslateService);
 
-  private readonly _availableLanguages: AvailableLanguages[] = ['es']
+  private readonly _configService = inject(AppConfigService);
 
   constructor() {
     this.initialize();
   }
 
   initialize() {
-    this._translate.addLangs(this._availableLanguages);
+    this._translate.addLangs(this._configService.config().languages.availables);
   }
 
-  useLang(language: AvailableLanguages) {
+  useLang(language?: string) {
+    if (!language) return;
     this._translate.setDefaultLang(language);
     this._translate.use(language);
   }

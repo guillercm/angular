@@ -1,0 +1,69 @@
+<h2 class="pt-4">Configuración</h2>
+<p>Deberemos de hacer las siguientes configuraciones en el fichero de configuración de la aplicación:</p>
+<shared-code-block label="app.config.ts" code="import {ApplicationConfig, provideZoneChangeDetection} from &quot;@angular/core&quot;;
+import {provideHttpClient} from &quot;@angular/common/http&quot;;
+import {provideTranslateService, TranslateLoader} from &quot;@ngx-translate/core&quot;;
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient} from '@angular/common/http';
+
+const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
+     new TranslateHttpLoader(http, './i18n/', '.json');
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+      provideZoneChangeDetection({ eventCoalescing: true }),
+      provideHttpClient(),
+      provideTranslateService({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: httpLoaderFactory,
+          deps: [HttpClient],
+        },
+      })
+  ],
+};"></shared-code-block>
+<p>En nuestro componente principal de la aplicación configuraremos el idioma que queramos:</p>
+<shared-code-block label="app.component.ts" code="import { Component, inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+export class AppComponent {
+  
+  private readonly _translate = inject(TranslateService);
+
+  constructor() {
+    
+        this._translate.setDefaultLang('es');
+        this._translate.use('es');
+  }
+}"></shared-code-block>
+
+<h2 class="pt-4">Uso</h2>
+<p>Deberemos crear tantos json como idomas desemos tener en nuetra aplicación:</p>
+<shared-code-block [code]="codeJson" label="public/i18n/en.json"></shared-code-block>
+<p>Tendremos que importar la directiva o el pipe, según que queramos usar a nuestro componente:</p>
+<shared-code-block [code]="example"></shared-code-block>
+<P>También podremos usarlo en el código:</P>
+<shared-code-block label="app.component.ts" spaces="" code="
+import {Component} from '@angular/core';
+import {TranslateService, _} from &quot;@ngx-translate/core&quot;;
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class YourComponent {
+  private _name = signal<string>(&quot;Guille&quot;);
+  public name = this._name.asReadonly();
+
+  constructor(private translate: TranslateService) {
+    this.translate.get(_('app.hello'), {value: this.name()}).subscribe((res: string) => {
+      console.log(res); //=> 'hello Guille'
+    });
+  }
+}"></shared-code-block>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CodeBlockComponent } from "@shared/components/code-block/code-block.component";
 
 @Component({
   selector: 'features-translate',

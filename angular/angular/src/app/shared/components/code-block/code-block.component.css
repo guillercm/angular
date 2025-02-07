@@ -1,6 +1,35 @@
-pre {
+:host {
+  padding-top: 20px;
+}
+
+pre, .tab, .terminal {
   border: 1px solid #e9ecef;
   border-radius: 0.25rem;
+}
+
+.tab {
+  padding: 0.4rem;
+  padding-bottom: 0.1rem;
+  padding-top: 0;
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  cursor: pointer;
+}
+
+.terminal {
+  padding: 0.4rem;
+}
+
+.terminal shared-image {
+  opacity: 0.3;
+}
+
+.tab ~ div pre {
+  border-top-left-radius: 0;
+}
+
+pre {
   padding: 1rem;
   position: relative;
 }
@@ -8,4 +37,14 @@ pre {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+}
+
+.border-top-radius-0 {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.border-bottom-radius-0 {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }

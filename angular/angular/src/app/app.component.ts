@@ -1,42 +1,38 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Signal, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, effect, inject, Renderer2, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AppConfigService } from '@core/services/configuration/app-config.service';
 import { LanguageService } from '@core/services/language/language.service';
 import { ThemeService } from '@core/services/theme/theme.service';
-import { TranslateService, TranslatePipe, TranslateDirective } from "@ngx-translate/core";
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, TranslateDirective],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
 
+  private readonly _configService = inject(AppConfigService);
+
   private readonly _themeService = inject(ThemeService);
 
-  private readonly _translate = inject(TranslateService);
+  private readonly _renderer = inject(Renderer2);
 
-  private readonly _languageService = inject(LanguageService );
+  private readonly _languageService = inject(LanguageService);
 
   public readonly theme = this._themeService.theme
 
   title = signal<string>('Angular');
 
-  translatedText: Signal<string>;
-
-  translatedText2: Signal<string>;
+  effectTheme = effect(() => this._renderer.setAttribute(document.documentElement, 'data-bs-theme', this.theme()))
 
   getTranslation(key: string, params?: Record<string, any>) {
     return this._languageService.get(`app.${key}`, params)
   }
 
   constructor() {
-    this._languageService.useLang('es');
-    this.translatedText = this.getTranslation("title")
-    this.translatedText2 = this.getTranslation("message")
+    this._languageService.useLang(this._configService.config().languages.default);
   }
 
 

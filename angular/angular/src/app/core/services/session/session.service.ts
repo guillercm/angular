@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { isLocalStorageAvailable } from '@core/decorators/is-local-storage-available.decorator';
+import { JsonHandlerService } from '../json-handler/json-handler.service';
 
 
 @Injectable({
@@ -7,22 +8,20 @@ import { isLocalStorageAvailable } from '@core/decorators/is-local-storage-avail
 })
 export class SessionService {
 
+  private readonly _jsonHandler = inject(JsonHandlerService);
+
   constructor() { }
 
   @isLocalStorageAvailable()
   public setItem(key: string, value: any) {
-    switch (typeof value) {
-      case "object":
-        value = JSON.stringify(value);
-        break;
-    }
+    if (typeof value === "object") value = this._jsonHandler.stringify(value);
     localStorage.setItem(key, value.toString());
   }
 
   @isLocalStorageAvailable()
-  public getItem<T>(key: string, defaultValue: T | null = null): T {
+  public getItem<T>(key: string, defaultValue: T | null = null): T | null {
     const value = localStorage.getItem(key);
-    if (value === null) return defaultValue as T;
+    if (value === null) return defaultValue;
     switch (typeof defaultValue) {
       case 'number':
         return Number(value) as T;
@@ -31,12 +30,9 @@ export class SessionService {
       case 'boolean':
         return (value === 'true' ? true : false) as T;
       case 'object':
-        try {
-          const json = JSON.parse(value);
-          if (typeof json === "object") return json;
-        } catch {
-          return defaultValue as T;
-        }
+        const json = this._jsonHandler.parse<T>(value, defaultValue);
+        if (typeof json === "object") return json;
+        return defaultValue;
     }
     return value as T;
   }
