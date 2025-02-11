@@ -19,8 +19,6 @@ export class CodeBlockComponent {
 
   public code = input.required<string | DataCode[]>()
 
-  public spaces = input<string>("    ");
-
   /* Properties if code is string */
   public label = input<string>("");
 
@@ -36,34 +34,30 @@ export class CodeBlockComponent {
   protected showButtonCopied = this._showButtonCopied.asReadonly();
 
   public readonly theme = this._themeService.theme
-  
+
   protected getDataCode: Signal<DataCode[]> = computed(() => {
     let code = this.code();
     if (typeof code === "string") return [{
       label: this.label(),
       code: code
     }];
+    console.log(code)
     return code;
   })
 
   public effectCode = effect(() => {
     let dataCode = this.getDataCode();
-    this.cleanAndSetCode(dataCode[this.indexCodeActive()].code);
+    this._codeprettier.set(dataCode[this.indexCodeActive()].code);
   })
 
   changeCodeActive(index: number) {
     this.indexCodeActive.set(index);
   }
 
-  private cleanAndSetCode(code: string) {
-    code = code.replace(`\n${this.spaces()}`, '');
-    code = code.replaceAll(`\n${this.spaces()}`, '\n');
-    this._codeprettier.set(code);
-  }
-
   protected copyCode() {
     this._showButtonCopied.set(true);
-    this._clipboard.copy(this.codeprettier())
+    const exp = /<span class="token[^>]*>(.*?)<\/span>/g;
+    this._clipboard.copy(this.codeprettier().replace(exp, '$1').replace(exp, '$1').replace(exp, '$1').replaceAll("&gt;", ">"))
     of(true).pipe(
       take(1),
       delay(1000)

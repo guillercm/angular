@@ -10,7 +10,7 @@
   </div>
 }
 <div class="position-relative">
-  <pre [class.border-top-radius-0]="type() === 'terminal'"><code class="codeBlock">{{ codeprettier() }}</code></pre>
+  <pre [class.border-top-radius-0]="type() === 'terminal'"><code class="codeBlock" [innerHTML]="codeprettier()"></code></pre>
   @if (showButtonCopied()) {
   <button class="btn btn-sm copy-btn btn-success"><i class="bi bi-check"></i> Copied!</button>
   } @else {

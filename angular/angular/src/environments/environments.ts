@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
   configPath: "static/config.json",
-  docsPath: "static/docs/{filename}.md"
+  docsPath: "static/docs/{filename}.md",
+  ngDevMode: true,
 };

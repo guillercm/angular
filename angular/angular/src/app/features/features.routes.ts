@@ -1,16 +1,5 @@
 import { Routes } from '@angular/router';
-import { BasicTypesComponent } from './typescript-intro/pages/basic-types/basic-types.component';
-import { DestructuringComponent } from './typescript-intro/pages/destructuring/destructuring.component';
-import { FunctionDestructuringComponent } from './typescript-intro/pages/function-destructuring/function-destructuring.component';
-import { FunctionsComponent } from './typescript-intro/pages/functions/functions.component';
-import { TypesComponent } from './typescript-intro/pages/types/types.component';
-import ObjectInterfaceComponent from './typescript-intro/pages/object-interface/object-interface.component';
-import { ClassesComponent } from './typescript-intro/pages/classes/classes.component';
-import { GenericsComponent } from './typescript-intro/pages/generics/generics.component';
-import { DecoratorsComponent } from './typescript-intro/pages/decorators/decorators.component';
-import { InstallationComponent } from './translate/pages/installation/installation.component';
-import ConfigurationUseComponent from './translate/pages/configuration-use/configuration-use.component';
-import OpcionalChainingComponent from './typescript-intro/pages/optional-chaining/optional-chaining.component';
+import { DocsComponent } from '@core/components/docs/docs.component';
 
 export const featuresRoutes: Routes = [
   {
@@ -21,52 +10,52 @@ export const featuresRoutes: Routes = [
       {
         path: 'basic-types',
         title: 'Tipos básicos',
-        component: BasicTypesComponent
+        component: DocsComponent
       },
       {
         path: 'object-interface',
         title: 'Interfaces',
-        component: ObjectInterfaceComponent
+        component: DocsComponent
       },
       {
         path: 'functions',
         title: 'Funciones',
-        component: FunctionsComponent
+        component: DocsComponent
       },
       {
         path: 'types',
         title: 'Tipos',
-        component: TypesComponent
+        component: DocsComponent
       },
       {
         path: 'destructuring',
         title: 'Desestructuración',
-        component: DestructuringComponent
+        component: DocsComponent
       },
       {
         path: 'function-destructuring',
         title: 'Desestructuración de funciones',
-        component: FunctionDestructuringComponent
+        component: DocsComponent
       },
       {
         path: 'classes',
         title: 'Clases',
-        component: ClassesComponent
+        component: DocsComponent
       },
       {
         path: 'generics',
         title: 'Tipos genéricos',
-        component: GenericsComponent
+        component: DocsComponent
       },
       {
         path: 'decorators',
         title: 'Decoradores',
-        component: DecoratorsComponent
+        component: DocsComponent
       },
       {
         path: 'optional-chaining',
         title: 'Encadenamiento Opcional',
-        component: OpcionalChainingComponent
+        component: DocsComponent
       }
     ]
   },
@@ -78,12 +67,12 @@ export const featuresRoutes: Routes = [
       {
         path: 'installation',
         title: 'Instalación',
-        component: InstallationComponent
+        component: DocsComponent
       },
       {
         path: 'configuration-use',
         title: 'Configuración y uso',
-        component: ConfigurationUseComponent
+        component: DocsComponent
       },
     ]
   },
@@ -91,6 +80,23 @@ export const featuresRoutes: Routes = [
     path: 'simpsons',
     title: 'Simpsons',
     loadComponent: () => import('./simpsons/pages/simpsons/simpsons.component'),
+  },
+  {
+    path: 'markdown',
+    title: 'Markdown',
+    loadComponent: () => import('./markdown/pages/markdown/markdown.component'),
+    children: [
+      {
+        path: 'installation',
+        title: 'Instalación',
+        component: DocsComponent
+      },
+      {
+        path: 'configuration-use',
+        title: 'Configuración y uso',
+        component: DocsComponent
+      },
+    ]
   },
   {
     path: '**',

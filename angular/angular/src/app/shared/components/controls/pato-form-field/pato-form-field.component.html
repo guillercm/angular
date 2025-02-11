@@ -1,0 +1,19 @@
+
+<div class="col-md-4">
+  <label for="validationCustomUsername" class="form-label">{{ label() }}</label>
+  <div class="input-group has-validation form-field-invalid">
+    <ng-container #dynamicContent></ng-container>
+    @if (control().touched) {
+      @if (control().errors) {
+        <div class="invalid-feedback d-block">
+          <p>Errores: {{control().errors | json }}</p>
+        </div>
+      } @else {
+        <div class="valid-feedback d-block">
+          Looks good!
+        </div>
+      }
+    }
+  </div>
+</div>
+

@@ -11,29 +11,29 @@ export class ApiHandlerService {
 
   private readonly _httpClient = inject(HttpClient);
 
-  public get<T>(url: string, { pathParams, queryParams }: ApiHandlerParams = {}): Observable<T> {
-    url = this.setPathParams(url, pathParams);
-    return this._httpClient.get<T>(url, { params: queryParams }).pipe(shareReplay(1));
+  public get<T>(url: string, options?: ApiHandlerParams): Observable<T> {
+    url = this.setPathParams(url, options?.pathParams);
+    return this._httpClient.get<T>(url, options).pipe(shareReplay(1));
   }
 
-  public post<T>(url: string, data: any, { pathParams, queryParams }: ApiHandlerParams = {}): Observable<T> {
-    url = this.setPathParams(url, pathParams);
-    return this._httpClient.post<T>(url, data, { params: queryParams }).pipe(shareReplay(1));
+  public post<T>(url: string, options?: ApiHandlerParams): Observable<T> {
+    url = this.setPathParams(url, options?.pathParams);
+    return this._httpClient.post<T>(url, options).pipe(shareReplay(1));
   }
 
-  public delete<T>(url: string, { pathParams, queryParams }: ApiHandlerParams = {}): Observable<T> {
-    url = this.setPathParams(url, pathParams);
-    return this._httpClient.delete<T>(url, { params: queryParams }).pipe(shareReplay(1));
+  public delete<T>(url: string, options?: ApiHandlerParams): Observable<T> {
+    url = this.setPathParams(url, options?.pathParams);
+    return this._httpClient.delete<T>(url, options).pipe(shareReplay(1));
   }
 
-  public put<T>(url: string, data: any, { pathParams, queryParams }: ApiHandlerParams = {}): Observable<T> {
-    url = this.setPathParams(url, pathParams);
-    return this._httpClient.put<T>(url, data, { params: queryParams }).pipe(shareReplay(1));
+  public put<T>(url: string, options?: ApiHandlerParams): Observable<T> {
+    url = this.setPathParams(url, options?.pathParams);
+    return this._httpClient.put<T>(url, options).pipe(shareReplay(1));
   }
 
-  public patch<T>(url: string, data: any, { pathParams, queryParams }: ApiHandlerParams = {}): Observable<T> {
-    url = this.setPathParams(url, pathParams);
-    return this._httpClient.patch<T>(url, data, { params: queryParams }).pipe(shareReplay(1));
+  public patch<T>(url: string, options?: ApiHandlerParams): Observable<T> {
+    url = this.setPathParams(url, options?.pathParams);
+    return this._httpClient.patch<T>(url, options).pipe(shareReplay(1));
   }
 
   private setPathParams(url: string, pathParams?: ApiHandlerPathParams): string {

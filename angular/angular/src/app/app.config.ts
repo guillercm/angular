@@ -1,4 +1,4 @@
-import { ApplicationConfig, inject, provideAppInitializer, provideExperimentalZonelessChangeDetection, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -10,11 +10,10 @@ import {HttpClient} from '@angular/common/http';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
 import { firstValueFrom } from 'rxjs';
 import { simpsonInterceptor } from '@features/simpsons/interceptors/simpson.interceptor';
+import { provideMarkdown } from 'ngx-markdown';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
   new TranslateHttpLoader(http, './i18n/', '.json');
-
-
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,6 +25,7 @@ export const appConfig: ApplicationConfig = {
         [simpsonInterceptor]
       )
     ),
+    provideMarkdown(),
     provideTranslateService({
       loader: {
         provide: TranslateLoader,

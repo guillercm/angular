@@ -5,6 +5,7 @@ import { Observable, map, take } from 'rxjs';
 import { SimpsonAdapter } from '../adapters/simpsons/simpsons-adapter';
 import { Simpson } from '../interfaces/simpson.interface';
 import { SimpsonResponse } from '../interfaces/api/simpsonsRespose.interface';
+import { ModelAdapterService } from '@core/services/model-adapter/model-adapter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,8 @@ export class SimpsonsService {
   private readonly _configService = inject(AppConfigService);
 
   private readonly _simpsonsAdapter = inject(SimpsonAdapter);
+
+  private readonly _modelAdapter = inject(ModelAdapterService);
 
   get configApi() {
     return this._configService.config().apis["simpsons"];

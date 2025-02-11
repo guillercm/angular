@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "lib": ["es2018", "dom", "esnext"],
     "paths": {
       "@core/*": ["./src/app/core/*"],
       "@features/*": ["./src/app/features/*"],

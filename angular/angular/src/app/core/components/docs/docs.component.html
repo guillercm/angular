@@ -1,1 +1,6 @@
-<p>docs works!</p>
+@defer (on idle) {
+  <markdown #markdownComponent (load)="loadMarkdown()" [disableSanitizer]="true" [src]="path()"></markdown>
+} @placeholder {
+  cargando...
+}
+<ng-container #container></ng-container>

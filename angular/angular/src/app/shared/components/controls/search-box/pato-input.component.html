@@ -1,0 +1,12 @@
+<span class="input-group-text" id="inputGroupPrepend">{{'@'}}</span>
+<input
+    [type]="type"
+    [placeholder]="placeholder()"
+    class="form-control "
+    [class.is-valid]="control().valid && control().touched"
+    [class.is-invalid]="!control().valid && control().touched"
+    (keyup)="onKeyPress( searchInput.value )"
+    [value]="value()"
+    [attr.disabled]="disabled() ? 'disabled' : null"
+    (blur)="onBlur()"
+    #searchInput>
