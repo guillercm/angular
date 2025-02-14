@@ -5,9 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class ModelAdapterService {
 
-  constructor() { }
-
-
   public adapt<Input, Output>(inicialData: Input, fn: (inicialData: Input) => Output): Output {
     return fn(inicialData);
   };

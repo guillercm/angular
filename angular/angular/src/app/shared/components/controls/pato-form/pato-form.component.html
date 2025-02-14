@@ -1,10 +1,10 @@
 @if (form()) {
   @let formInstance = form()!;
-  <form class="row g-3 needs-validation" [class.was-validated]="false" novalidate [formGroup]="formInstance" (ngSubmit)="onSubmit()">
+  <form [ngClass]="classes()" [class.was-validated]="false" novalidate [formGroup]="formInstance" (ngSubmit)="onSubmit()">
     @for (key of formKeys; track $index) {
-       <ng-container patoFormControlInjectorDirective [name]="key" [data]="data()[key]"  [componentFormField]="formFieldComponent()" [form]="formInstance" [control]="formInstance.controls[key]" ></ng-container>
+       <ng-container patoFormControlInjectorDirective [patoFormComponent]="this" [id]="id() + '_' + key" [data]="data()[key]"  [componentFormField]="formFieldComponent()" [form]="formInstance" [control]="formInstance.controls[key]" ></ng-container>
     }
-    <button type="submit">Enviar</button>
+    <ng-container *ngTemplateOutlet="finalFormTemplate()"></ng-container>
   </form>
   {{ formInstance.touched }}
 }

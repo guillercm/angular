@@ -6,7 +6,8 @@ const environments =
 {
   production: 'PRODUCTION',
   configPath: 'CONFIG_PATH',
-  docsPath: 'DOCS_PATH'
+  docsPath: 'DOCS_PATH',
+  timeoutSeconds: 'TIMEOUT_SECONDS'
 }
 
 const { writeFileSync, mkdirSync } = require('fs');
@@ -18,7 +19,7 @@ function getEnvironments(isProd = false) {
   let stringEnvironments = "";
   Object.keys(environments).forEach((key) => {
     let value = process.env[environments[key] + (isProd ? '_PROD' : '')] || process.env[environments[key]];
-    if (value !== 'true' && value !== 'false') {
+    if (value !== 'true' && value !== 'false' && isNaN(value)) {
       value = `"${value}"`;
     }
     stringEnvironments += `  ${key}: ${value},\n`

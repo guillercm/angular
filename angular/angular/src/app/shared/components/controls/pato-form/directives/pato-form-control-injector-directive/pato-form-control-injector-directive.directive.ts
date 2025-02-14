@@ -1,9 +1,10 @@
 
 import { AbstractControl, ControlValueAccessor, FormGroup, } from '@angular/forms';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { PatoFormComponentType } from '../../interfaces/pato-form-component-type.interface';
-import { PatoFormFieldComponent } from '@shared/components/controls/pato-form-field/pato-form-field.component';
 import { ComponentRef, DestroyRef, Directive, EnvironmentInjector, Host, Inject, inject, Injector, input, OnInit, Optional, Self, SkipSelf, Type, ViewContainerRef } from '@angular/core';
+import { PatoFormComponent } from '../../pato-form.component';
+import { of } from 'rxjs';
 
 
 @Directive({
@@ -18,9 +19,11 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
 
   public control = input.required<AbstractControl<any>>();
 
-  public name = input.required<string>();
+  public id = input.required<string>();
 
   public form = input<FormGroup | null>(null);
+
+  public patoFormComponent = input.required<PatoFormComponent>();
 
   public componentFormField = input.required<Type<any>|undefined>();
 
@@ -38,6 +41,7 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
   initialize() {
     this.createComponents();
     this.setInputs();
+    this.setClasses();
     this.setFormControl();
   }
 
@@ -47,9 +51,19 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
     if (!componentFormField) return;
     this._componentRefFormField = this._viewContainerRef.createComponent(componentFormField);
     this._componentRefFormField.setInput('control', this.control())
+    this._componentRefFormField.setInput('id', this.id())
 
-    const formFieldInstance = this._componentRefFormField.instance as PatoFormFieldComponent;
-    this._componentRef = formFieldInstance.dynamicContent().createComponent(component);
+    const formFieldInstance = this._componentRefFormField.instance;
+    this._componentRef = formFieldInstance.controlView().createComponent(component);
+    this._componentRef.setInput("formField", this._componentRefFormField.instance)
+  }
+
+  setClasses() {
+    const classes = this.data().classes;
+    if (!classes) return;
+    const { control, formField } = classes;
+    if (control) this._componentRef.location.nativeElement.classList = control;
+    if (formField) this._componentRefFormField.location.nativeElement.classList = formField;
   }
 
   setInputs() {
@@ -64,9 +78,8 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
       });
       if (formField)
       Object.keys(formField).forEach((inputKey: string) => {
-        componentRefFormField.setInput(inputKey, (formField as any)[inputKey]);
+        componentRefFormField.setInput(inputKey, formField[inputKey]);
       });
-
     }
   }
 
@@ -116,7 +129,7 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
     })
 
     this.form()?.statusChanges.subscribe((value: string) => {
-      console.log(value)
+      // console.log(value)
     })
 
   }

@@ -9,8 +9,10 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient} from '@angular/common/http';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
 import { firstValueFrom } from 'rxjs';
-import { simpsonInterceptor } from '@features/simpsons/interceptors/simpson.interceptor';
 import { provideMarkdown } from 'ngx-markdown';
+import { errorInterceptor } from '@core/interceptors/error.interceptor';
+import { timeoutInterceptor } from '@core/interceptors/timeout.interceptor';
+import { loaderInterceptor } from '@core/interceptors/loader.interceptor';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
   new TranslateHttpLoader(http, './i18n/', '.json');
@@ -22,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(
       withInterceptors(
-        [simpsonInterceptor]
+        [timeoutInterceptor, errorInterceptor, loaderInterceptor]
       )
     ),
     provideMarkdown(),

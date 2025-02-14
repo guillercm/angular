@@ -1,8 +1,12 @@
-import { Component, computed, DestroyRef, forwardRef, Host, Inject, inject, Injector, input, OnInit, Optional, output, Self, signal, SkipSelf } from '@angular/core';
+import { Component, computed, DestroyRef, forwardRef, inject, input, OnInit, output, signal, InputSignal } from '@angular/core';
 import { Subject, debounceTime } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AbstractControl, AsyncValidator, AsyncValidatorFn, ControlContainer, ControlValueAccessor, FormControl, FormControlDirective, FormControlName, FormGroup, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, ReactiveFormsModule, Validator, ValidatorFn } from '@angular/forms';
-import { PatoFormFieldComponent } from '../pato-form-field/pato-form-field.component';
+import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+
+interface PatoFormField {
+  control: InputSignal<AbstractControl<any>>,
+  id: InputSignal<string>
+}
 
 @Component({
   selector: 'pato-input',
@@ -21,11 +25,11 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
 
   private readonly _destroyRef = inject(DestroyRef);
 
-  private readonly _formField = inject(PatoFormFieldComponent);
+  protected readonly formField = input.required<PatoFormField>();
 
-  public control = computed<AbstractControl<any>>(() => this._formField.control() )
+  public control = computed<AbstractControl<any>>(() => this.formField().control() )
 
-  // private readonly _formControlDirective = inject(ControlContainer);
+  public id = computed<string>(() => this.formField().id())
 
   private _value = signal<string>("");
   public value = this._value.asReadonly();

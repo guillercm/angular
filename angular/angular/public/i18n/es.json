@@ -6,5 +6,10 @@
   },
   "login": {
     "label": "username"
+  },
+  "errors": {
+    "required": "Este campo es obligatorio",
+    "minlength": "Tiene que tener como mínimo {{ requiredLength }}",
+    "maxlength": "Tiene que tener como máximo {{ requiredLength }}"
   }
 }

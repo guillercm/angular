@@ -1,8 +1,9 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { InterpolatableTranslationObject, InterpolationParameters, TranslateService } from '@ngx-translate/core';
-import { tap } from 'rxjs';
+import { of, tap } from 'rxjs';
 import { AppConfigService } from '../configuration/app-config.service';
+import { ValidationErrors } from '@angular/forms';
 
 
 @Injectable({
@@ -29,7 +30,13 @@ export class LanguageService {
   }
 
   get(key: string | string[], params?: Record<string, any>) {
-    return toSignal(this._translate.get((key), params))
+    return this._translate.get((key), params)
+  }
+
+  getByValidationsErrors(errors: ValidationErrors | null) {
+    if (!errors) return of("");
+    const error = Object.keys(errors)[0];
+    return this.get(`errors.${error}`, errors[error])
   }
 
 }

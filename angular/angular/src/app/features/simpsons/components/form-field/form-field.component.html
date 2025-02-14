@@ -1,0 +1,17 @@
+@let errors = control().errors;
+@let touched = control().touched;
+<label [for]="id()" class="form-label">{{ label() }}</label>
+<div class="input-group has-validation form-field-invalid">
+    <ng-container #controlView></ng-container>
+    @if (touched) {
+    @if (errors) {
+    <div class="invalid-feedback d-block">
+        <p>Errores: {{ getError(errors) | async }}</p>
+    </div>
+    } @else {
+    <div class="valid-feedback d-block">
+        Looks good!
+    </div>
+    }
+    }
+</div>

@@ -1,2 +1,15 @@
-<p>simpsons works!</p>
-<pato-form [data]="dataForm" (onFormChange)="onChangeControl($event)" (onFormSubmit)="onSubmit($event)" [formFieldComponent]="formFieldComponent"></pato-form>
+<pato-form [data]="dataForm" classes="row" id="simpsons"
+    (onbuildForm)="onBuildForm($event)"
+    (onFormChange)="onChangeControl($event)"
+    (onFormSubmit)="onSubmit($event)"
+    [formFieldComponent]="formFieldComponent"
+    [finalFormTemplate]="finalFormTemplate"
+   >
+    <ng-template #finalFormTemplate>
+        <button type="submit" [attr.disabled]="form()?.invalid ? 'disabled' : null" >Enviar</button>
+    </ng-template>
+</pato-form>
+@if (cargando()) {
+    <h1>Cargando...</h1>
+}
+

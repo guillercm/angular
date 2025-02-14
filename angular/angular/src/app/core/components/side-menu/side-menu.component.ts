@@ -20,7 +20,7 @@ export class SideMenuComponent {
 
   public getRoutes = computed<Route[]>(() => this.routes().filter((route) => route && route.path !== "**") )
 
-  effect = effect(() => console.log(this.getRoutes()))
+  // effect = effect(() => console.log(this.getRoutes()))
 
   private _isCollapsed = signal<boolean>(true);
 

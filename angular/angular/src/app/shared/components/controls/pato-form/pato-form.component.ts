@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DestroyRef, effect, ElementRef, inject, input, OnInit, output, Renderer2, signal, Type, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, contentChild, DestroyRef, effect, ElementRef, inject, input, OnInit, output, Renderer2, signal, TemplateRef, Type, viewChild, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormControlDirective, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PatoDataForm } from './interfaces/pato-data-form.interface';
 import { CommonModule } from '@angular/common';
@@ -7,17 +7,12 @@ import { ResponsePatoForm } from './interfaces/pato-response-form.interface';
 import { PatoDataFormChange } from './interfaces/pato-form-change.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { distinctUntilChanged } from 'rxjs';
-import { PatoInputComponent } from '../search-box/pato-input.component';
-
-
-
-
 
 
 
 @Component({
   selector: 'pato-form',
-  imports: [CommonModule, ReactiveFormsModule, PatoInputComponent, PatoFormControlInjectorDirectiveDirective],
+  imports: [CommonModule, ReactiveFormsModule, PatoFormControlInjectorDirectiveDirective],
   templateUrl: './pato-form.component.html',
   styleUrl: './pato-form.component.css'
 })
@@ -31,6 +26,12 @@ export class PatoFormComponent implements OnInit {
 
   public formFieldComponent = input<Type<any>>();
 
+  public id = input.required<string>();
+
+  public classes = input<string>();
+
+  public onbuildForm = output<FormGroup|null>();
+
   public onFormSubmit = output<ResponsePatoForm>();
 
   public onFormChange = output<PatoDataFormChange>();
@@ -41,6 +42,8 @@ export class PatoFormComponent implements OnInit {
 
   protected formKeys: string[] = []
 
+  public readonly finalFormTemplate = input<TemplateRef<any>|null>(null);
+  
   ngOnInit(): void {
     // this.initialize();
   }
@@ -63,7 +66,8 @@ export class PatoFormComponent implements OnInit {
       dataForm[key] = [dataControl.value, [...dataControl.validators || []] ];
       i++;
     });
-    this._form.set(this._formBuilder.group(dataForm))
+    this._form.set(this._formBuilder.group(dataForm));
+    this.onbuildForm.emit(this.form());
   }
 
   private initSubscriptionsForControlValueChanges() {
@@ -75,7 +79,7 @@ export class PatoFormComponent implements OnInit {
       form.controls[key].valueChanges.pipe(
         distinctUntilChanged(),
         takeUntilDestroyed(this._destroyRef)
-      ).subscribe(value => {
+      ).subscribe((value: any) => {
         this.onFormChange.emit({ filed: key, newValue: value })
       })
     });
@@ -83,9 +87,17 @@ export class PatoFormComponent implements OnInit {
 
   protected onSubmit() {
     const form = this.form();
-    form?.markAsTouched();
+    this.markAsTouched();
     if (!form || form.invalid) return;
     if (form.valid) this.onFormSubmit.emit(form.value);
+  }
+
+  markAsTouched() {
+    const form = this.form();
+    form?.markAsTouched();
+    this.formKeys.forEach((key: string) => {
+      form?.controls[key].markAllAsTouched();
+    });
   }
 
 }
