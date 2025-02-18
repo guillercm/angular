@@ -82,6 +82,18 @@ export const featuresRoutes: Routes = [
     loadComponent: () => import('./simpsons/pages/simpsons/simpsons.component'),
   },
   {
+    path: 'my-methodology',
+    title: 'Mi metodología',
+    loadComponent: () => import('./my-methodology/pages/my-methodology/my-methodology.component'),
+    children: [
+      {
+        path: 'notes',
+        title: 'Notas',
+        component: DocsComponent
+      }
+    ]
+  },
+  {
     path: 'markdown',
     title: 'Markdown',
     loadComponent: () => import('./markdown/pages/markdown/markdown.component'),
@@ -99,7 +111,8 @@ export const featuresRoutes: Routes = [
     ]
   },
   {
-    path: '**',
-    redirectTo: 'typescript-intro'
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'simpsons'
   }
 ];

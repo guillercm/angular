@@ -1,0 +1,15 @@
+:host, .img-error, .img-loading {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+:host {
+  display: block;
+}
+.img-error {
+  background-color: rgba(128, 128, 128, 0.1);
+}
+.icon-slash {
+  transform: scale(1.5);
+  transform-origin: center;
+}

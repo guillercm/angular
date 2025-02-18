@@ -3,7 +3,7 @@ import { Directive, ElementRef, HostListener, inject, output, computed } from '@
 @Directive({
   selector: '[sharedClickOutside]'
 })
-export class ClickOutsideDirective {
+export class SharedClickOutsideDirective {
 
   private readonly _element = inject(ElementRef);
 

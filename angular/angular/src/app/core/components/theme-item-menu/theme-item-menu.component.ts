@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { Theme } from '@core/interfaces/theme/theme.type';
 import { ThemeService } from '@core/services/theme/theme.service';
-import { ClickOutsideDirective } from '@shared/directives/click-outside/click-outside.directive';
+import { SharedClickOutsideDirective } from '@shared/directives/click-outside/shared-click-outside.directive';
 
 @Component({
   selector: 'core-theme-item-menu',
-  imports: [ClickOutsideDirective],
+  imports: [SharedClickOutsideDirective],
   templateUrl: './theme-item-menu.component.html',
   styleUrl: './theme-item-menu.component.css'
 })
@@ -14,7 +14,7 @@ export class ThemeItemMenuComponent {
   private readonly _themeService = inject(ThemeService);
 
   private _isCollapsed = signal<boolean>(true);
-  public isCollapsed = this._isCollapsed.asReadonly();
+  public readonly isCollapsed = this._isCollapsed.asReadonly();
 
   public theme = this._themeService.theme
 

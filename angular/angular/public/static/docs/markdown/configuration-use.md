@@ -148,7 +148,7 @@ En nuestro ```angular.json``` deberemos de incluir los estilos y los scripts, en
   <summary>app.template.html</summary>
 
   ```html
-  <markdown (load)="loadMarkdown()" [disableSanitizer]="true" [src]="src"></markdown>
+  <markdown [disableSanitizer]="true" [src]="src"></markdown>
   ```
   </details>
 

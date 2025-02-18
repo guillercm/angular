@@ -1,0 +1,21 @@
+<div class="card" [sharedSkeletonGlow]="skeleton()">
+  <div class="row">
+    <div class="col-md-4 col-sm-12" style="height: 224px;">
+      <shared-image [url]="'img/simpsons/' + simpson()?.image" [skeleton]="skeleton()"></shared-image>
+    </div>
+    <div class="col-md-8 col-sm-12">
+      <div class="card-body">
+        <h5 class="card-title placeholder" [sharedSkeletonText]="skeleton()">{{ simpson()?.fullName | sharedFilledText:
+          20: '-' }}</h5>
+        <p class="card-text" [sharedSkeletonText]="skeleton()">{{ simpson()?.description | sharedFilledText: 20: '-' }}
+        </p>
+        <p class="card-text"><small class="text-muted" [sharedSkeletonText]="skeleton()">{{ simpson()?.personality |
+            sharedFilledText: 70: '-' }}</small></p>
+      </div>
+    </div>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" [sharedSkeletonText]="skeleton()">{{ simpson()?.funFact | sharedFilledText: 20: '-' }}
+    </li>
+  </ul>
+</div>

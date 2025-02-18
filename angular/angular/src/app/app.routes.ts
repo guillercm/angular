@@ -7,6 +7,9 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: ''
+    data: {
+      'http-status-code': '404'
+    },
+    loadComponent: () => import('./core/components/pages/error/error-page.component')
   }
 ];

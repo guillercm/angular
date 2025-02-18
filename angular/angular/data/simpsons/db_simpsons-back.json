@@ -1,155 +1,154 @@
 {
-    "simpsons": [
-      {
-        "id": 1,
-        "nombre": "Homer",
-        "apellidos": "Simpson",
-        "edad": 39,
-        "imagen": "https://example.com/homer.jpg",
-        "personalidad": "Perezoso, glotón, pero de buen corazón",
-        "descripcion": "Trabaja en la planta nuclear de Springfield. Es conocido por su amor a las rosquillas y la cerveza Duff.",
-        "dato_curioso": "Tiene una cicatriz en la cabeza en forma de 'M' y 'G', iniciales de Matt Groening."
-      },
-      {
-        "id": 2,
-        "nombre": "Marge",
-        "apellidos": "Simpson",
-        "edad": 36,
-        "imagen": "https://example.com/marge.jpg",
-        "personalidad": "Amable, paciente y responsable",
-        "descripcion": "Es la esposa de Homer y madre de Bart, Lisa y Maggie. Es conocida por su peinado azul alto.",
-        "dato_curioso": "Su peinado está inspirado en el de la novia de Frankenstein."
-      },
-      {
-        "id": 3,
-        "nombre": "Bart",
-        "apellidos": "Simpson",
-        "edad": 10,
-        "imagen": "https://example.com/bart.jpg",
-        "personalidad": "Travieso, rebelde y creativo",
-        "descripcion": "Es el hijo mayor de los Simpson. Le encanta hacer bromas y andar en patineta.",
-        "dato_curioso": "Su nombre es un anagrama de 'brat', que significa 'mocoso' en inglés."
-      },
-      {
-        "id": 4,
-        "nombre": "Lisa",
-        "apellidos": "Simpson",
-        "edad": 8,
-        "imagen": "https://example.com/lisa.jpg",
-        "personalidad": "Inteligente, ética y talentosa",
-        "descripcion": "Es la hija mediana de los Simpson. Es una estudiante sobresaliente y toca el saxofón.",
-        "dato_curioso": "Es vegetariana y defensora de los derechos de los animales."
-      },
-      {
-        "id": 5,
-        "nombre": "Maggie",
-        "apellidos": "Simpson",
-        "edad": 1,
-        "imagen": "https://example.com/maggie.jpg",
-        "personalidad": "Tranquila, observadora y valiente",
-        "descripcion": "Es la bebé de la familia. Aunque no habla, es muy observadora y ha demostrado ser muy valiente en varias ocasiones.",
-        "dato_curioso": "Siempre lleva un chupete rojo."
-      },
-      {
-        "id": 6,
-        "nombre": "Abe",
-        "apellidos": "Simpson",
-        "edad": 83,
-        "imagen": "https://example.com/abe.jpg",
-        "personalidad": "Olvidadizo, gruñón pero cariñoso",
-        "descripcion": "Es el padre de Homer. Vive en el asilo de ancianos de Springfield.",
-        "dato_curioso": "Participó en la Segunda Guerra Mundial."
-      },
-      {
-        "id": 7,
-        "nombre": "Ned",
-        "apellidos": "Flanders",
-        "edad": 60,
-        "imagen": "https://example.com/ned.jpg",
-        "personalidad": "Religioso, amable y optimista",
-        "descripcion": "Es el vecino de los Simpson. Es muy religioso y siempre está dispuesto a ayudar.",
-        "dato_curioso": "Tiene una tienda de artículos para zurdos llamada 'The Leftorium'."
-      },
-      {
-        "id": 8,
-        "nombre": "Milhouse",
-        "apellidos": "Van Houten",
-        "edad": 10,
-        "imagen": "https://example.com/milhouse.jpg",
-        "personalidad": "Leal, inseguro y tímido",
-        "descripcion": "Es el mejor amigo de Bart. Está enamorado de Lisa.",
-        "dato_curioso": "Es alérgico a casi todo."
-      },
-      {
-        "id": 9,
-        "nombre": "Mr. Burns",
-        "apellidos": "Burns",
-        "edad": 104,
-        "imagen": "https://example.com/mrburns.jpg",
-        "personalidad": "Avaro, despiadado y poderoso",
-        "descripcion": "Es el dueño de la planta nuclear de Springfield. Es el jefe de Homer.",
-        "dato_curioso": "Su frase característica es '¡Excelente!' mientras frota sus manos."
-      },
-      {
-        "id": 10,
-        "nombre": "Krusty",
-        "apellidos": "El Payaso",
-        "edad": 55,
-        "imagen": "https://example.com/krusty.jpg",
-        "personalidad": "Cínico, sarcástico y divertido",
-        "descripcion": "Es el payaso de televisión favorito de Bart y Lisa.",
-        "dato_curioso": "Su nombre real es Herschel Shmoikel Pinchas Yerucham Krustofsky."
-      },
-      {
-        "id": 11,
-        "nombre": "Seymour",
-        "apellidos": "Skinner",
-        "edad": 44,
-        "imagen": "https://example.com/skinner.jpg",
-        "personalidad": "Estricto, disciplinado y obediente",
-        "descripcion": "Es el director de la Escuela Primaria de Springfield.",
-        "dato_curioso": "Vive con su madre, Agnes."
-      },
-      {
-        "id": 12,
-        "nombre": "Edna",
-        "apellidos": "Krabappel",
-        "edad": 41,
-        "imagen": "https://example.com/krabappel.jpg",
-        "personalidad": "Cínica, sarcástica y desilusionada",
-        "descripcion": "Es la maestra de Bart en la Escuela Primaria de Springfield.",
-        "dato_curioso": "Fuma en secreto en la sala de profesores."
-      },
-      {
-        "id": 13,
-        "nombre": "Moe",
-        "apellidos": "Szyslak",
-        "edad": 45,
-        "imagen": "https://example.com/moe.jpg",
-        "personalidad": "Gruñón, solitario pero leal",
-        "descripcion": "Es el dueño de la taberna de Moe, el bar favorito de Homer.",
-        "dato_curioso": "Ha intentado cambiar su vida varias veces, pero siempre vuelve a la taberna."
-      },
-      {
-        "id": 14,
-        "nombre": "Ralph",
-        "apellidos": "Wiggum",
-        "edad": 8,
-        "imagen": "https://example.com/ralph.jpg",
-        "personalidad": "Inocente, ingenuo y dulce",
-        "descripcion": "Es compañero de clase de Lisa. Es conocido por sus comentarios ingenuos y graciosos.",
-        "dato_curioso": "Es hijo del jefe de policía de Springfield, Clancy Wiggum."
-      },
-      {
-        "id": 15,
-        "nombre": "Patty",
-        "apellidos": "Bouvier",
-        "edad": 40,
-        "imagen": "https://example.com/patty.jpg",
-        "personalidad": "Cínica, sarcástica y protectora",
-        "descripcion": "Es la hermana gemela de Selma y hermana mayor de Marge.",
-        "dato_curioso": "Trabaja en el Departamento de Vehículos Motorizados de Springfield."
-      }
-    ]
-  }
-  
+  "simpsons": [
+    {
+      "id": 1,
+      "nombre": "Homer",
+      "apellidos": "Simpson",
+      "edad": 39,
+      "imagen": "homer.png",
+      "personalidad": "Perezoso, glotón, pero de buen corazón",
+      "descripcion": "Trabaja en la planta nuclear de Springfield. Es conocido por su amor a las rosquillas y la cerveza Duff.",
+      "dato_curioso": "Tiene una cicatriz en la cabeza en forma de 'M' y 'G', iniciales de Matt Groening."
+    },
+    {
+      "id": 2,
+      "nombre": "Marge",
+      "apellidos": "Simpson",
+      "edad": 36,
+      "imagen": "marge.png",
+      "personalidad": "Amable, paciente y responsable",
+      "descripcion": "Es la esposa de Homer y madre de Bart, Lisa y Maggie. Es conocida por su peinado azul alto.",
+      "dato_curioso": "Su peinado está inspirado en el de la novia de Frankenstein."
+    },
+    {
+      "id": 3,
+      "nombre": "Bart",
+      "apellidos": "Simpson",
+      "edad": 10,
+      "imagen": "bart.png",
+      "personalidad": "Travieso, rebelde y creativo",
+      "descripcion": "Es el hijo mayor de los Simpson. Le encanta hacer bromas y andar en patineta.",
+      "dato_curioso": "Su nombre es un anagrama de 'brat', que significa 'mocoso' en inglés."
+    },
+    {
+      "id": 4,
+      "nombre": "Lisa",
+      "apellidos": "Simpson",
+      "edad": 8,
+      "imagen": "lisa.png",
+      "personalidad": "Inteligente, ética y talentosa",
+      "descripcion": "Es la hija mediana de los Simpson. Es una estudiante sobresaliente y toca el saxofón.",
+      "dato_curioso": "Es vegetariana y defensora de los derechos de los animales."
+    },
+    {
+      "id": 5,
+      "nombre": "Maggie",
+      "apellidos": "Simpson",
+      "edad": 1,
+      "imagen": "maggie.png",
+      "personalidad": "Tranquila, observadora y valiente",
+      "descripcion": "Es la bebé de la familia. Aunque no habla, es muy observadora y ha demostrado ser muy valiente en varias ocasiones.",
+      "dato_curioso": "Siempre lleva un chupete rojo."
+    },
+    {
+      "id": 6,
+      "nombre": "Abe",
+      "apellidos": "Simpson",
+      "edad": 83,
+      "imagen": "abe.png",
+      "personalidad": "Olvidadizo, gruñón pero cariñoso",
+      "descripcion": "Es el padre de Homer. Vive en el asilo de ancianos de Springfield.",
+      "dato_curioso": "Participó en la Segunda Guerra Mundial."
+    },
+    {
+      "id": 7,
+      "nombre": "Ned",
+      "apellidos": "Flanders",
+      "edad": 60,
+      "imagen": "ned.png",
+      "personalidad": "Religioso, amable y optimista",
+      "descripcion": "Es el vecino de los Simpson. Es muy religioso y siempre está dispuesto a ayudar.",
+      "dato_curioso": "Tiene una tienda de artículos para zurdos llamada 'The Leftorium'."
+    },
+    {
+      "id": 8,
+      "nombre": "Milhouse",
+      "apellidos": "Van Houten",
+      "edad": 10,
+      "imagen": "milhouse.png",
+      "personalidad": "Leal, inseguro y tímido",
+      "descripcion": "Es el mejor amigo de Bart. Está enamorado de Lisa.",
+      "dato_curioso": "Es alérgico a casi todo."
+    },
+    {
+      "id": 9,
+      "nombre": "Mr. Burns",
+      "apellidos": "Burns",
+      "edad": 104,
+      "imagen": "mrburns.png",
+      "personalidad": "Avaro, despiadado y poderoso",
+      "descripcion": "Es el dueño de la planta nuclear de Springfield. Es el jefe de Homer.",
+      "dato_curioso": "Su frase característica es '¡Excelente!' mientras frota sus manos."
+    },
+    {
+      "id": 10,
+      "nombre": "Krusty",
+      "apellidos": "El Payaso",
+      "edad": 55,
+      "imagen": "krusty.png",
+      "personalidad": "Cínico, sarcástico y divertido",
+      "descripcion": "Es el payaso de televisión favorito de Bart y Lisa.",
+      "dato_curioso": "Su nombre real es Herschel Shmoikel Pinchas Yerucham Krustofsky."
+    },
+    {
+      "id": 11,
+      "nombre": "Seymour",
+      "apellidos": "Skinner",
+      "edad": 44,
+      "imagen": "skinner.png",
+      "personalidad": "Estricto, disciplinado y obediente",
+      "descripcion": "Es el director de la Escuela Primaria de Springfield.",
+      "dato_curioso": "Vive con su madre, Agnes."
+    },
+    {
+      "id": 12,
+      "nombre": "Edna",
+      "apellidos": "Krabappel",
+      "edad": 41,
+      "imagen": "krabappel.png",
+      "personalidad": "Cínica, sarcástica y desilusionada",
+      "descripcion": "Es la maestra de Bart en la Escuela Primaria de Springfield.",
+      "dato_curioso": "Fuma en secreto en la sala de profesores."
+    },
+    {
+      "id": 13,
+      "nombre": "Moe",
+      "apellidos": "Szyslak",
+      "edad": 45,
+      "imagen": "moe.png",
+      "personalidad": "Gruñón, solitario pero leal",
+      "descripcion": "Es el dueño de la taberna de Moe, el bar favorito de Homer.",
+      "dato_curioso": "Ha intentado cambiar su vida varias veces, pero siempre vuelve a la taberna."
+    },
+    {
+      "id": 14,
+      "nombre": "Ralph",
+      "apellidos": "Wiggum",
+      "edad": 8,
+      "imagen": "ralph.png",
+      "personalidad": "Inocente, ingenuo y dulce",
+      "descripcion": "Es compañero de clase de Lisa. Es conocido por sus comentarios ingenuos y graciosos.",
+      "dato_curioso": "Es hijo del jefe de policía de Springfield, Clancy Wiggum."
+    },
+    {
+      "id": 15,
+      "nombre": "Patty",
+      "apellidos": "Bouvier",
+      "edad": 40,
+      "imagen": "patty.png",
+      "personalidad": "Cínica, sarcástica y protectora",
+      "descripcion": "Es la hermana gemela de Selma y hermana mayor de Marge.",
+      "dato_curioso": "Trabaja en el Departamento de Vehículos Motorizados de Springfield."
+    }
+  ]
+}

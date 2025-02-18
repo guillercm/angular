@@ -1,10 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
-import { TimeoutError } from 'rxjs';
-import { TimeoutInterceptorData } from '../interfaces/timeout-interceptor-data.interface';
 import { ErrorInterceptorData } from '../interfaces/error-interceptor-data.interface';
-import { LoaderInterceptorData } from '../interfaces/loader-interceptor-data.interface';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { JsonHandlerService } from '@core/services/json-handler/json-handler.service';
+import { LoaderInterceptorData } from '../interfaces/loader-interceptor-data.interface';
+import { TimeoutInterceptorData } from '../interfaces/timeout-interceptor-data.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +17,10 @@ export class InterceptorService {
 
   private _loaderData = signal<LoaderInterceptorData[]>([]);
 
-  public loaderData = this._loaderData.asReadonly();
+  public readonly loaderData = this._loaderData.asReadonly();
+
+  public readonly isLoadingSomeHttpRequest = computed( () => this.loaderData().length > 0 )
+
 
   addRequestLoader(loaderInterceptorData: LoaderInterceptorData) {
     this._loaderData.update((value: LoaderInterceptorData[]) => {
@@ -49,7 +50,6 @@ export class InterceptorService {
   }
 
   private isEqual(obj: any, obj2: any) {
-    console.log(obj)
     return obj === obj2;
   }
 

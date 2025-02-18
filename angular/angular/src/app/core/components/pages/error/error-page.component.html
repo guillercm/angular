@@ -1,0 +1,13 @@
+<main>
+  <div class="container">
+    <section class="section min-vh-100 d-flex flex-column align-items-center justify-content-center">
+      <h1 class="mb-4">{{ httpStatus()?.code }}</h1>
+      <h2 class="text-center">{{ httpStatus()?.message }}</h2>
+      <div class="position-relative" style="width: 100%; height: 40vh;">
+        <shared-image alt="404" [url]="getImgUrl()"></shared-image>
+      </div>
+      <shared-button [label]="httpStatus()?.button?.label" [link]="httpStatus()?.button?.route" variant="link"
+        [outline]="true" size="lg"></shared-button>
+    </section>
+  </div>
+</main>

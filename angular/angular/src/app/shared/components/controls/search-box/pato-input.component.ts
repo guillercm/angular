@@ -2,6 +2,7 @@ import { Component, computed, DestroyRef, forwardRef, inject, input, OnInit, out
 import { Subject, debounceTime } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 interface PatoFormField {
   control: InputSignal<AbstractControl<any>>,
@@ -12,7 +13,7 @@ interface PatoFormField {
   selector: 'pato-input',
   templateUrl: './pato-input.component.html',
   styles: ``,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -32,14 +33,16 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
   public id = computed<string>(() => this.formField().id())
 
   private _value = signal<string>("");
-  public value = this._value.asReadonly();
+  protected readonly value = this._value.asReadonly();
 
   private _disabled = signal<boolean>(false);
-  public disabled = this._disabled.asReadonly();
+  protected readonly disabled = this._disabled.asReadonly();
 
   public placeholder = input<string>('');
 
   public debounceTimer = input<number>(300);
+
+  public icon = input<string>();
 
   public onValue = output<string>();
 

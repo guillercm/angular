@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { ItemMenuComponent } from "../item-menu/item-menu.component";
-import { Route, Routes } from '@angular/router';
-import { ImageComponent } from "../../../shared/components/image/image.component";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { Route, Routes } from '@angular/router';
+import { SharedImageComponent } from "@shared/components/image/shared-image.component";
 import { ThemeItemMenuComponent } from "../theme-item-menu/theme-item-menu.component";
 
 @Component({
   selector: 'core-side-menu',
-  imports: [ItemMenuComponent, ImageComponent, NgbCollapseModule, ThemeItemMenuComponent],
+  imports: [ItemMenuComponent, SharedImageComponent, NgbCollapseModule, ThemeItemMenuComponent],
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -18,7 +18,7 @@ export class SideMenuComponent {
 
   public onCollapsed = output<boolean>();
 
-  public getRoutes = computed<Route[]>(() => this.routes().filter((route) => route && route.path !== "**") )
+  public getRoutes = computed<Route[]>(() => this.routes().filter((route) => route && route.title) )
 
   // effect = effect(() => console.log(this.getRoutes()))
 

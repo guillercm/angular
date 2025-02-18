@@ -1,4 +1,4 @@
-import { CodeBlockComponent } from '@shared/components/code-block/code-block.component';
+import { SharedCodeBlockComponent } from '@shared/components/code-block/shared-code-block.component';
 import { Component, inject, ViewContainerRef, viewChild, signal, OnInit } from '@angular/core';
 import { DataCode } from '@shared/components/code-block/interfaces/data-code.interface';
 import { environment } from '@environments/environments';
@@ -41,11 +41,11 @@ export class DocsComponent implements OnInit {
         const code = detail.querySelector("code")?.innerHTML || "";
         data.push({label, code})
       });
-      const comp = this._container().createComponent(CodeBlockComponent)
-      comp.setInput('type', codeBlock.getAttribute('type') || 'code')
+      const comp = this._container().createComponent(SharedCodeBlockComponent)
       if (!data.length) {
         comp.setInput('code', codeBlock.querySelector("code")?.innerHTML)
         const span = codeBlock.querySelector('span');
+        comp.setInput('type', span?.innerHTML === 'terminal' ? 'terminal' : 'code')
         if (span && !span.getAttribute("class"))
         comp.setInput('label', span.innerHTML || "")
       } else {

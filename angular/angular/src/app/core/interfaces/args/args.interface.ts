@@ -1,4 +1,4 @@
-import { InputSignal, Signal } from "@angular/core";
+import { InputSignal, OutputEmitterRef, Signal } from "@angular/core";
 import { GenericObject } from "../generic-object/generic-object.interface";
 
 
@@ -22,5 +22,5 @@ type Obj<TArgs = GenericObject> = Annotations<any, TArgs>;
 // type Args<T> = Obj<T>['args'];
 
 export type Args<T> = {
-    [K in keyof T]: T[K] extends InputSignal<infer U> | Signal<infer U> ? U : T[K];
+    [K in keyof T]: T[K] extends InputSignal<infer U> | Signal<infer U> ? U : T[K] extends OutputEmitterRef<infer U> ? Function : T[K];
 };

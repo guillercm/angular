@@ -1,10 +1,9 @@
-
-import { AbstractControl, ControlValueAccessor, FormGroup, } from '@angular/forms';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { PatoFormComponentType } from '../../interfaces/pato-form-component-type.interface';
-import { ComponentRef, DestroyRef, Directive, EnvironmentInjector, Host, Inject, inject, Injector, input, OnInit, Optional, Self, SkipSelf, Type, ViewContainerRef } from '@angular/core';
+import { ComponentRef, computed, DestroyRef, Directive, inject, input, OnInit, OutputEmitterRef, OutputRefSubscription, ViewContainerRef } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
 import { PatoFormComponent } from '../../pato-form.component';
-import { of } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Args } from '@core/interfaces/args/args.interface';
+import { Subscription } from 'rxjs';
 
 
 @Directive({
@@ -12,26 +11,25 @@ import { of } from 'rxjs';
 })
 export class PatoFormControlInjectorDirectiveDirective implements OnInit {
 
+  private readonly _destroyRef = inject(DestroyRef);
 
   private readonly _viewContainerRef = inject(ViewContainerRef);
 
-  public data = input.required<PatoFormComponentType<any>>();
+  private readonly _patoFormComponent = inject(PatoFormComponent);
 
-  public control = input.required<AbstractControl<any>>();
-
-  public id = input.required<string>();
-
-  public form = input<FormGroup | null>(null);
-
-  public patoFormComponent = input.required<PatoFormComponent>();
-
-  public componentFormField = input.required<Type<any>|undefined>();
+  public key = input.required<string>();
 
   private _componentRef!: ComponentRef<any>;
 
   private _componentRefFormField!: ComponentRef<any>;
 
-  private readonly _destroyRef = inject(DestroyRef);
+  private readonly _id = computed(() => this._patoFormComponent.id() + '_' + this.key())
+
+  private readonly _form = computed(() => this._patoFormComponent.form())
+
+  private readonly _data = computed(() => this._patoFormComponent.data()[this.key()])
+
+  private readonly _control = computed(() => this._form()?.controls[this.key()]);
 
 
   ngOnInit(): void {
@@ -40,53 +38,70 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
 
   initialize() {
     this.createComponents();
-    this.setInputs();
+    this.setInputsOutputs();
     this.setClasses();
     this.setFormControl();
   }
 
   createComponents() {
-    const { component } = this.data();
-    const componentFormField = this.componentFormField();
-    if (!componentFormField) return;
-    this._componentRefFormField = this._viewContainerRef.createComponent(componentFormField);
-    this._componentRefFormField.setInput('control', this.control())
-    this._componentRefFormField.setInput('id', this.id())
+    const { component, formFieldComponent } = this._data();
+    if (!formFieldComponent) return;
+    this._componentRefFormField = this._viewContainerRef.createComponent(formFieldComponent);
+    this._componentRefFormField.setInput('control', this._control())
+    this._componentRefFormField.setInput('id', this._id())
+
+    // this._componentRefFormField.instance.controlEvent.subscribe((event: string) => {
+    //   console.log('Evento capturado en el componente padre:', event);
+    // });
 
     const formFieldInstance = this._componentRefFormField.instance;
     this._componentRef = formFieldInstance.controlView().createComponent(component);
     this._componentRef.setInput("formField", this._componentRefFormField.instance)
   }
 
+  setInputsOutputs() {
+    const args = this._data().args;
+    if (args) {
+      const { control, formField } = args;
+      const componentRef = this._componentRef;
+      const componentRefFormField = this._componentRefFormField;
+      // console.log(this._componentRefFormField.instance.outputPrueba.subscribe((event: string) => {
+      //   console.log(event)
+      // }))
+      const setInputsOutputs = (component: Partial<Args<any>> | undefined, componentRef: ComponentRef<any>) => {
+        if (component)
+          Object.keys(component).forEach((inputKey: string) => {
+            const property = componentRef.instance[inputKey];
+            if (typeof property === 'function') {
+              const nameFunction: string = property.name;
+              if (nameFunction.includes("input")) {
+                componentRef.setInput(inputKey, component[inputKey]);
+              }
+            } else if (typeof property === 'object' && property instanceof OutputEmitterRef) {
+              const subs: OutputRefSubscription = componentRef.instance[inputKey].subscribe(component[inputKey])
+              this._destroyRef.onDestroy(() => subs.unsubscribe() )
+            }
+          });
+      }
+      setInputsOutputs(control, componentRef);
+      setInputsOutputs(formField, componentRefFormField);
+    }
+  }
+
   setClasses() {
-    const classes = this.data().classes;
+    const classes = this._data().classes;
     if (!classes) return;
     const { control, formField } = classes;
     if (control) this._componentRef.location.nativeElement.classList = control;
     if (formField) this._componentRefFormField.location.nativeElement.classList = formField;
   }
 
-  setInputs() {
-    const inputs = this.data().inputs;
-    if (inputs) {
-      const { control, formField } = inputs;
-      const componentRef = this._componentRef;
-      const componentRefFormField = this._componentRefFormField;
-      if (control)
-      Object.keys(control).forEach((inputKey: string) => {
-        componentRef.setInput(inputKey, control[inputKey]);
-      });
-      if (formField)
-      Object.keys(formField).forEach((inputKey: string) => {
-        componentRefFormField.setInput(inputKey, formField[inputKey]);
-      });
-    }
-  }
-
   setFormControl() {
-    const control = this.control();
+    const control = this._control();
+    if (!control) return;
+
     const componentRef = this._componentRef;
-    const { value } = this.data();
+    const { value } = this._data();
     const instance = componentRef.instance as ControlValueAccessor;
 
     componentRef.instance.formControl = control;
@@ -94,7 +109,7 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
     instance.writeValue(value);
     control.setValue(value, { emitEvent: false });
 
-    instance.registerOnChange((newValue:any) => {
+    instance.registerOnChange((newValue: any) => {
       if (control.value === newValue) return;
       control.setValue(newValue, { emitEvent: false });
       control.markAsDirty();
@@ -128,9 +143,10 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
       componentRef?.instance?.setDisabledState(value === 'DISABLED')
     })
 
-    this.form()?.statusChanges.subscribe((value: string) => {
-      // console.log(value)
-    })
+    // const form = this.patoFormComponent.form();
+    // this.form()?.statusChanges.subscribe((value: string) => {
+    //   console.log(value)
+    // })
 
   }
 

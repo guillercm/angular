@@ -27,12 +27,6 @@
               }
             ],
             "styles": [
-              "node_modules/animate.css/animate.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "node_modules/prismjs/themes/prism-okaidia.css",
-              "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
-              "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -102,8 +96,6 @@
               }
             ],
             "styles": [
-              "node_modules/animate.css/animate.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": []

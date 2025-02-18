@@ -5,18 +5,19 @@ import { featuresRoutes } from '@features/features.routes';
 import { VERSION } from '@angular/core';
 import { BreadcrumbComponent } from '@core/components/breadcrumb/breadcrumb.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerComponent } from "../../spinner/spinner.component";
 
 @Component({
   selector: 'core-layout',
-  imports: [RouterOutlet, SideMenuComponent, BreadcrumbComponent,NgbCollapseModule],
+  imports: [RouterOutlet, SideMenuComponent, BreadcrumbComponent, NgbCollapseModule, SpinnerComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
 export default class LayoutComponent {
 
-  public readonly ROUTES = featuresRoutes
+  public readonly routes = featuresRoutes
 
-  public readonly VERSION = VERSION.full
+  public readonly version = VERSION.full
 
   private _isCollapsed = signal<boolean>(false);
 

@@ -12,7 +12,7 @@ export class ThemeService {
   private readonly _defaultTheme: Theme = "light";
 
   private _theme = signal<Theme>(this._defaultTheme);
-  public theme = this._theme.asReadonly();
+  public readonly theme = this._theme.asReadonly();
 
   constructor() {
     this.initialize();

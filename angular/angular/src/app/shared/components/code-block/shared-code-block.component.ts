@@ -1,21 +1,23 @@
-import { Component, input, effect, signal, inject, computed, Signal } from '@angular/core';
+import { Component, input, effect, signal, inject, computed, Signal, viewChild, ElementRef, viewChildren } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import {  delay, of, take } from 'rxjs';
 import { DataCode } from './interfaces/data-code.interface';
-import { ImageComponent } from "../image/image.component";
+import { SharedImageComponent } from "../image/shared-image.component";
 import { ThemeService } from '@core/services/theme/theme.service';
 
 @Component({
   selector: 'shared-code-block',
-  imports: [ImageComponent],
-  templateUrl: './code-block.component.html',
-  styleUrl: './code-block.component.css'
+  imports: [SharedImageComponent],
+  templateUrl: './shared-code-block.component.html',
+  styleUrl: './shared-code-block.component.css'
 })
-export class CodeBlockComponent {
+export class SharedCodeBlockComponent {
 
   private readonly _clipboard = inject(Clipboard)
 
   private readonly _themeService = inject(ThemeService);
+
+  private readonly pres = viewChildren<ElementRef>('pre')
 
   public code = input.required<string | DataCode[]>()
 
@@ -28,12 +30,13 @@ export class CodeBlockComponent {
   public type = input<'code' | 'terminal'>('code');
 
   private _codeprettier = signal<string>("")
-  protected codeprettier = this._codeprettier.asReadonly()
+  protected readonly codeprettier = this._codeprettier.asReadonly()
 
   private _showButtonCopied = signal<boolean>(false);
-  protected showButtonCopied = this._showButtonCopied.asReadonly();
+  protected readonly showButtonCopied = this._showButtonCopied.asReadonly();
 
   public readonly theme = this._themeService.theme
+
 
   protected getDataCode: Signal<DataCode[]> = computed(() => {
     let code = this.code();

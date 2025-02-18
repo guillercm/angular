@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, Renderer2, signal } from '@angular/core';
+import { Component, effect, EnvironmentInjector, inject, Renderer2, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
 import { LanguageService } from '@core/services/language/language.service';
@@ -20,6 +20,8 @@ export class AppComponent {
   private readonly _renderer = inject(Renderer2);
 
   private readonly _languageService = inject(LanguageService);
+
+  public readonly environmentInjector = inject(EnvironmentInjector);
 
   public readonly theme = this._themeService.theme
 

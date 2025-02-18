@@ -8,8 +8,34 @@
     "label": "username"
   },
   "errors": {
-    "required": "Este campo es obligatorio",
-    "minlength": "Tiene que tener como mínimo {{ requiredLength }}",
-    "maxlength": "Tiene que tener como máximo {{ requiredLength }}"
+    "validations": {
+      "required": "Este campo es obligatorio",
+      "minlength": "Tiene que tener como mínimo {{ requiredLength }}",
+      "maxlength": "Tiene que tener como máximo {{ requiredLength }}"
+    },
+    "httpStatus": {
+      "404": {
+        "code": "404",
+        "message": "Página no encontrada",
+        "img": "404.png",
+        "button": {
+          "route": "/",
+          "label": "Volver al Inicio"
+        }
+      }
+    },
+    "img": {
+      "default": "Imagen no disponible",
+      "404": "Tampoco se encontró la imagen"
+    }
+  },
+  "features": {
+    "simpsons": {
+      "forms": {
+        "create": {
+
+        }
+      }
+    }
   }
 }

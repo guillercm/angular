@@ -1,0 +1,15 @@
+.outer-div {
+  display: flex;
+  justify-content: space-around;
+  background-color: aquamarine;
+}
+
+.inner-div {
+  position: relative;  /* to be used on th eparent whenever using "fill" attribute of NgOptimisedImage */
+
+  width: 20%;  /* set it to whatever you want */
+
+  aspect-ratio: 1/1;  /* width/height, require sqaure in my case */
+
+  margin: 30px  /* for better visibily */
+}

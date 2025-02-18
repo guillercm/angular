@@ -1,15 +1,13 @@
-import { InputSignal, Signal, Type } from "@angular/core"
-import { ControlValueAccessor } from '@angular/forms';
 import { Args } from "@core/interfaces/args/args.interface";
-import { GenericObject } from "@core/interfaces/generic-object/generic-object.interface";
+import { Type } from "@angular/core";
 
-
-export type PatoFormComponentType<T> = {
+export type PatoFormComponentType<T, T2> = {
   component: Type<T>;
+  formFieldComponent: Type<T2>;
   value: any;
   validators?: any[];
-  inputs?: {
-    formField?: GenericObject,
+  args?: {
+    formField?: Partial<Args<T2>>,
     control?: Partial<Args<T>>
   };
   classes?: {

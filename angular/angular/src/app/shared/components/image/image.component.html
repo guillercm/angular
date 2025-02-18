@@ -1,7 +1,0 @@
-<div class="d-flex justify-content-center" >
-  <img [loading]="loading()" [src]="url()" [alt]="alt()" [class]="classes()"
-    [class.d-none]="!hasLoaded()" [width]="imageWidth()" [height]="imageHeight()" #img>
-    @if (!hasLoaded()) {
-      <img src="loader.svg" class="mt-3" (load)="onLoad()"/>
-    }
-</div>

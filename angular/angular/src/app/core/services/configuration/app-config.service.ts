@@ -18,7 +18,7 @@ export class AppConfigService {
       default: ''
     }
   });
-  public config = this._config.asReadonly();
+  public readonly config = this._config.asReadonly();
 
   public isLoaded = computed(() => this.config() !== null)
 

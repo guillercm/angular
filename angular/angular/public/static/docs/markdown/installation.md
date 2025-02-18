@@ -2,7 +2,7 @@
 
 Para instalar este paquete ejecutaremos:
 
-<code-block type="terminal">
+<code-block>
   <span>terminal</span>
 
   ```bash

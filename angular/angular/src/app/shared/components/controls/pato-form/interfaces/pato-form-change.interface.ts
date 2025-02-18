@@ -1,4 +1,4 @@
 export interface PatoDataFormChange {
-  filed: string,
+  field: string,
   newValue: any
 }

@@ -1,11 +1,12 @@
+<core-spinner></core-spinner>
 <div>
   <div class="row g-0">
     <div class="col-lg-3">
-      <core-side-menu [routes]="ROUTES" (onCollapsed)="onCollapsed($event)"></core-side-menu>
+      <core-side-menu [routes]="routes" (onCollapsed)="onCollapsed($event)"></core-side-menu>
     </div>
     <div class="col-lg-9 border-start">
       <div class="p-5"  [(ngbCollapse)]="isCollapsed">
-        <h1>Angular {{VERSION}}</h1>
+        <h1>Angular {{version}}</h1>
         <shared-breadcrumb/>
         <router-outlet/>
       </div>
