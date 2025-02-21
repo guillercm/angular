@@ -1,1 +1,6 @@
-<button [type]="type()" [attr.disabled]="disabled() ? 'disabled' : null" [ngClass]="classes()" [routerLink]="link()">{{ label() || '' | translate }}</button>
+<button [type]="type()" [attr.disabled]="disabled() ? 'disabled' : null" (click)="clicked()" [ngClass]="classes()" [routerLink]="link()"> 
+    @if (icon()) {
+        <i [ngClass]="'bi bi-' + icon()"></i>
+    }
+    {{ label() || '' | translate }}
+</button>

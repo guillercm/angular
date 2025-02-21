@@ -33,7 +33,7 @@ export class FormFieldComponent implements OnInit {
   private _useCompleteLabel = signal(false);
   protected readonly useCompleteLabel = this._useCompleteLabel.asReadonly();
 
-  public completeLabel = computed(() => {
+  public readonly completeLabel = computed(() => {
     return this.label() + (this.isRequired() ? " *" : " (opcional)");
   })
 

@@ -28,18 +28,5 @@ export class SimpsonAdapter implements ModelAdapter<SimpsonResponse, Simpson> {
 
   adaptArray = (simpsonsResponse: SimpsonResponse[]): Simpson[] =>
     this._modelAdapter.adaptArray<SimpsonResponse, Simpson>(simpsonsResponse, this.adapt)
-    //simpsonsResponse.map(simpsonResponse => this.adapt(simpsonResponse));
-
-  // mapChildren(children: ShowMenuResponse[]): MenuData[] {
-  //     return children.map((item: ShowMenuResponse) => {
-  //         return {
-  //             name: item.Label,
-  //             IdMenu: item.IdMenu,
-  //             Icon: item.IconBootstrap,
-  //             RouterLink: item.RouterLink,
-  //             children: item?.Childs ? this.mapChildren(item?.Childs) : undefined,
-  //         };
-  //     });
-  // }
 
 }

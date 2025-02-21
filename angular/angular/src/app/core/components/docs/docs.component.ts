@@ -32,7 +32,14 @@ export class DocsComponent implements OnInit {
   }
 
   loadMarkdown() {
-    const codeBlocks = this._markdownComponent().element.nativeElement.querySelectorAll('code-block');
+    const markdownComponent = this._markdownComponent().element.nativeElement;
+    const codeBlocks = markdownComponent.querySelectorAll('code-block');
+    markdownComponent.querySelectorAll("h2").forEach((title: HTMLElement) => {
+        title.classList.add("pt-3")
+    });
+    markdownComponent.querySelectorAll("h3").forEach((title: HTMLElement) => {
+      title.classList.add("pt-2")
+  });
     codeBlocks.forEach((codeBlock: HTMLElement) => {
       const details = codeBlock.querySelectorAll("details");
       const data: DataCode[] = [];
@@ -65,7 +72,7 @@ export class DocsComponent implements OnInit {
 // export class HighlightDirective {
 //   constructor(private el: ElementRef, private renderer: Renderer2) {
 //     this.renderer.setStyle(this.el, 'background-color', 'yellow');
-//     console.log("DIRECTIVAAAAAAAs")
+//     //console.log("DIRECTIVAAAAAAAs")
 //   }
 // }
 
@@ -74,11 +81,11 @@ export class DocsComponent implements OnInit {
   // renderer = inject(Renderer2)
 
   // cargo(data: string) {
-  //   console.log(data)
-  //   console.log(this.markdownComponent().element.nativeElement.innerHTML)
+  //   //console.log(data)
+  //   //console.log(this.markdownComponent().element.nativeElement.innerHTML)
   //   const codeBlocks = this.markdownComponent().element.nativeElement.querySelectorAll('code-block');
   //   codeBlocks.forEach((codeBlock: HTMLElement) => {
-  //     console.log(this.markdownComponent())
+  //     //console.log(this.markdownComponent())
   //     const comp = this.container().createComponent(CodeBlockComponent)
   //     comp.setInput('code', "holaassa")
   //     comp.setInput('type', codeBlock.getAttribute('type') || 'code')

@@ -11,7 +11,7 @@
   </div>
   <ul class="list-unstyled ps-0" [(ngbCollapse)]="isCollapsed">
     @for (route of getRoutes(); track $index; let i = $index) {
-    <core-item-menu [route]="route" [index]="i"></core-item-menu>
+    <core-item-menu [route]="route" [index]="i" (onNavigate)="onNavigate()"></core-item-menu>
     }
   </ul>
 </div>

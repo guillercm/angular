@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { InterceptorService } from '@core/interceptors/services/interceptor.service';
 
 @Component({
@@ -11,11 +11,6 @@ export class SpinnerComponent {
 
   private readonly _interceptorService = inject(InterceptorService);
 
-  private _isLoading = signal<boolean>(false);
+  protected readonly isLoading = computed( () => this._interceptorService.isLoadingSomeHttpRequest() )
 
-  protected readonly isLoading = this._isLoading.asReadonly();
-
-  effectLoader = effect(() => {
-    this._isLoading.set( this._interceptorService.isLoadingSomeHttpRequest() )
-  })
 }

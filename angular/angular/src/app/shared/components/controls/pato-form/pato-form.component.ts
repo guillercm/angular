@@ -89,7 +89,7 @@ export class PatoFormComponent  {
   //     takeUntilDestroyed(this._destroyRef)
   //   ).subscribe((event: ControlEvent<any>) => {
   //     if (event instanceof TouchedChangeEvent && event.source instanceof FormGroup){
-  //       console.log(event)
+  //       //console.log(event)
   //         this.markAsTouched(event.touched)
   //     }
   //   })
@@ -121,11 +121,11 @@ export class PatoFormComponent  {
 // renderer = inject(Renderer2)
 
 // cargo(data: string) {
-//   console.log(data)
-//   console.log(this.markdownComponent().element.nativeElement.innerHTML)
+//   //console.log(data)
+//   //console.log(this.markdownComponent().element.nativeElement.innerHTML)
 //   const codeBlocks = this.markdownComponent().element.nativeElement.querySelectorAll('code-block');
 //   codeBlocks.forEach((codeBlock: HTMLElement) => {
-//     console.log(this.markdownComponent())
+//     //console.log(this.markdownComponent())
 //     const comp = this.container().createComponent(CodeBlockComponent)
 //     comp.setInput('code', "holaassa")
 //     comp.setInput('type', codeBlock.getAttribute('type') || 'code')

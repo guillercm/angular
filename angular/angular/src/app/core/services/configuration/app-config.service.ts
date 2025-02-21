@@ -20,7 +20,7 @@ export class AppConfigService {
   });
   public readonly config = this._config.asReadonly();
 
-  public isLoaded = computed(() => this.config() !== null)
+  public readonly isLoaded = computed(() => this.config() !== null)
 
   load() {
     return this._apiHandler.get<Config>(environment.configPath).pipe(

@@ -68,7 +68,6 @@ En nuestro ```angular.json``` deberemos de incluir los estilos y los scripts, en
 
 ## Ejemplos de usos
 
-<br>
 
 ### Usando un string
 

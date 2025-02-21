@@ -38,13 +38,13 @@ export class SharedCodeBlockComponent {
   public readonly theme = this._themeService.theme
 
 
-  protected getDataCode: Signal<DataCode[]> = computed(() => {
+  protected readonly getDataCode: Signal<DataCode[]> = computed(() => {
     let code = this.code();
     if (typeof code === "string") return [{
       label: this.label(),
       code: code
     }];
-    console.log(code)
+    //console.log(code)
     return code;
   })
 

@@ -7,6 +7,7 @@ import { Simpson } from '../interfaces/simpson.interface';
 import { SimpsonResponse } from '../interfaces/api/simpsonsRespose.interface';
 import { ModelAdapterService } from '@core/services/model-adapter/model-adapter.service';
 import { Api } from '@core/interfaces/config/config';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -51,11 +52,11 @@ export class SimpsonsService {
   }
 
   getSimpsonsWithDelay(seconds: number) {
+    return throwError(() => new HttpErrorResponse({"status": 500, "error": "Error del servidor"}));
     return this._apiHandler.get<any>("https://dummyjson.com/RESOURCE/", {params: {delay: seconds * 1000}}).
     pipe(
       switchMap((region) => this.getSimpsons()),
       catchError(error => {
-          console.error(error)
           return this.getSimpsons()
       })
   );

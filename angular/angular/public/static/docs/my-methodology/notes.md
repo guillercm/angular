@@ -12,7 +12,7 @@ of("hola mundo").pipe(
   take(1),
 )
 .subscribe((data: string) => {
-  console.log(data)
+  //console.log(data)
 });
   ```
   </details>
@@ -27,7 +27,7 @@ of("hola mundo").pipe(
     takeUntilDestroyed(this._destroyRef),
 )
 .subscribe((data: string) => {
-    console.log(data)
+    //console.log(data)
 });
   ```
   </details>
@@ -70,7 +70,7 @@ public name = input.required<string>();
 public onChangeName = output<string>();
 
 // getters de varias propiedades signals
-public getFullName = computed<string>(() => this.name() + " " + this.lastName() )
+public readonly getFullName = computed<string>(() => this.name() + " " + this.lastName() )
 
 // si queremos ejecutar algo cuando 1 o más signals cambian de valor
 effectLoadInfoUser = effect(() => this.loadInfoUser(this.name()))
@@ -87,7 +87,7 @@ constructor() {
       const data = this._interceptorService.httpErrorData();
       if (initialRun) return;
       // ejecutaremos el código cuando haya un nuevo error http.
-      console.log(data);
+      //console.log(data);
     })
 
     effect(() => {
@@ -95,7 +95,7 @@ constructor() {
       if (initialRun) return;
 
       // ejecutaremos el código cuando hayamos echo una solicitud http y esta tarde mucho en hacerse
-      console.log(data);
+      //console.log(data);
     })
 
     effect(() => {
@@ -106,9 +106,9 @@ constructor() {
 
       // ejecutaremos el código cuando hayamos echo una solicitud http y esta tarde mucho en hacerse
       if (isLoading) {
-        console.log("cargando...")
+        //console.log("cargando...")
       } else {
-        console.log("terminó de cargar :)")
+        //console.log("terminó de cargar :)")
       }
     })
 

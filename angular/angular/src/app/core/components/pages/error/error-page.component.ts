@@ -22,7 +22,7 @@ export default class ErrorPageComponent implements OnInit {
 
   protected httpStatus = this._httpStatus.asReadonly();
 
-  protected getImgUrl = computed(() => `img/error-pages/${this.httpStatus()?.img}`)
+  protected readonly getImgUrl = computed(() => `img/error-pages/${this.httpStatus()?.img}`)
 
   ngOnInit(): void {
     this._activateRoute.data.pipe(

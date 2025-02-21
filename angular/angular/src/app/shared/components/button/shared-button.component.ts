@@ -2,7 +2,7 @@ import { RouterLink } from '@angular/router';
 import { ButtonsSizes } from './interfaces/button-sizes.type';
 import { ButtonVariants } from './interfaces/button-variants.type';
 import { CommonModule } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonType } from './interfaces/button-types.type';
 
@@ -30,11 +30,18 @@ export class SharedButtonComponent {
 
   public additionalClasses = input<string>('');
 
+  public icon = input<string>('');
+
+  public onClicked = output();
 
 
-  protected classes = computed(() => {
+
+  protected readonly classes = computed(() => {
     return `w-100 btn btn-${(this.outline() ? 'outline-' : '') + this.variant() + (this.size() ? ` btn-${this.size()} ` : ' ') + this.additionalClasses()}`
   })
 
+  clicked() {
+    this.onClicked.emit();
+  }
 
 }

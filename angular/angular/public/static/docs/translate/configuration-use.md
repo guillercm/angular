@@ -142,7 +142,7 @@ También podremos usarlo en el código:
 
     constructor(private translate: TranslateService) {
       this.translate.get(_('app.hello'), {value: this.name()}).subscribe((res: string) => {
-        console.log(res); //=> 'hello Guille'
+        //console.log(res); //=> 'hello Guille'
       });
     }
   }

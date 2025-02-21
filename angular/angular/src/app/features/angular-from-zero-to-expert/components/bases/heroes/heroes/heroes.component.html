@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col">
+
+        <div class="row">
+            <div class="col">
+                <shared-button label="Crear héroe" variant="primary" [outline]="true"
+                    (onClicked)="createHero()"></shared-button>
+            </div>
+            @if (heroes().length > 0) {
+            <div class="col">
+                <shared-button label="Borrar último héroe" variant="danger" [outline]="true"
+                    (onClicked)="deleteLastHeroe()"></shared-button>
+            </div>
+            }
+        </div>
+        @if (deletedHero()) {
+        <p>Se eliminó a {{ deletedHero()?.name }}</p>
+        } @else {
+        <p>Ya no hay héroes</p>
+        }
+
+        <ul class="mt-2 list-group">
+            @for (heroe of heroes(); track heroe.id; let index = $index, first = $first, last = $last, even = $even, odd
+            = $odd) {
+            <li class="list-group-item" [class.list-group-item-primary]="even"
+                [ngClass]="{'list-group-item-success': last}">
+                <div class="row">
+                    <div class="col-8 d-flex align-items-center">
+                        <span>{{ (heroe.id) + ": " + heroe.name + " - " + heroe.age }}</span>
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col p-1">
+                                <shared-button variant="primary" icon="pencil"
+                                    (onClicked)="editHero(heroe)"></shared-button>
+                            </div>
+                            <div class="col p-1">
+                                <shared-button variant="danger" icon="trash"
+                                    (onClicked)="deleteHeroe(heroe)"></shared-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            }
+        </ul>
+
+    </div>
+    <div class="col">
+
+        @if (heroeToEdit()) {
+
+        <h1>{{heroeToEdit()?.name | uppercase}}</h1>
+        <dl class="px-4">
+            <td>Nombre:</td>
+            <dd> {{heroeToEdit()?.name}} </dd>
+            <td>Edad:</td>
+            <dd> {{heroeToEdit()?.age}} </dd>
+            <td>getter:</td>
+            <dd> {{ getHeroeDescription() }} </dd>
+            <td>json</td>
+            <dd> {{ heroeToEdit() | json }} </dd>
+
+        </dl>
+        <button class="btn btn-primary mx-2" (click)="changeName()">
+            Cambiar nombre
+        </button>
+        <button class="btn btn-primary" (click)="changeAge()">
+            Cambiar edad
+        </button>
+        @if (
+        !heroeToEdit()?.name
+        ) {
+        <p class="bg-danger">El nombre es obligatorio</p>
+        }
+        }
+    </div>
+</div>

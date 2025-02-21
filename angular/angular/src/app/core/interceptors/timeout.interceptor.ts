@@ -14,7 +14,7 @@ export function timeoutInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
             if (error instanceof TimeoutError) interceptorService.timeoutErrorData.set({
                 req, error
             });
-            return throwError(() => new Error(error.statusText));
+            return throwError(() => error);
         })
     );
 }

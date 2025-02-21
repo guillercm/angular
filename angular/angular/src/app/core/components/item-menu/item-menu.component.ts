@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { Route, RouterLink, RouterModule } from '@angular/router';
+import { Route, Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'core-item-menu',
@@ -12,9 +12,13 @@ import { Route, RouterLink, RouterModule } from '@angular/router';
 })
 export class ItemMenuComponent {
 
+  private readonly _router = inject(Router);
+
   public readonly route = input.required<Route>();
 
   public readonly index = input.required<number>();
+
+  public readonly onNavigate = output<string>();
 
   private _isCollapsed = signal<boolean>(false);
 
@@ -28,5 +32,11 @@ export class ItemMenuComponent {
 
   toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  navigate(childrenPath?: string) {
+    const path = this.route().path + (childrenPath ? "/" +  childrenPath: '');
+    this.onNavigate.emit(path);
+    this._router.navigate([path]);
   }
 }

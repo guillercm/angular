@@ -3,59 +3,19 @@ import { DocsComponent } from '@core/components/docs/docs.component';
 
 export const featuresRoutes: Routes = [
   {
-    title: 'Introducción de typescript',
-    path: 'typescript-intro',
-    loadComponent: () => import('./typescript-intro/pages/typescript-intro/typescript-intro.component'),
+    title: 'Angular de cero a experto',
+    path: 'angular-from-zero-to-expert',
+    loadComponent: () => import('./angular-from-zero-to-expert/layout/layout.component'),
     children: [
       {
-        path: 'basic-types',
-        title: 'Tipos básicos',
+        path: 'typescript_bases',
+        title: 'Bases de typescript',
         component: DocsComponent
       },
       {
-        path: 'object-interface',
-        title: 'Interfaces',
-        component: DocsComponent
-      },
-      {
-        path: 'functions',
-        title: 'Funciones',
-        component: DocsComponent
-      },
-      {
-        path: 'types',
-        title: 'Tipos',
-        component: DocsComponent
-      },
-      {
-        path: 'destructuring',
-        title: 'Desestructuración',
-        component: DocsComponent
-      },
-      {
-        path: 'function-destructuring',
-        title: 'Desestructuración de funciones',
-        component: DocsComponent
-      },
-      {
-        path: 'classes',
-        title: 'Clases',
-        component: DocsComponent
-      },
-      {
-        path: 'generics',
-        title: 'Tipos genéricos',
-        component: DocsComponent
-      },
-      {
-        path: 'decorators',
-        title: 'Decoradores',
-        component: DocsComponent
-      },
-      {
-        path: 'optional-chaining',
-        title: 'Encadenamiento Opcional',
-        component: DocsComponent
+        path: 'angular_bases',
+        title: 'Bases de Angular',
+        loadComponent: () => import('./angular-from-zero-to-expert/pages/bases/bases.component'),
       }
     ]
   },

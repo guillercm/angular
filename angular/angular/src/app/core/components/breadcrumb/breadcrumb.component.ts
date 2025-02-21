@@ -17,7 +17,7 @@ export class BreadcrumbComponent implements OnInit {
   private readonly _destroyRef = inject(DestroyRef);
 
   private _routes = signal<string[]>([]);
-  public routes = this._routes.asReadonly();
+  protected routes = this._routes.asReadonly();
 
   ngOnInit(): void {
     this.setBreadcrumb(this._router.url);

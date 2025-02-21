@@ -51,7 +51,7 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
     this._componentRefFormField.setInput('id', this._id())
 
     // this._componentRefFormField.instance.controlEvent.subscribe((event: string) => {
-    //   console.log('Evento capturado en el componente padre:', event);
+    //   //console.log('Evento capturado en el componente padre:', event);
     // });
 
     const formFieldInstance = this._componentRefFormField.instance;
@@ -65,8 +65,8 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
       const { control, formField } = args;
       const componentRef = this._componentRef;
       const componentRefFormField = this._componentRefFormField;
-      // console.log(this._componentRefFormField.instance.outputPrueba.subscribe((event: string) => {
-      //   console.log(event)
+      // //console.log(this._componentRefFormField.instance.outputPrueba.subscribe((event: string) => {
+      //   //console.log(event)
       // }))
       const setInputsOutputs = (component: Partial<Args<any>> | undefined, componentRef: ComponentRef<any>) => {
         if (component)
@@ -145,7 +145,7 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
 
     // const form = this.patoFormComponent.form();
     // this.form()?.statusChanges.subscribe((value: string) => {
-    //   console.log(value)
+    //   //console.log(value)
     // })
 
   }

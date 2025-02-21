@@ -22,13 +22,13 @@ export class InterceptorService {
   public readonly isLoadingSomeHttpRequest = computed( () => this.loaderData().length > 0 )
 
 
-  addRequestLoader(loaderInterceptorData: LoaderInterceptorData) {
+  public addRequestLoader(loaderInterceptorData: LoaderInterceptorData) {
     this._loaderData.update((value: LoaderInterceptorData[]) => {
       return [...value, loaderInterceptorData];
     })
   }
 
-  removeRequestLoader(loaderInterceptorData: LoaderInterceptorData) {
+  public removeRequestLoader(loaderInterceptorData: LoaderInterceptorData) {
     this._loaderData.set(this._loaderData().filter(item => !this.loaderDataEquals(item, loaderInterceptorData)));
   }
 

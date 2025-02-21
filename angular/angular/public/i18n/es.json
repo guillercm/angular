@@ -10,14 +10,25 @@
   "errors": {
     "validations": {
       "required": "Este campo es obligatorio",
-      "minlength": "Tiene que tener como mínimo {{ requiredLength }}",
-      "maxlength": "Tiene que tener como máximo {{ requiredLength }}"
+      "minlength": "Tiene que tener como mínimo {{ requiredLength }} carácteres.",
+      "maxlength": "Tiene que tener como máximo {{ requiredLength }} carácteres."
     },
     "httpStatus": {
       "404": {
-        "code": "404",
-        "message": "Página no encontrada",
+        "status": "404",
+        "title": "Página no encontrada",
+        "message": "Lo sentimos, no pudimos encontrar la página que estás buscando. Por favor, verifica la URL o vuelve al inicio.",
         "img": "404.png",
+        "button": {
+          "route": "/",
+          "label": "Volver al Inicio"
+        }
+      },
+      "500": {
+        "status": "500",
+        "title": "Oops! Algo salió mal.",
+        "message": "Estamos trabajando para solucionarlo. Por favor, inténtalo de nuevo más tarde.",
+        "img": "500.png",
         "button": {
           "route": "/",
           "label": "Volver al Inicio"

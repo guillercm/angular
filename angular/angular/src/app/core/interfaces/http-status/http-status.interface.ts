@@ -1,5 +1,5 @@
 export interface HttpStatus {
-  code: string,
+  status: string,
   message: string,
   img: string,
   button: {

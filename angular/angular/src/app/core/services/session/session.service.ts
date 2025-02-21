@@ -10,8 +10,6 @@ export class SessionService {
 
   private readonly _jsonHandler = inject(JsonHandlerService);
 
-  constructor() { }
-
   @isLocalStorageAvailable()
   public setItem(key: string, value: any) {
     if (typeof value === "object") value = this._jsonHandler.stringify(value);
