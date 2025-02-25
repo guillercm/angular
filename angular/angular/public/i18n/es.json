@@ -47,6 +47,31 @@
 
         }
       }
+    },
+    "gifs": {
+      "labels": {
+        "clearHistory": "Limpiar historial",
+        "searchGifPlaceholder": "Busca aquí un gif..."
+      }
+    },
+    "countries": {
+      "labels": {
+        "searchByCapital": "Buscar por capital",
+        "formFieldSearchByCapital": "Por capital",
+        "searchByCountry": "Buscar por país",
+        "formFieldSearchByCountry": "Por país"
+      }
+    },
+    "mapbox": {
+      "labels": {
+        "zoom": "Zoom",
+        "showCoords": "Mostrar coordenadas",
+        "btnChangeStyle": "Cambiar estilo del mapa"
+      },
+      "placeholders": {
+        "inputSiteSearch": "Buscar..."
+      }
     }
+
   }
 }

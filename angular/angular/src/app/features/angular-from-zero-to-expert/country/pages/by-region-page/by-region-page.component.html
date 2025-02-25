@@ -1,0 +1,15 @@
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <div class="d-flex justify-content-center align-items-center g-3" style="flex-flow: row wrap;">
+        @for (region of regions; track $index) {
+        <shared-button [label]="region" [outline]="selectedRegion() === region" class="w-auto m-2"
+          additionalClasses="mx-2 w-auto" (onClicked)="searchByRegion(region)"></shared-button>
+        }
+      </div>
+    </div>
+    <div class="col-12 w-100 overflow-x-auto">
+      <features-countries-country-table [countries]="countries()"></features-countries-country-table>
+    </div>
+  </div>
+

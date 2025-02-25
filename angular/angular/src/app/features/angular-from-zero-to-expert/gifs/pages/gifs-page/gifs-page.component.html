@@ -1,0 +1,18 @@
+<div class="flex-fill">
+  <div class="row">
+    <div class="col-12">
+      <pato-form [data]="dataForm" classes="row pb-4" id="gifs" (onbuildForm)="onBuildForm($event)" (onFormSubmit)="onSubmit($event)">
+      </pato-form>
+      <!--Busqueda-->
+    </div>
+    <div class="col-12 pt-2">
+      <!--Listado de gifs-->
+      @if (isLoadingGifs()) {
+        <p>Cargando gifs...</p>
+      } @else {
+        <features-gifs-list [gifs]="gifs()"></features-gifs-list>
+      }
+
+    </div>
+  </div>
+</div>

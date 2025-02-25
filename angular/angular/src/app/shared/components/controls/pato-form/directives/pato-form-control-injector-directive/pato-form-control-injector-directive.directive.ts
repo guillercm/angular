@@ -133,7 +133,8 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
     control.valueChanges.pipe(
       takeUntilDestroyed(this._destroyRef)
     ).subscribe((value: any) => {
-      componentRef?.instance?.onChange(value);
+      // componentRef?.instance?.onChange(value);
+      instance.writeValue(value);
     });
 
     control.statusChanges.pipe(

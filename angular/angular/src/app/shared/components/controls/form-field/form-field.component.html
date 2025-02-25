@@ -1,6 +1,6 @@
 @let errors = control().errors;
 @let touched = control().touched;
-<label [for]="id()" class="form-label">{{ useCompleteLabel() ? completeLabel() : label() }}</label>
+<label [for]="id()" class="form-label">{{ label() | translate }}{{ useCompleteLabel() ? completeLabel() : '' }}</label>
 <div class="input-group has-validation form-field-invalid">
     <ng-container #controlView></ng-container>
     @if (touched) {

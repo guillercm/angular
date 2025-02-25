@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, effect, inject, input, output, signal, TemplateRef, Type } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, effect, inject, input, output, signal, TemplateRef, Type } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PatoDataForm } from './interfaces/pato-data-form.interface';
@@ -16,7 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './pato-form.component.html',
   styleUrl: './pato-form.component.css'
 })
-export class PatoFormComponent  {
+export class PatoFormComponent implements AfterViewInit {
 
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -26,7 +26,7 @@ export class PatoFormComponent  {
 
   public id = input.required<string>();
 
-  public classes = input<string>();
+  public additionalClasses = input<string>();
 
   public onbuildForm = output<FormGroup|null>();
 
@@ -67,6 +67,9 @@ export class PatoFormComponent  {
       i++;
     });
     this._form.set(this._formBuilder.group(dataForm));
+  }
+
+  ngAfterViewInit(): void {
     this.onbuildForm.emit(this.form());
   }
 
@@ -95,7 +98,7 @@ export class PatoFormComponent  {
   //   })
   // }
 
-  protected onSubmit() {
+  public onSubmit() {
     const form = this.form();
     this.markAsTouched();
     if (!form || form.invalid) return;

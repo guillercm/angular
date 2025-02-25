@@ -1,0 +1,19 @@
+@if (details().length) {
+<hr class="mt-5">
+<h3 class="text-start mb-3">Mejoras de la aplicación</h3>
+<div class="row">
+  @for (detail of details(); track $index) {
+  <div class="col-md-6 mb-6">
+    <div class="card">
+      <div class="card-body d-flex justify-content-center">
+        <h5 class="card-title m-0">{{ detail.title }}</h5>
+        @if (detail.description) {
+          <p class="card-text">{{ detail.description }}</p>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>
+<hr>
+}

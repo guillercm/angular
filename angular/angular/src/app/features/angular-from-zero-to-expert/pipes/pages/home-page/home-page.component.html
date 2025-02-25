@@ -1,0 +1,206 @@
+<ng-template #examplePipe let-label="label" let-value="value">
+  <tr>
+    <td>{{label}}</td>
+    <td>{{value}}</td>
+  </tr>
+</ng-template>
+<ng-template #headersTable>
+  <thead>
+    <tr>
+      <th scope="col">Pipe</th>
+      <th scope="col">Render</th>
+    </tr>
+  </thead>
+</ng-template>
+<div ngbAccordion [closeOthers]="true">
+  @for (pipe of pipes; track pipe; let index = $index) {
+  <div ngbAccordionItem [collapsed]="index !== 0">
+    <h2 ngbAccordionHeader>
+      <button ngbAccordionButton>{{pipe}}</button>
+    </h2>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <ng-template>
+          <!-- <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Pipe</th>
+                <th scope="col">Render</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table> -->
+          @switch (index) {
+          @case (0) {
+          <table class="table">
+            <ng-container [ngTemplateOutlet]="headersTable"></ng-container>
+            <tbody>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '\'' + name + '\' | uppercase', value: name | uppercase}" />
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '\'' + name + '\' | lowercase', value: name | lowercase}" />
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '\'' + name + '\' | titlecase', value: name | titlecase}" />
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '\'' + name + '\' | titlecase | slice:0:4', value: (name | titlecase | slice:0:4) + '...'}" />
+            </tbody>
+          </table>
+          }
+          @case (1) {
+          <table class="table">
+            <ng-container [ngTemplateOutlet]="headersTable"></ng-container>
+            <tbody>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '2567789.5567', value: 2567789.5567 }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '2567789.5567 | number', value: 2567789.5567 | number }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '3.6 | number: \'1.0-0\'', value: 3.6 | number: '1.0-0' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '-3.6 | number:\'1.0-0\'', value: -3.6 | number:'1.0-0' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '2567789.5567 | number:\'1.2-2\'', value: 2567789.5567 | number:'1.2-2' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '35 | number:\'1.1-2\'', value: 35 | number:'1.1-2' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '35.4567 | number:\'1.1-2\'', value: 35.4567 | number:'1.1-2' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '35.4567 | number:\'4.1-2\'', value: 35.4567 | number:'4.1-2' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '2567789.5567 | currency', value: 2567789.5567 | currency }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '2567789.5567 | currency:\'L.\'', value: 2567789.5567 | currency:'L. ' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '2567789.5567 | currency:\'L.\':\'symbol\'', value: 2567789.5567 | currency:'L. ':'symbol' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '2567789.5567 | currency:\'EUR\':\'code\'', value: 2567789.5567 | currency:'EUR':'code' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '2567789.5567 | currency:\'EUR\':\'symbol-narrow\':\'1.4-4\'', value: 2567789.5567 | currency:'EUR':'symbol-narrow':'1.4-4'  }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '0.4856 | percent', value: 0.4856 | percent  }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '0.4856 | percent: \'1.2-2\'', value: 0.4856 | percent: '1.2-2' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: '1 | percent: \'1.2-2\'', value: 1 | percent: '1.2-2' }">
+              </ng-container>
+            </tbody>
+          </table>
+          }
+          @case (2) {
+          <table class="table">
+            <ng-container [ngTemplateOutlet]="headersTable"></ng-container>
+            <tbody>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date', value: date | date }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'short\'', value: date | date : 'short' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\'', value: date | date : 'long' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'MMMM\'', value: date | date : 'MMMM' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'MMMM dd, yyyy\'', value: date | date : 'MMMM dd, yyyy' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'GMT-6\'', value: date | date : 'long':'GMT-6' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'GMT-4\'', value: date | date : 'long':'GMT-4' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'es-HN\'', value: date | date : 'long':'' :'es-HN' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'en-US\'', value: date | date : 'long':'' :'en-US' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'fr-CA\'', value: date | date : 'long':'' :'fr-CA' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'hh.mm\' :\'GMT+1\'', value: (date | date : 'hh.mm':'GMT+1') + ' (Hora de Madrid)' }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'hh.mm\' :\'GMT+0\'', value: (date | date : 'hh.mm':'GMT+0') + ' (Hora de Canarias)'  }">
+              </ng-container>
+            </tbody>
+          </table>
+          }
+          @case (3) {
+          <table class="table">
+            <ng-container [ngTemplateOutlet]="headersTable"></ng-container>
+            <tbody>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'clients', value: clients  }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'clients | slice:0:2', value: clients | slice:0:2  }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'clients | slice:1:2', value: clients | slice:1:2 }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'clients | slice:4', value: clients | slice:4 }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'clients | slice:1:3', value: clients | slice:1:3 }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'clients | slice:3:4', value: clients | slice:3:4 }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'clients | slice:2:2', value: clients | slice:2:2 }">
+              </ng-container>
+              <ng-container [ngTemplateOutlet]="examplePipe"
+                [ngTemplateOutletContext]="{label: 'clients | slice:0:-2', value: clients | slice:0:-2 }">
+              </ng-container>
+
+            </tbody>
+          </table>
+          }
+          @case (4) {
+          <div class="row mt-3 g-3">
+            <div class="col-6">
+              <features-pipes-i18n-select-pipe></features-pipes-i18n-select-pipe>
+            </div>
+            <div class="col-6">
+              <features-pipes-i18n-plural-pipe></features-pipes-i18n-plural-pipe>
+            </div>
+            <div class="col-6">
+              <features-pipes-key-value-pipe></features-pipes-key-value-pipe>
+            </div>
+            <div class="col-6">
+              <features-pipes-async-pipe></features-pipes-async-pipe>
+            </div>
+          </div>
+          }
+          @case (5) {
+            <features-pipes-custom-pipes></features-pipes-custom-pipes>
+          }
+          }
+
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  }
+</div>

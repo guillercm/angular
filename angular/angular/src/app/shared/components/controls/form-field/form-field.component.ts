@@ -4,26 +4,28 @@ import { Component, DestroyRef, OnInit, ViewContainerRef, computed, inject, inpu
 import { LanguageService } from '@core/services/language/language.service';
 import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
+import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
 
 @Component({
   selector: 'features-form-field',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.css'
 })
-export class FormFieldComponent implements OnInit {
+export class FormFieldComponent implements OnInit, PatoFormField {
+
+  public control = input.required<AbstractControl<any>>();
+
+  public id = input.required<string>();
+
+  public controlView = viewChild.required('controlView', { read: ViewContainerRef })
 
   private readonly _destroyRef = inject(DestroyRef);
 
   private readonly _formComponent = inject(PatoFormComponent);
 
   private readonly _languageService = inject(LanguageService);
-
-  public controlView = viewChild.required('controlView', { read: ViewContainerRef })
-
-  public control = input.required<AbstractControl<any>>();
-
-  public id = input.required<string>();
 
   public label = input.required<string>();
 
@@ -34,7 +36,7 @@ export class FormFieldComponent implements OnInit {
   protected readonly useCompleteLabel = this._useCompleteLabel.asReadonly();
 
   public readonly completeLabel = computed(() => {
-    return this.label() + (this.isRequired() ? " *" : " (opcional)");
+    return (this.isRequired() ? " *" : " (opcional)");
   })
 
   ngOnInit(): void {

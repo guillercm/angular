@@ -1,0 +1,17 @@
+<div class="div-search m-2 rounded-top-4" [class.rounded-bottom-4]="!showList()" sharedClickOutside (onClickOutside)="onClickOutside($event)">
+  <div class="d-flex align-items-center p-2" [class.border-bottom]="showList()">
+    <ng-content></ng-content>
+    <pato-form [data]="dataForm" id="siteSearch" (onFormSubmit)="onSubmit($event)">
+    </pato-form>
+  </div>
+  @if (showList()) {
+    <ul class="list-group overflow-y-auto" >
+      @for (place of places(); track $index) {
+        <li class="list-group-item list-group-item-action pointer border-0 cursor-pointer" tabindex="1" (click)="flyTo(place)">
+          <span>{{ place.full_address }}</span>
+        </li>
+      }
+    </ul>
+  }
+</div>
+

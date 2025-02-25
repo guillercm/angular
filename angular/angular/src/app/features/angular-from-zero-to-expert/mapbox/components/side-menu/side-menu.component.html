@@ -1,0 +1,27 @@
+<div class="row align-items-center w-100 p-2">
+  <div class="col-6">Maps</div>
+  <div class="col-6 d-flex justify-content-end p-0">
+    <ng-content></ng-content>
+  </div>
+  <div class="col-12">
+    <div class="floating-range">
+      <div class="floating-content mb-3">
+        <span class="form-label">{{ "features.mapbox.labels.zoom" | translate }}: {{ zoom() | number:'2.2-2' }}</span>
+        <div class="d-flex justify-content-center align-items-center g-3">
+          <shared-button icon="dash" [fontSizeIcon]="3" additionalClasses="p-0" (onClicked)="zoomOut()"></shared-button>
+          <input type="range" class="form-range px-2" min="-2" max="18" [value]="zoom()"
+            (input)="zoomChanged( zoomInput.value )" #zoomInput>
+          <shared-button icon="plus" [fontSizeIcon]="3" additionalClasses="p-0" (onClicked)="zoomIn()"></shared-button>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-left align-items-center mb-3">
+        <input type="checkbox"id="show-coords"><label  class="ms-2"  for="show-coords">{{ "features.mapbox.labels.showCoords" | translate }}</label>
+      </div>
+      <div>
+        <shared-button label="features.mapbox.labels.btnChangeStyle" icon="brush" (onClicked)="openModalChangeMapStyle()" variant="success"></shared-button>
+      </div>
+
+    </div>
+  </div>
+</div>

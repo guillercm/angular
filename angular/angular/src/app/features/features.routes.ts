@@ -15,7 +15,33 @@ export const featuresRoutes: Routes = [
       {
         path: 'angular_bases',
         title: 'Bases de Angular',
-        loadComponent: () => import('./angular-from-zero-to-expert/pages/bases/bases.component'),
+        loadComponent: () => import('./angular-from-zero-to-expert/bases/pages/home-page/home-page.component'),
+      },
+      {
+        path: 'gifs',
+        title: 'Aplicación de gifs',
+        loadComponent: () => import('./angular-from-zero-to-expert/gifs/pages/home-page/home-page.component'),
+      },
+      {
+        path: 'countries',
+        title: 'Aplicación de países',
+        loadComponent: () => import('./angular-from-zero-to-expert/country/pages/home-page/home-page.component'),
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./angular-from-zero-to-expert/country/countries.routes').then(m => m.countriesRoutes)
+          }
+        ]
+      },
+      {
+        path: 'pipes',
+        title: 'Pipes',
+        loadComponent: () => import('./angular-from-zero-to-expert/pipes/pages/home-page/home-page.component')
+      },
+      {
+        path: 'mapbox',
+        title: 'Mapas',
+        loadComponent: () => import('./angular-from-zero-to-expert/mapbox/pages/home-page/home-page.component')
       }
     ]
   },

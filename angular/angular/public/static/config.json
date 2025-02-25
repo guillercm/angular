@@ -1,15 +1,41 @@
 {
-    "apis": {
-        "simpsons": {
-            "baseUrl": "http://localhost:3000",
-            "endpoints": {
-                "getSimpsons": "/simpsons",
-                "getSimpsonById": "/simpsons/{id}"
-            }
-        }
+  "apis": {
+    "simpsons": {
+      "baseUrl": "http://localhost:3000",
+      "endpoints": {
+        "getSimpsons": "/simpsons",
+        "getSimpsonById": "/simpsons/{id}"
+      }
     },
-    "languages": {
-        "availables": ["es"],
-        "default": "es"
+    "gifs": {
+      "baseUrl": "https://api.giphy.com/v1/gifs",
+      "apiKey": "LTzWS1dhphwtkpsWkEwh8nMjQrKRMSF4",
+      "endpoints": {
+        "search": "/search"
+      }
+    },
+    "countries": {
+      "baseUrl": "https://restcountries.com/v3.1",
+      "endpoints": {
+        "searchCountryByAlphaCode": "/alpha/{code}",
+        "searchCapital": "/capital/{capital}",
+        "searchCountry": "/name/{country}",
+        "searchRegion": "/region/{region}"
+      }
+    },
+    "mapbox": {
+      "baseUrl": "https://api.mapbox.com",
+      "apiKey": "pk.eyJ1IjoiZ3VpbGxlMzIyIiwiYSI6ImNtNm1oOGR5cjBmbzAya3NtNmgyNTRlaTAifQ.eDSKFHVd3Igasd503Rr6aw",
+      "endpoints": {
+        "getDirections": "/directions/v5/mapbox/driving/{startLong},{startLat};{endLong},{endLat}",
+        "getPlaces": "/search/geocode/v6/forward"
+      }
     }
+  },
+  "languages": {
+    "availables": [
+      "es"
+    ],
+    "default": "es"
+  }
 }

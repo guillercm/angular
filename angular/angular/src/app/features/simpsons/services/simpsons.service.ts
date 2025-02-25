@@ -1,13 +1,12 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Api } from '@core/interfaces/config/config';
 import { ApiHandlerService } from '@core/services/api-handler/api-handler.service';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
-import { Observable, catchError, delay, map, switchMap, take, tap, throwError } from 'rxjs';
-import { SimpsonAdapter } from '../adapters/simpsons/simpsons-adapter';
-import { Simpson } from '../interfaces/simpson.interface';
-import { SimpsonResponse } from '../interfaces/api/simpsonsRespose.interface';
-import { ModelAdapterService } from '@core/services/model-adapter/model-adapter.service';
-import { Api } from '@core/interfaces/config/config';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable, inject, signal } from '@angular/core';
+import { Observable, catchError, map, switchMap, throwError } from 'rxjs';
+import { Simpson } from '../interfaces/simpson.interface';
+import { SimpsonAdapter } from '../adapters/simpsons/simpsons-adapter';
+import { SimpsonResponse } from '../interfaces/api/simpsonsRespose.interface';
 
 @Injectable({
   providedIn: 'root'

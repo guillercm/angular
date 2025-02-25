@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">i18nPlural Pipe</h5>
+    <p class="card-text">Actualmente {{ numberOfGuests() | i18nPlural:guestMap }}</p>
+    <div class="row">
+      <div class="col"><shared-button (click)="increaseNumberOfGuestsBy(1)" label="Añadir invitado"
+          variant="success"></shared-button></div>
+      <div class="col"><shared-button (click)="increaseNumberOfGuestsBy(-1)" label="Eliminar invitado" variant="danger"
+          [disabled]="numberOfGuests() < 1"></shared-button></div>
+    </div>
+  </div>
+</div>

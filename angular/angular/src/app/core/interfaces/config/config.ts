@@ -9,6 +9,7 @@ export interface Apis {
 
 export interface Api {
     baseUrl: string;
+    apiKey?: string;
     endpoints: Endpoints;
 }
 

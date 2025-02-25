@@ -1,0 +1,23 @@
+<div class="position-relative border">
+  <div #map class="divMap"></div>
+  <div class="side-menu position-absolute w-50 collapse top-0 hide" [(ngbCollapse)]="isCollapsed" [animation]="true"
+    [horizontal]="true">
+
+    <features-mapbox-side-menu>
+      <shared-button icon="x" variant="" additionalClasses="p-0 border-0" class="w-auto" [fontSizeIcon]="3"
+        (onClicked)="toggleCollapse()" data-bs-toggle="collapse"
+        [attr.aria-expanded]="isCollapsed ? 'false' : 'true'"></shared-button>
+    </features-mapbox-side-menu>
+  </div>
+
+  <features-mapbox-maps-searcher>
+    <shared-button icon="list" variant="" additionalClasses="p-0 border-0" [fontSizeIcon]="5"
+      (onClicked)="toggleCollapse()" data-bs-toggle="collapse"
+      [attr.aria-expanded]="isCollapsed ? 'false' : 'true'"></shared-button>
+  </features-mapbox-maps-searcher>
+
+
+  <span class="lat-long-info p-2 bg-dark border rounded m-1 text-light opacity-50 opacity-hover-100">{{
+    currentLngLat().lat + ', '
+    + currentLngLat().lng }}</span>
+</div>

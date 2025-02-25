@@ -1,2 +1,20 @@
-$primary: yellow !default;
-
+$utilities: (
+  "width": (
+  property: width,
+  class: w,
+    values: (
+      20: 20%,
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto
+    )
+  ),
+ );
+$opacity-hover: (0, .25, .50, .75, 1);
+@each $op in $opacity-hover {
+  .opacity-hover-#{$op*100}:hover {
+    opacity: #{$op} !important;
+  }
+}

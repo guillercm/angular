@@ -32,6 +32,8 @@ export class SharedButtonComponent {
 
   public icon = input<string>('');
 
+  public fontSizeIcon = input<1 | 2 | 3 | 4 | 5 | 6>(6);
+
   public onClicked = output();
 
 

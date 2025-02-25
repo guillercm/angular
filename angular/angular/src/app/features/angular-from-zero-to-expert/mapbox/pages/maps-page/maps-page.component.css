@@ -1,0 +1,12 @@
+.divMap, .side-menu {
+  height: 60vh;
+}
+.side-menu {
+  z-index: 3;
+  background: var(--bs-body-bg);
+}
+.lat-long-info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

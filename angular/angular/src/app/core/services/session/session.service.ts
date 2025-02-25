@@ -17,9 +17,9 @@ export class SessionService {
   }
 
   @isLocalStorageAvailable()
-  public getItem<T>(key: string, defaultValue: T | null = null): T | null {
+  public getItem<T>(key: string, defaultValue: T | null = null): T {
     const value = localStorage.getItem(key);
-    if (value === null) return defaultValue;
+    if (value === null) return defaultValue as T;
     switch (typeof defaultValue) {
       case 'number':
         return Number(value) as T;
@@ -29,8 +29,8 @@ export class SessionService {
         return (value === 'true' ? true : false) as T;
       case 'object':
         const json = this._jsonHandler.parse<T>(value, defaultValue);
-        if (typeof json === "object") return json;
-        return defaultValue;
+        if (typeof json === "object") return json as T;
+        return defaultValue as T;
     }
     return value as T;
   }

@@ -9,7 +9,7 @@ import { ModalService } from '@core/services/modal/modal.service';
 import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
 import { PatoDataFormChange } from '@shared/components/controls/pato-form/interfaces/pato-form-change.interface';
 import { PatoFormComponent } from "@shared/components/controls/pato-form/pato-form.component";
-import { PatoInputComponent } from '@shared/components/controls/search-box/pato-input.component';
+import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
 import { Simpson } from '@features/simpsons/interfaces/simpson.interface';
 import { SimpsonsService } from '@features/simpsons/services/simpsons.service';
 import { Observable, Observer, catchError, delay, of, startWith, take, tap, throwError } from 'rxjs';
@@ -176,7 +176,7 @@ export default class SimpsonsComponent {
       tap((simpsons: Simpson[]) => {
       this._simpsons.set(simpsons);
     })).subscribe()
-    
+
   }
 
 
@@ -187,6 +187,6 @@ export default class SimpsonsComponent {
     // })
 
 
-    
+
   }
 }

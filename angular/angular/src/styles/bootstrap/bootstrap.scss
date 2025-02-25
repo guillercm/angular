@@ -1,6 +1,5 @@
 @use 'variables.scss' as *;
 @use 'bootstrap-icons/font/bootstrap-icons.css';
-// @use 'bootstrap/scss/bootstrap.scss' with (
-//   $primary: $primary
-// );
-@use 'bootstrap/scss/bootstrap.scss'
+@use 'bootstrap/scss/bootstrap.scss' with (
+  $utilities: $utilities
+);

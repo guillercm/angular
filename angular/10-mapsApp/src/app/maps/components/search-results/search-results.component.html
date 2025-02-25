@@ -2,7 +2,6 @@
   <app-loading></app-loading>
 </div>
 <ul class="list-group mt-2" *ngIf="places().length">
-
   @for (place of places(); track $index) {
   <li class="list-group-item list-group-item-action pointer" [class.active]="place.id === selectedId()" (click)="flyTo(place)">
     <h6>{{ place.properties.name }}</h6>

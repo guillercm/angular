@@ -1,6 +1,6 @@
 @if (form()) {
   @let formInstance = form()!;
-  <form [formGroup]="formInstance" (ngSubmit)="onSubmit()" [ngClass]="classes()" novalidate>
+  <form [formGroup]="formInstance" (ngSubmit)="onSubmit()" [ngClass]="additionalClasses()" novalidate>
     @for (key of formKeys; track $index) {
        <ng-container patoFormControlInjectorDirective [key]="key"></ng-container>
     }

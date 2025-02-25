@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">toggleCase</h5>
+    <p class="card-text">pipe creado por {{ 'nosotros' | toggleCase:isUpperCase() }}</p>
+    <shared-button label="toggle!" additionalClasses="w-auto" (onClicked)="toggleUpperCase()"></shared-button>
+  </div>
+</div>
+<div class="card mt-3">
+  <div class="card-body">
+    <div class="row">
+      <div class="col"><shared-button label="Por nombre" icon="arrow-down-up" (onClicked)="changeOrder('name')"
+          variant="success" [outline]="orderBy() === 'name'"></shared-button></div>
+      <div class="col"><shared-button label="Por volar" icon="arrow-down-up" (onClicked)="changeOrder('canFly')"
+          [outline]="orderBy() === 'canFly'"></shared-button></div>
+      <div class="col"><shared-button label="Por color" icon="arrow-down-up" (onClicked)="changeOrder('color')"
+          variant="secondary" [outline]="orderBy() === 'color'"></shared-button></div>
+    </div>
+    <div class="row">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Vuela</th>
+            <th scope="col">Color</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (hero of heroes | sortBy: orderBy(); track $index) {
+          <tr>
+            <td>{{ hero.name }}</td>
+            <td>{{ hero.canFly | canFly | titlecase }}</td>
+            <td>
+              <div [ngStyle]="{'--backColor': hero.color | heroColor}" class="heroColor"></div>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="3" style="text-align: center">No hay héroes</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>

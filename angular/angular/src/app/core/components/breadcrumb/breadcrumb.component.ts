@@ -20,6 +20,10 @@ export class BreadcrumbComponent implements OnInit {
   protected routes = this._routes.asReadonly();
 
   ngOnInit(): void {
+    this.initialize();
+  }
+
+  private initialize() {
     this.setBreadcrumb(this._router.url);
     this._router.events
       .pipe(
@@ -31,7 +35,16 @@ export class BreadcrumbComponent implements OnInit {
       });
   }
 
-  setBreadcrumb(url: string) {
+  protected getRouterLink(index: number): string {
+    index++;
+    let link = "";
+    for (let i = 0; i < index; i++) {
+      link += "/" + this.routes()[i]
+    }
+    return link;
+  }
+
+  protected setBreadcrumb(url: string) {
     this._routes.set(url.split("/"));
   }
 

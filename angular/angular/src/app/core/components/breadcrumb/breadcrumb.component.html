@@ -1,11 +1,11 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    @for (route of routes(); track $index; let last = $last) {
+    @for (route of routes(); track $index; let index = $index; let last = $last) {
       @if (route) {
         @if (last) {
           <li class="breadcrumb-item active" aria-current="page">{{route}}</li>
         } @else {
-          <li class="breadcrumb-item"><a href="#" [routerLink]="'/' + route">{{route}}</a></li>
+          <li class="breadcrumb-item"><a href="#" [routerLink]="getRouterLink(index)">{{route}}</a></li>
         }
       }
     }

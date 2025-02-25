@@ -1,7 +1,5 @@
 # mis notas
 
-
-
 ### Desuscripción de observables
 <code-block>
   <details>

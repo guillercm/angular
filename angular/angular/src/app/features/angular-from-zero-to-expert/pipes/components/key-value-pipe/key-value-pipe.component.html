@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">KeyValue Pipe</h5>
+    <ol class="list-group list-group-numbered">
+      @for (item of person | keyvalue; track $index) {
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">{{ item.key | titlecase }}</div>
+            {{ item.value }}
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+</div>

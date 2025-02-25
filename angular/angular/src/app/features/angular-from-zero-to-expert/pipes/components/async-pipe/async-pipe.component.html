@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Async Pipe</h5>
+    <div>
+      <pre>{{ myObservableTimer | json }}</pre>
+      <pre *ngIf="!(myObservableTimer | async)">Resolviendo observable</pre>
+      <pre>{{ myObservableTimer | async }}</pre>
+
+      <pre *ngIf="!(promiseValue | async)">Resolviendo promesa</pre>
+      <pre>{{ promiseValue | async }}</pre>
+    </div>
+  </div>
+</div>
