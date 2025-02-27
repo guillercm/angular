@@ -1,0 +1,17 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <div class="row">
+            <p class="card-text h6 mb-3">{{place().full_address}}</p>
+        </div>
+        <div class="row">
+            @if (showBtnSavePlace()) {
+            <div class="col">
+                <shared-button (onClicked)="savePlace()" icon="bookmarks"></shared-button>
+            </div>
+            }
+            <div class="col">
+                <shared-button icon="geo-alt-fill" variant="info"></shared-button>
+            </div>
+        </div>
+    </div>
+</div>

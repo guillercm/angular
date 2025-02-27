@@ -64,9 +64,15 @@
     },
     "mapbox": {
       "labels": {
+        "modal": "Estilo del mapa",
         "zoom": "Zoom",
         "showCoords": "Mostrar coordenadas",
-        "btnChangeStyle": "Cambiar estilo del mapa"
+        "rain": "Lluvia",
+        "snow": "Nieve",
+        "btnChangeStyle": "Cambiar estilo del mapa",
+        "btnSavedPlaces": "Ver lugares guardados",
+        "titleSavedPlaces": "Lugares guardados",
+        "emtySavePlace": "No hay lugares guardados"
       },
       "placeholders": {
         "inputSiteSearch": "Buscar..."

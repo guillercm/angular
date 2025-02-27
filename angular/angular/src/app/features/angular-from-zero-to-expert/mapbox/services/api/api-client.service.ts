@@ -5,7 +5,7 @@ import { ApiHandlerService } from '@core/services/api-handler/api-handler.servic
 import { AppConfigService } from '@core/services/configuration/app-config.service';
 import { PlacesResponse } from '../../interfaces/places';
 import { DirectionsResponse } from '../../interfaces/directions';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { PlacesAdapter } from '../../adapters/places/places-adapter';
 import { Place } from '../../interfaces/place.interface';
 
@@ -50,7 +50,10 @@ export class ApiClientService {
         access_token: this.apiKey(),
         ...options
       }
-    }).pipe(map((value: PlacesResponse) => this._placesAdapter.adapt(value)));
+    }).pipe(
+      tap((value: PlacesResponse) => console.log(value)),
+      map((value: PlacesResponse) => this._placesAdapter.adapt(value)),
+      tap((value:  Place[]) => console.log(value)));
   }
 
   public getDirections(startLong: number, startLat: number, endLong: number, endLat: number): Observable<DirectionsResponse> {

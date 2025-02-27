@@ -1,0 +1,39 @@
+<div class="container p-4">
+    <h3 class="mb-5">{{ "features.mapbox.labels.titleSavedPlaces" | translate }}</h3>
+    <div class="row g-3">
+        @for (place of savedPlaces(); track $index) {
+        <div class="col col-12 col-md-6 col-xxl-4 d-flex text-align-center justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <div #miniMap>
+                    @defer (on viewport(miniMap)) {
+                    <features-mapbox-mini-map [place]="place"></features-mapbox-mini-map>
+                    }
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <h5 class="card-title">{{place.name}}</h5>
+                        <p class="card-text mb-4">{{place.full_address}}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <shared-button icon="geo-alt-fill" variant="info"></shared-button>
+                        </div>
+                        <div class="col-6">
+                            <shared-button icon="trash" variant="danger"
+                                (onClicked)="removeSavedPlace(place)"></shared-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        } @empty {
+        <div class="d-flex justify-content-center text-align-center align-items-center flex-wrap p-2 h-100">
+            <div class="text-center">
+                <shared-image url="img/mapbox/tierra-triste.png" classes="img-fluid"
+                    style="height: 200px;"></shared-image>
+                <p class="h3">{{ 'features.mapbox.labels.emtySavePlace' | translate}}</p>
+            </div>
+        </div>
+        }
+    </div>
+</div>

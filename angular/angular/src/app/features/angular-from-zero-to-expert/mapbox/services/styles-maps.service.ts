@@ -14,34 +14,43 @@ export class StylesMapsService {
 
   private readonly _themeService = inject(ThemeService);
 
-  private readonly _styles = ["streets-v12", "outdoors-v12", "light-v11", "dark-v11", "satellite-v9", "satellite-streets-v12", "navigation-day-v1", "navigation-night-v1"]
+  private readonly _styles = ["streets-v12", "outdoors-v12", "light-v11", "dark-v11", "satellite-v9", "satellite-streets-v12", "navigation-day-v1", "navigation-night-v1", "theme"]
 
-  private _actualStyle = signal<string>("");
+  private _actualStyle = signal<string>("theme");
 
   public readonly actualStyle = computed(() => this._actualStyle())
+
+  public readonly mapsStyle = computed(() => {
+    let actualStyle = this.actualStyle();
+    if (actualStyle === "theme") {
+      actualStyle = this._themeService.theme() === 'light' ? "light-v11" : "dark-v11";
+    }
+    return `mapbox://styles/mapbox/${actualStyle}`;
+  })
 
   constructor() {
     this.initialize();
   }
 
   private initialize() {
-    const actualTheme: Theme = this._themeService.theme();
     const mapboxStyle = this._sessionService.getItem("mapboxStyle", "");
-    let style = null;
     if (mapboxStyle && this._styles.includes(mapboxStyle)) {
-      style = mapboxStyle;
+      this._actualStyle.set(mapboxStyle);
     } else {
       this._sessionService.removeItem("mapboxStyle");
-      style = actualTheme === "light" ? "light-v11" : "dark-v11";
+      this._actualStyle.set("theme");
     }
-    this._actualStyle.set(this.getMapboxStyle(style));
   }
 
-  setStyle(style: string) {
+  public setStyle(style: string) {
     const simpleStyle = this._styles.find((st: string) => style.endsWith(st));
     if (!simpleStyle) return;
-    this._sessionService.setItem("mapboxStyle", simpleStyle);
     this._actualStyle.set(style)
+    if (simpleStyle.includes("theme")) {
+      this._sessionService.removeItem("mapboxStyle");
+    } else {
+      this._sessionService.setItem("mapboxStyle", simpleStyle);
+    }
   }
 
   public get imgStyles(): dataStylesMap {
@@ -49,16 +58,14 @@ export class StylesMapsService {
     return {
       defaultStyle: {
         img: this.getMapboxImg(defaultMapboxStyle),
-        mapboxStyle: this.getMapboxStyle(defaultMapboxStyle)
+        mapboxStyle: defaultMapboxStyle
       },
       styles: this._styles.map((style: string) => ({
         img: this.getMapboxImg(style),
-        mapboxStyle: this.getMapboxStyle(style)
+        mapboxStyle: style
       }))
     }
   }
-
-  private getMapboxStyle = (style: string) => `mapbox://styles/mapbox/${style}`;
 
   private getMapboxImg = (img: string) => `img/mapbox/${img}.png`;
 

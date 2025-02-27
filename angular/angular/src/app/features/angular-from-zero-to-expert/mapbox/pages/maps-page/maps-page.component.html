@@ -16,8 +16,10 @@
       [attr.aria-expanded]="isCollapsed ? 'false' : 'true'"></shared-button>
   </features-mapbox-maps-searcher>
 
+  @if (showCoords()) {
+    <span class="lat-long-info p-2 bg-dark border rounded m-1 text-light opacity-50 opacity-hover-100">{{
+      currentLngLat().lat + ', '
+      + currentLngLat().lng }}</span>
+  }
 
-  <span class="lat-long-info p-2 bg-dark border rounded m-1 text-light opacity-50 opacity-hover-100">{{
-    currentLngLat().lat + ', '
-    + currentLngLat().lng }}</span>
 </div>

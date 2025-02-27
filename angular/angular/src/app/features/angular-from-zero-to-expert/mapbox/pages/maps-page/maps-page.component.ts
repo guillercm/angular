@@ -20,7 +20,9 @@ export class MapsPageComponent implements OnDestroy {
 
   private _isCollapsed = signal<boolean>(true);
 
-  protected currentLngLat = computed(() => this._mapsService.currentLngLat())
+  protected readonly currentLngLat = computed(() => this._mapsService.currentLngLat())
+
+  protected readonly showCoords = computed(() => this._mapsService.showCoords())
 
 
   ngAfterViewInit(): void {
@@ -29,6 +31,8 @@ export class MapsPageComponent implements OnDestroy {
     if (!divMap) throw 'El elemento HTML no fue encontrado';
     this._mapsService.createMap(divMap);
   }
+
+  
 
   get isCollapsed(): boolean {
     return this._isCollapsed();

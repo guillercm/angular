@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, inject } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { MapsService } from '../../services/maps.service';
-import { dataStyleMap } from '../../interfaces/dataStyleMap';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ModalService } from '@core/services/modal/modal.service';
 import { ModalChangeMapStyleComponent } from '../modal-change-map-style/modal-change-map-style.component';
+import { ModalSavedPlacesComponent } from '../modal-saved-places/modal-saved-places.component';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'features-mapbox-side-menu',
-  imports: [CommonModule, SharedButtonComponent, TranslatePipe],
+  imports: [CommonModule, SharedButtonComponent, TranslatePipe, CheckboxComponent],
   templateUrl: './side-menu.component.html',
   styleUrl: './side-menu.component.css'
 })
@@ -21,7 +22,13 @@ export class SideMenuComponent {
 
   private readonly _mapsService = inject(MapsService);
   protected zoom = computed(() => this._mapsService.zoom())
+  
 
+  protected readonly showRain = computed(() => this._mapsService.showRain())
+
+  protected readonly showSnow = computed(() => this._mapsService.showSnow())
+
+  
   openModalChangeMapStyle() {
     this._modalService.open({
       component: ModalChangeMapStyleComponent,
@@ -33,6 +40,31 @@ export class SideMenuComponent {
         scrollable: true
       }
     })
+  }
+
+  openModalSavedPlaces() {
+    this._modalService.open({
+      component: ModalSavedPlacesComponent,
+      destroyRef: this._destroyRef,
+      options: {
+        animation: true,
+        centered: true,
+        size: 'lg',
+        scrollable: true
+      }
+    })
+  }
+
+  onShowCoords(checked: boolean) {
+    this._mapsService.showMapCoords(checked);
+  }
+
+  onShowRain(checked: boolean) {
+    this._mapsService.showMapRain(checked);
+  }
+
+  onShowSnow(checked: boolean) {
+    this._mapsService.showMapSnow(checked);
   }
 
   zoomIn() {

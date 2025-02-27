@@ -1,11 +1,13 @@
 import { ApiClientService } from './api/api-client.service';
-import { computed, ElementRef, inject, Injectable, signal } from '@angular/core';
-import { coordinates } from '../interfaces/coordinates';
-import { Coordinates, Feature } from '../interfaces/places';
-import { LngLat, LngLatBounds, Map, Marker, Popup, SourceSpecification } from 'mapbox-gl';
+import { ComponentRef, computed, effect, ElementRef, inject, Injectable, signal, ViewContainerRef } from '@angular/core';
+import { Coordinates } from '../interfaces/places';
+import { CustomPopupComponent } from '../components/custom-popup/custom-popup.component';
+import { dataStylesMap } from '../interfaces/dataStylesMap';
+import { LngLat, LngLatBounds, Map, Marker, PropertyValueSpecification, SourceSpecification } from 'mapbox-gl';
+import { Place } from '../interfaces/place.interface';
 import { PolylineService } from './polyline.service';
 import { Route } from '../interfaces/directions';
-import { dataStylesMap } from '../interfaces/dataStylesMap';
+import { SavedPlacesService } from './saved-places.service';
 import { StylesMapsService } from './styles-maps.service';
 
 @Injectable({
@@ -19,14 +21,23 @@ export class MapsService {
 
   private readonly _stylesMapsService = inject(StylesMapsService);
 
-  public readonly apiKey = computed(() => this._apiClient.apiKey())
+  private readonly _savedPlacesService = inject(SavedPlacesService);
+
+  protected readonly _savedPlaces = computed(() => this._savedPlacesService.places());
+
+  private _showCoords = signal<boolean>(true);
+  public showCoords = this._showCoords.asReadonly();
+
+  private _showSnow = signal<boolean>(true);
+  public showSnow = this._showSnow.asReadonly();
+
+  private _showRain = signal<boolean>(true);
+  public showRain = this._showRain.asReadonly();
 
   private _map = signal<Map | null>(null);
   public map = this._map.asReadonly();
 
   private _markers = signal<Marker[]>([]);
-
-  public readonly isMapReady = computed<boolean>(() => !!this.map())
 
   private _zoom = signal<number>(2);
   public readonly zoom = this._zoom.asReadonly();
@@ -37,6 +48,80 @@ export class MapsService {
   private _dataStylesMap = signal<dataStylesMap | null>(null);
   public readonly dataStylesMap = this._dataStylesMap.asReadonly();
 
+  constructor() {
+    this.initialize();
+  }
+
+  private initialize() {
+    effect(() => {
+      this.showRain();
+      if (this.map()?.isStyleLoaded()) {
+        this.setRain();
+      }
+    })
+    effect(() => {
+      this.showSnow();
+      if (this.map()?.isStyleLoaded()) {
+        this.setSnow();
+      }
+    })
+    effect(() => {
+      const style = this._stylesMapsService.mapsStyle();
+      this.map()?.setStyle(style)
+    })
+  }
+
+  private setMapStyles() {
+    
+  }
+
+  setRain() {
+    const map = this.map();
+    if (!map) return;
+    map.setRain(this.showRain() ? {
+      density: 1,
+      intensity: 1,
+      color: '#919191',
+      opacity: 0.19,
+      'center-thinning': 0,
+      direction: [0, 50],
+      'droplet-size': [1, 10],
+      'distortion-strength': 0.5,
+      vignette: 0.5,
+    } : null)
+  }
+
+  setSnow() {
+    const map = this.map();
+    if (!map) return;
+    const zoomBasedReveal = (value: number): PropertyValueSpecification<number> | undefined => {
+      return ['interpolate', ['linear'], ['zoom'], 11, 0.0, 13, value];
+    };
+    map.setSnow(this.showSnow() ? {
+      density: zoomBasedReveal(0.85),
+      intensity: 1.0,
+      'center-thinning': 0.1,
+      direction: [0, 50],
+      opacity: 1.0,
+      color: `#ffffff`,
+      'flake-size': 0.71,
+      vignette: zoomBasedReveal(0.3),
+      'vignette-color': `#ffffff`
+    } : null);
+  }
+
+  public showMapCoords(show: boolean) {
+    this._showCoords.set(show);
+  }
+
+  public showMapRain(show: boolean) {
+    this._showRain.set(show);
+  }
+
+  public showMapSnow(show: boolean) {
+    this._showSnow.set(show);
+  }
+
   public createMap(container: ElementRef<HTMLElement>) {
     this._dataStylesMap.set(this._stylesMapsService.imgStyles);
     const map = new Map({
@@ -44,7 +129,10 @@ export class MapsService {
       style: "", // style URL
       center: [-74.5, 40], // starting position [lng, lat]
       zoom: this.zoom(), // starting zoom
-      accessToken: this.apiKey()
+      accessToken: this._apiClient.apiKey(),
+      projection: 'globe',
+      bearing: 12.8,
+      hash: true
     });
     this.setMap(map);
   }
@@ -52,7 +140,6 @@ export class MapsService {
   private setMap(map: Map) {
     this._map.set(map);
     this.mapListeners();
-    map.setStyle(this._stylesMapsService.actualStyle())
   }
 
   mapListeners() {
@@ -70,13 +157,20 @@ export class MapsService {
 
     map.on('move', () => {
       this._currentLngLat.set(map.getCenter());
-      const { lng, lat} = this._currentLngLat();
+      const { lng, lat } = this._currentLngLat();
     });
+
+    map.on('style.load', () => {
+      this.setRain();
+      this.setSnow();
+    });
+
   }
 
   flyTo(coords: Coordinates | null, zoom = 14) {
-    if (!this.isMapReady() || !coords) return;
-    this.map()?.flyTo(
+    const map = this.map();
+    if (!map || !coords) return;
+    map.flyTo(
       {
         zoom,
         center: {
@@ -103,60 +197,38 @@ export class MapsService {
   setStyle(style?: string) {
     if (!style) return;
     this._stylesMapsService.setStyle(style);
-    this.map()?.setStyle(style);
   }
 
-  createMarkersFromPlaces(places: Feature[], { long, lat }: coordinates = { long: 0, lat: 0 }) {
-    if (!this.map) return;
+  createMarkersFromPlaces(places: Place[]) {
+    const map = this.map();
+    if (!map) return;
 
     this._markers().forEach(marker => marker.remove());
 
     if (!places.length) return;
 
-    const newMarkers: Marker[] = [];
-
-    for (const place of places) {
-      const marker = this.addMarker(place.properties.coordinates, `<h6>${place.properties.name}</h6>`);
-      if (marker) {
-        newMarkers.push(marker);
-        marker.getLngLat()
-      }
-    }
-    this._markers.set(newMarkers);
-
-    const bounds = new LngLatBounds();
-
-    bounds.extend(new LngLat(long, lat))
-    newMarkers.forEach((marker: Marker) => bounds.extend(marker.getLngLat()))
-
-
-    this.map()?.fitBounds(bounds);
   }
 
-  addMarker(coords: Coordinates, htmlPupup = ''): Marker | null {
+  addMarker(place: Place, viewContainerRef: ViewContainerRef): Marker | null {
     const map = this.map();
-    if (!map || !coords) return null;
-    const {longitude, latitude} = coords;
+    const { coordinates } = place;
+    if (!map || !coordinates) return null;
+    const { longitude, latitude } = coordinates;
     const color = '#xxxxxx'.replace(/x/g, y => (Math.random() * 16 | 0).toString(16));
 
-    const popup = new Popup().setHTML(htmlPupup);
-
-    popup.on('open', (event) => {
-      this.flyTo(coords)
-    })
     const marker = new Marker({
       color: color,
-      draggable: true
-    })
-      .setLngLat(new LngLat(longitude, latitude)).setPopup(popup)
-      .addTo(map);
+      draggable: false
+    }).setLngLat(new LngLat(longitude, latitude)).addTo(map);
 
-    marker.on('dragend', () => { });
+    const componentRef: ComponentRef<CustomPopupComponent> = viewContainerRef.createComponent(CustomPopupComponent);
+    componentRef.setInput("place", place);
+    marker.getElement()?.appendChild(componentRef.location.nativeElement);
     return marker;
   }
 
-  getRouteBeetweenPoints(start: coordinates, end: coordinates) {
-    this._apiClient.getDirections(start.long, start.lat, end.long, end.lat).subscribe((
+  getRouteBeetweenPoints(start: Coordinates, end: Coordinates) {
+    this._apiClient.getDirections(start.longitude, start.latitude, end.longitude, end.latitude).subscribe((
       response => this.drawPolyline(response.routes[0])
     ))
   }

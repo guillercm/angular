@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { dataStyleMap } from '../../interfaces/dataStyleMap';
 import { SharedImageComponent } from "../../../../../shared/components/image/shared-image.component";
 import { StylesMapsService } from '../../services/styles-maps.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'features-mapbox-modal-change-map-style',
-  imports: [CommonModule, SharedImageComponent],
+  imports: [CommonModule, SharedImageComponent, TranslatePipe],
   templateUrl: './modal-change-map-style.component.html',
   styleUrl: './modal-change-map-style.component.css'
 })
@@ -16,11 +17,11 @@ export class ModalChangeMapStyleComponent {
 
   private readonly _stylesMapsService = inject(StylesMapsService);
 
-  protected dataStylesMap = computed(() => this._mapsService.dataStylesMap())
+  protected readonly dataStylesMap = computed(() => this._mapsService.dataStylesMap())
 
-  protected actualStyle = computed(() => this._stylesMapsService.actualStyle())
+  protected readonly actualStyle = computed(() => this._stylesMapsService.actualStyle())
 
-  changeMapStyle(style: dataStyleMap): void {
+  protected changeMapStyle(style: dataStyleMap): void {
     this._mapsService.setStyle(style.mapboxStyle);
   }
 }

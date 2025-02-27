@@ -15,8 +15,12 @@ export class PlacesAdapter implements ModelAdapter<PlacesResponse, Place[]> {
     return this._modelAdapter.adapt<PlacesResponse, Place[]>(placesResponse, (placesResponse: PlacesResponse) => {
       return placesResponse.features.map((feature: Feature) => {
         return {
+          name: feature.properties.name,
           full_address: feature.properties.full_address,
-          coordinates: feature.properties.coordinates
+          coordinates: {
+            longitude: feature.properties.coordinates.longitude,
+            latitude: feature.properties.coordinates.latitude
+          }
         }
       })
     })

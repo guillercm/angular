@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, Injector, signal, ViewContainerRef } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
 import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Place } from '../../interfaces/place.interface';
 import { SharedClickOutsideDirective } from '@shared/directives/click-outside/shared-click-outside.directive';
 import { MapsService } from '../../services/maps.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'features-mapbox-maps-searcher',
@@ -19,11 +20,15 @@ import { MapsService } from '../../services/maps.service';
 })
 export class MapsSearcherComponent {
 
+  private readonly _viewContainerRef = inject(ViewContainerRef);
+
   private readonly _destroyRef = inject(DestroyRef);
 
   private readonly _apiClient = inject(ApiClientService);
 
   private readonly _mapServices = inject(MapsService);
+
+  private _form = signal<FormGroup|null>(null);
 
   private _places = signal<Place[]>([]);
   protected readonly places = this._places.asReadonly();
@@ -52,11 +57,11 @@ export class MapsSearcherComponent {
       }
     })
   }
-
-  flyTo({coordinates}: Place) {
+  
+  flyTo(place: Place) {
     this.resetSearch();
-    this._mapServices.addMarker(coordinates)
-    this._mapServices.flyTo(coordinates)
+    this._mapServices.addMarker(place, this._viewContainerRef)
+    this._mapServices.flyTo(place.coordinates)
   }
 
   onSubmit({ query }: any) {
@@ -73,10 +78,15 @@ export class MapsSearcherComponent {
 
   private resetSearch() {
     this._places.set([]);
+    this._form()?.controls["query"].patchValue('');
   }
 
   protected onClickOutside(clickOutside: any) {
     if (clickOutside) this.resetSearch();
+  }
+
+  protected onBuildForm(form: FormGroup | null) {
+    this._form.set(form);
   }
 
 }

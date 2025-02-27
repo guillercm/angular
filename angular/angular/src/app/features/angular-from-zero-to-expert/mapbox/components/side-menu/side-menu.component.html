@@ -14,14 +14,22 @@
           <shared-button icon="plus" [fontSizeIcon]="3" additionalClasses="p-0" (onClicked)="zoomIn()"></shared-button>
         </div>
       </div>
+      <features-mapbox-checkbox identifier="show-coords" [checkedDefualt]="true" (onChecked)="onShowCoords($event)">
+        {{ "features.mapbox.labels.showCoords" | translate }}
+      </features-mapbox-checkbox>
+      <features-mapbox-checkbox identifier="show-rain" [checkedDefualt]="false" (onChecked)="onShowRain($event)">
+        {{ "features.mapbox.labels.rain" | translate }}
+      </features-mapbox-checkbox>
+      <features-mapbox-checkbox identifier="show-snow" [checkedDefualt]="false" (onChecked)="onShowSnow($event)">
+        {{ "features.mapbox.labels.snow" | translate }}
+      </features-mapbox-checkbox>
 
-      <div class="d-flex justify-content-left align-items-center mb-3">
-        <input type="checkbox"id="show-coords"><label  class="ms-2"  for="show-coords">{{ "features.mapbox.labels.showCoords" | translate }}</label>
-      </div>
-      <div>
+      <div class="mb-3">
         <shared-button label="features.mapbox.labels.btnChangeStyle" icon="brush" (onClicked)="openModalChangeMapStyle()" variant="success"></shared-button>
       </div>
-
+      <div >
+        <shared-button label="features.mapbox.labels.btnSavedPlaces" icon="bookmarks" (onClicked)="openModalSavedPlaces()"></shared-button>
+      </div>
     </div>
   </div>
 </div>
