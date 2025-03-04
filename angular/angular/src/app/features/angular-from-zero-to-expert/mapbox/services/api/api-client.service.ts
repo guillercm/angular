@@ -3,11 +3,14 @@ import { Api } from '@core/interfaces/config/config';
 import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
 import { ApiHandlerService } from '@core/services/api-handler/api-handler.service';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
-import { PlacesResponse } from '../../interfaces/places';
-import { DirectionsResponse } from '../../interfaces/directions';
+import { Coordinates, PlacesResponse } from '../../interfaces/places.interface';
+import { DirectionsResponse } from '../../interfaces/directions.interface';
 import { map, Observable, tap } from 'rxjs';
 import { PlacesAdapter } from '../../adapters/places/places-adapter';
 import { Place } from '../../interfaces/place.interface';
+import { ItineraryAdapter } from '../../adapters/itinerary/itinerary-adapter';
+import { TravelMode } from '../../interfaces/travel-mode.enum';
+import { Itinerary } from '../../interfaces/itinerary.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +22,8 @@ export class ApiClientService {
   private readonly _configService = inject(AppConfigService);
 
   private readonly _placesAdapter = inject(PlacesAdapter);
+
+  private readonly _itineraryAdapter = inject(ItineraryAdapter);
 
   private _configApi = signal<Api | null>(null);
   // public readonly configApi = this._configApi.asReadonly();
@@ -51,15 +56,15 @@ export class ApiClientService {
         ...options
       }
     }).pipe(
-      tap((value: PlacesResponse) => console.log(value)),
-      map((value: PlacesResponse) => this._placesAdapter.adapt(value)),
-      tap((value:  Place[]) => console.log(value)));
+      map((value: PlacesResponse) => this._placesAdapter.adapt(value)));
   }
 
-  public getDirections(startLong: number, startLat: number, endLong: number, endLat: number): Observable<DirectionsResponse> {
+  public getItinerary(travelMode: TravelMode, start: Coordinates, end: Coordinates): Observable<Itinerary> {
+    const {longitude: startLong, latitude: startLat} = start;
+    const {longitude: endLong, latitude: endLat} = end;
     return this._apiHandler.get<DirectionsResponse>(this.getEndpoint("getDirections"), {
       pathParams: {
-        startLong, startLat, endLong, endLat
+        profile: travelMode, startLong, startLat, endLong, endLat
       },
       params: {
         alternatives: false,
@@ -69,6 +74,8 @@ export class ApiClientService {
         steps: true,
         access_token: this.apiKey(),
       }
-    });
+    }).pipe(
+      map((value: DirectionsResponse) => this._itineraryAdapter.adapt(value))
+    );
   }
 }

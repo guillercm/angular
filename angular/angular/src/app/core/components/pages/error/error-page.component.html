@@ -7,7 +7,7 @@
         <shared-image alt="404" [url]="getImgUrl()"></shared-image>
       </div>
       <div style="width: 200px;">
-        <shared-button [label]="httpStatus()?.button?.label" [link]="httpStatus()?.button?.route" variant="link"
+        <shared-button [label]="httpStatus()?.button?.label || ''" [link]="httpStatus()?.button?.route" variant="link"
           [outline]="true" size="lg"></shared-button>
       </div>
     </section>

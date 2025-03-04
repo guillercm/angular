@@ -1,4 +1,4 @@
-import { dataStyleMap } from "./dataStyleMap"
+import { dataStyleMap } from "./dataStyleMap.interface"
 
 export interface dataStylesMap {
   defaultStyle: dataStyleMap

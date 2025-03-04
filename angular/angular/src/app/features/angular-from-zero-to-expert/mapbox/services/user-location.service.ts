@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Coordinates } from '../interfaces/places';
+import { Coordinates } from '../interfaces/places.interface';
 
 @Injectable({
   providedIn: 'root'

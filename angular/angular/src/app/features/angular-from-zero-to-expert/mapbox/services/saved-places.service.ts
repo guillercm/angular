@@ -32,7 +32,7 @@ export class SavedPlacesService {
   }
 
   public placeIsSaved(place: Place): boolean {
-    return this.places().find((p: Place) => this.placeIsEqual(p,  place)) !== undefined
+    return this.places().some((p: Place) => this.placeIsEqual(p,  place));
   }
 
   private placeIsEqual(place: Place, place2: Place) {

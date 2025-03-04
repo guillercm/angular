@@ -14,7 +14,9 @@ import { ButtonType } from './interfaces/button-types.type';
 })
 export class SharedButtonComponent {
 
-  public label = input<string | undefined>('');
+  public label = input<string>('');
+
+  public title = input<string>('');
 
   public disabled = input<boolean>(false);
 

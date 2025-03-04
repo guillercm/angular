@@ -1,5 +1,5 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { dataStylesMap } from '../interfaces/dataStylesMap';
+import { dataStylesMap } from '../interfaces/dataStylesMap.interface';
 import { ThemeService } from '@core/services/theme/theme.service';
 import { SessionService } from '@core/services/session/session.service';
 import { Theme } from '@core/interfaces/theme/theme.type';

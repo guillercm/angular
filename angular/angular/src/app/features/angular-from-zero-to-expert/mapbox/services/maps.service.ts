@@ -1,19 +1,22 @@
 import { ApiClientService } from './api/api-client.service';
-import { ComponentRef, computed, effect, ElementRef, inject, Injectable, signal, ViewContainerRef } from '@angular/core';
-import { Coordinates } from '../interfaces/places';
+import { ComponentRef, computed, effect, ElementRef, inject, Injectable, NgZone, signal, ViewContainerRef } from '@angular/core';
+import { Coordinates } from '../interfaces/places.interface';
 import { CustomPopupComponent } from '../components/custom-popup/custom-popup.component';
-import { dataStylesMap } from '../interfaces/dataStylesMap';
+import { dataStylesMap } from '../interfaces/dataStylesMap.interface';
 import { LngLat, LngLatBounds, Map, Marker, PropertyValueSpecification, SourceSpecification } from 'mapbox-gl';
 import { Place } from '../interfaces/place.interface';
 import { PolylineService } from './polyline.service';
-import { Route } from '../interfaces/directions';
+import { Route } from '../interfaces/directions.interface';
 import { SavedPlacesService } from './saved-places.service';
 import { StylesMapsService } from './styles-maps.service';
+import { Itinerary } from '../interfaces/itinerary.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapsService {
+
+  private readonly _ngZone = inject(NgZone);
 
   private readonly _apiClient = inject(ApiClientService);
 
@@ -71,9 +74,7 @@ export class MapsService {
     })
   }
 
-  private setMapStyles() {
-    
-  }
+
 
   setRain() {
     const map = this.map();
@@ -157,14 +158,13 @@ export class MapsService {
 
     map.on('move', () => {
       this._currentLngLat.set(map.getCenter());
-      const { lng, lat } = this._currentLngLat();
+      // const { lng, lat } = this._currentLngLat();
     });
 
     map.on('style.load', () => {
       this.setRain();
       this.setSnow();
     });
-
   }
 
   flyTo(coords: Coordinates | null, zoom = 14) {
@@ -176,7 +176,7 @@ export class MapsService {
         center: {
           lng: coords.longitude,
           lat: coords.latitude
-        }
+        },
       }
     )
   }
@@ -199,47 +199,40 @@ export class MapsService {
     this._stylesMapsService.setStyle(style);
   }
 
-  createMarkersFromPlaces(places: Place[]) {
-    const map = this.map();
-    if (!map) return;
-
+  public removeOldMarkers() {
     this._markers().forEach(marker => marker.remove());
-
-    if (!places.length) return;
-
+    this._markers.set([]);
   }
 
-  addMarker(place: Place, viewContainerRef: ViewContainerRef): Marker | null {
+  private getRandomColor = () => '#xxxxxx'.replace(/x/g, y => (Math.random() * 16 | 0).toString(16));
+
+  addMarker(place: Place, viewContainerRef: ViewContainerRef, removeOldMarkers = true): Marker | null {
     const map = this.map();
     const { coordinates } = place;
     if (!map || !coordinates) return null;
+    if (removeOldMarkers) this.removeOldMarkers();
     const { longitude, latitude } = coordinates;
-    const color = '#xxxxxx'.replace(/x/g, y => (Math.random() * 16 | 0).toString(16));
+    const color = this.getRandomColor();
 
     const marker = new Marker({
       color: color,
       draggable: false
     }).setLngLat(new LngLat(longitude, latitude)).addTo(map);
-
+    this._markers.update((markers: Marker[]) => [...markers, marker])
     const componentRef: ComponentRef<CustomPopupComponent> = viewContainerRef.createComponent(CustomPopupComponent);
     componentRef.setInput("place", place);
     marker.getElement()?.appendChild(componentRef.location.nativeElement);
     return marker;
   }
 
-  getRouteBeetweenPoints(start: Coordinates, end: Coordinates) {
-    this._apiClient.getDirections(start.longitude, start.latitude, end.longitude, end.latitude).subscribe((
-      response => this.drawPolyline(response.routes[0])
-    ))
-  }
 
-  private drawPolyline(route: Route) {
+  public drawItinerary(itinerary: Itinerary, layer = 0) {
+
     const map = this.map();
     if (!map) return;
-    console.log({ distanciaKms: route.distance / 1000, duracion: route.duration / 60 })
 
-    console.log(route.geometry)
-    const coords = this._polylineService.decode(route.geometry);
+
+    const coords = this._polylineService.decode(itinerary.geometry);
 
     const bounds = new LngLatBounds();
 
@@ -266,30 +259,44 @@ export class MapsService {
       }
     }
 
-    if (map.getLayer('RouteString')) {
-      map.removeLayer('RouteString');
-      map.removeSource('RouteString');
+    const layerName = this.getLayerName(layer);
+
+    if (map.getLayer(layerName)) {
+      map.removeLayer(layerName);
+      map.removeSource(layerName);
     }
 
-
-    map.addSource('RouteString', sourceData);
+    map.addSource(layerName, sourceData);
 
     map.addLayer({
-      id: 'RouteString',
+      id: layerName,
       type: 'line',
-      source: 'RouteString',
+      source: layerName,
       layout: {
         'line-cap': 'round',
         'line-join': 'round'
       },
       paint: {
-        'line-color': 'black',
-        'line-width': 3
+        'line-color': this.getRandomColor(),
+        'line-width': 4
       }
     });
   }
 
-  destroyMap() {
+  private getLayerName = (layer: number) => `Layer${layer}`;
+
+  public removeLayers() {
+    const map = this.map();
+    if (!map) return;
+    let index = 0;
+    while (map.getLayer(this.getLayerName(index))) {
+      map.removeLayer(this.getLayerName(index));
+      map.removeSource(this.getLayerName(index));
+      index++;
+    }
+  }
+
+  public destroyMap() {
     this.map()?.remove();
   }
 }

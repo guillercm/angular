@@ -11,34 +11,26 @@
 </pato-form>
 <shared-button (onClicked)="loadSimpsons()" [disabled]="simpsons().length > 0" [label]="simpsons().length > 0 ? 'Simpsons cargados' : 'Cargar simpsons'" ></shared-button>
 <div class="row g-3 pt-4">
-
-  <!-- @defer (when simpsonsObservable | async) {
-    @for (simpson of simpsons(); track $index) {
-      <div class="col col-12 col-md-6 col-xxl-4">
-        <features-simpson-card [simpson]="simpson"></features-simpson-card>
-      </div>
+  @switch (("getSimpsons" | stateHttpRequest)()) {
+    @case ("loading") {
+      @for (_ of 5 | sharedRepeat; track $index) {
+        <div class="col col-12 col-md-6 col-xxl-4">
+          <features-simpson-card></features-simpson-card>
+        </div>
+      }
     }
-  } @placeholder {
-    @for (_ of 5 | sharedRepeat; track $index) {
-      <div class="col col-12 col-md-6 col-xxl-4">
-        <features-simpson-card></features-simpson-card>
-      </div>
+    @case ("error") {
+      <p class="bg-danger">Ha habido un error al obtener los simpsons.</p>
     }
-  } @error {
-    <h2>Errooor</h2>
-  } -->
-    @defer ( when simpsons().length ) {
+    @default {
       @for (simpson of simpsons(); track $index) {
         <div class="col col-12 col-md-6 col-xxl-4">
           <features-simpson-card [simpson]="simpson"></features-simpson-card>
         </div>
+      } @empty {
+        <div>No hay simpsons</div>
       }
-  }
-  @placeholder {
-    @for (_ of 5 | sharedRepeat; track $index) {
-      <div class="col col-12 col-md-6 col-xxl-4">
-        <features-simpson-card></features-simpson-card>
-      </div>
     }
   }
+
 </div>

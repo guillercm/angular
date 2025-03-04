@@ -12,6 +12,10 @@ export class ModalService {
 
   open<T>(data: DataModal<T>): NgbModalRef {
     const { component, destroyRef, args, options } = data;
+    const activeElement = document.activeElement as HTMLElement;
+    if (activeElement) {
+      activeElement.blur();
+    }
     const modalRef: NgbModalRef = this._modalService.open(component, options);
     if (args)
       Object.keys(args).forEach((key) => {

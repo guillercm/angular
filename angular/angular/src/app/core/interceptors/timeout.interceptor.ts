@@ -1,20 +1,66 @@
-import { HttpRequest, HttpHandlerFn, HttpEvent } from "@angular/common/http";
-import { Observable, timeout, catchError, throwError, TimeoutError } from "rxjs";
-import { InterceptorService } from "./services/interceptor.service";
-import { inject } from "@angular/core";
 import { environment } from "@environments/environments";
+import { HttpRequest, HttpHandlerFn, HttpEvent } from "@angular/common/http";
+import { inject, DestroyRef } from '@angular/core';
+import { InterceptorService } from "./services/interceptor.service";
+import { LanguageService } from "@core/services/language/language.service";
+import { ModalService } from "@core/services/modal/modal.service";
+import { Observable, timeout, catchError, throwError, TimeoutError } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { TimeoutModalComponent } from "@core/components/timeout-modal/timeout-modal.component";
 
 const timeoutSeconds = environment.timeoutSeconds;
 
 export function timeoutInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-    const interceptorService = inject(InterceptorService);
-    return next(req).pipe(
-        timeout(timeoutSeconds * 1000),
-        catchError(error => {
-            if (error instanceof TimeoutError) interceptorService.timeoutErrorData.set({
-                req, error
-            });
-            return throwError(() => error);
-        })
-    );
+  const interceptorService = inject(InterceptorService);
+  const modalService = inject(ModalService);
+  const destroyRef = inject(DestroyRef);
+  const languageService = inject(LanguageService);
+  const context = interceptorService.getContextFromRequest(req);
+
+  const shouldShowErrorModal = (): boolean => Boolean(context.showGlobalModalTimeout);
+
+  const openErrorModal = (status_code: string) => {
+    languageService.getModalHttpStatusErrors(status_code).pipe(
+      takeUntilDestroyed(destroyRef),
+    ).subscribe(({ title, message }) => {
+      modalService.open({
+        component: TimeoutModalComponent,
+        destroyRef: destroyRef,
+        args: {
+          title,
+          message,
+          onClicked: (event: string) => {
+            //console.log(event)
+          }
+        },
+        options: {
+          animation: true
+        }
+      });
+    })
+  }
+
+  return next(req).pipe(
+    timeout(timeoutSeconds * 1000),
+    // retry({
+    //   count: 3, // Número máximo de reintentos
+    //   delay: (error, retryCount) => {
+    //     // if (!(error instanceof TimeoutError)) throw error;
+    //     console.log(error)
+
+    //     console.log(`Intento de reintento ${retryCount} después de un Timeout`);
+    //     return timer(retryCount * 1000); // Incrementa el retraso con cada intento (1s, 2s, 3s...)
+    //     // Lanza otros errores directamente
+    //   }
+    // }),
+    catchError(error => {
+      if (!(error instanceof TimeoutError)) return throwError(() => error);
+      if (shouldShowErrorModal()) {
+        openErrorModal("timeout");
+      }
+      console.log(context)
+      interceptorService.setTimeoutErrorData({ req, error, context });
+      return throwError(() => error);
+    })
+  );
 }

@@ -11,6 +11,7 @@ import { Place } from '../../interfaces/place.interface';
 import { SharedClickOutsideDirective } from '@shared/directives/click-outside/shared-click-outside.directive';
 import { MapsService } from '../../services/maps.service';
 import { FormGroup } from '@angular/forms';
+import { ItinerariesService } from '../../services/itineraries.service';
 
 @Component({
   selector: 'features-mapbox-maps-searcher',
@@ -26,7 +27,9 @@ export class MapsSearcherComponent {
 
   private readonly _apiClient = inject(ApiClientService);
 
-  private readonly _mapServices = inject(MapsService);
+  private readonly _mapService = inject(MapsService);
+
+  private readonly _itinerariesService = inject(ItinerariesService);
 
   private _form = signal<FormGroup|null>(null);
 
@@ -57,11 +60,12 @@ export class MapsSearcherComponent {
       }
     })
   }
-  
+
   flyTo(place: Place) {
     this.resetSearch();
-    this._mapServices.addMarker(place, this._viewContainerRef)
-    this._mapServices.flyTo(place.coordinates)
+    this._itinerariesService.removeItinerariesOfPlaces();
+    this._mapService.addMarker(place, this._viewContainerRef)
+    this._mapService.flyTo(place.coordinates)
   }
 
   onSubmit({ query }: any) {

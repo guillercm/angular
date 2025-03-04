@@ -1,4 +1,4 @@
-export interface HttpStatus {
+export interface PageHttpStatus {
   status: string,
   message: string,
   img: string,

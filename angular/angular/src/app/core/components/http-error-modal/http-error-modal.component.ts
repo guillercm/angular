@@ -2,17 +2,17 @@ import { Component, inject, output, signal } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'core-timeout-modal',
+  selector: 'core-http-error-modal',
   imports: [],
-  templateUrl: './timeout-modal.component.html',
-  styleUrl: './timeout-modal.component.css'
+  templateUrl: './http-error-modal.component.html',
+  styleUrl: './http-error-modal.component.css'
 })
-export class TimeoutModalComponent {
+export class HttpErrorModalComponent {
   private readonly _activeModal = inject(NgbActiveModal);
 
   public title = signal<string>("");
 
-  public message = signal<string>("")
+  public message = signal<string>("");
 
   onClicked = output<string>();
 

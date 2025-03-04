@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { setHttpContext } from '@core/interceptors/context/http-context';
 import { ApiHandlerParams } from '@core/interfaces/api-handler/api-handler-params.interface';
 import { ApiHandlerPathParams } from '@core/interfaces/api-handler/api-handler-path-params.interface';
 import { Observable, shareReplay } from 'rxjs';
@@ -13,27 +14,32 @@ export class ApiHandlerService {
 
   public get<T>(url: string, options?: ApiHandlerParams): Observable<T> {
     url = this.setPathParams(url, options?.pathParams);
-    return this._httpClient.get<T>(url, options).pipe(shareReplay(1));
+    const context = this.getContext(options);
+    return this._httpClient.get<T>(url, {...options, context: context}).pipe(shareReplay(1));
   }
 
   public post<T>(url: string, options?: ApiHandlerParams): Observable<T> {
     url = this.setPathParams(url, options?.pathParams);
-    return this._httpClient.post<T>(url, options).pipe(shareReplay(1));
+    const context = this.getContext(options);
+    return this._httpClient.post<T>(url, {...options, context: context}).pipe(shareReplay(1));
   }
 
   public delete<T>(url: string, options?: ApiHandlerParams): Observable<T> {
     url = this.setPathParams(url, options?.pathParams);
-    return this._httpClient.delete<T>(url, options).pipe(shareReplay(1));
+    const context = this.getContext(options);
+    return this._httpClient.delete<T>(url, {...options, context: context}).pipe(shareReplay(1));
   }
 
   public put<T>(url: string, options?: ApiHandlerParams): Observable<T> {
     url = this.setPathParams(url, options?.pathParams);
-    return this._httpClient.put<T>(url, options).pipe(shareReplay(1));
+    const context = this.getContext(options);
+    return this._httpClient.put<T>(url, {...options, context: context}).pipe(shareReplay(1));
   }
 
   public patch<T>(url: string, options?: ApiHandlerParams): Observable<T> {
     url = this.setPathParams(url, options?.pathParams);
-    return this._httpClient.patch<T>(url, options).pipe(shareReplay(1));
+    const context = this.getContext(options);
+    return this._httpClient.patch<T>(url, {...options, context: context}).pipe(shareReplay(1));
   }
 
   private setPathParams(url: string, pathParams?: ApiHandlerPathParams): string {
@@ -42,6 +48,10 @@ export class ApiHandlerService {
       url = url.replace(`{${key}}`, pathParams[key])
     })
     return url;
+  }
+
+  private getContext(options: ApiHandlerParams | undefined): HttpContext | undefined {
+    return options?.context ? setHttpContext(options?.context) : undefined;
   }
 
 }

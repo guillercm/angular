@@ -7,7 +7,7 @@
   @if (showList()) {
     <ul class="list-group overflow-y-auto" >
       @for (place of places(); track $index) {
-        <li class="list-group-item list-group-item-action pointer border-0 cursor-pointer" tabindex="1" (click)="flyTo(place)">
+        <li class="list-group-item list-group-item-action border-0 cursor-pointer" tabindex="1" (click)="flyTo(place)">
           <span>{{ place.full_address }}</span>
         </li>
       }

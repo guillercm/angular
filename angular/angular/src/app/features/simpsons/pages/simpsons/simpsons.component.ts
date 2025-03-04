@@ -3,7 +3,7 @@ import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { FormGroup, Validators } from '@angular/forms';
-import { HttpStatusCode } from '@angular/common/http';
+import { HttpRequest, HttpStatusCode } from '@angular/common/http';
 import { InterceptorService } from '@core/interceptors/services/interceptor.service';
 import { ModalService } from '@core/services/modal/modal.service';
 import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
@@ -12,20 +12,42 @@ import { PatoFormComponent } from "@shared/components/controls/pato-form/pato-fo
 import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
 import { Simpson } from '@features/simpsons/interfaces/simpson.interface';
 import { SimpsonsService } from '@features/simpsons/services/simpsons.service';
-import { Observable, Observer, catchError, delay, of, startWith, take, tap, throwError } from 'rxjs';
+import { MonoTypeOperatorFunction, Observable, Observer, catchError, delay, of, startWith, take, tap, throwError } from 'rxjs';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { SimpsonCardComponent } from "../../components/simpson-card/simpson-card.component";
 import { RepeatPipe } from '@shared/pipes/repeat/repeat.pipe';
 import { TimeoutModalComponent } from '@core/components/timeout-modal/timeout-modal.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LoaderInterceptorData } from '@core/interceptors/interfaces/loader-interceptor-data.interface';
+import { StateHttpRequestPipe } from '@core/pipes/state-http-request.pipe';
 
+// export function addCustomHeader(customValue: string): MonoTypeOperatorFunction<T> {
+//   return tap((req: HttpRequest<any>) => {
+//     // Clonar la solicitud y agregar el header
+//     const clonedRequest = req.clone({
+//       setHeaders: {
+//         'X-Custom-Header': customValue
+//       }
+//     });
 
+//     // Regresar la nueva solicitud clonada
+//     return clonedRequest;
+//   });
+// }
+
+function logWithTag<T>(tag: string): (source$: Observable<T>) => Observable<T> {
+  return source$ =>
+    source$.pipe(tap(v => {console.log(SimpsonsComponent.subs, source$)}));
+}
 @Component({
   selector: 'features-simpsons',
-  imports: [CommonModule, PatoFormComponent, SharedButtonComponent, SimpsonCardComponent, RepeatPipe],
+  imports: [CommonModule, PatoFormComponent, SharedButtonComponent, SimpsonCardComponent, RepeatPipe, StateHttpRequestPipe],
   templateUrl: './simpsons.component.html',
   styleUrl: './simpsons.component.css'
 })
 export default class SimpsonsComponent {
+
+  public static subs:any = null;
 
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -43,10 +65,15 @@ export default class SimpsonsComponent {
 
   protected simpsonsObservable: Observable<Simpson[]> | null = null;
 
+  public state = signal<null | 'loading' | 'error'>(null);
+
   constructor() {
     let initialRun = true;
     effect(() => {
       const data = this._interceptorService.httpErrorData();
+      if (data && data.context.id === "getSimpsons") {
+        this.state.set("error");
+      }
       if (initialRun) return;
       if (!data) return;
       switch (data.error.status) {
@@ -59,34 +86,21 @@ export default class SimpsonsComponent {
       const data = this._interceptorService.timeoutErrorData();
       if (initialRun) return;
       if (!data) return;
-      //console.log(data)
-      this._modalService.open({
-        component: TimeoutModalComponent,
-        destroyRef: this._destroyRef,
-        args: {
-          name: data.error.message,
-          onClicked: (event: string) => {
-            //console.log(event)
-          }
-        },
-        options: {
-          animation: true
-        }
-      });
     })
 
     effect(() => {
-      const isLoading = this._interceptorService.isLoadingSomeHttpRequest();
+      const isLoading = this._interceptorService.loadingHttpRequests().some((value: LoaderInterceptorData) => value.context.id === "getSimpsons");
+      this.state.set(isLoading ? "loading" : this.state());
       if (initialRun) {
         initialRun = false;
       }
 
       // ejecutaremos el código cuando hayamos echo una solicitud http y esta tarde mucho en hacerse
-      if (isLoading) {
-        //console.log("loading...")
-      } else {
-        //console.log("terminó de cargar :)")
-      }
+      // if (isLoading) {
+      //   console.log("loading simpsons...")
+      // } else {
+      //   console.log("terminó de cargar :)")
+      // }
     })
   }
 
@@ -160,32 +174,24 @@ export default class SimpsonsComponent {
   }
 
   onChangeControl(data: PatoDataFormChange) {
-    //console.log(data)
+    console.log(data)
   }
 
   onSubmit(data: any) {
-    //console.log(data);
+    console.log(data);
   }
 
-  private _state = signal<'default' | 'loading' | 'error' | 'loaded' | '0 results'>('default')
-  protected readonly state = this._state.asReadonly();
+
 
   loadSimpsons() {
-    this._state.set('loading');
     this._simpsonsServices.getSimpsons().pipe(
+      takeUntilDestroyed(this._destroyRef),
       tap((simpsons: Simpson[]) => {
       this._simpsons.set(simpsons);
     })).subscribe()
-
   }
 
-
   ngOnInit(): void {
-
-    // this._simpsonsServices.getSimpsonById(2).pipe(take(1)).subscribe((simpson: Simpson) => {
-    //   //console.log(simpson)
-    // })
-
 
 
   }

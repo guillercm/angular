@@ -1,0 +1,97 @@
+<div class="card">
+  <ul cdkDropList class="list-group list-group-flush overflow-y-auto w-rem-18 mh-rem-20"
+    (cdkDropListDropped)="drop($event)">
+    @for (place of places(); track $index; let index = $index; let last = $last) {
+    <li class="list-group-item" cdkDrag cdkDragPreviewClass="list-group-item" (cdkDragStarted)="dragStart($event)">
+      <div class="row p-0 align-items-center">
+        <div class="col ps-0 overflow-x-auto text-pre"><i class="bi me-2"
+            [ngClass]="last ? '' : 'bi-' + (index + 1) + '-circle'" [class.bi-geo-alt-fill]="last"></i>{{place.name}}
+        </div>
+        @if (places()[0].itinerary) {
+        @if (!last) {
+        <div class="col-2 position-relative">
+          <shared-button icon="three-dots-vertical" variant="link" additionalClasses="w-auto"
+            [cdkMenuTriggerFor]="menu"></shared-button>
+          <ng-template #menu>
+            <div cdkMenu class="bg-body border rounded p-2 w-rem-15">
+              <div class="row">
+                <div class="col">
+                  <shared-button [icon]="getIconByTravelMode(index)" variant="primary" (onClicked)="speachItineraryResume(place.itineraryResume)"></shared-button>
+                </div>
+              </div>
+
+              <hr>
+              <div class="row pt-2">
+                <p class="">{{ place.itineraryResume }}</p>
+              </div>
+
+            </div>
+          </ng-template>
+        </div>
+        }
+        } @else {
+        <div class="col-2 position-relative">
+          <shared-button icon="three-dots-vertical" variant="link" additionalClasses="w-auto"
+            [cdkMenuTriggerFor]="menu"></shared-button>
+          <ng-template #menu>
+            <div cdkMenu class="bg-body border rounded p-2 w-rem-15">
+              <div class="row">
+                <div class="col"><shared-button icon="eye-fill"  class="dropdown-item" variant="info"
+                    (onClicked)="openPlace(place)" ></shared-button></div>
+                <div class="col"><shared-button icon="trash" class="dropdown-item" variant="danger"
+                    (onClicked)="removePlace(place)" [outline]="true"></shared-button></div>
+              </div>
+              @if (!last) {
+              <hr>
+              <div class="row pt-2">
+                <p class="">{{ "features.mapbox.labels.nextPlace" | translate: {value: places()[index+1].name} }}</p>
+              </div>
+              <div class="row">
+                <div class="col"><shared-button [icon]="getIconByTravelMode('driving')"
+                    [variant]="getVariant('driving', place)" (onClicked)="setTravelMode('driving', index)"
+                    title="features.mapbox.labels.driving"></shared-button></div>
+                <div class="col"><shared-button [icon]="getIconByTravelMode('driving-traffic')"
+                    [variant]="getVariant('driving-traffic', place)"
+                    (onClicked)="setTravelMode('driving-traffic', index)"
+                    title="features.mapbox.labels.drivingTraffic"></shared-button></div>
+              </div>
+              <div class="row pt-2">
+                <div class="col"><shared-button [icon]="getIconByTravelMode('walking')"
+                    [variant]="getVariant('walking', place)" (onClicked)="setTravelMode('walking', index)"
+                    title="features.mapbox.labels.walking"></shared-button></div>
+                <div class="col"><shared-button [icon]="getIconByTravelMode('cycling')"
+                    [variant]="getVariant('cycling', place)" (onClicked)="setTravelMode('cycling', index)"
+                    title="features.mapbox.labels.cycling"></shared-button></div>
+              </div>
+              }
+            </div>
+          </ng-template>
+        </div>
+        }
+      </div>
+      <div class="container-itinerary">
+        @if (place.itinerary) {
+        @for (step of place.itinerary.steps; track $index) {
+        <div class="card-body ist-group-item list-group-item-action cursor-pointer" (click)="goToStepLocation(step)">
+          <div class="row pe-0">
+            <div class="col-1 ps-0"><i [ngClass]="getIcon(step.maneuver)"></i></div>
+            <div class="col pe-0">{{step.instruction}}</div>
+          </div>
+        </div>
+        }
+        }
+      </div>
+
+    </li>
+    }
+  </ul>
+  <div class="card-footer">
+    @if (places()[0].itinerary) {
+    <shared-button icon="trash" variant="danger" [outline]="true" (onClicked)="removeItinerarie()"></shared-button>
+    } @else {
+    <shared-button icon="arrow-90deg-right" [disabled]="places().length < 2"
+      label="features.mapbox.labels.btnHowToGetToAPlace" (onClicked)="initItinerarie()"></shared-button>
+    }
+
+  </div>
+</div>

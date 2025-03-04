@@ -39,21 +39,13 @@ export interface Step {
   name:          string;
   duration:      number;
   distance:      number;
-  driving_side:  DrivingSide;
+  driving_side:  string;
   weight:        number;
   mode:          Mode;
   geometry:      string;
   ref?:          string;
   destinations?: string;
   exits?:        string;
-}
-
-export enum DrivingSide {
-  Left = "left",
-  Right = "right",
-  SlightLeft = "slight left",
-  SlightRight = "slight right",
-  Straight = "straight",
 }
 
 export interface Intersection {
@@ -84,10 +76,10 @@ export enum ClassElement {
 }
 
 export interface Lane {
-  indications:       DrivingSide[];
+  indications:       string[];
   valid:             boolean;
   active:            boolean;
-  valid_indication?: DrivingSide;
+  valid_indication?: string;
 }
 
 export interface MapboxStreetsV8 {
@@ -117,7 +109,7 @@ export interface Maneuver {
   bearing_after:  number;
   bearing_before: number;
   location:       number[];
-  modifier?:      DrivingSide;
+  modifier?:      string;
 }
 
 export enum Mode {

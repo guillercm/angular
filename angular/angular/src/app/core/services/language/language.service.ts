@@ -1,10 +1,10 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { InterpolatableTranslationObject, InterpolationParameters, TranslateService } from '@ngx-translate/core';
+import { inject, Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, of, tap } from 'rxjs';
 import { AppConfigService } from '../configuration/app-config.service';
 import { ValidationErrors } from '@angular/forms';
-import { HttpStatus } from '@core/interfaces/http-status/http-status.interface';
+import { PageHttpStatus } from '@core/interfaces/http-status/page-http-status.interface';
+import { ModalHttpStatus } from '@core/interfaces/http-status/modal-http-status.interface';
 
 
 @Injectable({
@@ -40,9 +40,13 @@ export class LanguageService {
     return this.get(`errors.validations.${error}`, errors[error])
   }
 
-  gethttpStatusErrors(httpStatusCode: string): Observable<HttpStatus |  null> {
-    if (!httpStatusCode) return of(null);
-    return this.get(`errors.httpStatus.${httpStatusCode}`)
+  getPageHttpStatusErrors(httpStatusCode: string): Observable<PageHttpStatus> {
+    return this.get(`errors.httpStatus.pages.${httpStatusCode}`)
   }
+
+  getModalHttpStatusErrors(httpStatusCode: string): Observable<ModalHttpStatus>  {
+    return this.get(`errors.httpStatus.modals.${httpStatusCode}`)
+  }
+
 
 }

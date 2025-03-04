@@ -1,8 +1,9 @@
+import { Feature, PlacesResponse } from '../../interfaces/places.interface';
 import { inject, Injectable } from '@angular/core';
 import { ModelAdapter } from '@core/interfaces/adapter/model-adapter.interface';
 import { ModelAdapterService } from '@core/services/model-adapter/model-adapter.service';
-import { Feature, PlacesResponse } from '../../interfaces/places';
 import { Place } from '../../interfaces/place.interface';
+import { TravelMode } from '../../interfaces/travel-mode.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class PlacesAdapter implements ModelAdapter<PlacesResponse, Place[]> {
           coordinates: {
             longitude: feature.properties.coordinates.longitude,
             latitude: feature.properties.coordinates.latitude
-          }
+          },
+          travelMode: TravelMode.driving
         }
       })
     })

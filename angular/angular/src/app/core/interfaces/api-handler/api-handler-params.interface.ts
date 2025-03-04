@@ -1,11 +1,12 @@
-import { HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpHeaders, HttpParams } from "@angular/common/http";
 import { ApiHandlerPathParams } from "./api-handler-path-params.interface";
+import { DataHttpContext } from "@core/interceptors/interfaces/data-http-context.interface";
 
 export interface ApiHandlerParams {
   headers?: HttpHeaders | {
       [header: string]: string | string[];
   };
-  context?: HttpContext;
+  context?: DataHttpContext;
   observe?: 'body';
   params?: HttpParams | {
       [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;

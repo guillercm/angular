@@ -1,18 +1,43 @@
-$utilities: (
-  "width": (
-  property: width,
-  class: w,
-    values: (
-      20: 20%,
+$bootstrapUtilities: (
+  "width": (property: width,
+    class: w,
+    values: (20: 20%,
       25: 25%,
       50: 50%,
       75: 75%,
       100: 100%,
-      auto: auto
-    )
+      auto: auto),
   ),
- );
-$opacity-hover: (0, .25, .50, .75, 1);
+  "white-space": (property: white-space,
+    class: text,
+    values: (wrap: normal,
+      nowrap: nowrap,
+      pre: pre)),
+);
+
+$customUtilities: (
+  "width-rem": (property: width,
+    class: w-rem,
+    values: (18: 18rem, 15: 15rem),
+  ),
+  "max-height-rem": (property: max-height,
+    class: mh-rem,
+    values: (20: 20rem,
+    15: 15rem),
+  ),
+  "cursor": (property: cursor,
+    class: cursor,
+    values: (pointer))
+);
+
+$opacity-hover: (
+  0,
+  .25,
+  .50,
+  .75,
+  1
+);
+
 @each $op in $opacity-hover {
   .opacity-hover-#{$op*100}:hover {
     opacity: #{$op} !important;

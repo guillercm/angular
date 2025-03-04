@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { MapsService } from '../../services/maps.service';
 import { CommonModule } from '@angular/common';
-import { dataStyleMap } from '../../interfaces/dataStyleMap';
+import { dataStyleMap } from '../../interfaces/dataStyleMap.interface';
 import { SharedImageComponent } from "../../../../../shared/components/image/shared-image.component";
 import { StylesMapsService } from '../../services/styles-maps.service';
 import { TranslatePipe } from '@ngx-translate/core';

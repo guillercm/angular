@@ -14,24 +14,48 @@
       "maxlength": "Tiene que tener como máximo {{ requiredLength }} carácteres."
     },
     "httpStatus": {
-      "404": {
-        "status": "404",
-        "title": "Página no encontrada",
-        "message": "Lo sentimos, no pudimos encontrar la página que estás buscando. Por favor, verifica la URL o vuelve al inicio.",
-        "img": "404.png",
-        "button": {
-          "route": "/",
-          "label": "Volver al Inicio"
+      "pages": {
+        "404": {
+          "status": "404",
+          "title": "Página no encontrada",
+          "message": "Lo sentimos, no pudimos encontrar la página que estás buscando. Por favor, verifica la URL o vuelve al inicio.",
+          "img": "404.png",
+          "button": {
+            "route": "/",
+            "label": "Volver al Inicio"
+          }
+        },
+        "500": {
+          "status": "500",
+          "title": "Oops! Algo salió mal.",
+          "message": "Estamos trabajando para solucionarlo. Por favor, inténtalo de nuevo más tarde.",
+          "img": "500.png",
+          "button": {
+            "route": "/",
+            "label": "Volver al Inicio"
+          }
         }
       },
-      "500": {
-        "status": "500",
-        "title": "Oops! Algo salió mal.",
-        "message": "Estamos trabajando para solucionarlo. Por favor, inténtalo de nuevo más tarde.",
-        "img": "500.png",
-        "button": {
-          "route": "/",
-          "label": "Volver al Inicio"
+      "modals": {
+        "404": {
+          "status": "404",
+          "title": "Recurso no encontrado",
+          "message": "El recurso que estás intentando acceder no está disponible o ha sido movido."
+        },
+        "422": {
+          "status": "422",
+          "title": "Entidad no procesable",
+          "message": "Los datos enviados contienen errores o no cumplen con los requisitos esperados. Por favor, verifica la información e inténtalo de nuevo."
+        },
+        "0": {
+          "status": "0",
+          "title": "Error desconocido",
+          "message": "Se ha producido un error inesperado. Por favor, intenta nuevamente más tarde o contacta con soporte."
+        },
+        "timeout": {
+          "status": "0",
+          "title": "Tiempo de espera agotado",
+          "message": "El servidor tardó demasiado en responder. Por favor, verifica tu conexión o inténtalo de nuevo."
         }
       }
     },
@@ -40,12 +64,36 @@
       "404": "Tampoco se encontró la imagen"
     }
   },
+  "plurals": {
+    "time": {
+      "hours": {
+        "=0": "",
+        "=1": "1 hora",
+        "other": "# horas"
+      },
+      "minutes": {
+        "=0": "",
+        "=1": "1 minuto",
+        "other": "# minutos"
+      }
+    },
+    "distance": {
+      "meters": {
+        "=0": "",
+        "=1": "1 metro",
+        "other": "# metros"
+      },
+      "kilometers": {
+        "=0": "",
+        "=1": "1 kilómetro",
+        "other": "# kilómetros"
+      }
+    }
+  },
   "features": {
     "simpsons": {
       "forms": {
-        "create": {
-
-        }
+        "create": {}
       }
     },
     "gifs": {
@@ -72,12 +120,18 @@
         "btnChangeStyle": "Cambiar estilo del mapa",
         "btnSavedPlaces": "Ver lugares guardados",
         "titleSavedPlaces": "Lugares guardados",
-        "emtySavePlace": "No hay lugares guardados"
+        "emtySavePlace": "No hay lugares guardados",
+        "btnHowToGetToAPlace": "Cómo llegar",
+        "nextPlace": "Para ir a {{value}}:",
+        "drivingTraffic": "Para ir en vehículo teniendo en cuenta las condiciones de tráfico actuales e históricas para evitar demoras.",
+        "driving": "Para ir en vehículo con las rutas más rápidas, dando preferencia a las carreteras de alta velocidad, como las autopistas.",
+        "walking": "Para rutas de peatones y excursionistas.",
+        "cycling": "Para rutas en bicicleta.",
+        "itineraryResume": "{{ time }} ({{ distance }}), para llegar a {{ place }}."
       },
       "placeholders": {
         "inputSiteSearch": "Buscar..."
       }
     }
-
   }
 }
