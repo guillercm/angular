@@ -1,3 +1,4 @@
+@if (places().length) {
 <div class="card">
   <ul cdkDropList class="list-group list-group-flush overflow-y-auto w-rem-18 mh-rem-20"
     (cdkDropListDropped)="drop($event)">
@@ -16,7 +17,8 @@
             <div cdkMenu class="bg-body border rounded p-2 w-rem-15">
               <div class="row">
                 <div class="col">
-                  <shared-button [icon]="getIconByTravelMode(index)" variant="primary" (onClicked)="speachItineraryResume(place.itineraryResume)"></shared-button>
+                  <shared-button [icon]="getIconByTravelMode(index)" variant="primary"
+                    (onClicked)="speachItineraryResume(place.itineraryResume)"></shared-button>
                 </div>
               </div>
 
@@ -36,8 +38,8 @@
           <ng-template #menu>
             <div cdkMenu class="bg-body border rounded p-2 w-rem-15">
               <div class="row">
-                <div class="col"><shared-button icon="eye-fill"  class="dropdown-item" variant="info"
-                    (onClicked)="openPlace(place)" ></shared-button></div>
+                <div class="col"><shared-button icon="eye-fill" class="dropdown-item" variant="info"
+                    (onClicked)="openPlace(place)"></shared-button></div>
                 <div class="col"><shared-button icon="trash" class="dropdown-item" variant="danger"
                     (onClicked)="removePlace(place)" [outline]="true"></shared-button></div>
               </div>
@@ -92,6 +94,6 @@
     <shared-button icon="arrow-90deg-right" [disabled]="places().length < 2"
       label="features.mapbox.labels.btnHowToGetToAPlace" (onClicked)="initItinerarie()"></shared-button>
     }
-
   </div>
 </div>
+}

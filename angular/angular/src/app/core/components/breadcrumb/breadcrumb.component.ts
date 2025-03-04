@@ -31,6 +31,7 @@ export class BreadcrumbComponent implements OnInit {
         filter(event => event instanceof NavigationEnd)
       )
       .subscribe((event: NavigationEnd) => {
+        console.log(event.urlAfterRedirects)
         this.setBreadcrumb(event.urlAfterRedirects);
       });
   }
@@ -45,7 +46,13 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   protected setBreadcrumb(url: string) {
-    this._routes.set(url.split("/"));
+    const urls = url.split("/").slice(0, 3).map((url: string) => {
+      if (url.includes("#")) {
+        return url.substring(0, url.indexOf("#"));
+      }
+      return url;
+    });
+    this._routes.set(urls);
   }
 
 }
