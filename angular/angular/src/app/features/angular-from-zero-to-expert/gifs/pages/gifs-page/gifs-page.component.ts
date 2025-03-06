@@ -71,4 +71,8 @@ export default class GifsPageComponent {
       this.form()?.controls['query'].patchValue('');
     })
   }
+
+  onScroll(event: Event) {
+    
+  }
 }

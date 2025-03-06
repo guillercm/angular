@@ -31,7 +31,6 @@ export class BreadcrumbComponent implements OnInit {
         filter(event => event instanceof NavigationEnd)
       )
       .subscribe((event: NavigationEnd) => {
-        console.log(event.urlAfterRedirects)
         this.setBreadcrumb(event.urlAfterRedirects);
       });
   }

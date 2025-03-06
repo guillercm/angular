@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { ModelAdapter } from '@core/interfaces/adapter/model-adapter.interface';
 import { ModelAdapterService } from '@core/services/model-adapter/model-adapter.service';
-import { SimpsonResponse } from '@features/simpsons/interfaces/api/simpsonsRespose.interface';
 import { Simpson } from '@features/simpsons/interfaces/simpson.interface';
+import { SimpsonResponse } from '@features/simpsons/interfaces/api/simpsonsRespose.interface';
 
 @Injectable({
   providedIn: 'root',

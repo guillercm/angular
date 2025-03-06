@@ -7,6 +7,7 @@ const environments =
   production: 'PRODUCTION',
   configPath: 'CONFIG_PATH',
   docsPath: 'DOCS_PATH',
+  pdfPath: 'PDF_PATH',
   timeoutSeconds: 'TIMEOUT_SECONDS'
 }
 

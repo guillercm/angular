@@ -1,14 +1,11 @@
 import { Api } from '@core/interfaces/config/config';
 import { ApiHandlerService } from '@core/services/api-handler/api-handler.service';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
-import { HttpContext, HttpContextToken, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
+import { Observable, catchError, map, switchMap } from 'rxjs';
 import { Simpson } from '../interfaces/simpson.interface';
 import { SimpsonAdapter } from '../adapters/simpsons/simpsons-adapter';
 import { SimpsonResponse } from '../interfaces/api/simpsonsRespose.interface';
-import SimpsonsComponent from '../pages/simpsons/simpsons.component';
-import { setHttpContext } from '@core/interceptors/context/http-context';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +44,7 @@ export class SimpsonsService {
 
   getSimpsons() {
     const url = this.getEndpoint("getSimpsons");
-    return this._apiHandler.get<SimpsonResponse[]>(url, { context: { id: "getSimpsons" }}).pipe(
+    return this._apiHandler.get<SimpsonResponse[]>(url, { context: { id: "getSimpsons" } }).pipe(
       map((response: SimpsonResponse[]) => this._simpsonsAdapter.adaptArray(response))
     )
   }

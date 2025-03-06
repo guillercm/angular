@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DocsComponent } from '@core/components/docs/docs.component';
+import { PdfComponent } from '@core/components/pdf/pdf.component';
 
 export const featuresRoutes: Routes = [
   {
@@ -76,6 +77,12 @@ export const featuresRoutes: Routes = [
         path: 'notes',
         title: 'Notas',
         component: DocsComponent
+      },
+      {
+        path: 'docker',
+        title: 'Docker',
+        data: {pdf: 'docker'},
+        component: PdfComponent
       }
     ]
   },

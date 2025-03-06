@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import { Place } from '../interfaces/place.interface';
 import { SessionService } from '@core/services/session/session.service';
 
@@ -9,26 +9,23 @@ export class SavedPlacesService {
 
   private readonly _sessionService = inject(SessionService);
 
-  private _places = signal<Place[]>([]);
+  private _places = signal<Place[]>(this.loadPlaces());
   public readonly places = this._places.asReadonly();
 
-  constructor() {
-    this.loadPlaces();
+  private loadPlaces() {
+    return this._sessionService.getItem<Place[]>("places", []);
   }
 
+  private savePlaces = effect(() => this._sessionService.setItem("places", this._places()))
+
   public addPlace(place: Place) {
-    this._places.update((places: Place[]) => {
-      places.push(place);
-      return places;
-    });
-    this.savePlaces();
+    this._places.update((places: Place[]) => [place, ...places]);
   }
 
   public removePlace(place: Place) {
     this._places.update((places: Place[]) => {
       return places.filter(p => !this.placeIsEqual(p, place));
     })
-    this.savePlaces();
   }
 
   public placeIsSaved(place: Place): boolean {
@@ -39,13 +36,6 @@ export class SavedPlacesService {
     return place.full_address === place2.full_address
   }
 
-  private loadPlaces() {
-    const places = this._sessionService.getItem<Place[]>("places", []);
-    this._places.set(places);
-  }
 
-  private savePlaces() {
-    this._sessionService.setItem("places", this._places())
-  }
 
 }

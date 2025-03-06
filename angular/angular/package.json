@@ -34,6 +34,7 @@
     "json-server": "^1.0.0-beta.3",
     "mapbox-gl": "^3.10.0",
     "marked": "^15.0.6",
+    "ng2-pdf-viewer": "^10.4.0",
     "ngx-markdown": "^19.0.0",
     "polyline": "^0.2.0",
     "prettier": "^3.4.2",
