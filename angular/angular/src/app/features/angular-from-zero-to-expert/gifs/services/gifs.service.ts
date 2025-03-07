@@ -3,7 +3,7 @@ import { ApiHandlerService } from '@core/services/api-handler/api-handler.servic
 import { AppConfigService } from '@core/services/configuration/app-config.service';
 import { HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { Gif, SearchResponse } from '../interfaces/gifs.interfaces';
 
 @Injectable({
@@ -21,8 +21,7 @@ export class GifsService {
 
   public readonly gifs = this._gifs.asReadonly();
 
-  private _isLoadingGifs = signal<boolean>(false);
-  public readonly isLoadingGifs = this._isLoadingGifs.asReadonly();
+
 
   constructor() {
     this.initialize();
@@ -38,16 +37,14 @@ export class GifsService {
     return `${configApi.baseUrl}${configApi.endpoints[endpoint]}`;
   }
 
-  public searchTag(tag: string, limit: number = 15): Observable<SearchResponse> {
+  public searchTag(tag: string, page = 0, itemsPerPage = 15): Observable<SearchResponse> {
     const params = new HttpParams()
     .set('api_key', this._configApi()?.apiKey || '')
-    .set('limit', limit)
+    .set('limit', itemsPerPage)
+    .set('offset', page * itemsPerPage)
     .set('q', tag);
     const url = this.getEndpoint("search");
-    this._isLoadingGifs.set(true);
-    return this._apiHandler.get<SearchResponse>(url, {params}).pipe(
-      tap(() => this._isLoadingGifs.set(false))
-    );
+    return this._apiHandler.get<SearchResponse>(url, {params, context: {id: 'searchGifs', showGlobalLoader: false} }).pipe();
   }
 
   public setGifs(gifs: Gif[]) {

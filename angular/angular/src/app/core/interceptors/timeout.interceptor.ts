@@ -58,8 +58,7 @@ export function timeoutInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
       if (shouldShowErrorModal()) {
         openErrorModal("timeout");
       }
-      console.log(context)
-      interceptorService.setTimeoutErrorData({ req, error, context });
+      interceptorService.addOrUdpateHttpRequest({ state: 'error', timeoutError: error, req, context });
       return throwError(() => error);
     })
   );

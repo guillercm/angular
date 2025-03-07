@@ -1,5 +1,5 @@
 import { CardListComponent } from "../../components/card-list/card-list.component";
-import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { GifsService } from '../../services/gifs.service';
@@ -11,10 +11,11 @@ import { Gif, SearchResponse } from '../../interfaces/gifs.interfaces';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormGroup } from "@angular/forms";
 import { map } from "rxjs";
+import { IsScrollToEndDirective } from "@shared/directives/isScrollToEnd/is-scroll-to-end.directive";
 
 @Component({
   selector: 'features-gifs-page',
-  imports: [PatoFormComponent, CardListComponent],
+  imports: [PatoFormComponent, CardListComponent, IsScrollToEndDirective],
   templateUrl: './gifs-page.component.html',
   styleUrl: './gifs-page.component.css'
 })
@@ -30,7 +31,9 @@ export default class GifsPageComponent {
 
   protected readonly gifs = computed(() => this._gifsServices.gifs());
 
-  protected readonly isLoadingGifs = computed(() => this._gifsServices.isLoadingGifs())
+  protected readonly isLoadingGifs = computed(() => false)
+
+  private _page = signal<number>(0);
 
   protected dataForm: PatoDataForm = {
     query: createPatoControl({
@@ -72,7 +75,7 @@ export default class GifsPageComponent {
     })
   }
 
-  onScroll(event: Event) {
-    
+  isAtBottom(isAtBottom: boolean) {
+    console.log({isAtBottom})
   }
 }

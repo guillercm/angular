@@ -23,7 +23,7 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
 
   private _componentRefFormField!: ComponentRef<any>;
 
-  private readonly _id = computed(() => this._patoFormComponent.id() + '_' + this.key())
+  private readonly _id = computed(() => this._patoFormComponent.identifier() + '_' + this.key())
 
   private readonly _form = computed(() => this._patoFormComponent.form())
 

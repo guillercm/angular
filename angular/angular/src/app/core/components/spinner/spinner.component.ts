@@ -1,5 +1,5 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
-import { LoaderInterceptorData } from '@core/interceptors/interfaces/loader-interceptor-data.interface';
+import { Component, computed, inject } from '@angular/core';
+import { DataHttpRequest } from '@core/interceptors/interfaces/data-http-request.interface';
 import { InterceptorService } from '@core/interceptors/services/interceptor.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class SpinnerComponent {
   private readonly _interceptorService = inject(InterceptorService);
 
   protected readonly isLoading = computed<boolean>(() =>
-    this._interceptorService.loadingHttpRequests().some((value: LoaderInterceptorData) => value.context.showGlobalLoader)
+    this._interceptorService.dataHttpRequests().some((value: DataHttpRequest) => value.state === 'loading' && value.context.showGlobalLoader)
   );
 
 }

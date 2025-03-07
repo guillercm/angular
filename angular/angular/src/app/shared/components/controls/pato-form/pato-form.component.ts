@@ -24,7 +24,7 @@ export class PatoFormComponent implements AfterViewInit {
 
   public data = input.required<PatoDataForm>();
 
-  public id = input.required<string>();
+  public identifier = input.required<string>();
 
   public additionalClasses = input<string>();
 

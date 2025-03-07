@@ -1,11 +1,11 @@
-<div class="flex-fill d-flex h-100 overflow-y-auto" style="flex: 1 1 auto; flex-flow: column;" (scroll)="onScroll($event)">
+<div>
   <div class="row">
     <div class="col-12">
-      <pato-form [data]="dataForm" classes="row pb-4" id="gifs" (onbuildForm)="onBuildForm($event)" (onFormSubmit)="onSubmit($event)">
+      <pato-form [data]="dataForm" classes="row pb-4" identifier="gifs" (onbuildForm)="onBuildForm($event)" (onFormSubmit)="onSubmit($event)">
       </pato-form>
       <!--Busqueda-->
     </div>
-    <div class="col-12 pt-2">
+    <div class="col-12 mt-4 overflow-y-auto mh-rem-25" sharedIsScrollToEnd (isAtBottom)="isAtBottom($event)">
       <!--Listado de gifs-->
       @if (isLoadingGifs()) {
         <p>Cargando gifs...</p>

@@ -62,7 +62,7 @@ export function errorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
           status_code = HttpStatusCode.UnprocessableEntity;
       }
       if (shouldShowErrorModal(error.status)) openErrorModal(status_code.toString())
-      interceptorService.setHttpErrorData({ req, context, error });
+      interceptorService.addOrUdpateHttpRequest({ state: 'error', req, context, error });
       return throwError(() => error);
     }),
   );
