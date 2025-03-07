@@ -1,0 +1,152 @@
+body {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .contenedor {
+    background-color: #f1afd0;
+    min-height: 300px;
+  }
+  
+  .contenedor > div {
+    background-color: #fa4c4b;
+    width: 200px;
+    margin: 5px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+  }
+  
+  h2 {
+    margin-top: 60px;
+  }
+  
+  pre {
+    font-size: 16px;
+  }
+  
+  /* Agregar los estilos para los diferentes ejemplos de flexbox */
+  #ejemplo .contenedor {
+    display: flex;
+  }
+  
+  #ejemplo .contenedor > div {
+    order: 0;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  
+  #ejemplo .contenedor > div:nth-child(1) {
+    flex-grow: 2;
+  }
+  
+  #ejemplo .contenedor > div:nth-child(1) {
+    flex-shrink: 4;
+  }
+  
+  #ejemplo .contenedor > div:nth-child(1) {
+    flex-basis: 400px;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #ejemplo .contenedor > div:nth-child(7) {
+    align-self: flex-end;
+  }
+  
+  #ejemplo .contenedor > div:nth-child(7) {
+    align-self: flex-end;
+    order: 1;
+  }
+  
+  #ejemplo .contenedor > div:nth-child(1) {
+    flex: 1 4 400px;
+    order: 2;
+  }
+  
+  #ejemplo .contenedor > div:nth-child(7) {
+    align-self: flex-end;
+    order: 1;
+  }
+  
+  #ejemplo .contenedor {
+    display: inline-flex;
+  }
+  
+  #ejemplo .contenedor {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  

@@ -5,12 +5,11 @@
       </pato-form>
       <!--Busqueda-->
     </div>
-    <div class="col-12 mt-4 overflow-y-auto mh-rem-25" sharedIsScrollToEnd (isAtBottom)="isAtBottom($event)">
+    <div class="col-12 mt-4 overflow-y-auto mh-rem-25" sharedIsScrollToEnd (isAtBottom)="isAtBottom($event)" #scrollDiv>
       <!--Listado de gifs-->
+      <features-gifs-list [gifs]="gifs()"></features-gifs-list>
       @if (isLoadingGifs()) {
-        <p>Cargando gifs...</p>
-      } @else {
-        <features-gifs-list [gifs]="gifs()"></features-gifs-list>
+        <core-spinner></core-spinner>
       }
 
     </div>

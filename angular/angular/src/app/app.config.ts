@@ -1,5 +1,5 @@
 import { ApplicationConfig, inject, LOCALE_ID, provideAppInitializer, provideExperimentalZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 
@@ -33,13 +33,17 @@ export const appConfig: ApplicationConfig = {
     //provideZoneChangeDetection({ eventCoalescing: true }),
     { provide: LOCALE_ID, useValue: 'es' },
     provideExperimentalZonelessChangeDetection(),
-    provideRouter(routes),
+    provideRouter(routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+      })),
     provideHttpClient(
       withInterceptors(
         [timeoutInterceptor, errorInterceptor, loaderInterceptor]
       )
     ),
     provideMarkdown(),
+    
     provideTranslateService({
       loader: {
         provide: TranslateLoader,

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { DocsComponent } from '@core/components/docs/docs.component';
 import { PdfComponent } from '@core/components/pdf/pdf.component';
+import { FlexCssComponent } from './my-methodology/pages/flex-css/flex-css.component';
 
 export const featuresRoutes: Routes = [
   {
@@ -77,6 +78,11 @@ export const featuresRoutes: Routes = [
         path: 'notes',
         title: 'Notas',
         component: DocsComponent
+      },
+      {
+        path: 'flexbox',
+        title: 'Flexbox',
+        component: FlexCssComponent
       },
       {
         path: 'docker',

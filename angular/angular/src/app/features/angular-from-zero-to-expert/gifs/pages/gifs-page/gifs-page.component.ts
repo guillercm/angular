@@ -1,5 +1,5 @@
 import { CardListComponent } from "../../components/card-list/card-list.component";
-import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { GifsService } from '../../services/gifs.service';
@@ -12,16 +12,27 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormGroup } from "@angular/forms";
 import { map } from "rxjs";
 import { IsScrollToEndDirective } from "@shared/directives/isScrollToEnd/is-scroll-to-end.directive";
+import { InterceptorService } from "@core/interceptors/services/interceptor.service";
+import { SpinnerComponent } from "../../../../../core/components/spinner/spinner.component";
+import { ScrollStateService } from "@shared/services/scroll-state.service";
+import { DataScrollToEnd } from "@shared/directives/isScrollToEnd/interfaces/data-scroll-to-end.interface";
 
 @Component({
   selector: 'features-gifs-page',
-  imports: [PatoFormComponent, CardListComponent, IsScrollToEndDirective],
+  imports: [PatoFormComponent, CardListComponent, IsScrollToEndDirective, SpinnerComponent],
   templateUrl: './gifs-page.component.html',
   styleUrl: './gifs-page.component.css'
 })
-export default class GifsPageComponent {
+export default class GifsPageComponent implements AfterViewInit {
+
+
+  private readonly _interceptorService = inject(InterceptorService);
+
+  protected gifsRequest = computed(() => this._interceptorService.getHttpRequestById("searchGifs") )
 
   private readonly _querysHistoryService = inject(QuerysHistoryService);
+
+  private readonly _scrollStateService = inject(ScrollStateService);
 
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -31,9 +42,13 @@ export default class GifsPageComponent {
 
   protected readonly gifs = computed(() => this._gifsServices.gifs());
 
-  protected readonly isLoadingGifs = computed(() => false)
+  protected readonly isLoadingGifs = computed(() => this.gifsRequest()?.state === 'loading')
 
   private _page = signal<number>(0);
+
+  private _lastQuery = signal<string>("");
+
+  private readonly _scrollDiv = viewChild<ElementRef<HTMLDivElement>>('scrollDiv');
 
   protected dataForm: PatoDataForm = {
     query: createPatoControl({
@@ -57,6 +72,12 @@ export default class GifsPageComponent {
     })
   }
 
+  ngAfterViewInit(): void {
+    const div = this._scrollDiv()?.nativeElement;
+    if (!div) return;
+    div.scrollTop = this._scrollStateService.getScrollState("gifs")
+  }
+
   onBuildForm(form: FormGroup | null) {
     this.form.set(form);
   }
@@ -65,7 +86,9 @@ export default class GifsPageComponent {
     let {query} = data;
     query = query.trim()
     if (!query) return;
-    this._gifsServices.searchTag(query).pipe(
+    this._lastQuery.set(query);
+    this._page.set(0);
+    this._gifsServices.searchTag(query, this._page()).pipe(
       takeUntilDestroyed(this._destroyRef),
       map((value: SearchResponse) => value.data)
     ).subscribe((data: Gif[]) => {
@@ -75,7 +98,16 @@ export default class GifsPageComponent {
     })
   }
 
-  isAtBottom(isAtBottom: boolean) {
-    console.log({isAtBottom})
+  isAtBottom(data: DataScrollToEnd) {
+    const {isAtBottom, scrollTop, elementRef} = data;
+    this._scrollStateService.setScrollState("gifs", scrollTop);
+    if (!isAtBottom || this.gifsRequest()?.state === 'loading') return;
+    this._page.update((value) => value + 1);
+    this._gifsServices.searchTag(this._lastQuery() || this._querysHistoryService.querysHistory()[0], this._page()).pipe(
+      takeUntilDestroyed(this._destroyRef),
+      map((value: SearchResponse) => value.data)
+    ).subscribe((data: Gif[]) => {
+      this._gifsServices.addGifs(data)
+    })
   }
 }

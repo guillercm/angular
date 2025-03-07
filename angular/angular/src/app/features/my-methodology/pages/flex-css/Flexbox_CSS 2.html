@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .contenedor {
+            background-color: #f1afd0;
+            min-height: 300px;
+        }
+
+        .contenedor > div {
+            background-color: #fa4c4b;
+            width: 200px;
+            margin: 5px;
+            text-align: center;
+            line-height: 75px;
+            font-size: 30px;
+        }
+
+        h2 {
+            margin-top: 60px;
+        }
+
+        pre {
+            font-size: 16px;
+            /* background: #222;
+            color:#fff; */
+        }
+    </style>
+    <style id="style-1">
+
+        #ejemplo .contenedor {
+            display: flex;
+        }
+
+    </style>
+    <style id="style-2" title="Estilos por defecto">
+
+        #ejemplo .contenedor {
+            display: flex;
+            justify-content: stretch;
+
+            flex-wrap: nowrap;
+            flex-direction: row;
+            flex-flow: row nowrap; /* Para poner los dos estilos en una sóla propiedad*/
+        }
+
+        #ejemplo .contenedor > div {
+            order: 0;
+        }
+
+    </style>
+    <style id="style-3">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-wrap: wrap; /* Para respetar las medidas de cada elemento y no disminuyan su tamaño, por defecto flex-wrap: nowrap;  */
+        }
+
+    </style>
+    <style id="style-4" childs="3">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-direction: column;
+        }
+
+    </style>
+    <style id="style-5">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+    </style>
+    <style id="style-6" childs="3">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+    </style>
+    <style id="style-7">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+        }
+
+    </style>
+    <style id="style-8">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-end;
+        }
+
+    </style>
+    <style id="style-9">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+        }
+
+    </style>
+    <style id="style-10">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+        }
+
+    </style>
+    <style id="style-11">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+    <style id="style-12">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+    </style>
+    <style id="style-13">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+    </style>
+    <style id="style-14">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+
+    </style>
+    <style id="style-15">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: flex-start;
+        }
+
+    </style>
+    <style id="style-16">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: flex-end;
+        }
+
+    </style>
+    <style id="style-17">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+
+        #ejemplo .contenedor > div:nth-child(1) {
+            flex-grow: 2;
+        }
+
+    </style>
+    <style id="style-18">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+
+        #ejemplo .contenedor > div:nth-child(1) {
+            flex-shrink: 4;
+        }
+
+    </style>
+    <style id="style-19">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+
+        #ejemplo .contenedor > div:nth-child(1) {
+            flex-basis: 400px;
+        }
+
+    </style>
+    <style id="style-20">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #ejemplo .contenedor > div:nth-child(7) {
+            align-self: flex-end;
+        }
+
+    </style>
+    <style id="style-21">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #ejemplo .contenedor > div:nth-child(7) {
+            align-self: flex-end;
+            order: 1;
+        }
+
+    </style>
+    <style id="style-22">
+
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #ejemplo .contenedor > div:nth-child(1) {
+            flex: 1 4 400px;
+            order: 2;
+        }
+
+        #ejemplo .contenedor > div:nth-child(7) {
+            align-self: flex-end;
+            order: 1;
+        }
+
+    </style>
+    <style id="style-23">
+
+        #ejemplo .contenedor {
+            display: inline-flex;
+        }
+
+    </style>
+    <style id="style-24" childs="2">
+        #ejemplo .contenedor {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Flex</h1>
+    <div id="div_ejemplos">
+        
+    </div>
+
+</body>
+<script>
+    const ejemplos = document.getElementsByTagName("style").length - 1;
+    for (let i = 0; i < ejemplos; i++) {
+        const index = i + 1;
+        const style = document.getElementById("style-" + index);
+        const childs_attr = style.getAttribute("childs");
+        const childs = childs_attr ? childs_attr * 1 : 8;
+        let code = "";
+        if (style) {
+            code = style.innerHTML.replaceAll(`#ejemplo `, "");
+            style.innerHTML = style.innerHTML.replaceAll(`#ejemplo `, `#ejemplo-${index} `);
+        }
+        let childs_html = "";
+        for (let i = 0; i < childs; i++) {
+            childs_html += `<div>${i + 1}</div>`;
+        }
+        div_ejemplos.innerHTML += `
+        <h2>Ejemplo ${index} ${style.title ? ` (${style.title})` : ''}</h2>
+        <pre>${code}</pre>
+        <div id="ejemplo-${index}">
+            <div class="contenedor">
+                ${childs_html}
+            </div>
+        </div>`;
+    }
+</script>
+<h2>Recursos</h2>
+<p>
+   <a href="https://www.youtube.com/watch?v=14X6R1sG6C8" target="_blank">Video youtube</a> <br><br>
+
+   <a href="https://seocom.agency/es/blog/elementor-22671/" target="_blank">¿Qué es flexbox y cómo utilizarlo?</a> <br><br>
+
+   <a href="https://getbootstrap.com/docs/5.0/utilities/flex/" target="_blank">bootstrap</a> <br><br>
+
+</p>
+</html>

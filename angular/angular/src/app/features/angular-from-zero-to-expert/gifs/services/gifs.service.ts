@@ -37,7 +37,7 @@ export class GifsService {
     return `${configApi.baseUrl}${configApi.endpoints[endpoint]}`;
   }
 
-  public searchTag(tag: string, page = 0, itemsPerPage = 15): Observable<SearchResponse> {
+  public searchTag(tag: string, page = 0, itemsPerPage = 10): Observable<SearchResponse> {
     const params = new HttpParams()
     .set('api_key', this._configApi()?.apiKey || '')
     .set('limit', itemsPerPage)
@@ -49,5 +49,11 @@ export class GifsService {
 
   public setGifs(gifs: Gif[]) {
     this._gifs.set(gifs);
+  }
+
+  public addGifs(gifs: Gif[]) {
+    this._gifs.update((actualgifs: Gif[]) => {
+      return [...actualgifs, ...gifs]
+    })
   }
 }
