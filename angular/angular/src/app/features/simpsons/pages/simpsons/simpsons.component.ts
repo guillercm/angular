@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, linkedSignal, resource, signal } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { FormGroup, Validators } from '@angular/forms';
 import { InterceptorService } from '@core/interceptors/services/interceptor.service';
 import { ModalService } from '@core/services/modal/modal.service';
-import { Observable, tap } from 'rxjs';
+import { firstValueFrom, Observable, tap } from 'rxjs';
 import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
 import { PatoDataFormChange } from '@shared/components/controls/pato-form/interfaces/pato-form-change.interface';
 import { PatoFormComponent } from "@shared/components/controls/pato-form/pato-form.component";
@@ -15,8 +15,8 @@ import { SharedButtonComponent } from '@shared/components/button/shared-button.c
 import { Simpson } from '@features/simpsons/interfaces/simpson.interface';
 import { SimpsonCardComponent } from "../../components/simpson-card/simpson-card.component";
 import { SimpsonsService } from '@features/simpsons/services/simpsons.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
+import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormUtils } from '@features/simpsons/utils/custom-validators';
 // export function addCustomHeader(customValue: string): MonoTypeOperatorFunction<T> {
 //   return tap((req: HttpRequest<any>) => {
 //     // Clonar la solicitud y agregar el header
@@ -33,7 +33,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 function logWithTag<T>(tag: string): (source$: Observable<T>) => Observable<T> {
   return source$ =>
-    source$.pipe(tap(v => {console.log(SimpsonsComponent.subs, source$)}));
+    source$.pipe(tap(v => { console.log(SimpsonsComponent.subs, source$) }));
 }
 @Component({
   selector: 'features-simpsons',
@@ -43,7 +43,7 @@ function logWithTag<T>(tag: string): (source$: Observable<T>) => Observable<T> {
 })
 export default class SimpsonsComponent {
 
-  public static subs:any = null;
+  public static subs: any = null;
 
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -61,24 +61,54 @@ export default class SimpsonsComponent {
 
   protected simpsonsObservable: Observable<Simpson[]> | null = null;
 
-  protected simpsonsRequest = computed(() => this._interceptorService.getHttpRequestById("getSimpsons") )
+  protected simpsonsRequest = computed(() => this._interceptorService.getHttpRequestById("getSimpsons"))
 
-  asd = effect(() => {
-    console.log(this.simpsonsRequest() )
+  private _simpsonId = signal<number>(1);
+
+  protected readonly simpsonId = this._simpsonId.asReadonly();
+
+  private _linkedIdSimpson = linkedSignal<number>(() => this.simpsonId());
+
+  simpsonEffects = effect(() => {
+    this._linkedIdSimpson.set(78)
+    console.log("idSimpson " + this._linkedIdSimpson())
+
+    console.log(this.simpsonsRequest())
+
   })
+
+  simpsonResource = resource({
+    request: () => ({ simpsonId: this.simpsonId() }),
+    loader: async ({ request }) => {
+      const { simpsonId } = request;
+      return await firstValueFrom(this._simpsonsServices.getSimpsonById(simpsonId).pipe(
+        tap((value) => console.log(value))
+      ))
+    },
+  });
+
+  simpsonRxResource = rxResource({
+    request: () => ({ simpsonId: this.simpsonId() }),
+    loader: ({ request }) => {
+      const { simpsonId } = request;
+      return this._simpsonsServices.getSimpsonById(simpsonId).pipe(
+        tap((value) => console.log(value, this.simpsonRxResource.error()))
+      )
+    },
+  });
 
   protected dataForm: PatoDataForm = {
     fullName: createPatoControl({
       component: PatoInputComponent,
       formFieldComponent: FormFieldComponent,
       value: "",
-      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(6)],
+      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(6), FormUtils.validatorSimpson],
       args: {
         control: {
           debounceTimer: 1000,
           placeholder: "nombre",
           icon: "person-circle",
-          onDebounce: (value: string) => {
+          debounce: (value: string) => {
             //console.log(value)
           }
         },
@@ -91,30 +121,12 @@ export default class SimpsonsComponent {
         control: "input-group"
       }
     }),
-    personality: createPatoControl({
+    color: createPatoControl({
       component: PatoInputComponent,
       formFieldComponent: FormFieldComponent,
       value: "",
-      valueChangesSubscribe: true,
-      args: {
-        control: {
-          debounceTimer: 0,
-          placeholder: "personalidad"
-        },
-        formField: {
-          label: "Personalidad"
-        }
-      },
-      classes: {
-        formField: "mt-3 col-6",
-        control: "input-group"
-      }
-    }),
-    algo: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [],
+      validators: [Validators.required],
+      asyncValidators: [FormUtils.asycnValidatorSimpson],
       valueChangesSubscribe: true,
       args: {
         control: {
@@ -132,7 +144,7 @@ export default class SimpsonsComponent {
     })
   };
 
-  onBuildForm(form: FormGroup | null) {
+  buildForm(form: FormGroup | null) {
     this.form.set(form);
   }
 
@@ -142,14 +154,15 @@ export default class SimpsonsComponent {
 
   onSubmit(data: any) {
     console.log(data);
+    this._simpsonId.update((value: number) => value + 1)
   }
 
   loadSimpsons() {
     this._simpsonsServices.getSimpsons().pipe(
       takeUntilDestroyed(this._destroyRef),
       tap((simpsons: Simpson[]) => {
-      this._simpsons.set(simpsons);
-    })).subscribe()
+        this._simpsons.set(simpsons);
+      })).subscribe()
   }
 
   ngOnInit(): void {

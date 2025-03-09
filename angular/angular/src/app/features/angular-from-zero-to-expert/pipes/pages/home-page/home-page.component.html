@@ -107,40 +107,40 @@
             <ng-container [ngTemplateOutlet]="headersTable"></ng-container>
             <tbody>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date', value: date | date }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date', value: date() | date }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'short\'', value: date | date : 'short' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'short\'', value: date() | date : 'short' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\'', value: date | date : 'long' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\'', value: date() | date : 'long' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'MMMM\'', value: date | date : 'MMMM' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'MMMM\'', value: date() | date : 'MMMM' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'MMMM dd, yyyy\'', value: date | date : 'MMMM dd, yyyy' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'MMMM dd, yyyy\'', value: date() | date : 'MMMM dd, yyyy' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'GMT-6\'', value: date | date : 'long':'GMT-6' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'GMT-6\'', value: date() | date : 'long':'GMT-6' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'GMT-4\'', value: date | date : 'long':'GMT-4' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'GMT-4\'', value: date() | date : 'long':'GMT-4' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'es-HN\'', value: date | date : 'long':'' :'es-HN' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'es-HN\'', value: date() | date : 'long':'' :'es-HN' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'en-US\'', value: date | date : 'long':'' :'en-US' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'en-US\'', value: date() | date : 'long':'' :'en-US' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'fr-CA\'', value: date | date : 'long':'' :'fr-CA' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'long\' :\'\' :\'fr-CA\'', value: date() | date : 'long':'' :'fr-CA' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'hh.mm\' :\'GMT+1\'', value: (date | date : 'hh.mm':'GMT+1') + ' (Hora de Madrid)' }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'hh.mm\' :\'GMT+1\'', value: (date() | date : 'hh.mm':'GMT+1') + ' (Hora de Madrid)' }">
               </ng-container>
               <ng-container [ngTemplateOutlet]="examplePipe"
-                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'hh.mm\' :\'GMT+0\'', value: (date | date : 'hh.mm':'GMT+0') + ' (Hora de Canarias)'  }">
+                [ngTemplateOutletContext]="{label: 'new Date\(\) | date :\'hh.mm\' :\'GMT+0\'', value: (date() | date : 'hh.mm':'GMT+0') + ' (Hora de Canarias)'  }">
               </ng-container>
             </tbody>
           </table>

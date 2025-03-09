@@ -29,7 +29,7 @@ export default class LayoutComponent {
     this._isCollapsed.set(value);
   }
 
-  onCollapsed(collapse: boolean) {
+  collapsed(collapse: boolean) {
     this.isCollapsed = !collapse;
   }
 

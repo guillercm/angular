@@ -20,7 +20,7 @@ export class MapsPageComponent implements OnDestroy {
 
   private readonly _itinerariesService = inject(ItinerariesService);
 
-  private readonly _divMap = viewChild.required<ElementRef<HTMLElement>>('map')
+  private readonly _divMap = viewChild.required<ElementRef<HTMLDivElement>>('map')
 
   private _isCollapsed = signal<boolean>(true);
 

@@ -89,7 +89,7 @@ export class MapsSearcherComponent {
     if (clickOutside) this.resetSearch();
   }
 
-  protected onBuildForm(form: FormGroup | null) {
+  protected buildForm(form: FormGroup | null) {
     this._form.set(form);
   }
 

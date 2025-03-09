@@ -28,7 +28,7 @@ export class PatoFormComponent implements AfterViewInit {
 
   public additionalClasses = input<string>();
 
-  public onbuildForm = output<FormGroup|null>();
+  public buildForm = output<FormGroup|null>();
 
   public onFormSubmit = output<ResponsePatoForm>();
 
@@ -49,7 +49,7 @@ export class PatoFormComponent implements AfterViewInit {
 
   private initialize() {
     this.initFormKeys();
-    this.buildForm();
+    this.initForm();
     this.initSubscriptionsForControlValueChanges();
     // this.initFormTouchedEvents();
   }
@@ -58,19 +58,19 @@ export class PatoFormComponent implements AfterViewInit {
     this.formKeys = Object.keys(this.data());
   }
 
-  private buildForm() {
+  private initForm() {
     const dataForm: any = {}
     let i = 0;
     this.formKeys.forEach((key: string) => {
       const dataControl = this.data()[key];
-      dataForm[key] = [dataControl.value, [...dataControl.validators || []] ];
+      dataForm[key] = [dataControl.value, [...dataControl.validators || []], [...dataControl.asyncValidators || []] ];
       i++;
     });
     this._form.set(this._formBuilder.group(dataForm));
   }
 
   ngAfterViewInit(): void {
-    this.onbuildForm.emit(this.form());
+    this.buildForm.emit(this.form());
   }
 
   private initSubscriptionsForControlValueChanges() {

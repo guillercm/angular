@@ -6,6 +6,7 @@ export type PatoFormComponentType<T, T2> = {
   formFieldComponent: Type<T2>;
   value: any;
   validators?: any[];
+  asyncValidators?: any[];
   args?: {
     formField?: Partial<Args<T2>>,
     control?: Partial<Args<T>>

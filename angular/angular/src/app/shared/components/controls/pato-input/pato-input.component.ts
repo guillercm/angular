@@ -39,9 +39,9 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
 
   public submitFormOnDebounce = input<boolean>(false);
 
-  public onValue = output<string>();
+  public changeValue = output<string>();
 
-  public onDebounce = output<string>();
+  public debounce = output<string>();
 
   public control = computed<AbstractControl<any>>(() => this.formField().control() )
 
@@ -69,7 +69,7 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
       debounceTime(this.debounceTimer()),
     )
     .subscribe( value => {
-      this.onDebounce.emit(value);
+      this.debounce.emit(value);
       this.onTouched();
       if (this.submitFormOnDebounce())
       this._patoFormComponent.onSubmit();

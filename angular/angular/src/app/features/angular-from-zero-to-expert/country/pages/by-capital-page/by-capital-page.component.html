@@ -1,10 +1,10 @@
 <div class="flex-fill">
   <div class="row pt-2">
     <div class="col-12">
-      <pato-form [data]="dataForm" classes="row pb-4" identifier="capital" (onbuildForm)="onBuildForm($event)" (onFormSubmit)="onSubmit($event)">
+      <pato-form [data]="dataForm" classes="row pb-4" identifier="capital" (buildForm)="buildForm($event)" (onFormSubmit)="onSubmit($event)">
       </pato-form>
     </div>
-    <div class="col-12 w-100 overflow-x-auto">
+    <div class="col-12 w-100 overflow-x-auto mh-rem-25">
       <features-countries-country-table [countries]="countries()"></features-countries-country-table>
     </div>
   </div>

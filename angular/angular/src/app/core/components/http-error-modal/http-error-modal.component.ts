@@ -14,10 +14,10 @@ export class HttpErrorModalComponent {
 
   public message = signal<string>("");
 
-  onClicked = output<string>();
+  public clicked = output<string>();
 
   close() {
-    this.onClicked.emit("holaaaaaaaaaaaa");
+    this.clicked.emit("holaaaaaaaaaaaa");
     this._activeModal.close('Close click');
   }
 

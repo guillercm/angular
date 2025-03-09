@@ -36,16 +36,14 @@ export class SharedButtonComponent {
 
   public fontSizeIcon = input<1 | 2 | 3 | 4 | 5 | 6>(6);
 
-  public onClicked = output();
-
-
+  public clicked = output();
 
   protected readonly classes = computed(() => {
     return `w-100 btn btn-${(this.outline() ? 'outline-' : '') + this.variant() + (this.size() ? ` btn-${this.size()} ` : ' ') + this.additionalClasses()}`
   })
 
-  clicked() {
-    this.onClicked.emit();
+  click() {
+    this.clicked.emit();
   }
 
 }

@@ -64,7 +64,7 @@ export class ByCountryPageComponent {
     });
   }
 
-  onBuildForm(form: FormGroup | null) {
+  buildForm(form: FormGroup | null) {
     this.form.set(form);
     const query = this._sessionService.getItem<string>("countryByCountry", "");
     this.searchCountry(query);

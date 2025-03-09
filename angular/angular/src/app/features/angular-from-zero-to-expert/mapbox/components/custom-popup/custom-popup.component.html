@@ -6,12 +6,12 @@
     <div class="row">
       @if (showBtnSavePlace()) {
       <div class="col">
-        <shared-button (onClicked)="savePlace()" icon="bookmarks"></shared-button>
+        <shared-button (clicked)="savePlace()" icon="bookmarks"></shared-button>
       </div>
       }
       @if (canAddPlaceToItinerarie()) {
       <div class="col">
-        <shared-button icon="geo-alt-fill" (onClicked)="addToItinerarie()" variant="secondary"></shared-button>
+        <shared-button icon="geo-alt-fill" (clicked)="addToItinerarie()" variant="secondary"></shared-button>
       </div>
       }
     </div>

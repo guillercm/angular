@@ -16,7 +16,7 @@ export class SideMenuComponent {
 
   public routes = input.required<Routes>();
 
-  public onCollapsed = output<boolean>();
+  public collapsed = output<boolean>();
 
   protected readonly getRoutes = computed<Route[]>(() => this.routes().filter((route) => route && route.title) )
 
@@ -32,10 +32,10 @@ export class SideMenuComponent {
 
   public toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
-    this.onCollapsed.emit(this.isCollapsed);
+    this.collapsed.emit(this.isCollapsed);
   }
 
-  onNavigate() {
+  navigate() {
     if (!this.isCollapsed) this.toggleCollapse();
   }
 }

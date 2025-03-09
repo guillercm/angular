@@ -106,7 +106,7 @@ export class SimpsonAdapter implements ModelAdapter<SimpsonResponse, Simpson> {
 
 
 
-### Alternativa al observable
+### Pasar de un observable a una señal
 <code-block>
   <span>toSignal</span>
 
@@ -159,6 +159,22 @@ public onChangeName = output<string>();
 // getters de varias propiedades signals
 public readonly getFullName = computed<string>(() => this.name() + " " + this.lastName() )
 
+// linkedSignal para cuando quiero que el valor de una señal se actualize en base al valor de otra y además poderle setear un valor distinto cuando quiera
+private _simpsonId = signal<number>(1);
+
+protected readonly simpsonId = this._simpsonId.asReadonly();
+
+private _linkedIdSimpson = linkedSignal<number>(() => this.simpsonId());
+
+simpsonEffects = effect(() => {
+  this._linkedIdSimpson.set(78)
+  console.log("idSimpson " + this._linkedIdSimpson())
+
+  console.log(this.simpsonsRequest())
+
+})
+
+
 // si queremos ejecutar algo cuando 1 o más signals cambian de valor
 effectLoadInfoUser = effect(() => this.loadInfoUser(this.name()))
 
@@ -204,13 +220,46 @@ constructor() {
 
   ```
 </code-block>
+
+
+### Notas de formularios
+<code-block>
+  <span>Evitar que el enter en un input envíe el formulario</span>
+
+  ```html
+  <form><input type="text" (keydown.enter)="$event.preventDefault()"></form>
+
+  ```
+</code-block>
  
+## Recursos
+
+[web para crear interfaces de usuario modernas en netlify](https://www.netlify.com/)
+
+
+[decoradores de typescript](https://www.typescriptlang.org/docs/handbook/decorators.html)
+
+[tailwind](https://tailwindcss.com/docs/installation/framework-guides/angular)
 
 [zoneless](https://angular.dev/guide/experimental/zoneless)
 
 [galeria de fotos para pruebas](https://flowbite.com/docs/components/gallery/)
 
 [tailwindcss](https://tailwindcss.com/)
+
+[daisyui instalación](https://daisyui.com/docs/install/angular/)
+
+[daisyui componentes](https://daisyui.com/components)
+
+[daisyui componente diff](https://daisyui.com/components/diff/)
+
+[iconify](https://iconify.design/)
+
+[evitar usar prefijo 'on' para los eventos outputs](https://angular.dev/style-guide#dont-prefix-output-properties)
+
+[restcountries](https://restcountries.com/)
+
+[content-projection](https://angular.dev/guide/components/content-projection)
 <!-- 
 
 <code-block>

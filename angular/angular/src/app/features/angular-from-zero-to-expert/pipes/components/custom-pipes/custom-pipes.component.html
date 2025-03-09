@@ -2,17 +2,17 @@
   <div class="card-body">
     <h5 class="card-title">toggleCase</h5>
     <p class="card-text">pipe creado por {{ 'nosotros' | toggleCase:isUpperCase() }}</p>
-    <shared-button label="toggle!" additionalClasses="w-auto" (onClicked)="toggleUpperCase()"></shared-button>
+    <shared-button label="toggle!" additionalClasses="w-auto" (clicked)="toggleUpperCase()"></shared-button>
   </div>
 </div>
 <div class="card mt-3">
   <div class="card-body">
     <div class="row">
-      <div class="col"><shared-button label="Por nombre" icon="arrow-down-up" (onClicked)="changeOrder('name')"
+      <div class="col"><shared-button label="Por nombre" icon="arrow-down-up" (clicked)="changeOrder('name')"
           variant="success" [outline]="orderBy() === 'name'"></shared-button></div>
-      <div class="col"><shared-button label="Por volar" icon="arrow-down-up" (onClicked)="changeOrder('canFly')"
+      <div class="col"><shared-button label="Por volar" icon="arrow-down-up" (clicked)="changeOrder('canFly')"
           [outline]="orderBy() === 'canFly'"></shared-button></div>
-      <div class="col"><shared-button label="Por color" icon="arrow-down-up" (onClicked)="changeOrder('color')"
+      <div class="col"><shared-button label="Por color" icon="arrow-down-up" (clicked)="changeOrder('color')"
           variant="secondary" [outline]="orderBy() === 'color'"></shared-button></div>
     </div>
     <div class="row">

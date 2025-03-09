@@ -5,14 +5,14 @@
 
     <features-mapbox-side-menu (onOpenPlace)="isCollapsed = true">
       <shared-button icon="x" variant="" additionalClasses="p-0 border-0" class="w-auto" [fontSizeIcon]="3"
-        (onClicked)="toggleCollapse()" data-bs-toggle="collapse"
+        (clicked)="toggleCollapse()" data-bs-toggle="collapse"
         [attr.aria-expanded]="isCollapsed ? 'false' : 'true'"></shared-button>
     </features-mapbox-side-menu>
   </div>
 
   <features-mapbox-maps-searcher>
     <shared-button icon="list" variant="" additionalClasses="p-0 border-0" [fontSizeIcon]="5"
-      (onClicked)="toggleCollapse()" data-bs-toggle="collapse"
+      (clicked)="toggleCollapse()" data-bs-toggle="collapse"
       [attr.aria-expanded]="isCollapsed ? 'false' : 'true'"></shared-button>
   </features-mapbox-maps-searcher>
 

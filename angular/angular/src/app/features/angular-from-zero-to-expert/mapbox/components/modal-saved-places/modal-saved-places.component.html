@@ -16,12 +16,12 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                          <shared-button icon="eye-fill" (onClicked)="openPlace(place)" variant="info"></shared-button>
+                          <shared-button icon="eye-fill" (clicked)="openPlace(place)" variant="info"></shared-button>
                         </div>
                         <div class="col-6">
                             <shared-button icon="trash" variant="danger"
                             [outline]="true"
-                                (onClicked)="removeSavedPlace(place)"></shared-button>
+                                (clicked)="removeSavedPlace(place)"></shared-button>
                         </div>
                     </div>
                 </div>

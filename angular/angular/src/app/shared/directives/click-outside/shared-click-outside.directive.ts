@@ -7,11 +7,11 @@ export class SharedClickOutsideDirective {
 
   private readonly _element = inject(ElementRef);
 
-  public readonly onClickOutside = output<boolean>();
+  public readonly clickOutside = output<boolean>();
 
   @HostListener('document:click', ['$event.target'])
   onClick(target: any): void {
-    this.onClickOutside.emit(!this._element.nativeElement.contains(target));
+    this.clickOutside.emit(!this._element.nativeElement.contains(target));
   }
 
 }

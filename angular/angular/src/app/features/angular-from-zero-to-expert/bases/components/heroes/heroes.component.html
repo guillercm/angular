@@ -4,12 +4,12 @@
         <div class="row">
             <div class="col">
                 <shared-button label="Crear héroe" variant="primary" [outline]="true"
-                    (onClicked)="createHero()"></shared-button>
+                    (clicked)="createHero()"></shared-button>
             </div>
             @if (heroes().length > 0) {
             <div class="col">
                 <shared-button label="Borrar último héroe" variant="danger" [outline]="true"
-                    (onClicked)="deleteLastHeroe()"></shared-button>
+                    (clicked)="deleteLastHeroe()"></shared-button>
             </div>
             }
         </div>
@@ -32,11 +32,11 @@
                         <div class="row">
                             <div class="col p-1">
                                 <shared-button variant="primary" icon="pencil"
-                                    (onClicked)="editHero(heroe)"></shared-button>
+                                    (clicked)="editHero(heroe)"></shared-button>
                             </div>
                             <div class="col p-1">
                                 <shared-button variant="danger" icon="trash"
-                                    (onClicked)="deleteHeroe(heroe)"></shared-button>
+                                    (clicked)="deleteHeroe(heroe)"></shared-button>
                             </div>
                         </div>
                     </div>

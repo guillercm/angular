@@ -2,6 +2,6 @@
   <div class="card-body">
     <h5 class="card-title">i18nSelect Pipe</h5>
     <p class="card-text">Saludos {{ guestName() }}, es un placer {{ gender() | i18nSelect:invitationMap }} a nuestro evento.</p>
-    <shared-button label="Cambiar persona" additionalClasses="w-auto" (onClicked)="changeClient()"></shared-button>
+    <shared-button label="Cambiar persona" additionalClasses="w-auto" (clicked)="changeClient()"></shared-button>
   </div>
 </div>

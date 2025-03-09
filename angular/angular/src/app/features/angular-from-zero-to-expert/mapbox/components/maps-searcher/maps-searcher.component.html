@@ -1,7 +1,7 @@
 <div class="div-search m-2 rounded-top-4" [class.rounded-bottom-4]="!showList()" sharedClickOutside (onClickOutside)="onClickOutside($event)">
   <div class="d-flex align-items-center p-2" [class.border-bottom]="showList()">
     <ng-content></ng-content>
-    <pato-form [data]="dataForm" identifier="siteSearch" (onbuildForm)="onBuildForm($event)" (onFormSubmit)="onSubmit($event)">
+    <pato-form [data]="dataForm" identifier="siteSearch" (buildForm)="buildForm($event)" (onFormSubmit)="onSubmit($event)">
     </pato-form>
   </div>
   @if (showList()) {

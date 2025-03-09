@@ -25,7 +25,7 @@ export class SideMenuComponent {
 
   private readonly _mapsService = inject(MapsService);
 
-  public readonly onOpenPlace = output<Place>()
+  public readonly openPlace = output<Place>()
 
   protected zoom = computed(() => this._mapsService.zoom())
 
@@ -53,7 +53,7 @@ export class SideMenuComponent {
       destroyRef: this._destroyRef,
       args: {
         onOpenPlace: (place: Place) => {
-          this.onOpenPlace.emit(place);
+          this.openPlace.emit(place);
           this._mapsService.addMarker(place, this._viewContainerRef)
           this._mapsService.flyTo(place.coordinates)
         }

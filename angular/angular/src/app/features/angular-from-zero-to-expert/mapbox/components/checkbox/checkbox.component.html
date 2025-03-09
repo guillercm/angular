@@ -1,6 +1,6 @@
 <div class="form-check mb-3">
     <input class="form-check-input" type="checkbox" [id]="identifier()" (change)="onChange($event)"
-        [attr.checked]="checked() ? 'checked' : null">
+        [attr.checked]="isChecked() ? 'checked' : null">
     <label class="form-check-label" [for]="identifier()">
         <ng-content></ng-content>
     </label>

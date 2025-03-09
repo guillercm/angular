@@ -10,6 +10,16 @@ export const featuresRoutes: Routes = [
     loadComponent: () => import('./angular-from-zero-to-expert/layout/layout.component'),
     children: [
       {
+        path: 'installations',
+        title: 'Instalaciones',
+        component: DocsComponent
+      },
+      {
+        path: 'maps-vs-sets',
+        title: 'Maps Vs Sets',
+        component: DocsComponent
+      },
+      {
         path: 'typescript_bases',
         title: 'Bases de typescript',
         component: DocsComponent
@@ -27,7 +37,7 @@ export const featuresRoutes: Routes = [
       {
         path: 'countries',
         title: 'Aplicación de países',
-        loadComponent: () => import('./angular-from-zero-to-expert/country/pages/home-page/home-page.component'),
+        loadComponent: () => import('./angular-from-zero-to-expert/country/layouts/layout/layout.component'),
         children: [
           {
             path: '',
@@ -44,6 +54,42 @@ export const featuresRoutes: Routes = [
         path: 'mapbox',
         title: 'Mapas',
         loadComponent: () => import('./angular-from-zero-to-expert/mapbox/pages/home-page/home-page.component')
+      },
+      {
+        path: 'angular-cheat-sheet',
+        title: 'Trucos de angular',
+        data: {pdf: 'angular-cheat-sheet'},
+        component: PdfComponent
+      },
+      {
+        path: 'angular-cheat-sheet-v2',
+        title: 'Trucos de angular v2',
+        data: {pdf: 'angular-cheat-sheet-v2'},
+        component: PdfComponent
+      },
+      {
+        path: 'angular-notes-for-professionals',
+        title: 'Notas para profesionales',
+        data: {pdf: 'Angular2NotesForProfessionals'},
+        component: PdfComponent
+      },
+      {
+        path: 'docker',
+        title: 'Docker',
+        data: {pdf: 'docker'},
+        component: PdfComponent
+      },
+      {
+        path: 'docker-cheat-sheet',
+        title: 'Trucos de docker',
+        data: {pdf: 'docker-cheat-sheet'},
+        component: PdfComponent
+      },
+      {
+        path: 'nest-cheatsheet',
+        title: 'Trucos de nest',
+        data: {pdf: 'nest-cheatsheet'},
+        component: PdfComponent
       }
     ]
   },
@@ -83,12 +129,6 @@ export const featuresRoutes: Routes = [
         path: 'flexbox',
         title: 'Flexbox',
         component: FlexCssComponent
-      },
-      {
-        path: 'docker',
-        title: 'Docker',
-        data: {pdf: 'docker'},
-        component: PdfComponent
       }
     ]
   },

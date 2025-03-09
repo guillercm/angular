@@ -10,17 +10,17 @@ import { SessionService } from '@core/services/session/session.service';
 export class CheckboxComponent implements OnInit {
 
   private readonly _sessionService = inject(SessionService);
-  
+
   public identifier = input.required<string>();
 
   public checkedDefualt = input.required<boolean>();
 
-  private _checked = signal<boolean>(false);
-  protected checked = this._checked.asReadonly();
+  private _isChecked = signal<boolean>(false);
+  protected isChecked = this._isChecked.asReadonly();
 
-  public onInit = output<boolean>();
+  public init = output<boolean>();
 
-  public onChecked = output<boolean>();
+  public checked = output<boolean>();
 
   ngOnInit(): void {
     this.initialize();
@@ -28,15 +28,15 @@ export class CheckboxComponent implements OnInit {
 
   private initialize() {
     const checked = this._sessionService.getItem<boolean>(this.identifier(), this.checkedDefualt());
-    this._checked.set(checked);
-    this.onChecked.emit(checked);
+    this._isChecked.set(checked);
+    this.checked.emit(checked);
   }
 
   protected onChange(event: any) {
     const checked = event.currentTarget.checked;
     this._sessionService.setItem(this.identifier(), checked);
-    this._checked.set(checked);
-    this.onChecked.emit(checked);
+    this._isChecked.set(checked);
+    this.checked.emit(checked);
   }
 
 }

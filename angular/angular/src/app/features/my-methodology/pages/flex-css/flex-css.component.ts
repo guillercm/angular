@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { RepeatPipe } from '@shared/pipes/repeat/repeat.pipe';
 
 @Component({
   selector: 'features-flex-css',
-  imports: [CommonModule, RepeatPipe],
+  imports: [CommonModule],
   templateUrl: './flex-css.component.html',
   styleUrl: './flex-css.component.css'
 })

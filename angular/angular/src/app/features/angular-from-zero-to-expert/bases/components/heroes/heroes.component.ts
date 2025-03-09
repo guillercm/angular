@@ -11,7 +11,7 @@ import { Hero } from '../../interfaces/hero.interface';
 })
 export class HeroesComponent {
 
-  public onDeleteHero = output<Hero>();
+  public deleteHero = output<Hero>();
 
   private _heroes = signal<Hero[]>([
     { id: 1, name: 'Spiderman', age: 25 },
@@ -49,7 +49,7 @@ export class HeroesComponent {
     if (heroToDelete.id === this.heroeToEdit()?.id) {
       this._heroeToEdit.set(null);
     }
-    this.onDeleteHero.emit(heroToDelete);
+    this.deleteHero.emit(heroToDelete);
   }
 
   createHero() {

@@ -1,4 +1,4 @@
-<button [type]="type()" [attr.disabled]="disabled() ? 'disabled' : null" (click)="clicked()" [title]="title() | translate" [ngClass]="classes()" [routerLink]="link()">
+<button [type]="type()" [attr.disabled]="disabled() ? 'disabled' : null" (click)="click()" [title]="title() | translate" [ngClass]="classes()" [routerLink]="link()">
     @if (icon()) {
         <i [ngClass]="'fs-' + fontSizeIcon() + ' bi bi-' + icon()"></i>
     }

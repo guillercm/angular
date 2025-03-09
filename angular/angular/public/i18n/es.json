@@ -11,7 +11,8 @@
     "validations": {
       "required": "Este campo es obligatorio",
       "minlength": "Tiene que tener como mínimo {{ requiredLength }} carácteres.",
-      "maxlength": "Tiene que tener como máximo {{ requiredLength }} carácteres."
+      "maxlength": "Tiene que tener como máximo {{ requiredLength }} carácteres.",
+      "simpsonError": "El color tiene que ser amarillo"
     },
     "httpStatus": {
       "pages": {

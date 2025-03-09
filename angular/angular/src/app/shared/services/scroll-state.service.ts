@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +6,7 @@ import { Injectable, signal } from '@angular/core';
 export class ScrollStateService {
 
   private _scrollStates = signal<Record<string, number>>({});
-  public readonly scrollStates = this._scrollStates.asReadonly();
+  public readonly scrollStates = computed(() => this._scrollStates() );
 
   public getScrollState(key: string): number {
     return this.scrollStates()[key] || 0;
@@ -14,8 +14,7 @@ export class ScrollStateService {
 
   public setScrollState(key: string, value: number) {
     this._scrollStates.update((states) => {
-      states[key] = value;
-      return states;
-    })
+      return { ...states, [key]: value };
+  });
   }
 }

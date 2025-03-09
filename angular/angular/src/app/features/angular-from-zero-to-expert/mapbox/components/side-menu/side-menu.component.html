@@ -8,27 +8,27 @@
       <div class="floating-content mb-3">
         <span class="form-label">{{ "features.mapbox.labels.zoom" | translate }}: {{ zoom() | number:'2.2-2' }}</span>
         <div class="d-flex justify-content-center align-items-center g-3">
-          <shared-button icon="dash" [fontSizeIcon]="3" additionalClasses="p-0" (onClicked)="zoomOut()"></shared-button>
+          <shared-button icon="dash" [fontSizeIcon]="3" additionalClasses="p-0" (clicked)="zoomOut()"></shared-button>
           <input type="range" class="form-range px-2" min="-2" max="18" [value]="zoom()"
             (input)="zoomChanged( zoomInput.value )" #zoomInput>
-          <shared-button icon="plus" [fontSizeIcon]="3" additionalClasses="p-0" (onClicked)="zoomIn()"></shared-button>
+          <shared-button icon="plus" [fontSizeIcon]="3" additionalClasses="p-0" (clicked)="zoomIn()"></shared-button>
         </div>
       </div>
-      <features-mapbox-checkbox identifier="show-coords" [checkedDefualt]="true" (onChecked)="onShowCoords($event)">
+      <features-mapbox-checkbox identifier="show-coords" [checkedDefualt]="true" (checked)="onShowCoords($event)">
         {{ "features.mapbox.labels.showCoords" | translate }}
       </features-mapbox-checkbox>
-      <features-mapbox-checkbox identifier="show-rain" [checkedDefualt]="false" (onChecked)="onShowRain($event)">
+      <features-mapbox-checkbox identifier="show-rain" [checkedDefualt]="false" (checked)="onShowRain($event)">
         {{ "features.mapbox.labels.rain" | translate }}
       </features-mapbox-checkbox>
-      <features-mapbox-checkbox identifier="show-snow" [checkedDefualt]="false" (onChecked)="onShowSnow($event)">
+      <features-mapbox-checkbox identifier="show-snow" [checkedDefualt]="false" (checked)="onShowSnow($event)">
         {{ "features.mapbox.labels.snow" | translate }}
       </features-mapbox-checkbox>
 
       <div class="mb-3">
-        <shared-button label="features.mapbox.labels.btnChangeStyle" icon="brush" (onClicked)="openModalChangeMapStyle()" variant="success"></shared-button>
+        <shared-button label="features.mapbox.labels.btnChangeStyle" icon="brush" (clicked)="openModalChangeMapStyle()" variant="success"></shared-button>
       </div>
       <div >
-        <shared-button label="features.mapbox.labels.btnSavedPlaces" icon="bookmarks" (onClicked)="openModalSavedPlaces()"></shared-button>
+        <shared-button label="features.mapbox.labels.btnSavedPlaces" icon="bookmarks" (clicked)="openModalSavedPlaces()"></shared-button>
       </div>
     </div>
   </div>

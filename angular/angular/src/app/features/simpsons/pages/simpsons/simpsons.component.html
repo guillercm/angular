@@ -1,4 +1,4 @@
-<pato-form [data]="dataForm" classes="row pb-4" identifier="simpsons" (onbuildForm)="onBuildForm($event)"
+<pato-form [data]="dataForm" classes="row pb-4" identifier="simpsons" (buildForm)="buildForm($event)"
   (onFormChange)="onChangeControl($event)" (onFormSubmit)="onSubmit($event)" [finalFormTemplate]="finalFormTemplate">
   <ng-template #finalFormTemplate>
     <div class="mt-3 col-6">
@@ -9,7 +9,7 @@
     </div>
   </ng-template>
 </pato-form>
-<shared-button (onClicked)="loadSimpsons()" [disabled]="simpsons().length > 0" [label]="simpsons().length > 0 ? 'Simpsons cargados' : 'Cargar simpsons'" ></shared-button>
+<shared-button (clicked)="loadSimpsons()" [disabled]="simpsons().length > 0" [label]="simpsons().length > 0 ? 'Simpsons cargados' : 'Cargar simpsons'" ></shared-button>
 <div class="row g-3 pt-4">
   @switch (simpsonsRequest()?.state) {
     @case ("complete") {

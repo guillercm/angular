@@ -3,7 +3,7 @@ import { ComponentRef, computed, effect, ElementRef, inject, Injectable, NgZone,
 import { Coordinates } from '../interfaces/places.interface';
 import { CustomPopupComponent } from '../components/custom-popup/custom-popup.component';
 import { dataStylesMap } from '../interfaces/dataStylesMap.interface';
-import { LngLat, LngLatBounds, Map, Marker, PropertyValueSpecification, SourceSpecification } from 'mapbox-gl';
+import mapboxgl, { LngLat, LngLatBounds, Map, Marker, PropertyValueSpecification, SourceSpecification } from 'mapbox-gl';
 import { Place } from '../interfaces/place.interface';
 import { PolylineService } from './polyline.service';
 import { Route } from '../interfaces/directions.interface';
@@ -147,6 +147,11 @@ export class MapsService {
     const map = this.map();
     if (!map) throw 'Mapa no inicializado';
 
+    // map.on('click', (ev: mapboxgl.MapMouseEvent) => {
+    //   const coords = ev.lngLat;
+    //   console.log(coords)
+    // })
+
     map.on('zoom', (ev) => {
       this._zoom.set(map.getZoom())
     });
@@ -160,6 +165,10 @@ export class MapsService {
       this._currentLngLat.set(map.getCenter());
       // const { lng, lat } = this._currentLngLat();
     });
+
+    // map.addControl(new mapboxgl.FullscreenControl());
+    // map.addControl(new mapboxgl.NavigationControl());
+    // map.addControl(new mapboxgl.ScaleControl());
 
     map.on('style.load', () => {
       this.setRain();

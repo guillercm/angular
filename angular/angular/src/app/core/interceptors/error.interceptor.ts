@@ -39,7 +39,7 @@ export function errorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
         args: {
           title,
           message,
-          onClicked: (event: string) => {
+          clicked: (event: string) => {
             //console.log(event)
           }
         },

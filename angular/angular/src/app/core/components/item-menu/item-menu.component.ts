@@ -22,7 +22,7 @@ export class ItemMenuComponent implements OnInit {
 
   public readonly index = input.required<number>();
 
-  public readonly onNavigate = output<string>();
+  public readonly navigate = output<string>();
 
   private _url = signal<string>("");
 
@@ -61,10 +61,9 @@ export class ItemMenuComponent implements OnInit {
   }
 
 
-
-  protected navigate(childrenPath?: string) {
+  protected navigateAction(childrenPath?: string) {
     const path = this.route().path + (childrenPath ? "/" + childrenPath : '');
-    this.onNavigate.emit(path);
+    this.navigate.emit(path);
     this._router.navigate([path]);
   }
 }

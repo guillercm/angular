@@ -29,7 +29,7 @@ export function timeoutInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
         args: {
           title,
           message,
-          onClicked: (event: string) => {
+          clicked: (event: string) => {
             //console.log(event)
           }
         },

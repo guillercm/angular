@@ -1,5 +1,5 @@
 import { CardListComponent } from "../../components/card-list/card-list.component";
-import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, DestroyRef, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { GifsService } from '../../services/gifs.service';
@@ -25,32 +25,33 @@ import { DataScrollToEnd } from "@shared/directives/isScrollToEnd/interfaces/dat
 })
 export default class GifsPageComponent implements AfterViewInit {
 
+  private readonly _destroyRef = inject(DestroyRef);
 
   private readonly _interceptorService = inject(InterceptorService);
 
-  protected gifsRequest = computed(() => this._interceptorService.getHttpRequestById("searchGifs") )
+  private readonly _gifsServices = inject(GifsService);
 
   private readonly _querysHistoryService = inject(QuerysHistoryService);
 
   private readonly _scrollStateService = inject(ScrollStateService);
 
-  private readonly _destroyRef = inject(DestroyRef);
+  private readonly _scrollDiv = viewChild<ElementRef<HTMLDivElement>>('scrollDiv');
 
-  private readonly _gifsServices = inject(GifsService);
+  protected readonly _elementScrollDiv = computed<HTMLDivElement | undefined>(() => this._scrollDiv()?.nativeElement )
 
   protected form = signal<FormGroup | null>(null);
-
-  protected readonly gifs = computed(() => this._gifsServices.gifs());
-
-  protected readonly isLoadingGifs = computed(() => this.gifsRequest()?.state === 'loading')
 
   private _page = signal<number>(0);
 
   private _lastQuery = signal<string>("");
 
-  private readonly _scrollDiv = viewChild<ElementRef<HTMLDivElement>>('scrollDiv');
+  protected readonly gifs = computed(() => this._gifsServices.gifs());
 
-  protected dataForm: PatoDataForm = {
+  protected readonly gifsRequest = computed(() => this._interceptorService.getHttpRequestById("searchGifs"))
+
+  protected readonly isLoadingGifs = computed(() => this.gifsRequest()?.state === 'loading')
+
+  protected readonly dataForm: PatoDataForm = {
     query: createPatoControl({
       component: PatoInputComponent,
       formFieldComponent: FormFieldComponent,
@@ -72,42 +73,64 @@ export default class GifsPageComponent implements AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
-    const div = this._scrollDiv()?.nativeElement;
+  private effectScrollstate = effect(() => {
+    this.updateScrollTop();
+  })
+
+  private updateScrollTop() {
+    const div = this._elementScrollDiv();
     if (!div) return;
     div.scrollTop = this._scrollStateService.getScrollState("gifs")
   }
 
-  onBuildForm(form: FormGroup | null) {
+  ngAfterViewInit(): void {
+    this.updateScrollTop();
+  }
+
+  protected buildForm(form: FormGroup | null) {
     this.form.set(form);
   }
 
-  onSubmit(data: any) {
-    let {query} = data;
-    query = query.trim()
-    if (!query) return;
-    this._lastQuery.set(query);
-    this._page.set(0);
-    this._gifsServices.searchTag(query, this._page()).pipe(
+  private executeSearch(query: string, page: number) {
+    return this._gifsServices.searchTag(query, page).pipe(
       takeUntilDestroyed(this._destroyRef),
       map((value: SearchResponse) => value.data)
-    ).subscribe((data: Gif[]) => {
-      this._gifsServices.setGifs(data);
-      if (data.length) this._querysHistoryService.addQuery(query);
-      this.form()?.controls['query'].patchValue('');
-    })
+    );
   }
 
-  isAtBottom(data: DataScrollToEnd) {
-    const {isAtBottom, scrollTop, elementRef} = data;
-    this._scrollStateService.setScrollState("gifs", scrollTop);
-    if (!isAtBottom || this.gifsRequest()?.state === 'loading') return;
-    this._page.update((value) => value + 1);
-    this._gifsServices.searchTag(this._lastQuery() || this._querysHistoryService.querysHistory()[0], this._page()).pipe(
-      takeUntilDestroyed(this._destroyRef),
-      map((value: SearchResponse) => value.data)
-    ).subscribe((data: Gif[]) => {
-      this._gifsServices.addGifs(data)
-    })
+  protected onSubmit(data: any) {
+    let { query } = data;
+    query = query.trim();
+    if (!query) return;
+
+    const div = this._elementScrollDiv();
+    if (!div) return;
+    this._scrollStateService.setScrollState("gifs", 0);
+
+    this._lastQuery.set(query);
+    this._page.set(0);
+
+    this.executeSearch(query, this._page()).subscribe((data: Gif[]) => {
+      this._gifsServices.setGifs(data);
+      if (data.length) {
+        this._querysHistoryService.addQuery(query);
+      }
+      this.form()?.controls['query'].patchValue('');
+    });
   }
+
+  protected isAtBottom(data: DataScrollToEnd) {
+    const { isAtBottom, scrollTop } = data;
+    this._scrollStateService.setScrollState("gifs", scrollTop);
+
+    if (!isAtBottom || this.gifsRequest()?.state === 'loading') return;
+
+    this._page.update((value) => value + 1);
+
+    const query = this._lastQuery() || this._querysHistoryService.querysHistory()[0];
+    this.executeSearch(query, this._page()).subscribe((data: Gif[]) => {
+      this._gifsServices.addGifs(data);
+    });
+  }
+
 }
