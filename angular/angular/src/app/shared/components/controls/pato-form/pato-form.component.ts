@@ -102,7 +102,10 @@ export class PatoFormComponent implements AfterViewInit {
     const form = this.form();
     this.markAsTouched();
     if (!form || form.invalid) return;
-    if (form.valid) this.onFormSubmit.emit(form.value);
+    if (form.valid) this.onFormSubmit.emit({
+      valid: form.valid,
+      content: form.value
+    });
   }
 
   private markAsTouched(touched: boolean = true) {

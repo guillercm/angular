@@ -1,11 +1,11 @@
+import { GenericObject } from "../generic-object/generic-object.interface";
+
 export interface Config {
     apis: Apis;
     languages: Languages;
 }
 
-export interface Apis {
-    [key: string]: Api;
-}
+export interface Apis extends GenericObject<Api> {}
 
 export interface Api {
     baseUrl: string;

@@ -260,6 +260,8 @@ constructor() {
 [restcountries](https://restcountries.com/)
 
 [content-projection](https://angular.dev/guide/components/content-projection)
+
+[carrusel de imágenes](https://swiperjs.com/)
 <!-- 
 
 <code-block>

@@ -1,3 +1,24 @@
+<!-- @defer {
+  <img [src]="url()" [alt]="alt()" [class]="classes()" [class.invisible]="state() !== 'loaded' || skeleton()"
+  class="object-fit-contain" (load)="onLoad()" (error)="onError()" loading="lazy">
+}
+@if (state() === 'loading' || skeleton()) {
+<div class="img-loading d-flex justify-content-center align-items-center" [sharedSkeletonText]="skeleton()">
+  <img [src]="'loader.svg'" class="img object-fit-contain" [class.invisible]="skeleton()" />
+</div>
+} @else if (state() === 'error' && !skeleton()) {
+<div class="img-error d-flex flex-column justify-content-center align-items-center text-center">
+  <div class="position-relative" style="font-size: 2rem;">
+    <i class="bi bi-image"></i>
+    <i class="icon-slash bi bi-slash-lg position-absolute start-0"></i>
+  </div>
+  @if (alt()) {
+  <p class="pt-2">{{ 'errors.img.' + alt() | translate }}</p>
+  }
+</div>
+} -->
+
+
 @defer {
   <img ngOptimizedImage [ngSrc]="url()" [alt]="alt()" [class]="classes()" [class.invisible]="state() !== 'loaded' || skeleton()"
   class="object-fit-contain" (load)="onLoad()" (error)="onError()" fill>

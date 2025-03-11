@@ -1,0 +1,11 @@
+<pato-form [data]="dataForm" classes="row pb-4" identifier="tesloshop-login" (onFormSubmit)="onSubmit($event)" [finalFormTemplate]="finalFormTemplate">
+  <ng-template #finalFormTemplate>
+    <div class="mt-3 w-100">
+      <shared-button label="Login" class="w-100" additionalClasses="w-100" variant="info" type="submit"></shared-button>
+    </div>
+    <p class="w-100 container text-center pt-4">
+      ¿No tienes cuenta?
+      <a [routerLink]="['../register']" class="text-secondary">Crea una aquí</a>
+    </p>
+  </ng-template>
+</pato-form>

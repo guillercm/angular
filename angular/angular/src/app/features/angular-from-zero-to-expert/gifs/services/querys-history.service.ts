@@ -38,7 +38,6 @@ export class QuerysHistoryService {
   }
 
   private saveHistoryQuerys() {
-    console.log(this.querysHistory())
     this._sessionService.setItem("gifsQuerysHistory", this.querysHistory());
   }
 

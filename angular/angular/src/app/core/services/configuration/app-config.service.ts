@@ -20,12 +20,13 @@ export class AppConfigService {
   });
   public readonly config = this._config.asReadonly();
 
-  public readonly isLoaded = computed(() => this.config() !== null)
+  public readonly isLoaded = signal<boolean>(false);
 
-  load() {
-    return this._apiHandler.get<Config>(environment.configPath).pipe(
+  public load() {
+    return this._apiHandler.get<Config>(environment.configPath, {context: {skipApiKey: true}}).pipe(
         take(1),
         tap((config: Config) => this._config.set(config)),
+        tap((config: Config) => this.isLoaded.set(true)),
         tap((config: Config) => console.log(config)),
       )
   }

@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex">
+      <div class="flex-grow-1">Listado de productos ({{ productsResource.value()?.count }})</div>
+      <app-pagination [pages]="productsResource.value()?.pages ?? 0" [currentPage]="paginationService.currentPage()" />
+      <select class="form-select w-20 ms-2" (change)="productsPerPage.set(+selectPerPage.value)" #selectPerPage>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+
+  </div>
+  <div class="card-body">
+    <product-table [products]="productsResource.value()?.products ?? []" />
+  </div>
+  <div class="card-footer">
+    <p><a [routerLink]="['./new']">Nuevo producto</a></p>
+  </div>
+</div>
+

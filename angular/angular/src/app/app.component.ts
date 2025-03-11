@@ -37,7 +37,4 @@ export class AppComponent {
     this._languageService.useLang(this._configService.config().languages.default);
   }
 
-
-
-
 }

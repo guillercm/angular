@@ -3,16 +3,14 @@
 <label [for]="id()" class="form-label">{{ label() | translate }}{{ useCompleteLabel() ? completeLabel() : '' }}</label>
 <div class="input-group has-validation form-field-invalid">
     <ng-container #controlView></ng-container>
-    @if (touched) {
-    @if (errors) {
     <div class="invalid-feedback d-block">
+      @if (touched && errors) {
         <p>{{ getError(errors) | async }}</p>
+      }
     </div>
-    }
      <!-- @else {
     <div class="valid-feedback d-block">
         Looks good!
     </div>
     } -->
-    }
 </div>

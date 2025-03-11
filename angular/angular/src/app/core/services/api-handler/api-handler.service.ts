@@ -19,10 +19,10 @@ export class ApiHandlerService {
     return this._httpClient.get<T>(url, {...options, context: context}).pipe(shareReplay(1));
   }
 
-  public post<T>(url: string, options?: ApiHandlerParams): Observable<T> {
+  public post<T>(url: string, body: any, options?: ApiHandlerParams): Observable<T> {
     const context = this.getContext(url, options);
     url = this.setPathParams(url, options);
-    return this._httpClient.post<T>(url, {...options, context: context}).pipe(shareReplay(1));
+    return this._httpClient.post<T>(url, body, {...options, context: context}).pipe(shareReplay(1));
   }
 
   public delete<T>(url: string, options?: ApiHandlerParams): Observable<T> {
@@ -37,10 +37,10 @@ export class ApiHandlerService {
     return this._httpClient.put<T>(url, {...options, context: context}).pipe(shareReplay(1));
   }
 
-  public patch<T>(url: string, options?: ApiHandlerParams): Observable<T> {
+  public patch<T>(url: string, body: any, options?: ApiHandlerParams): Observable<T> {
     const context = this.getContext(url, options);
     url = this.setPathParams(url, options);
-    return this._httpClient.patch<T>(url, {...options, context: context}).pipe(shareReplay(1));
+    return this._httpClient.patch<T>(url, body, {...options, context: context}).pipe(shareReplay(1));
   }
 
   private setPathParams(url: string, options?: ApiHandlerParams): string {

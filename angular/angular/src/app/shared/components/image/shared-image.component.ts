@@ -4,7 +4,7 @@ import { Component, input, signal } from '@angular/core';
 import { ImageState } from './interfaces/image-states.type';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SkeletonTextDirective } from '@shared/directives/skeleton/skeleton-text.directive';
-
+//
 // https://www.youtube.com/watch?v=_JFTg4kL0CY
 // https://angular.dev/guide/image-optimization
 
@@ -12,7 +12,7 @@ import { SkeletonTextDirective } from '@shared/directives/skeleton/skeleton-text
   selector: 'shared-image',
   templateUrl: './shared-image.component.html',
   styleUrl: './shared-image.component.css',
-  imports: [CommonModule, NgOptimizedImage, TranslatePipe, SkeletonTextDirective]
+  imports: [CommonModule, TranslatePipe, NgOptimizedImage, SkeletonTextDirective]
 })
 export class SharedImageComponent {
 

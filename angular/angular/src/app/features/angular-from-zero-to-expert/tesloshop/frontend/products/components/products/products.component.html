@@ -1,0 +1,7 @@
+<div class="row g-3 pt-4">
+  @for (product of products(); track $index) {
+  <div class="col col-12 col-md-6 col-xxl-4"><product-card [product]="product" /></div>
+  } @empty {
+  <p>No hay productos</p>
+  }
+</div>

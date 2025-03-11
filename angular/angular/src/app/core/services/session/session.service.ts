@@ -20,6 +20,7 @@ export class SessionService {
   public getItem<T>(key: string, defaultValue: T | null = null): T {
     const value = localStorage.getItem(key);
     if (value === null) return defaultValue as T;
+    if (!defaultValue) return value as T;
     switch (typeof defaultValue) {
       case 'number':
         return Number(value) as T;

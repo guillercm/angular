@@ -56,6 +56,11 @@ export const featuresRoutes: Routes = [
         loadComponent: () => import('./angular-from-zero-to-expert/mapbox/pages/home-page/home-page.component')
       },
       {
+        path: 'tesloshop',
+        title: 'Tesloshop',
+        loadChildren: () => import('./angular-from-zero-to-expert/tesloshop/frontend/tesloshop.routes').then(m => m.routes)
+      },
+      {
         path: 'angular-cheat-sheet',
         title: 'Trucos de angular',
         data: {pdf: 'angular-cheat-sheet'},
@@ -152,6 +157,6 @@ export const featuresRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'simpsons'
+    redirectTo: 'angular-from-zero-to-expert'
   }
 ];

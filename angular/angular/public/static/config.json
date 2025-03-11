@@ -30,6 +30,19 @@
         "getDirections": "/directions/v5/mapbox/{profile}/{startLong},{startLat};{endLong},{endLat}",
         "getPlaces": "/search/geocode/v6/forward"
       }
+    },
+    "tesloshop": {
+      "baseUrl": "http://localhost:3000/api",
+      "endpoints": {
+        "login": "/auth/login",
+        "checkStatus": "/auth/check-status",
+        "getProducts": "/products",
+        "getProductByIdSlug": "/products/{idSlug}",
+        "getProductById": "/products/{id}",
+        "updateProduct": "/products/{id}",
+        "createProduct": "/products",
+        "uploadImage": "/files/product"
+      }
     }
   },
   "languages": {

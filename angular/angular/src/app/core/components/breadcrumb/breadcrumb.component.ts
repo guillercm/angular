@@ -49,6 +49,9 @@ export class BreadcrumbComponent implements OnInit {
       if (url.includes("#")) {
         return url.substring(0, url.indexOf("#"));
       }
+      if (url.includes("?")) {
+        return url.substring(0, url.indexOf("?"));
+      }
       return url;
     });
     this._routes.set(urls);
