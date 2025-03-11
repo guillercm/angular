@@ -16,6 +16,14 @@ import { ProductCarouselComponent } from '../../../../products/components/produc
 import { Product } from '../../../../products/interfaces/product.interface';
 import { ProductsService } from '../../../../products/services/products.service';
 import { FormUtils } from '../../../../utils/form-utils';
+import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
+import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
+import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
+import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
+import { PatoTextareaComponent } from '@shared/components/controls/pato-textarea/pato-textarea.component';
+import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
+import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
+import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
 
 @Component({
   selector: 'product-details',
@@ -23,6 +31,8 @@ import { FormUtils } from '../../../../utils/form-utils';
     ProductCarouselComponent,
     ReactiveFormsModule,
     FormErrorLabelComponent,
+    PatoFormComponent,
+    SharedButtonComponent
   ],
   templateUrl: './product-details.component.html',
 })
@@ -45,6 +55,63 @@ export class ProductDetailsComponent implements OnInit {
     ];
     return currentProductImages;
   });
+
+  protected dataForm: PatoDataForm = {
+    title: createPatoControl({
+      component: PatoInputComponent,
+      formFieldComponent: FormFieldComponent,
+      value: "",
+      validators: [Validators.required],
+      args: {
+        formField: {
+          label: "Título"
+        }
+      },
+      classes: {
+        formField: "col-12",
+        control: "input-group"
+      }
+    }),
+    slug: createPatoControl({
+      component: PatoInputComponent,
+      formFieldComponent: FormFieldComponent,
+      value: "",
+      validators: [Validators.required, Validators.pattern(FormUtils.slugPattern)],
+      args: {
+        formField: {
+          label: "Slug"
+        }
+      },
+      classes: {
+        formField: "col-12",
+        control: "input-group"
+      }
+    }),
+    description: createPatoControl({
+      component: PatoTextareaComponent,
+      formFieldComponent: FormFieldComponent,
+      value: "",
+      validators: [Validators.required],
+      asyncValidators: [],
+      valueChangesSubscribe: true,
+      args: {
+        control: {
+          rows: 6
+        },
+        formField: {
+          "label": "Descripción"
+        }
+      },
+      classes: {
+        formField: "mt-3 col-6 mt-4",
+        control: "input-group"
+      }
+    })
+  };
+
+  onSubmit(data: ResponsePatoForm) {
+    console.log(data.content)
+  }
 
   productForm = this.fb.group({
     title: ['', Validators.required],
@@ -88,7 +155,7 @@ export class ProductDetailsComponent implements OnInit {
     this.productForm.patchValue({ sizes: currentSizes });
   }
 
-  async onSubmit() {
+  async onSubmitOld() {
     const isValid = this.productForm.valid;
     this.productForm.markAllAsTouched();
 

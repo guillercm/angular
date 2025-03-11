@@ -63,6 +63,10 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
   onTouched: () => void = () => {};
 
   ngOnInit(): void {
+    this.initialize();
+  }
+
+  private initialize() {
     this._debouncer
     .pipe(
       takeUntilDestroyed(this._destroyRef),
@@ -76,7 +80,7 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
     });
   }
 
-  onKeyPress( searchTerm: string ) {
+  keyPress( searchTerm: string ) {
     this.onChange(searchTerm);
     this._debouncer.next(searchTerm);
   }

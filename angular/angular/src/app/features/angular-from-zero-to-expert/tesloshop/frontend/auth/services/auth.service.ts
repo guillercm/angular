@@ -6,7 +6,6 @@ import { AuthResponse } from '../interfaces/auth-response.interface';
 import { Api } from '@core/interfaces/config/config';
 import { ApiHandlerService } from '@core/services/api-handler/api-handler.service';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
-import { SessionService } from '@core/services/session/session.service';
 import { User } from '../interfaces/user.interface';
 import { TokenService } from './token.service';
 
@@ -29,6 +28,8 @@ export class AuthService {
   public readonly user = this._user.asReadonly();
 
   public readonly isAdmin = computed(() => this._user()?.roles.includes('admin') ?? false);
+
+  public readonly token = computed(() => this._tokenService.token() )
 
   constructor() {
     this.initialize();
@@ -73,7 +74,7 @@ export class AuthService {
   }
 
   checkStatus(): Observable<boolean> {
-    const token = this._tokenService.token();
+    const token = this.token();
 
     if (!token) {
       this.logout();

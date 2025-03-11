@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandlerFn, HttpRequest } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { InterceptorService } from "./services/interceptor.service";
-import { TokenService } from "@features/angular-from-zero-to-expert/tesloshop/frontend/auth/services/token.service";
+import { AuthService } from "@features/angular-from-zero-to-expert/tesloshop/frontend/auth/services/auth.service";
 
 export function tokenInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
 
@@ -10,7 +10,7 @@ export function tokenInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
   const context = interceptorService.getContextFromRequest(req);
   if (context.skipApiKey) return next(req);
 
-  const token = inject(TokenService).token();
+  const token = inject(AuthService).token();
 
   const newReq = req.clone({
     headers: req.headers.append('Authorization', `Bearer ${token}`),

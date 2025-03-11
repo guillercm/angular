@@ -1,0 +1,3 @@
+<textarea class="form-control" [rows]="rows()" [id]="id()" (input)="change($event)"
+  [class.is-valid]="control().validator && control().valid && control().touched"
+  [class.is-invalid]="control().validator && control().invalid && control().touched" [attr.disabled]="disabled() ? 'disabled' : null" (blur)="onBlur()"></textarea>

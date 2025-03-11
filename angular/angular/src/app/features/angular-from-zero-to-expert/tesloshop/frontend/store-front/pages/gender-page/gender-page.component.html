@@ -1,8 +1,11 @@
-<h1 class="text-3xl font-bold font-montserrat">
-  Todos los productos
-  <span class="text-accent">{{ gender() }}</span>
-</h1>
-<h2 class="text-xl mb-5">Para todos los gustos</h2>
+<figure class="mt-3">
+  <blockquote class="blockquote">
+    <p>Todos los productos</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    Para <cite title="Source Title">{{ gender() }}</cite>
+  </figcaption>
+</figure>
 
 <products [products]="productsResource.value()?.products ?? []"></products>
 
