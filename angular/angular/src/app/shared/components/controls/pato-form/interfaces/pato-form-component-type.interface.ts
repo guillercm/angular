@@ -1,5 +1,5 @@
 import { Args } from "@core/interfaces/args/args.interface";
-import { Type } from "@angular/core";
+import { Signal, Type } from "@angular/core";
 
 export type PatoFormComponentType<T, T2> = {
   component: Type<T>;

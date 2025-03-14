@@ -1,15 +1,16 @@
-import { ComponentRef, computed, DestroyRef, Directive, inject, input, OnInit, OutputEmitterRef, OutputRefSubscription, ViewContainerRef } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { ComponentRef, computed, DestroyRef, Directive, effect, inject, Injector, input, isSignal, OnInit, OutputEmitterRef, OutputRefSubscription, runInInjectionContext, ViewContainerRef } from '@angular/core';
+import { ControlContainer, ControlValueAccessor, FormControlName, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PatoFormComponent } from '../../pato-form.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Args } from '@core/interfaces/args/args.interface';
-import { Subscription } from 'rxjs';
-
+import { Properties } from '../../../../../../features/angular-from-zero-to-expert/mapbox/interfaces/places.interface';
 
 @Directive({
   selector: '[patoFormControlInjectorDirective]'
 })
 export class PatoFormControlInjectorDirectiveDirective implements OnInit {
+
+  private readonly _injector = inject(Injector);
 
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -49,14 +50,9 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
     this._componentRefFormField = this._viewContainerRef.createComponent(formFieldComponent);
     this._componentRefFormField.setInput('control', this._control())
     this._componentRefFormField.setInput('id', this._id())
-
-    // this._componentRefFormField.instance.controlEvent.subscribe((event: string) => {
-    //   //console.log('Evento capturado en el componente padre:', event);
-    // });
-
     const formFieldInstance = this._componentRefFormField.instance;
     this._componentRef = formFieldInstance.controlView().createComponent(component);
-    this._componentRef.setInput("formField", this._componentRefFormField.instance)
+    this._componentRef.setInput("formField", this._componentRefFormField.instance);
   }
 
   setInputsOutputs() {
@@ -65,23 +61,32 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
       const { control, formField } = args;
       const componentRef = this._componentRef;
       const componentRefFormField = this._componentRefFormField;
-      // //console.log(this._componentRefFormField.instance.outputPrueba.subscribe((event: string) => {
-      //   //console.log(event)
-      // }))
-      const setInputsOutputs = (component: Partial<Args<any>> | undefined, componentRef: ComponentRef<any>) => {
-        if (component)
-          Object.keys(component).forEach((inputKey: string) => {
-            const property = componentRef.instance[inputKey];
-            if (typeof property === 'function') {
-              const nameFunction: string = property.name;
+      const setInputsOutputs = (args: Partial<Args<any>> | undefined, componentRef: ComponentRef<any>) => {
+        if (!args) return;
+        Object.keys(args).forEach((argProperty: string) => {
+          const argValue = args[argProperty];
+          const componentProperty = componentRef.instance[argProperty];
+          switch (typeof componentProperty) {
+            case 'function':
+              const nameFunction: string = componentProperty.name;
+              console.log({nameFunction})
               if (nameFunction.includes("input")) {
-                componentRef.setInput(inputKey, component[inputKey]);
+                if (isSignal(argValue)) {
+                  const obs = toObservable(argValue, {
+                    injector: this._injector
+                  }).subscribe(() => componentRef.setInput(argProperty, argValue()))
+                  this._destroyRef.onDestroy(() => obs.unsubscribe());
+                } else {
+                  componentRef.setInput(argProperty, argValue)
+                }
               }
-            } else if (typeof property === 'object' && property instanceof OutputEmitterRef) {
-              const subs: OutputRefSubscription = componentRef.instance[inputKey].subscribe(component[inputKey])
-              this._destroyRef.onDestroy(() => subs.unsubscribe() )
-            }
-          });
+              break;
+            case 'object':
+              if (!(componentProperty instanceof OutputEmitterRef)) return;
+              const subs: OutputRefSubscription = componentProperty.subscribe(argValue)
+              this._destroyRef.onDestroy(() => subs.unsubscribe())
+          }
+        });
       }
       setInputsOutputs(control, componentRef);
       setInputsOutputs(formField, componentRefFormField);
@@ -133,14 +138,14 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
     control.valueChanges.pipe(
       takeUntilDestroyed(this._destroyRef)
     ).subscribe((value: any) => {
-      // componentRef?.instance?.onChange(value);
+      componentRef?.instance?.onChange(value);
       instance.writeValue(value);
     });
 
     control.statusChanges.pipe(
       takeUntilDestroyed(this._destroyRef)
     ).subscribe((value: any) => {
-      control.markAsTouched();
+      // control.markAsTouched();
       componentRef?.instance?.setDisabledState(value === 'DISABLED')
     })
 

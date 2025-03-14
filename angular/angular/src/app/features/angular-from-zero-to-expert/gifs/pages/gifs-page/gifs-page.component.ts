@@ -3,7 +3,7 @@ import { AfterViewInit, Component, computed, DestroyRef, effect, ElementRef, inj
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { GifsService } from '../../services/gifs.service';
-import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
+import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/data-form.interface';
 import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
 import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
 import { QuerysHistoryService } from "../../services/querys-history.service";

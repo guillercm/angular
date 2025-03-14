@@ -17,7 +17,7 @@ import { Product } from '../../../../products/interfaces/product.interface';
 import { ProductsService } from '../../../../products/services/products.service';
 import { FormUtils } from '../../../../utils/form-utils';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
-import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
+import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/data-form.interface';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
 import { PatoTextareaComponent } from '@shared/components/controls/pato-textarea/pato-textarea.component';

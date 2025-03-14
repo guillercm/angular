@@ -5,7 +5,7 @@ import { CountryTableComponent } from "../../components/country-table/country-ta
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { FormGroup } from '@angular/forms';
-import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
+import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/data-form.interface';
 import { PatoFormComponent } from "@shared/components/controls/pato-form/pato-form.component";
 import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

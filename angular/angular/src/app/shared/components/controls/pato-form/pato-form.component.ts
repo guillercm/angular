@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, effect, inject, input, output, signal, TemplateRef, Type } from '@angular/core';
+import { AfterViewInit, Component, ComponentRef, DestroyRef, effect, ElementRef, inject, input, output, signal, TemplateRef, Type, viewChildren } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { PatoDataForm } from './interfaces/pato-data-form.interface';
+import { PatoDataForm } from './interfaces/data-form.interface';
 import { PatoDataFormChange } from './interfaces/pato-form-change.interface';
 import { PatoFormControlInjectorDirectiveDirective } from './directives/pato-form-control-injector-directive/pato-form-control-injector-directive.directive';
 import { ResponsePatoForm } from './interfaces/pato-response-form.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
 
 
 

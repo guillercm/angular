@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
-import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
+import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/data-form.interface';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
 import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';

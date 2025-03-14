@@ -1,1 +1,8 @@
-<p>pato-button-group works!</p>
+<div class="btn-toolbar justify-content-center" role="toolbar">
+    @for (data of data(); track $index) {
+    <div class="btn-group m-1" role="group" [attr.aria-label]="data.options.label">
+        <shared-button [label]="data.options.label" [variant]="data.options.variant" [outline]="!data.options.selected"
+            [disabled]="dataDisabled(data)" (clicked)="toggleSelected(data)"></shared-button>
+    </div>
+    }
+</div>

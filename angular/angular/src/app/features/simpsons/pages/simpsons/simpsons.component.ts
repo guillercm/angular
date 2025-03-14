@@ -1,40 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, DestroyRef, effect, inject, linkedSignal, resource, signal } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
+import { firstValueFrom, Observable, tap } from 'rxjs';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { FormGroup, Validators } from '@angular/forms';
+import { FormUtils } from '@features/simpsons/utils/custom-validators';
 import { InterceptorService } from '@core/interceptors/services/interceptor.service';
 import { ModalService } from '@core/services/modal/modal.service';
-import { firstValueFrom, Observable, tap } from 'rxjs';
-import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/pato-data-form.interface';
+import { PatoButtonGroupComponent } from '@shared/components/controls/pato-button-group/pato-button-group.component';
+import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/data-form.interface';
 import { PatoDataFormChange } from '@shared/components/controls/pato-form/interfaces/pato-form-change.interface';
 import { PatoFormComponent } from "@shared/components/controls/pato-form/pato-form.component";
 import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
 import { RepeatPipe } from '@shared/pipes/repeat/repeat.pipe';
+import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { Simpson } from '@features/simpsons/interfaces/simpson.interface';
 import { SimpsonCardComponent } from "../../components/simpson-card/simpson-card.component";
 import { SimpsonsService } from '@features/simpsons/services/simpsons.service';
-import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormUtils } from '@features/simpsons/utils/custom-validators';
-// export function addCustomHeader(customValue: string): MonoTypeOperatorFunction<T> {
-//   return tap((req: HttpRequest<any>) => {
-//     // Clonar la solicitud y agregar el header
-//     const clonedRequest = req.clone({
-//       setHeaders: {
-//         'X-Custom-Header': customValue
-//       }
-//     });
 
-//     // Regresar la nueva solicitud clonada
-//     return clonedRequest;
-//   });
-// }
-
-function logWithTag<T>(tag: string): (source$: Observable<T>) => Observable<T> {
-  return source$ =>
-    source$.pipe(tap(v => { console.log(SimpsonsComponent.subs, source$) }));
-}
 @Component({
   selector: 'features-simpsons',
   imports: [CommonModule, PatoFormComponent, SharedButtonComponent, SimpsonCardComponent, RepeatPipe],
@@ -77,25 +61,25 @@ export default class SimpsonsComponent {
 
   })
 
-  simpsonResource = resource({
-    request: () => ({ simpsonId: this.simpsonId() }),
-    loader: async ({ request }) => {
-      const { simpsonId } = request;
-      return await firstValueFrom(this._simpsonsServices.getSimpsonById(simpsonId).pipe(
-        tap((value) => console.log(value))
-      ))
-    },
-  });
+  // simpsonResource = resource({
+  //   request: () => ({ simpsonId: this.simpsonId() }),
+  //   loader: async ({ request }) => {
+  //     const { simpsonId } = request;
+  //     return await firstValueFrom(this._simpsonsServices.getSimpsonById(simpsonId).pipe(
+  //       tap((value) => console.log(value))
+  //     ))
+  //   },
+  // });
 
-  simpsonRxResource = rxResource({
-    request: () => ({ simpsonId: this.simpsonId() }),
-    loader: ({ request }) => {
-      const { simpsonId } = request;
-      return this._simpsonsServices.getSimpsonById(simpsonId).pipe(
-        tap((value) => console.log(value, this.simpsonRxResource.error()))
-      )
-    },
-  });
+  // simpsonRxResource = rxResource({
+  //   request: () => ({ simpsonId: this.simpsonId() }),
+  //   loader: ({ request }) => {
+  //     const { simpsonId } = request;
+  //     return this._simpsonsServices.getSimpsonById(simpsonId).pipe(
+  //       tap((value) => console.log(value, this.simpsonRxResource.error()))
+  //     )
+  //   },
+  // });
 
   protected dataForm: PatoDataForm = {
     fullName: createPatoControl({
@@ -121,17 +105,23 @@ export default class SimpsonsComponent {
         control: "input-group"
       }
     }),
-    color: createPatoControl({
-      component: PatoInputComponent,
+    buttons: createPatoControl({
+      component: PatoButtonGroupComponent,
       formFieldComponent: FormFieldComponent,
       value: "",
       validators: [Validators.required],
-      asyncValidators: [FormUtils.asycnValidatorSimpson],
       valueChangesSubscribe: true,
       args: {
         control: {
-          debounceTimer: 0,
-          placeholder: "personalidad"
+          items: this.simpsons,
+          disabled: false,
+          options: {
+            label: (item: Simpson, index: number) => item.fullName,
+            value: (item: any, index: number) => item,
+            disabled: (item: any, index: number) => index === 3,
+            selected: (item: any, index: number) => index === 4,
+            variant: (item: any, index: number) => index === 0 ? "danger" : "info",
+          }
         },
         formField: {
           label: "Personalidad"
