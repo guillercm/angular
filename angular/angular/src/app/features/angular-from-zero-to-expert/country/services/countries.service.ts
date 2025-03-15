@@ -11,7 +11,7 @@ import { Region } from '../interfaces/region.type';
 })
 export class CountriesService {
 
-private readonly _apiHandler = inject(ApiHandlerService);
+private readonly _apiHandlerService = inject(ApiHandlerService);
 
   private readonly _configService = inject(AppConfigService);
 
@@ -26,14 +26,12 @@ private readonly _apiHandler = inject(ApiHandlerService);
   }
 
   private getEndpoint(endpoint: string): string {
-    const configApi = this._configApi();
-    if (!configApi) return "";
-    return `${configApi.baseUrl}${configApi.endpoints[endpoint]}`;
+    return this._apiHandlerService.getEndpoint(this._configApi, endpoint)
   }
 
   public searchCountryByAlphaCode( code: string ): Observable<Country | null> {
     const url = this.getEndpoint("searchCountryByAlphaCode");
-    return this._apiHandler.get<Country[]>( url, {pathParams: {code}} )
+    return this._apiHandlerService.get<Country[]>( url, {pathParams: {code}} )
       .pipe(
         map( countries => countries.length > 0 ? countries[0] : null ),
         catchError( (e) => of(null) ),
@@ -42,7 +40,7 @@ private readonly _apiHandler = inject(ApiHandlerService);
 
   searchCapital(capital:string): Observable<Country[]> {
     const url = this.getEndpoint("searchCapital");
-    return this._apiHandler.get<Country[]>(url, {pathParams: {capital}})
+    return this._apiHandlerService.get<Country[]>(url, {pathParams: {capital}})
         .pipe(
           catchError( (e) => of([]) ),
         );
@@ -50,7 +48,7 @@ private readonly _apiHandler = inject(ApiHandlerService);
 
   searchCountry(country: string): Observable<Country[]> {
     const url = this.getEndpoint("searchCountry");
-    return this._apiHandler.get<Country[]>(url, {pathParams: {country}})
+    return this._apiHandlerService.get<Country[]>(url, {pathParams: {country}})
       .pipe(
         catchError( (e) => of([]) ),
       );
@@ -58,7 +56,7 @@ private readonly _apiHandler = inject(ApiHandlerService);
 
   searchRegion(region: Region ): Observable<Country[]> {
     const url = this.getEndpoint("searchRegion");
-    return this._apiHandler.get<Country[]>(url, {pathParams: {region}})
+    return this._apiHandlerService.get<Country[]>(url, {pathParams: {region}})
       .pipe(
         catchError( (e) => of([]) ),
       );

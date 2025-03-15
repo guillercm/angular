@@ -8,7 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "envs": "node ./src/scripts/set-envs/set-envs.js",
-    "backend-server": "json-server --watch data/simpsons/db_simpsons.json"
+    "json-server": "json-server --watch data/simpsons/db_simpsons.json --port 3001",
+    "backend-server": "cd src/app/features/angular-from-zero-to-expert/tesloshop/backend && npm run start:dev",
+    "sass:build": "cd src/styles && sass scss/main.scss css/main.css",
+    "sass:watch:": "cd src/styles && sass --watch scss/main.scss:css/main.css"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +30,7 @@
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
     "@popperjs/core": "^2.11.8",
+    "@unpic/angular": "^1.0.0",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",

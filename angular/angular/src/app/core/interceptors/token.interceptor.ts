@@ -11,6 +11,7 @@ export function tokenInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
   if (context.skipApiKey) return next(req);
 
   const token = inject(AuthService).token();
+  if (!token) return next(req);
 
   const newReq = req.clone({
     headers: req.headers.append('Authorization', `Bearer ${token}`),

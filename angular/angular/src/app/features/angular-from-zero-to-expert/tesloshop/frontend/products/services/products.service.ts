@@ -40,7 +40,7 @@ const emptyProduct: Product = {
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
-  private readonly _apiHandler = inject(ApiHandlerService);
+  private readonly _apiHandlerService = inject(ApiHandlerService);
 
   private readonly _configService = inject(AppConfigService);
 
@@ -58,9 +58,7 @@ export class ProductsService {
   }
 
   private getEndpoint(endpoint: string): string {
-    const configApi = this._configApi();
-    if (!configApi) return "";
-    return `${configApi.baseUrl}${configApi.endpoints[endpoint]}`;
+    return this._apiHandlerService.getEndpoint(this._configApi, endpoint)
   }
 
   getProducts(options: Options): Observable<ProductsResponse> {
@@ -72,7 +70,7 @@ export class ProductsService {
     }
 
     const url = this.getEndpoint("getProducts");
-    return this._apiHandler.get<ProductsResponse>(url, {
+    return this._apiHandlerService.get<ProductsResponse>(url, {
       params: {
         limit,
         offset,
@@ -91,7 +89,7 @@ export class ProductsService {
     }
 
     const url = this.getEndpoint("getProductByIdSlug");
-    return this._apiHandler.get<Product>(url,
+    return this._apiHandlerService.get<Product>(url,
       { pathParams: {idSlug} }
     ).pipe(tap((product) => this.productCache.set(idSlug, product)));
 
@@ -107,7 +105,7 @@ export class ProductsService {
     }
 
     const url = this.getEndpoint("getProductById");
-    return this._apiHandler.get<Product>(url,
+    return this._apiHandlerService.get<Product>(url,
       { pathParams: {id} }
     ).pipe(tap((product) => this.productCache.set(id, product)));
   }
@@ -126,7 +124,7 @@ export class ProductsService {
         images: [...currentImages, ...imageNames],
       })),
       switchMap((updatedProduct) =>
-        this._apiHandler.patch<Product>(url, updatedProduct, {pathParams: {id}})
+        this._apiHandlerService.patch<Product>(url, updatedProduct, {pathParams: {id}})
       ),
       tap((product) => this.updateProductCache(product))
     );
@@ -142,7 +140,7 @@ export class ProductsService {
   ): Observable<Product> {
 
     const url = this.getEndpoint("createProduct");
-    return this._apiHandler
+    return this._apiHandlerService
       .post<Product>(url, productLike)
       .pipe(tap((product) => this.updateProductCache(product)));
   }
@@ -180,7 +178,7 @@ export class ProductsService {
     formData.append('file', imageFile);
 
     const url = this.getEndpoint("uploadImage");
-    return this._apiHandler
+    return this._apiHandlerService
       .post<{ fileName: string }>(url, formData)
       .pipe(map((resp) => resp.fileName));
   }

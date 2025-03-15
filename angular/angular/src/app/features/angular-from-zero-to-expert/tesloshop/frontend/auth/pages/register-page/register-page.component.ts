@@ -1,8 +1,100 @@
-import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
+import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
+import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/data-form.interface';
+import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
+import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
+import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-register-page',
-  imports: [],
+  selector: 'auth-register-page',
+  imports: [RouterLink, ReactiveFormsModule, PatoFormComponent, SharedButtonComponent],
   templateUrl: './register-page.component.html',
 })
-export class RegisterPageComponent { }
+export class RegisterPageComponent {
+  private readonly _destroyRef = inject(DestroyRef);
+  private readonly _router = inject(Router);
+  private readonly _activatedRoute = inject(ActivatedRoute);
+
+  private readonly _authService = inject(AuthService);
+
+  protected dataForm: PatoDataForm = {
+    fullName: createPatoControl({
+      component: PatoInputComponent,
+      formFieldComponent: FormFieldComponent,
+      value: "",
+      validators: [Validators.required, Validators.minLength(6)],
+      asyncValidators: [],
+      valueChangesSubscribe: true,
+      args: {
+        control: {
+          icon: "person-fill"
+        },
+        formField: {
+          "label": "Nombre completo"
+        }
+      },
+      classes: {
+        formField: "mt-3 col-6 mt-4",
+        control: "input-group"
+      }
+    }),
+    email: createPatoControl({
+      component: PatoInputComponent,
+      formFieldComponent: FormFieldComponent,
+      value: "",
+      validators: [Validators.required, Validators.email],
+      args: {
+        control: {
+          placeholder: "",
+          icon: "envelope-at-fill"
+        },
+        formField: {
+          label: "Correo electrónico"
+        }
+      },
+      classes: {
+        formField: "col-12",
+        control: "input-group"
+      }
+    }),
+    password: createPatoControl({
+      component: PatoInputComponent,
+      formFieldComponent: FormFieldComponent,
+      value: "",
+      validators: [Validators.required, Validators.minLength(6), Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)],
+      asyncValidators: [],
+      valueChangesSubscribe: true,
+      args: {
+        control: {
+          icon: "key-fill"
+        },
+        formField: {
+          "label": "Contraseña"
+        }
+      },
+      classes: {
+        formField: "mt-3 col-6 mt-4",
+        control: "input-group"
+      }
+    })
+  };
+
+
+  onSubmit(data: ResponsePatoForm) {
+
+    const { email = '', password = '', fullName = '' } = data.content;
+
+    this._authService.register(email!, password!, fullName!).pipe(takeUntilDestroyed(this._destroyRef)).subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this._router.navigate(['../..'], { relativeTo: this._activatedRoute });
+        return;
+      }
+    });
+  }
+}

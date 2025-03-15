@@ -27,7 +27,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/scss/main.scss"
             ],
             "scripts": [
               "node_modules/prismjs/prism.js",
@@ -100,7 +100,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/scss/main.scss"
             ],
             "scripts": []
           }

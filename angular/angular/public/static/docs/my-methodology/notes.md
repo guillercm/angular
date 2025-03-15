@@ -245,9 +245,13 @@ constructor() {
 
 [galeria de fotos para pruebas](https://flowbite.com/docs/components/gallery/)
 
+[fuentes](https://fonts.google.com/selection#how-to-use)
+
 [tailwindcss](https://tailwindcss.com/)
 
 [daisyui instalación](https://daisyui.com/docs/install/angular/)
+
+
 
 [daisyui componentes](https://daisyui.com/components)
 
@@ -262,6 +266,16 @@ constructor() {
 [content-projection](https://angular.dev/guide/components/content-projection)
 
 [carrusel de imágenes](https://swiperjs.com/)
+
+
+[neon.tech](https://neon.tech/)
+
+
+[refactoring-ui](https://medium.com/refactoring-ui/7-practical-tips-for-cheating-at-design-40c736799886)
+
+[midudev-refactoring-ui](https://www.youtube.com/watch?v=n189TdfbQIA)
+
+[componente imagenes](https://unpic.pics/img/angular/)
 <!-- 
 
 <code-block>

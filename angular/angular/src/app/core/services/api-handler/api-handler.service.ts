@@ -1,9 +1,10 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, WritableSignal, inject } from '@angular/core';
 import { DEFAULT_HTTP_CONTEXT } from '@core/interceptors/context/default-http-context';
 import { setHttpContext } from '@core/interceptors/context/http-context';
 import { ApiHandlerParams } from '@core/interfaces/api-handler/api-handler-params.interface';
 import { ApiHandlerPathParams } from '@core/interfaces/api-handler/api-handler-path-params.interface';
+import { Api } from '@core/interfaces/config/config';
 import { Observable, shareReplay } from 'rxjs';
 
 @Injectable({
@@ -41,6 +42,12 @@ export class ApiHandlerService {
     const context = this.getContext(url, options);
     url = this.setPathParams(url, options);
     return this._httpClient.patch<T>(url, body, {...options, context: context}).pipe(shareReplay(1));
+  }
+
+  public getEndpoint(api: WritableSignal<Api | null>, endpoint: string) {
+    const configApi = api();
+    if (!configApi) return "";
+    return `${configApi.baseUrl}${configApi.endpoints[endpoint]}`;
   }
 
   private setPathParams(url: string, options?: ApiHandlerParams): string {

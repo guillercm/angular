@@ -1,9 +1,30 @@
-import { ComponentRef, computed, DestroyRef, Directive, effect, inject, Injector, input, isSignal, OnInit, OutputEmitterRef, OutputRefSubscription, runInInjectionContext, ViewContainerRef } from '@angular/core';
-import { ControlContainer, ControlValueAccessor, FormControlName, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {ɵWritable, ComponentRef, computed, DestroyRef, Directive, effect, inject, Injector, input, isSignal, OnInit, OutputEmitterRef, OutputRefSubscription, runInInjectionContext, ViewContainerRef, Input, Host, Inject, Optional, Self, SkipSelf } from '@angular/core';
+import { ControlContainer, ControlValueAccessor, FormControlName, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { PatoFormComponent } from '../../pato-form.component';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Args } from '@core/interfaces/args/args.interface';
 import { Properties } from '../../../../../../features/angular-from-zero-to-expert/mapbox/interfaces/places.interface';
+import { InputComponent } from '@features/simpsons/pages/simpsons/prueba/prueba.component';
+
+
+@Directive({
+  selector: '[dynamicFormControl]'
+})
+export class DynamicFormControlDirective extends FormControlName {
+
+  override name: string | number | null = "fullName";
+
+  constructor(@Optional() @Host() @SkipSelf() parent: ControlContainer,
+  @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: ControlValueAccessor[]) {
+    super(parent, [], [], valueAccessors, null);
+    console.log(this.name)
+  }
+  // constructor(injector: Injector) {
+
+  // }
+
+}
+
 
 @Directive({
   selector: '[patoFormControlInjectorDirective]'
@@ -69,7 +90,6 @@ export class PatoFormControlInjectorDirectiveDirective implements OnInit {
           switch (typeof componentProperty) {
             case 'function':
               const nameFunction: string = componentProperty.name;
-              console.log({nameFunction})
               if (nameFunction.includes("input")) {
                 if (isSignal(argValue)) {
                   const obs = toObservable(argValue, {

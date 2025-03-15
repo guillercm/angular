@@ -1,15 +1,14 @@
 import {
   Component,
-  computed,
   input,
   linkedSignal,
-  signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RepeatPipe } from "@shared/pipes/repeat/repeat.pipe";
 
 @Component({
   selector: 'app-pagination',
-  imports: [RouterLink],
+  imports: [RouterLink, RepeatPipe],
   templateUrl: './pagination.component.html',
 })
 export class PaginationComponent {
@@ -18,7 +17,4 @@ export class PaginationComponent {
 
   activePage = linkedSignal(this.currentPage);
 
-  getPagesList = computed(() => {
-    return Array.from({ length: this.pages() }, (_, i) => i + 1);
-  });
 }

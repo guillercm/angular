@@ -1,0 +1,36 @@
+@use "sass:map";
+
+@use 'animate.css/animate.min.css';
+@use 'prismjs/themes/prism-okaidia.css';
+@use 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+@use 'prismjs/plugins/line-highlight/prism-line-highlight.css';
+@use 'mapbox-gl/dist/mapbox-gl.css';
+
+
+@use 'utilities/animations';
+@use 'utilities/variables' as *;
+@use 'utilities/functions';
+@use 'utilities/mixins';
+@use 'utilities/helpers';
+
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/base';
+
+@use 'bootstrap/scss/bootstrap.scss' with (
+  $utilities: map.merge($bootstrapUtilities, $customUtilities),
+  $font-family-sans-serif: $font-family-sans-serif
+);
+
+.cdk-drag-preview.list-group-item {
+  background-color: bootstrap.$card-bg !important;
+  padding: bootstrap.$list-group-item-padding-y bootstrap.$list-group-item-padding-x;
+  border: bootstrap.$list-group-border-width solid bootstrap.$list-group-border-color;
+  overflow: hidden;
+}
+
+
+
+
+
+// https://dev.to/fernandomoyano/sass-464d

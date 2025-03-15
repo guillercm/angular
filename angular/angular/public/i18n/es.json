@@ -12,6 +12,8 @@
       "required": "Este campo es obligatorio",
       "minlength": "Tiene que tener como mínimo {{ requiredLength }} carácteres.",
       "maxlength": "Tiene que tener como máximo {{ requiredLength }} carácteres.",
+      "min": "El mínimo tiene que ser de {{ min }}",
+      "max": "El máximo tiene que ser de {{ max }}",
       "email": "Tiene que ser un correo válido.",
       "simpsonError": "El color tiene que ser amarillo"
     },

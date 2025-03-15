@@ -12,7 +12,7 @@ import { SimpsonResponse } from '../interfaces/api/simpsonsRespose.interface';
 })
 export class SimpsonsService {
 
-  private readonly _apiHandler = inject(ApiHandlerService);
+  private readonly _apiHandlerService = inject(ApiHandlerService);
 
   private readonly _configService = inject(AppConfigService);
 
@@ -29,29 +29,27 @@ export class SimpsonsService {
   }
 
   private getEndpoint(endpoint: string): string {
-    const configApi = this._configApi();
-    if (!configApi) return "";
-    return `${configApi.baseUrl}${configApi.endpoints[endpoint]}`;
+    return this._apiHandlerService.getEndpoint(this._configApi, endpoint)
   }
 
 
   getSimpsonById(id: number): Observable<Simpson> {
     const url = this.getEndpoint("getSimpsonById");
-    return this._apiHandler.get<SimpsonResponse>(url, { pathParams: { id }, params: { id } }).pipe(
+    return this._apiHandlerService.get<SimpsonResponse>(url, { pathParams: { id }, params: { id } }).pipe(
       map((response: SimpsonResponse) => this._simpsonsAdapter.adapt(response))
     );
   }
 
   getSimpsons() {
     const url = this.getEndpoint("getSimpsons");
-    return this._apiHandler.get<SimpsonResponse[]>(url, { context: { id: "getSimpsons" } }).pipe(
+    return this._apiHandlerService.get<SimpsonResponse[]>(url, { context: { id: "getSimpsons" } }).pipe(
       map((response: SimpsonResponse[]) => this._simpsonsAdapter.adaptArray(response))
     )
   }
 
   getSimpsonsWithDelay(seconds: number) {
     // return throwError(() => new HttpErrorResponse({"status": 500, "error": "Error del servidor"}));
-    return this._apiHandler.get<any>("https://dummyjson.com/RESOURCE/",
+    return this._apiHandlerService.get<any>("https://dummyjson.com/RESOURCE/",
       {
         params: { delay: seconds * 1000 },
         context: { id: "getSimpsonsWithDelay", showGlobalLoader: true }

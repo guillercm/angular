@@ -95,6 +95,12 @@ export const featuresRoutes: Routes = [
         title: 'Trucos de nest',
         data: {pdf: 'nest-cheatsheet'},
         component: PdfComponent
+      },
+      {
+        path: 'refactoring-ui',
+        title: 'Refactoring UI',
+        data: {pdf: 'refactoring-ui'},
+        component: PdfComponent
       }
     ]
   },

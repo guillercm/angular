@@ -9,7 +9,7 @@ import { firstValueFrom, take, tap } from 'rxjs';
 })
 export class AppConfigService {
 
-  private readonly _apiHandler = inject(ApiHandlerService);
+  private readonly _apiHandlerService = inject(ApiHandlerService);
 
   private _config = signal<Config>({
     apis: {},
@@ -23,7 +23,7 @@ export class AppConfigService {
   public readonly isLoaded = signal<boolean>(false);
 
   public load() {
-    return this._apiHandler.get<Config>(environment.configPath, {context: {skipApiKey: true}}).pipe(
+    return this._apiHandlerService.get<Config>(environment.configPath, {context: {skipApiKey: true}}).pipe(
         take(1),
         tap((config: Config) => this._config.set(config)),
         tap((config: Config) => this.isLoaded.set(true)),

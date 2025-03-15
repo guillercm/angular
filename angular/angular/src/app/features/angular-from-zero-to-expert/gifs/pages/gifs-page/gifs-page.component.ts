@@ -16,6 +16,7 @@ import { InterceptorService } from "@core/interceptors/services/interceptor.serv
 import { SpinnerComponent } from "../../../../../core/components/spinner/spinner.component";
 import { ScrollStateService } from "@shared/services/scroll-state.service";
 import { DataScrollToEnd } from "@shared/directives/isScrollToEnd/interfaces/data-scroll-to-end.interface";
+import { ResponsePatoForm } from "@shared/components/controls/pato-form/interfaces/pato-response-form.interface";
 
 @Component({
   selector: 'features-gifs-page',
@@ -98,8 +99,8 @@ export default class GifsPageComponent implements AfterViewInit {
     );
   }
 
-  protected onSubmit(data: any) {
-    let { query } = data;
+  protected onSubmit(data: ResponsePatoForm) {
+    let { query } = data.content;
     query = query.trim();
     if (!query) return;
 

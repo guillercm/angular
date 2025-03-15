@@ -1,7 +1,7 @@
 {
   "apis": {
     "simpsons": {
-      "baseUrl": "http://localhost:3000",
+      "baseUrl": "http://localhost:3001",
       "endpoints": {
         "getSimpsons": "/simpsons",
         "getSimpsonById": "/simpsons/{id}"
@@ -35,6 +35,7 @@
       "baseUrl": "http://localhost:3000/api",
       "endpoints": {
         "login": "/auth/login",
+        "register": "/auth/register",
         "checkStatus": "/auth/check-status",
         "getProducts": "/products",
         "getProductByIdSlug": "/products/{idSlug}",

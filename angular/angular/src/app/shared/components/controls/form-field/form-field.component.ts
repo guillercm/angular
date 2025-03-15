@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, ViewContainerRef, computed, inject, input, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, ViewContainerRef, computed, inject, input, signal, viewChild } from '@angular/core';
 import { LanguageService } from '@core/services/language/language.service';
 import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -11,7 +11,8 @@ import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface
   selector: 'features-form-field',
   imports: [CommonModule, TranslatePipe],
   templateUrl: './form-field.component.html',
-  styleUrl: './form-field.component.css'
+  styleUrl: './form-field.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldComponent implements OnInit, PatoFormField {
 

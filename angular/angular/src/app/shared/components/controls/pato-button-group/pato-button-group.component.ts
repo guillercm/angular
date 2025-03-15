@@ -26,7 +26,7 @@ import { SharedButtonComponent } from '@shared/components/button/shared-button.c
 export class PatoButtonGroupComponent {
 
   protected readonly formField = input.required<PatoFormField>();
-  
+
   public readonly items = input.required<GenericObject[]>();
 
   public readonly options = input<PatoOptionsButtonGroup>({});
@@ -34,7 +34,7 @@ export class PatoButtonGroupComponent {
   public readonly disabled = input<boolean>();
   private _isDisabled = linkedSignal(() => this.disabled() );
   protected readonly isDisabled = this._isDisabled.asReadonly();
-  
+
   private _data = linkedSignal({
     source: this.items,
     computation: (items: GenericObject[]) => {
@@ -82,7 +82,7 @@ export class PatoButtonGroupComponent {
   onTouched: () => void = () => {};
 
   writeValue(items: any): void {
-    
+    console.log(items)
   }
 
   registerOnChange(fn: any): void {

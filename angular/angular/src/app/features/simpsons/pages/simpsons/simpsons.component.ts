@@ -18,6 +18,7 @@ import { SharedButtonComponent } from '@shared/components/button/shared-button.c
 import { Simpson } from '@features/simpsons/interfaces/simpson.interface';
 import { SimpsonCardComponent } from "../../components/simpson-card/simpson-card.component";
 import { SimpsonsService } from '@features/simpsons/services/simpsons.service';
+import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
 
 @Component({
   selector: 'features-simpsons',
@@ -142,8 +143,7 @@ export default class SimpsonsComponent {
     console.log(data)
   }
 
-  onSubmit(data: any) {
-    console.log(data);
+  onSubmit(data: ResponsePatoForm) {
     this._simpsonId.update((value: number) => value + 1)
   }
 

@@ -17,7 +17,7 @@ import { Itinerary } from '../../interfaces/itinerary.interface';
 })
 export class ApiClientService {
 
-  private readonly _apiHandler = inject(ApiHandlerService);
+  private readonly _apiHandlerService = inject(ApiHandlerService);
 
   private readonly _configService = inject(AppConfigService);
 
@@ -41,13 +41,11 @@ export class ApiClientService {
   }
 
   private getEndpoint(endpoint: string): string {
-    const configApi = this._configApi();
-    if (!configApi) return "";
-    return `${configApi.baseUrl}${configApi.endpoints[endpoint]}`;
+    return this._apiHandlerService.getEndpoint(this._configApi, endpoint)
   }
 
   public getPlaces(query: string, options?: GenericObject): Observable<Place[]> {
-    return this._apiHandler.get<PlacesResponse>(this.getEndpoint("getPlaces"), {
+    return this._apiHandlerService.get<PlacesResponse>(this.getEndpoint("getPlaces"), {
       params: {
         q: query,
         limit: 10,
@@ -62,7 +60,7 @@ export class ApiClientService {
   public getItinerary(travelMode: TravelMode, start: Coordinates, end: Coordinates): Observable<Itinerary> {
     const {longitude: startLong, latitude: startLat} = start;
     const {longitude: endLong, latitude: endLat} = end;
-    return this._apiHandler.get<DirectionsResponse>(this.getEndpoint("getDirections"), {
+    return this._apiHandlerService.get<DirectionsResponse>(this.getEndpoint("getDirections"), {
       pathParams: {
         profile: travelMode, startLong, startLat, endLong, endLat
       },

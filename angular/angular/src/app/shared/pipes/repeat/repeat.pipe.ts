@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class RepeatPipe implements PipeTransform {
 
   transform(value: number): number[] {
-    return new Array(value).fill(1);
+    return [...Array.from({ length: value }, (_, i) => i + 1)];
   }
 
 }

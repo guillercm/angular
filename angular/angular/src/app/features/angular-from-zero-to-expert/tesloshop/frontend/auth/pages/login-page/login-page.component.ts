@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -9,27 +9,27 @@ import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-
 import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'auth-login-page',
   imports: [RouterLink, ReactiveFormsModule, PatoFormComponent, SharedButtonComponent],
   templateUrl: './login-page.component.html',
 })
 export class LoginPageComponent {
-  fb = inject(FormBuilder);
-  hasError = signal(false);
-  isPosting = signal(false);
+
+  private readonly _destroyRef = inject(DestroyRef);
   private readonly _router = inject(Router);
   private readonly _activatedRoute = inject(ActivatedRoute);
 
-  authService = inject(AuthService);
+  private readonly _authService = inject(AuthService);
 
   protected dataForm: PatoDataForm = {
     email: createPatoControl({
       component: PatoInputComponent,
       formFieldComponent: FormFieldComponent,
-      value: "",
+      value: "admin@google.com",
       validators: [Validators.required, Validators.email],
       args: {
         control: {
@@ -48,8 +48,8 @@ export class LoginPageComponent {
     password: createPatoControl({
       component: PatoInputComponent,
       formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required, Validators.minLength(6)],
+      value: "Abc123",
+      validators: [Validators.required, Validators.minLength(6), Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)],
       asyncValidators: [],
       valueChangesSubscribe: true,
       args: {
@@ -72,16 +72,11 @@ export class LoginPageComponent {
 
     const { email = '', password = '' } = data.content;
 
-    this.authService.login(email!, password!).subscribe((isAuthenticated) => {
+    this._authService.login(email!, password!).pipe(takeUntilDestroyed(this._destroyRef)).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
         this._router.navigate(['../..'], { relativeTo: this._activatedRoute });
         return;
       }
-
-      this.hasError.set(true);
-      setTimeout(() => {
-        this.hasError.set(false);
-      }, 2000);
     });
   }
 

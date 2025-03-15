@@ -23,8 +23,8 @@ docker-compose up -d
 6. Levantar:
 
 ```
+cd src/app/features/angular-from-zero-to-expert/tesloshop/backend
 npm run start:dev
-yarn start:dev
 
 ```
 

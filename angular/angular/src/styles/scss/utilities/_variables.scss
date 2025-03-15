@@ -1,3 +1,10 @@
+// Variables (colores, tipografía, etc.)
+@use "sass:string";
+
+$font-family-sans-serif: 'Stocky';
+
+
+
 $bootstrapUtilities: (
   "width": (property: width,
     class: w,
@@ -15,6 +22,7 @@ $bootstrapUtilities: (
       pre: pre)),
 );
 
+
 $customUtilities: (
   "width-rem": (property: width,
     class: w-rem,
@@ -27,8 +35,15 @@ $customUtilities: (
   ),
   "cursor": (property: cursor,
     class: cursor,
-    values: (pointer))
+    values: (pointer)),
+  "animate": (property: animation,
+    class: animate,
+    values: (fadeIn: string.unquote('fadeIn 1s ease-in-out')),
+  ),
 );
+
+
+// animate-fadeIn
 
 $opacity-hover: (
   0,

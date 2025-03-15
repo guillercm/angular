@@ -21,10 +21,7 @@ import { ProductImagePipe } from '../../pipes/product-image.pipe';
   imports: [ProductImagePipe],
   templateUrl: './product-carousel.component.html',
   styles: `
-    .swiper {
-      width: 100%;
-      height: 500px;
-    }
+
 
 
   `,

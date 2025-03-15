@@ -11,7 +11,7 @@ import { Gif, SearchResponse } from '../interfaces/gifs.interfaces';
 })
 export class GifsService {
 
-  private readonly _apiHandler = inject(ApiHandlerService);
+  private readonly _apiHandlerService = inject(ApiHandlerService);
 
   private readonly _configService = inject(AppConfigService);
 
@@ -32,9 +32,7 @@ export class GifsService {
   }
 
   private getEndpoint(endpoint: string): string {
-    const configApi = this._configApi();
-    if (!configApi) return "";
-    return `${configApi.baseUrl}${configApi.endpoints[endpoint]}`;
+    return this._apiHandlerService.getEndpoint(this._configApi, endpoint)
   }
 
   public searchTag(tag: string, page = 0, itemsPerPage = 10): Observable<SearchResponse> {
@@ -44,7 +42,7 @@ export class GifsService {
     .set('offset', page * itemsPerPage)
     .set('q', tag);
     const url = this.getEndpoint("search");
-    return this._apiHandler.get<SearchResponse>(url, {params, context: {id: 'searchGifs', showGlobalLoader: false} }).pipe();
+    return this._apiHandlerService.get<SearchResponse>(url, {params, context: {id: 'searchGifs', showGlobalLoader: false} }).pipe();
   }
 
   public setGifs(gifs: Gif[]) {

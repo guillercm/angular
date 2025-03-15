@@ -42,6 +42,7 @@ export class PatoControlsService {
   public static getDefaultOptions<T>(options: PatoOptionsControlBase<T>, item: GenericObject, index: number): PatoDefaultOptionsControlBase {
     return {
       label: this.getOption(options, item, index, "label"),
+      value: this.getOption(options, item, index, "value"),
       selected: this.getOption(options, item, index, "selected"),
       disabled: this.getOption(options, item, index, "disabled"),
     }
@@ -55,7 +56,7 @@ export class PatoControlsService {
         return labelOpt(item, index)
       case 'value':
         const valueOpt = options.value;
-        if (!valueOpt) return item;
+        if (!valueOpt)  return item["value"]
         if (typeof valueOpt === "string") return item[valueOpt]
         return valueOpt(item, index)
       case 'selected':
