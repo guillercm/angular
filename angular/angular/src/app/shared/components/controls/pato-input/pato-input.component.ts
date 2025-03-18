@@ -1,27 +1,22 @@
-import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component, computed, forwardRef, inject, input, OnInit, output, signal, DestroyRef } from '@angular/core';
+import { Component, computed, inject, input, OnInit, output, signal, DestroyRef } from '@angular/core';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
 import { Subject, debounceTime } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslatePipe } from '@ngx-translate/core';
 import { PatoFormComponent } from '../pato-form/pato-form.component';
+import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-accessor.interface';
+import { TranslatePipe } from '@ngx-translate/core';
+
 
 
 @Component({
   selector: 'pato-input',
   templateUrl: './pato-input.component.html',
   styles: ``,
-  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PatoInputComponent),
-      multi: true
-    }
-  ]
+  imports: [CommonModule, ReactiveFormsModule, TranslatePipe]
 })
-export class PatoInputComponent implements OnInit, ControlValueAccessor {
+export class PatoInputComponent implements OnInit, PatoControlValueAccessor {
 
   private readonly _patoFormComponent = inject(PatoFormComponent);
 
@@ -59,8 +54,9 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
 
   protected readonly type = "text";
 
-  onChange: (value: string) => void = () => {};
-  onTouched: () => void = () => {};
+
+  _onChange: (_: any) => void = () => {};
+  _onTouched: () => void = () => {};
 
   ngOnInit(): void {
     this.initialize();
@@ -74,19 +70,19 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
     )
     .subscribe( value => {
       this.debounce.emit(value);
-      this.onTouched();
+      this._onTouched();
       if (this.submitFormOnDebounce())
       this._patoFormComponent.onSubmit();
     });
   }
 
   keyPress( searchTerm: string ) {
-    this.onChange(searchTerm);
+    this._onChange(searchTerm);
     this._debouncer.next(searchTerm);
   }
 
   onBlur() {
-    this.onTouched();
+    this._onTouched();
   }
 
   writeValue(value: string|null): void {
@@ -94,18 +90,9 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
     this._value.set(value);
   }
 
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
   setDisabledState(isDisabled: boolean): void {
     this._disabled.set(isDisabled);
   }
-
 
 
 }

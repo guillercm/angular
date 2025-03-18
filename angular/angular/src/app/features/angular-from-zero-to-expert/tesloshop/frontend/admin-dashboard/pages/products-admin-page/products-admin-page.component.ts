@@ -6,11 +6,12 @@ import { ProductTableComponent } from '../../../products/components/product-tabl
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { RouterLink } from '@angular/router';
 import { ProductsService } from '../../../products/services/products.service';
-import { PaginationService } from '../../../shared/components/pagination/pagination.service';
+import { PaginationService } from '../../../shared/components/pagination/services/pagination.service';
+import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 
 @Component({
   selector: 'app-products-admin-page',
-  imports: [ProductTableComponent, PaginationComponent, RouterLink],
+  imports: [ProductTableComponent, PaginationComponent, RouterLink, AppTranslatePipe],
   templateUrl: './products-admin-page.component.html',
 })
 export class ProductsAdminPageComponent {

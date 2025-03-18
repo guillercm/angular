@@ -11,30 +11,39 @@ import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
 import { MessagesWsModule } from './messages-ws/messages-ws.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ErrorInterceptor } from './interceptors/error/error.interceptor';
 
 @Module({
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ErrorInterceptor,
+    },
+  ],
   imports: [
+
     ConfigModule.forRoot(),
 
     TypeOrmModule.forRoot({
       ssl: process.env.STAGE === 'prod',
       extra: {
         ssl: process.env.STAGE === 'prod'
-              ? { rejectUnauthorized: false }
-              : null,
+          ? { rejectUnauthorized: false }
+          : null,
       },
       type: 'postgres',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT,
       database: process.env.DB_NAME,
       username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,      
+      password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
       synchronize: true,
     }),
 
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname,'..','public'), 
+      rootPath: join(__dirname, '..', 'public'),
     }),
 
     ProductsModule,
@@ -51,4 +60,4 @@ import { MessagesWsModule } from './messages-ws/messages-ws.module';
 
   ],
 })
-export class AppModule {}
+export class AppModule { }

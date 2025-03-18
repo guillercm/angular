@@ -276,6 +276,14 @@ constructor() {
 [midudev-refactoring-ui](https://www.youtube.com/watch?v=n189TdfbQIA)
 
 [componente imagenes](https://unpic.pics/img/angular/)
+
+```
+  PS C:\WINDOWS\system32> netstat -ano | findstr :3000
+    TCP    0.0.0.0:3000           0.0.0.0:0              LISTENING       10848
+    TCP    [::]:3000              [::]:0                 LISTENING       10848
+  PS C:\WINDOWS\system32> taskkill /F /PID 10848
+  Correcto: se terminó el proceso con PID 10848.`
+```
 <!-- 
 
 <code-block>

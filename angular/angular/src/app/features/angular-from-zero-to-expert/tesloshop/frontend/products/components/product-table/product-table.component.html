@@ -8,9 +8,9 @@
             <input type="checkbox" class="form-check-input" />
           </label>
         </th>
-        <th>Título</th>
-        <th>Precio</th>
-        <th>Inventario</th>
+        <th>{{ ('i18n.common.title' | appTranslate ) }}</th>
+        <th>{{ ('i18n.common.price' | appTranslate ) }}</th>
+        <th>{{ ('i18n.common.inventory' | appTranslate ) }}</th>
         <th></th>
       </tr>
     </thead>
@@ -64,7 +64,7 @@
             [routerLink]="['./', product.id]"
             class="btn btn-ghost text-accent btn-xs"
           >
-            Detalles
+          {{ ('i18n.common.details' | appTranslate ) }}
           </a>
         </th>
       </tr>

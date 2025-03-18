@@ -26,45 +26,50 @@ export class LoginPageComponent {
   private readonly _authService = inject(AuthService);
 
   protected dataForm: PatoDataForm = {
-    email: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "admin@google.com",
-      validators: [Validators.required, Validators.email],
-      args: {
-        control: {
-          placeholder: "",
-          icon: "envelope-at-fill"
+    form: {
+      id: 'tesloshop-login'
+    },
+    controls: {
+      email: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "admin@google.com",
+        validators: [Validators.required, Validators.email],
+        args: {
+          control: {
+            placeholder: "",
+            icon: "envelope-at-fill"
+          },
+          formField: {
+            label: "Correo electrónico"
+          }
         },
-        formField: {
-          label: "Correo electrónico"
+        classes: {
+          formField: "col-12",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "col-12",
-        control: "input-group"
-      }
-    }),
-    password: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "Abc123",
-      validators: [Validators.required, Validators.minLength(6), Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)],
-      asyncValidators: [],
-      valueChangesSubscribe: true,
-      args: {
-        control: {
-          icon: "key-fill"
+      }),
+      password: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "Abc123",
+        validators: [Validators.required, Validators.minLength(6), Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)],
+        asyncValidators: [],
+        valueChangesSubscribe: true,
+        args: {
+          control: {
+            icon: "key-fill"
+          },
+          formField: {
+            "label": "Contraseña"
+          }
         },
-        formField: {
-          "label": "Contraseña"
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    })
+      })
+    }
   };
 
 

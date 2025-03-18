@@ -1,7 +1,7 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { ProductImage } from './';
+import { ProductImage } from './product-image.entity';
 import { User } from '../../auth/entities/user.entity';
 
 @Entity({ name: 'products' })

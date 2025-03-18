@@ -1,5 +1,6 @@
 import { Component, inject, output, signal } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TimeoutModalData } from './interfaces/data.interface';
 
 @Component({
   selector: 'core-timeout-modal',
@@ -10,9 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class TimeoutModalComponent {
   private readonly _activeModal = inject(NgbActiveModal);
 
-  public title = signal<string>("");
-
-  public message = signal<string>("")
+  public data = signal<TimeoutModalData | null>(null);
 
   public clicked = output<string>();
 

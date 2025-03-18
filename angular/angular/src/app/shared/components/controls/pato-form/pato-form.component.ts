@@ -1,19 +1,17 @@
+import { AfterViewInit, Component, computed, DestroyRef, effect, inject, input, output, signal, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ComponentRef, DestroyRef, effect, ElementRef, inject, input, output, signal, TemplateRef, Type, viewChildren } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { PatoControlComponent } from '../pato-control/pato-control.component';
 import { PatoDataForm } from './interfaces/data-form.interface';
 import { PatoDataFormChange } from './interfaces/pato-form-change.interface';
-import { PatoFormControlInjectorDirectiveDirective } from './directives/pato-form-control-injector-directive/pato-form-control-injector-directive.directive';
 import { ResponsePatoForm } from './interfaces/pato-response-form.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
-
 
 
 @Component({
   selector: 'pato-form',
-  imports: [CommonModule, ReactiveFormsModule, PatoFormControlInjectorDirectiveDirective],
+  imports: [CommonModule, ReactiveFormsModule, PatoControlComponent],
   templateUrl: './pato-form.component.html',
   styleUrl: './pato-form.component.css'
 })
@@ -24,8 +22,6 @@ export class PatoFormComponent implements AfterViewInit {
   private readonly _formBuilder = inject(FormBuilder);
 
   public data = input.required<PatoDataForm>();
-
-  public identifier = input.required<string>();
 
   public additionalClasses = input<string>();
 
@@ -43,6 +39,7 @@ export class PatoFormComponent implements AfterViewInit {
 
   public readonly finalFormTemplate = input<TemplateRef<any>|null>(null);
 
+  public readonly identifier = computed(() => this.data().form.id );
 
   private effectChangeForm = effect(() => {
     if (this.data()) this.initialize();
@@ -52,22 +49,24 @@ export class PatoFormComponent implements AfterViewInit {
     this.initFormKeys();
     this.initForm();
     this.initSubscriptionsForControlValueChanges();
-    // this.initFormTouchedEvents();
   }
 
   private initFormKeys() {
-    this.formKeys = Object.keys(this.data());
+    this.formKeys = Object.keys(this.data().controls);
   }
 
   private initForm() {
     const dataForm: any = {}
-    let i = 0;
-    this.formKeys.forEach((key: string) => {
-      const dataControl = this.data()[key];
+    const data = this.data();
+    this.formKeys.map((key: string, index: number) => {
+      const dataControl = data.controls[key];
       dataForm[key] = [dataControl.value, [...dataControl.validators || []], [...dataControl.asyncValidators || []] ];
-      i++;
-    });
-    this._form.set(this._formBuilder.group(dataForm));
+    })
+    this._form.set(this._formBuilder.group(dataForm, {
+      validators: data.form.validators,
+      asyncValidators: data.form.asyncValidators,
+      updateOn: data.form.updateOn || 'change'
+    }));
   }
 
   ngAfterViewInit(): void {
@@ -78,7 +77,7 @@ export class PatoFormComponent implements AfterViewInit {
     const form = this.form();
     if (!form) return;
     this.formKeys.forEach((key: string) => {
-      if (!this.data()[key].valueChangesSubscribe) return;
+      if (!this.data().controls[key].valueChangesSubscribe) return;
       form.controls[key].valueChanges.pipe(
         distinctUntilChanged(),
         takeUntilDestroyed(this._destroyRef)
@@ -102,6 +101,7 @@ export class PatoFormComponent implements AfterViewInit {
   public onSubmit() {
     const form = this.form();
     this.markAsTouched();
+    console.log(form?.value)
     if (!form || form.invalid) return;
     if (form.valid) this.onFormSubmit.emit({
       valid: form.valid,
@@ -111,13 +111,8 @@ export class PatoFormComponent implements AfterViewInit {
 
   private markAsTouched(touched: boolean = true) {
     const form = this.form();
-    this.formKeys.forEach((key: string) => {
-      if (touched) {
-        form?.controls[key].markAllAsTouched();
-      } else {
-        form?.controls[key].markAsUntouched();
-      }
-    });
+    form?.markAsTouched();
+    form?.updateValueAndValidity();
   }
 
 }

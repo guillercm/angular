@@ -1,0 +1,20 @@
+{
+  "i18n": {
+    "common": {
+      "save": "Guardar",
+      "imageNotAvailable": "Imagen no disponible",
+      "time": {
+        "hours": {
+          "=0": "",
+          "=1": "1 hour",
+          "other": "{{ hours }} hours"
+        }
+      }
+    },
+    "features": {
+      "simpsons": {
+        "prueba": "Write"
+      }
+    }
+  }
+}

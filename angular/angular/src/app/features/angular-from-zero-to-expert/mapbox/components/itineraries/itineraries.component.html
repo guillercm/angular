@@ -46,7 +46,7 @@
               @if (!last) {
               <hr>
               <div class="row pt-2">
-                <p class="">{{ "features.mapbox.labels.nextPlace" | translate: {value: places()[index+1].name} }}</p>
+                <p class="">{{ "features.mapbox.labels.nextPlace" | translate : {value: places()[index+1].name} }}</p>
               </div>
               <div class="row">
                 <div class="col"><shared-button [icon]="getIconByTravelMode('driving')"

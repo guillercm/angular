@@ -28,6 +28,8 @@ import { PatoInputNumberComponent } from '@shared/components/controls/pato-input
 import { PatoButtonGroupComponent } from '@shared/components/controls/pato-button-group/pato-button-group.component';
 import { PatoDefaultOptionsButtonGroup } from '@shared/components/controls/pato-button-group/interfaces/default-options-button-group.interface';
 import { PlainFormFieldComponent } from '@shared/components/controls/plain-form-field/plain-form-field.component';
+import { AppTranslateService } from '@core/services/translate/app-translate.service';
+import { AppTranslatePipe } from "../../../../../../../../core/pipes/app-translate.pipe";
 
 @Component({
   selector: 'product-details',
@@ -36,11 +38,15 @@ import { PlainFormFieldComponent } from '@shared/components/controls/plain-form-
     ReactiveFormsModule,
     FormErrorLabelComponent,
     PatoFormComponent,
-    SharedButtonComponent
-  ],
+    SharedButtonComponent,
+    AppTranslatePipe
+],
   templateUrl: './product-details.component.html',
 })
 export class ProductDetailsComponent implements OnInit {
+
+  private readonly _appTranslateService = inject(AppTranslateService);
+
   product = input.required<Product>();
 
   router = inject(Router);
@@ -61,194 +67,199 @@ export class ProductDetailsComponent implements OnInit {
   });
 
   protected dataForm: PatoDataForm = {
-    title: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required],
-      args: {
-        formField: {
-          label: "Título"
-        }
-      },
-      classes: {
-        formField: "col-12",
-        control: "input-group"
-      }
-    }),
-    slug: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required, Validators.pattern(FormUtils.slugPattern)],
-      args: {
-        formField: {
-          label: "Slug"
-        }
-      },
-      classes: {
-        formField: "col-12",
-        control: "input-group"
-      }
-    }),
-    description: createPatoControl({
-      component: PatoTextareaComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required],
-      asyncValidators: [],
-      valueChangesSubscribe: true,
-      args: {
-        control: {
-          rows: 6
+    form: {
+      id: 'form-product-details',
+    },
+    controls: {
+      title: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required],
+        args: {
+          formField: {
+            label: this._appTranslateService.get('i18n.common.title')
+          }
         },
-        formField: {
-          "label": "Descripción"
+        classes: {
+          formField: "col-12",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    }),
-    price: createPatoControl({
-      component: PatoInputNumberComponent,
-      formFieldComponent: FormFieldComponent,
-      value: 0,
-      validators: [Validators.required, Validators.min(0)],
-      asyncValidators: [],
-      valueChangesSubscribe: true,
-      args: {
-        control: {
-
+      }),
+      slug: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required, Validators.pattern(FormUtils.slugPattern)],
+        args: {
+          formField: {
+            label: this._appTranslateService.get('i18n.common.title')
+          }
         },
-        formField: {
-          "label": "Precio"
+        classes: {
+          formField: "col-12",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    }),
-    stock: createPatoControl({
-      component: PatoInputNumberComponent,
-      formFieldComponent: FormFieldComponent,
-      value: 2,
-      validators: [Validators.required, Validators.min(0)],
-      asyncValidators: [],
-      valueChangesSubscribe: true,
-      args: {
-        control: {
-
-        },
-        formField: {
-          "label": "Stock"
-        }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    }),
-    tags: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: 0,
-      validators: [],
-      asyncValidators: [],
-      args: {
-        control: {
-
-        },
-        formField: {
-          "label": "Tags"
-        }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    }),
-    gender: createPatoControl({
-      component: PatoButtonGroupComponent,
-      formFieldComponent: PlainFormFieldComponent,
-      value: 0,
-      validators: [Validators.required, Validators.pattern(/men|women|kid|unisex/)],
-      asyncValidators: [],
-      args: {
-        control: {
-          options: {
-            value: "value",
+      }),
+      description: createPatoControl({
+        component: PatoTextareaComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required],
+        asyncValidators: [],
+        valueChangesSubscribe: true,
+        args: {
+          control: {
+            rows: 6
           },
-          items: [
-            {
-              label: "Masculino",
-              value: "men"
-            },
-            {
-              label: "Femenino",
-              value: "women"
-            },
-            {
-              label: "Niñ@s",
-              value: "kid"
-            },
-            {
-              label: "Unisex",
-              value: "unisex"
-            }
-          ] as PatoDefaultOptionsButtonGroup[]
+          formField: {
+            "label": this._appTranslateService.get('i18n.common.description')
+          }
         },
-        formField: {
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    }),
-    sizes: createPatoControl({
-      component: PatoButtonGroupComponent,
-      formFieldComponent: PlainFormFieldComponent,
-      value: 0,
-      validators: [],
-      asyncValidators: [],
-      args: {
-        control: {
-          options: {
-            value: "value",
-            label: "value"
+      }),
+      price: createPatoControl({
+        component: PatoInputNumberComponent,
+        formFieldComponent: FormFieldComponent,
+        value: 0,
+        validators: [Validators.required, Validators.min(0)],
+        asyncValidators: [],
+        valueChangesSubscribe: true,
+        args: {
+          control: {
+
           },
-          items: [
-            {
-              value: "XS"
-            },
-            {
-              value: "S"
-            },
-            {
-              value: "M"
-            },
-            {
-              value: "L"
-            },
-            {
-              value: "XL"
-            },
-            {
-              value: "XXL"
-            }
-          ] as PatoDefaultOptionsButtonGroup[]
+          formField: {
+            "label": this._appTranslateService.get('i18n.common.price')
+          }
         },
-        formField: {
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    })
+      }),
+      stock: createPatoControl({
+        component: PatoInputNumberComponent,
+        formFieldComponent: FormFieldComponent,
+        value: 2,
+        validators: [Validators.required, Validators.min(0)],
+        asyncValidators: [],
+        valueChangesSubscribe: true,
+        args: {
+          control: {
+
+          },
+          formField: {
+            "label": this._appTranslateService.get('i18n.common.stock')
+          }
+        },
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
+        }
+      }),
+      tags: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: 0,
+        validators: [],
+        asyncValidators: [],
+        args: {
+          control: {
+
+          },
+          formField: {
+            "label": this._appTranslateService.get('i18n.common.tags')
+          }
+        },
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
+        }
+      }),
+      gender: createPatoControl({
+        component: PatoButtonGroupComponent,
+        formFieldComponent: FormFieldComponent,
+        value: 0,
+        validators: [Validators.required, Validators.pattern(/men|women|kid|unisex/)],
+        asyncValidators: [],
+        args: {
+          control: {
+            options: {
+              value: "value",
+            },
+            items: [
+              {
+                label: this._appTranslateService.get('i18n.common.male'),
+                value: "men"
+              },
+              {
+                label: this._appTranslateService.get('i18n.common.female'),
+                value: "women"
+              },
+              {
+                label: this._appTranslateService.get('i18n.common.children'),
+                value: "kid"
+              },
+              {
+                label: this._appTranslateService.get('i18n.common.unisex'),
+                value: "unisex"
+              }
+            ] as PatoDefaultOptionsButtonGroup[]
+          },
+          formField: {
+          }
+        },
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
+        }
+      }),
+      sizes: createPatoControl({
+        component: PatoButtonGroupComponent,
+        formFieldComponent: PlainFormFieldComponent,
+        value: 0,
+        validators: [],
+        asyncValidators: [],
+        args: {
+          control: {
+            options: {
+              value: "value",
+              label: "value"
+            },
+            items: [
+              {
+                value: "XS"
+              },
+              {
+                value: "S"
+              },
+              {
+                value: "M"
+              },
+              {
+                value: "L"
+              },
+              {
+                value: "XL"
+              },
+              {
+                value: "XXL"
+              }
+            ] as PatoDefaultOptionsButtonGroup[]
+          },
+          formField: {
+          }
+        },
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
+        }
+      })
+    }
   };
 
   /*

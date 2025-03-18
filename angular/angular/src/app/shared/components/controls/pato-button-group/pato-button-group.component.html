@@ -2,7 +2,7 @@
     @for (data of data(); track $index) {
     @let options = data.options;
     <div class="btn-group m-1" role="group" [attr.aria-label]="options.label">
-        <shared-button [label]="options.label" [variant]="options.variant" [outline]="!options.selected"
+        <shared-button [label]="isSignal(options.label) ? options.label() : options.label" [variant]="options.variant" [outline]="!options.selected"
             [disabled]="dataDisabled(data)" (clicked)="toggleSelected(data)"></shared-button>
     </div>
     }

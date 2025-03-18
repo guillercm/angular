@@ -3,10 +3,10 @@ import { Module } from '@nestjs/common';
 
 import { AuthModule } from './../auth/auth.module';
 
-import { ProductsController } from './products.controller';
-import { ProductsService } from './products.service';
-
-import { Product, ProductImage } from './entities';
+import { ProductsController } from './controllers/products.controller';
+import { ProductsService } from './services/products.service';
+import { Product } from './entities/product.entity';
+import { ProductImage } from './entities/product-image.entity';
 
 @Module({
   controllers: [ProductsController],

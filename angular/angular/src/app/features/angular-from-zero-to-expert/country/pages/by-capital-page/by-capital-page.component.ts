@@ -31,26 +31,32 @@ export default class ByCapitalPageComponent {
   private readonly _sessionService = inject(SessionService);
 
   protected dataForm: PatoDataForm = {
-    query: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [],
-      args: {
-        control: {
-          placeholder: "features.countries.labels.searchByCapital",
-          autocomplete: false,
-          submitFormOnDebounce: true
+    form: {
+      id: 'capital'
+    },
+    controls: {
+      query: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [],
+        args: {
+          control: {
+            placeholder: "features.countries.labels.searchByCapital",
+            autocomplete: false,
+            submitFormOnDebounce: true
+          },
+          formField: {
+            label: "features.countries.labels.formFieldSearchByCapital",
+          }
         },
-        formField: {
-          label: "features.countries.labels.formFieldSearchByCapital",
+        classes: {
+          formField: "mt-3 col-12",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-12",
-        control: "input-group"
-      }
-    })
+      })
+    }
+
   }
 
   private searchCapital(query: string) {
@@ -72,7 +78,7 @@ export default class ByCapitalPageComponent {
     form?.controls["query"].patchValue(query)
   }
 
-  onSubmit({query}: any) {
+  onSubmit({ query }: any) {
     this.searchCapital(query);
   }
 }

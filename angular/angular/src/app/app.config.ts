@@ -4,7 +4,7 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { provideTranslateService, TranslateLoader } from "@ngx-translate/core";
+import { provideTranslateService, TranslateCompiler, TranslateLoader, TranslateParser } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
@@ -19,9 +19,11 @@ import localeEs from '@angular/common/locales/es';
 import localeEsHN from '@angular/common/locales/es-HN';
 import localeFrCA from '@angular/common/locales/fr-CA';
 
-import { registerLocaleData } from '@angular/common';
-import { authInterceptor } from '@features/angular-from-zero-to-expert/tesloshop/frontend/auth/interceptors/auth.interceptor';
+import { AsyncPipe, I18nPluralPipe, registerLocaleData } from '@angular/common';
 import { tokenInterceptor } from '@core/interceptors/token.interceptor';
+import { CompilerService } from '@core/services/translate/compiler.service';
+import { LoaderService } from '@core/services/translate/loader.service';
+import { ParserService } from '@core/services/translate/parser.service';
 
 registerLocaleData(localeEs);
 registerLocaleData(localeEsHN);
@@ -34,6 +36,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     //provideZoneChangeDetection({ eventCoalescing: true }),
     { provide: LOCALE_ID, useValue: 'es' },
+    { provide: I18nPluralPipe },
+    { provide: AsyncPipe },
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes,
       withInMemoryScrolling({
@@ -52,9 +56,19 @@ export const appConfig: ApplicationConfig = {
     provideTranslateService({
       loader: {
         provide: TranslateLoader,
+        useClass: LoaderService,
         useFactory: httpLoaderFactory,
         deps: [HttpClient],
       },
+      parser: {
+        provide: TranslateParser,
+        useClass: ParserService,
+        // deps: [HyphenateService],
+      },
+      compiler: {
+        provide: TranslateCompiler,
+        useClass: CompilerService
+      }
     }),
 
   ]

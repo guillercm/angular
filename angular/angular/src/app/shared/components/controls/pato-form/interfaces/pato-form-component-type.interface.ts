@@ -1,5 +1,5 @@
 import { Args } from "@core/interfaces/args/args.interface";
-import { Signal, Type } from "@angular/core";
+import { Type } from "@angular/core";
 
 export type PatoFormComponentType<T, T2> = {
   seccion?: number;
@@ -8,6 +8,7 @@ export type PatoFormComponentType<T, T2> = {
   value: any;
   validators?: any[];
   asyncValidators?: any[];
+  valueChangesSubscribe?: boolean;
   args?: {
     formField?: Partial<Args<T2>>,
     control?: Partial<Args<T>>
@@ -16,5 +17,4 @@ export type PatoFormComponentType<T, T2> = {
     formField?: any,
     control?: any
   };
-  valueChangesSubscribe?: boolean;
 };

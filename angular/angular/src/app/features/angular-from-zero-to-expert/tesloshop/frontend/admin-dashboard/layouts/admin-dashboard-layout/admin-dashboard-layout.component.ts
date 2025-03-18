@@ -3,10 +3,11 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } fr
 import { AuthService } from '../../../auth/services/auth.service';
 import { SharedButtonComponent } from "@shared/components/button/shared-button.component";
 import { UserContextService } from '../../../auth/services/user-context.service';
+import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 
 @Component({
   selector: 'app-admin-dashboard-layout',
-  imports: [RouterOutlet, SharedButtonComponent],
+  imports: [RouterOutlet, SharedButtonComponent, AppTranslatePipe],
   templateUrl: './admin-dashboard-layout.component.html',
 })
 export class AdminDashboardLayoutComponent {

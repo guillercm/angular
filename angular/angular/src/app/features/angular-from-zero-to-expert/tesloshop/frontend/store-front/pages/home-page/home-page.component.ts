@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop';
-import { ProductCardComponent } from '../../../products/components/product-card/product-card.component';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { ProductsService } from '../../../products/services/products.service';
-import { PaginationService } from '../../../shared/components/pagination/pagination.service';
+import { PaginationService } from '../../../shared/components/pagination/services/pagination.service';
 import { ProductsComponent } from "../../../products/components/products/products.component";
+import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 
 
 @Component({
   selector: 'app-home-page',
-  imports: [PaginationComponent, ProductsComponent],
+  imports: [PaginationComponent, ProductsComponent, AppTranslatePipe],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {

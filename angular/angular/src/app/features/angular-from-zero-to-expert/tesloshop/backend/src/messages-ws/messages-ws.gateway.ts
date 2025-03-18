@@ -1,13 +1,13 @@
 import { JwtService } from '@nestjs/jwt';
 import { OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { JwtPayload } from '../auth/interfaces';
 import { NewMessageDto } from './dtos/new-message.dto';
-import { MessagesWsService } from './messages-ws.service';
+import { MessagesWsService } from './services/messages-ws.service';
+import { JwtPayload } from 'src/auth/interfaces/jwt-payload.interface';
 
 @WebSocketGateway({ cors: true })
 export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  
+
   @WebSocketServer() wss: Server;
 
   constructor(
@@ -28,9 +28,9 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
       return;
     }
 
-    // console.log({ payload })    
+    // console.log({ payload })
     // console.log('Cliente conectado:', client.id );
-    
+
 
     this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients() );
   }
@@ -44,7 +44,7 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
 
   @SubscribeMessage('message-from-client')
   onMessageFromClient( client: Socket, payload: NewMessageDto ) {
-  
+
     //! Emite únicamente al cliente.
     // client.emit('message-from-server', {
     //   fullName: 'Soy Yo!',

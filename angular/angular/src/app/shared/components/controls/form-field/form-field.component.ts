@@ -1,15 +1,14 @@
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, ViewContainerRef, computed, inject, input, signal, viewChild } from '@angular/core';
-import { LanguageService } from '@core/services/language/language.service';
 import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslatePipe } from '@ngx-translate/core';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
+import { AppTranslateService } from '@core/services/translate/app-translate.service';
 
 @Component({
   selector: 'features-form-field',
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,8 +24,6 @@ export class FormFieldComponent implements OnInit, PatoFormField {
   private readonly _destroyRef = inject(DestroyRef);
 
   private readonly _formComponent = inject(PatoFormComponent);
-
-  private readonly _languageService = inject(LanguageService);
 
   public label = input<string>("");
 
@@ -92,7 +89,7 @@ export class FormFieldComponent implements OnInit, PatoFormField {
   }
 
   getError(errors: ValidationErrors | null) {
-    return this._languageService.getValidationsErrors(errors)
+    // return this._languageService.getValidationsErrors(errors)
   }
 
 }

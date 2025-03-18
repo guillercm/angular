@@ -2,7 +2,8 @@
   @let formInstance = form()!;
   <form [formGroup]="formInstance" (ngSubmit)="onSubmit()" [ngClass]="additionalClasses()" novalidate>
     @for (key of formKeys; track $index) {
-       <ng-container patoFormControlInjectorDirective [key]="key" #formField></ng-container>
+        <pato-control [formControlName]="key"></pato-control>
+        <!-- <ng-container patoFormControlInjectorDirective [key]="key" #formField></ng-container> -->
     }
     <ng-container *ngTemplateOutlet="finalFormTemplate()"></ng-container>
   </form>

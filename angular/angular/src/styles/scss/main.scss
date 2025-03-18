@@ -1,5 +1,6 @@
 @use "sass:map";
 
+@use 'bootstrap-icons/font/bootstrap-icons.min.css';
 @use 'animate.css/animate.min.css';
 @use 'prismjs/themes/prism-okaidia.css';
 @use 'prismjs/plugins/line-numbers/prism-line-numbers.css';
@@ -19,7 +20,7 @@
 
 @use 'bootstrap/scss/bootstrap.scss' with (
   $utilities: map.merge($bootstrapUtilities, $customUtilities),
-  $font-family-sans-serif: $font-family-sans-serif
+  // $font-family-sans-serif: $font-family-sans-serif
 );
 
 .cdk-drag-preview.list-group-item {

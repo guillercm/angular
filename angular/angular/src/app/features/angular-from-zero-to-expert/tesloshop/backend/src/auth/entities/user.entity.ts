@@ -1,15 +1,15 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Product } from '../../products/entities';
+import { Product } from '../../products/entities/product.entity';
 
 
 @Entity('users')
 export class User {
-    
+
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column('text', {
-        unique: true
+        unique: true,
     })
     email: string;
 
@@ -46,7 +46,7 @@ export class User {
 
     @BeforeUpdate()
     checkFieldsBeforeUpdate() {
-        this.checkFieldsBeforeInsert();   
+        this.checkFieldsBeforeInsert();
     }
 
 }

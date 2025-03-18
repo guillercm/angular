@@ -4,9 +4,9 @@
       <img
         src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80"
         width="30" height="30" class="d-inline-block align-top" alt="">
-      Bienvenido {{ user()?.fullName }}
+        {{ ('i18n.common.welcome' | appTranslate ) }} {{ user()?.fullName }}
     </a>
-    <shared-button variant="danger" [outline]="true" (click)="logout()" label="Cerrar sesión"></shared-button>
+    <shared-button variant="danger" [outline]="true" (click)="logout()" [label]="'i18n.common.logout' | appTranslate"></shared-button>
   </nav>
   <hr>
   <div class="container">

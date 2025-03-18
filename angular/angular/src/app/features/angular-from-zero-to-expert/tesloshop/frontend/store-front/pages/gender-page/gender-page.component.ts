@@ -1,17 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { map, of } from 'rxjs';
+import { map } from 'rxjs';
 import { ProductsService } from '../../../products/services/products.service';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
-import { PaginationService } from '../../../shared/components/pagination/pagination.service';
+import { PaginationService } from '../../../shared/components/pagination/services/pagination.service';
 import { ProductsComponent } from "../../../products/components/products/products.component";
+import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 
 
 
 @Component({
   selector: 'app-gender-page',
-  imports: [PaginationComponent, ProductsComponent],
+  imports: [PaginationComponent, ProductsComponent, AppTranslatePipe],
   templateUrl: './gender-page.component.html',
 })
 export class GenderPageComponent {

@@ -1,8 +1,8 @@
 import { Injectable, WritableSignal } from '@angular/core';
-import { PatoDataControlBase } from '../interfaces/data-control-base.interface';
-import { PatoOptionsControlBase } from '../interfaces/options-control-base.type';
+import { PatoDataControlBase } from '../pato-form/interfaces/data-control-base.interface';
+import { PatoOptionsControlBase } from '../pato-form/interfaces/options-control-base.type';
 import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
-import { PatoDefaultOptionsControlBase } from '../interfaces/default-options-control-base.interface';
+import { PatoDefaultOptionsControlBase } from '../pato-form/interfaces/default-options-control-base.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, effect, inject, linkedSignal, resource, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, inject, linkedSignal, resource, signal } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { firstValueFrom, Observable, tap } from 'rxjs';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
@@ -19,12 +19,17 @@ import { Simpson } from '@features/simpsons/interfaces/simpson.interface';
 import { SimpsonCardComponent } from "../../components/simpson-card/simpson-card.component";
 import { SimpsonsService } from '@features/simpsons/services/simpsons.service';
 import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
+import { TranslatePipe } from '@ngx-translate/core';
+import { AppTranslateService } from '@core/services/translate/app-translate.service';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
+
 
 @Component({
   selector: 'features-simpsons',
-  imports: [CommonModule, PatoFormComponent, SharedButtonComponent, SimpsonCardComponent, RepeatPipe],
+  imports: [CommonModule, PatoFormComponent, SharedButtonComponent, SimpsonCardComponent, RepeatPipe, TranslatePipe, AppTranslatePipe],
   templateUrl: './simpsons.component.html',
-  styleUrl: './simpsons.component.css'
+  styleUrl: './simpsons.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class SimpsonsComponent {
 
@@ -53,6 +58,17 @@ export default class SimpsonsComponent {
   protected readonly simpsonId = this._simpsonId.asReadonly();
 
   private _linkedIdSimpson = linkedSignal<number>(() => this.simpsonId());
+
+  private readonly _appTranslateService = inject(AppTranslateService);
+
+  prueba = this._appTranslateService.get('i18n.common.time.hours', { hours: 45 })
+
+  lang = 'es'
+  changeLanguage() {
+    this.lang = this.lang === 'es' ? 'en' : 'es'
+    this._appTranslateService.useLang(this.lang)
+
+  }
 
   simpsonEffects = effect(() => {
     this._linkedIdSimpson.set(78)
@@ -83,56 +99,61 @@ export default class SimpsonsComponent {
   // });
 
   protected dataForm: PatoDataForm = {
-    fullName: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(6), FormUtils.validatorSimpson],
-      args: {
-        control: {
-          debounceTimer: 1000,
-          placeholder: "nombre",
-          icon: "person-circle",
-          debounce: (value: string) => {
-            //console.log(value)
+    form: {
+      id: 'simpsons'
+    },
+    controls: {
+      fullName: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required, Validators.minLength(2), Validators.maxLength(6), FormUtils.validatorSimpson],
+        args: {
+          control: {
+            debounceTimer: 1000,
+            placeholder: this._appTranslateService.get('i18n.features.simpsons.prueba'),
+            icon: "person-circle",
+            debounce: (value: string) => {
+              //console.log(value)
+            }
+          },
+          formField: {
+            label: "Nombre completo",
           }
         },
-        formField: {
-          label: "Nombre completo",
+        classes: {
+          formField: "mt-3 col-12",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-12",
-        control: "input-group"
-      }
-    }),
-    buttons: createPatoControl({
-      component: PatoButtonGroupComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required],
-      valueChangesSubscribe: true,
-      args: {
-        control: {
-          items: this.simpsons,
-          disabled: false,
-          options: {
-            label: (item: Simpson, index: number) => item.fullName,
-            value: (item: any, index: number) => item,
-            disabled: (item: any, index: number) => index === 3,
-            selected: (item: any, index: number) => index === 4,
-            variant: (item: any, index: number) => index === 0 ? "danger" : "info",
+      }),
+      buttons: createPatoControl({
+        component: PatoButtonGroupComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required],
+        valueChangesSubscribe: true,
+        args: {
+          control: {
+            items: this.simpsons,
+            disabled: false,
+            options: {
+              label: (item: Simpson, index: number) => item.fullName,
+              value: (item: any, index: number) => item,
+              disabled: (item: any, index: number) => index === 3,
+              selected: (item: any, index: number) => index === 4,
+              variant: (item: any, index: number) => index === 0 ? "danger" : "info",
+            }
+          },
+          formField: {
+            label: "Personalidad"
           }
         },
-        formField: {
-          label: "Personalidad"
+        classes: {
+          formField: "mt-3 col-6",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-6",
-        control: "input-group"
-      }
-    })
+      })
+    }
   };
 
   buildForm(form: FormGroup | null) {

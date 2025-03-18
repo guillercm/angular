@@ -12,6 +12,7 @@ import { SharedClickOutsideDirective } from '@shared/directives/click-outside/sh
 import { MapsService } from '../../services/maps.service';
 import { FormGroup } from '@angular/forms';
 import { ItinerariesService } from '../../services/itineraries.service';
+import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
 
 @Component({
   selector: 'features-mapbox-maps-searcher',
@@ -31,7 +32,7 @@ export class MapsSearcherComponent {
 
   private readonly _itinerariesService = inject(ItinerariesService);
 
-  private _form = signal<FormGroup|null>(null);
+  private _form = signal<FormGroup | null>(null);
 
   private _places = signal<Place[]>([]);
   protected readonly places = this._places.asReadonly();
@@ -39,26 +40,31 @@ export class MapsSearcherComponent {
   protected readonly showList = computed(() => this.places().length)
 
   protected dataForm: PatoDataForm = {
-    query: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: PlainFormFieldComponent,
-      value: "",
-      validators: [],
-      args: {
-        control: {
-          placeholder: "Buscar...",
-          autocomplete: false,
-          submitFormOnDebounce: true,
-          debounceTimer: 500,
-          additionalClasses: "shadow-none border-0"
+    form: {
+      id: 'siteSearch'
+    },
+    controls: {
+      query: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: PlainFormFieldComponent,
+        value: "",
+        validators: [],
+        args: {
+          control: {
+            placeholder: "Buscar...",
+            autocomplete: false,
+            submitFormOnDebounce: true,
+            debounceTimer: 500,
+            additionalClasses: "shadow-none border-0"
+          },
+          formField: {
+          }
         },
-        formField: {
-        }
-      },
-      classes: {
+        classes: {
 
-      }
-    })
+        }
+      })
+    }
   }
 
   flyTo(place: Place) {
@@ -68,7 +74,8 @@ export class MapsSearcherComponent {
     this._mapService.flyTo(place.coordinates)
   }
 
-  onSubmit({ query }: any) {
+  onSubmit(data: ResponsePatoForm) {
+    let { query } = data.content;
     if (!query.trim()) {
       this.resetSearch();
       return;

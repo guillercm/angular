@@ -53,25 +53,30 @@ export default class GifsPageComponent implements AfterViewInit {
   protected readonly isLoadingGifs = computed(() => this.gifsRequest()?.state === 'loading')
 
   protected readonly dataForm: PatoDataForm = {
-    query: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [],
-      args: {
-        control: {
-          placeholder: "features.gifs.labels.searchGifPlaceholder",
-          autocomplete: false
+    form: {
+      id: 'gifs'
+    },
+    controls: {
+      query: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [],
+        args: {
+          control: {
+            placeholder: "features.gifs.labels.searchGifPlaceholder",
+            autocomplete: false
+          },
+          formField: {
+            label: "Gif",
+          }
         },
-        formField: {
-          label: "Gif",
+        classes: {
+          formField: "mt-3 col-12",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-12",
-        control: "input-group"
-      }
-    })
+      })
+    }
   }
 
   private effectScrollstate = effect(() => {

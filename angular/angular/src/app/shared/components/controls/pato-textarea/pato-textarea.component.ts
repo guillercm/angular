@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, forwardRef, input, output, signal } from '@angular/core';
 import { AbstractControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
+import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-accessor.interface';
 
 @Component({
   selector: 'pato-textarea',
@@ -16,7 +17,7 @@ import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface
     }
   ]
 })
-export class PatoTextareaComponent {
+export class PatoTextareaComponent implements PatoControlValueAccessor {
 
   protected readonly formField = input.required<PatoFormField>();
 
@@ -34,29 +35,23 @@ export class PatoTextareaComponent {
 
   public id = computed<string>(() => this.formField().id())
 
-  onChange: (value: string) => void = () => { };
-  onTouched: () => void = () => { };
+
 
   onBlur() {
-    this.onTouched();
+    this._onTouched();
+    console.log({text: this._value()})
   }
 
   change(event: Event): void {
     const textareaValue = (event.target as HTMLTextAreaElement).value;
-    this.onChange(textareaValue);
+    this._onChange(textareaValue);
   }
+
+  _onChange: (_: any) => void = () => {};
+  _onTouched: () => void = () => {};
 
   writeValue(value: string | null): void {
-    if (!value) value = ''
-    this._value.set(value);
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+    this._value.set(value || '');
   }
 
   setDisabledState(isDisabled: boolean): void {

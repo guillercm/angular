@@ -8,15 +8,16 @@ import { concatMap, of, tap } from 'rxjs';
 import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
 import { ItinerariesService } from '../../services/itineraries.service';
 import { Itinerary, ItineraryManeuver, ItineraryStep } from '../../interfaces/itinerary.interface';
-import { LanguageService } from '@core/services/language/language.service';
 import { MapsPageComponent } from '../../pages/maps-page/maps-page.component';
 import { MapsService } from '../../services/maps.service';
 import { Place } from '../../interfaces/place.interface';
 import { SharedButtonComponent } from "@shared/components/button/shared-button.component";
 import { SpeechService } from '../../services/speech.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslatePipe } from '@ngx-translate/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { TravelMode } from '../../interfaces/travel-mode.enum';
+import { TranslatePipe } from '@ngx-translate/core';
+import { AppTranslateService } from '@core/services/translate/app-translate.service';
+
 
 @Component({
   selector: 'features-mapbox-itineraries',
@@ -27,17 +28,15 @@ import { TravelMode } from '../../interfaces/travel-mode.enum';
 })
 export class ItinerariesComponent implements OnInit {
 
+  private readonly _appTranslateService = inject(AppTranslateService);
+
   private readonly _destroyRef = inject(DestroyRef);
 
   private readonly _viewContainerRef = inject(ViewContainerRef);
 
-  private readonly _i18nPluralPipe = inject(I18nPluralPipe);
-
   private readonly _apiClient = inject(ApiClientService);
 
   private readonly _itinerariesService = inject(ItinerariesService);
-
-  private readonly _languagueService = inject(LanguageService);
 
   private readonly _mapsPageComponent = inject(MapsPageComponent);
 
@@ -47,18 +46,12 @@ export class ItinerariesComponent implements OnInit {
 
   protected readonly places = computed(() => this._itinerariesService.places())
 
-  private _plurals: GenericObject = {}
+  private _pluralsTime = this._appTranslateService.get("i18n.common.time")
+
+  private _pluralsDistance = this._appTranslateService.get("i18n.common.distance")
 
   ngOnInit(): void {
-    this.initTraductions();
-  }
 
-  private initTraductions() {
-    this._languagueService.get("plurals").pipe(
-      takeUntilDestroyed(this._destroyRef)
-    ).subscribe((value: object) => {
-      this._plurals = value;
-    });
   }
 
   protected placeOnTheItinerary(place: Place) {
@@ -168,24 +161,27 @@ export class ItinerariesComponent implements OnInit {
     const minutes = Math.round(totalMinutes % 60);
 
     return [
-      this._i18nPluralPipe.transform(hours, this._plurals["time"].hours),
-      this._i18nPluralPipe.transform(minutes, this._plurals["time"].minutes),
+      // this._appTranslateService.get(hours, this._pluralsTime["hours"])
+      // this._i18nPluralPipe.transform(hours, this._plurals["time"].hours),
+      // this._i18nPluralPipe.transform(minutes, this._plurals["time"].minutes),
     ].join(' ');
   }
 
   private calculateDistance(distance: { meters?: number; kilometers?: number } = {}): string {
     const { meters = 0, kilometers = 0 } = distance;
-    return meters > 1000
-      ? this._i18nPluralPipe.transform(Math.round(kilometers), this._plurals["distance"].kilometers)
-      : this._i18nPluralPipe.transform(Math.round(meters), this._plurals["distance"].meters);
+    // this._appTranslateService.get('i18n.common.time.hours', {hours: this._pluralsTime()["hours"]})
+    return ""
+    // return meters > 1000
+    //   ? this._i18nPluralPipe.transform(Math.round(kilometers), this._plurals["distance"].kilometers)
+    //   : this._i18nPluralPipe.transform(Math.round(meters), this._plurals["distance"].meters);
   }
 
   private updateItineraryResume(index: number, time: string, distance: string, nextPlace: string): void {
-    this._languagueService.get("features.mapbox.labels.itineraryResume", { time, distance, place: nextPlace })
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe((value: string) => {
-        this._itinerariesService.updateItineraryResumeOfPlace(index, value);
-      });
+    // this._appTranslateService.get("features.mapbox.labels.itineraryResume", { time, distance, place: nextPlace })
+    //   .pipe(takeUntilDestroyed(this._destroyRef))
+    //   .subscribe((value: string) => {
+    //     this._itinerariesService.updateItineraryResumeOfPlace(index, value);
+    //   });
   }
 
 

@@ -30,26 +30,32 @@ export class ByCountryPageComponent {
   private readonly _sessionService = inject(SessionService);
 
   protected dataForm: PatoDataForm = {
-    query: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [],
-      args: {
-        control: {
-          placeholder: "features.countries.labels.searchByCountry",
-          autocomplete: false,
-          submitFormOnDebounce: true
+    form: {
+      id: 'country'
+    },
+    controls: {
+      query: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [],
+        args: {
+          control: {
+            placeholder: "features.countries.labels.searchByCountry",
+            autocomplete: false,
+            submitFormOnDebounce: true
+          },
+          formField: {
+            label: "features.countries.labels.formFieldSearchByCountry",
+          }
         },
-        formField: {
-          label: "features.countries.labels.formFieldSearchByCountry",
+        classes: {
+          formField: "mt-3 col-12",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-12",
-        control: "input-group"
-      }
-    })
+      })
+    }
+
   }
 
   private searchCountry(query: string) {

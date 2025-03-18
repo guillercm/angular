@@ -1,121 +1,179 @@
 {
-  "app": {
-    "hello": "hello {{value}}",
-    "message": "Holaa",
-    "title": "Translation Demo"
-  },
-  "login": {
-    "label": "username"
-  },
-  "errors": {
-    "validations": {
-      "required": "Este campo es obligatorio",
-      "minlength": "Tiene que tener como mínimo {{ requiredLength }} carácteres.",
-      "maxlength": "Tiene que tener como máximo {{ requiredLength }} carácteres.",
-      "min": "El mínimo tiene que ser de {{ min }}",
-      "max": "El máximo tiene que ser de {{ max }}",
-      "email": "Tiene que ser un correo válido.",
-      "simpsonError": "El color tiene que ser amarillo"
-    },
-    "httpStatus": {
-      "pages": {
-        "404": {
-          "status": "404",
-          "title": "Página no encontrada",
-          "message": "Lo sentimos, no pudimos encontrar la página que estás buscando. Por favor, verifica la URL o vuelve al inicio.",
-          "img": "404.png",
-          "button": {
-            "route": "/",
-            "label": "Volver al Inicio"
+  "i18n": {
+    "common": {
+      "description": "descripción",
+      "details": "detalles",
+      "for": "para",
+      "imageNotAvailable": "imagen no disponible",
+      "inventory": "inventario",
+      "login": "iniciar sesión",
+      "logout": "cerrar sesión",
+      "name": "nombre",
+      "price": "precio",
+      "save": "guardar",
+      "search": "buscar",
+      "slug": "url amigable",
+      "stock": "existencias disponibles",
+      "tags": "etiquetas",
+      "title": "título",
+      "welcome": "bienvenido",
+      "man": {
+        "=1": "hombre",
+        "other": "hombres"
+      },
+      "women": {
+        "=1": "mujer",
+        "other": "mujeres"
+      },
+      "adminPanel": "panel de administración",
+      "children": "niños",
+      "female": "femenino",
+      "male": "masculino",
+      "unisex": "unisex",
+      "time": {
+        "hours": {
+          "=0": "",
+          "=1": "1 hora",
+          "other": "{{ hours }} horas"
+        },
+        "minutes": {
+          "=0": "",
+          "=1": "1 minuto",
+          "other": "{{ minutes }} minutos"
+        }
+      },
+      "distance": {
+        "meters": {
+          "=0": "",
+          "=1": "1 metro",
+          "other": "{{ meters }} metros"
+        },
+        "kilometers": {
+          "=0": "",
+          "=1": "1 kilómetro",
+          "other": "{{ kilometers }} kilómetros"
+        }
+      },
+      "requiredFieldTag": "*",
+      "optionalFieldTag": "(opcional)",
+      "errors": {
+        "httpStatus": {
+          "generic": {
+            "status": "0",
+            "data": {
+              "modal": {
+                "title": "Error desconocido",
+                "message": "Se ha producido un error inesperado. Por favor, intenta nuevamente más tarde o contacta con soporte."
+              }
+            }
+          },
+          "404": {
+            "status": "404",
+            "data": {
+              "modal": {
+                "title": "Recurso no encontrado",
+                "message": "El recurso que estás intentando acceder no está disponible o ha sido movido."
+              },
+              "page": {
+                "title": "Página no encontrada",
+                "message": "Lo sentimos, no pudimos encontrar la página que estás buscando. Por favor, verifica la URL o vuelve al inicio.",
+                "img": "404.png",
+                "button": {
+                  "route": "/",
+                  "label": "Volver al Inicio"
+                }
+              }
+            }
+          },
+          "422": {
+            "status": "422",
+            "data": {
+              "modal": {
+                "title": "Entidad no procesable",
+                "message": "Los datos enviados contienen errores o no cumplen con los requisitos esperados. Por favor, verifica la información e inténtalo de nuevo."
+              }
+            }
+          },
+          "500": {
+            "status": "500",
+            "data": {
+              "modal": {
+                "title": "Recurso no encontrado",
+                "message": "El recurso que estás intentando acceder no está disponible o ha sido movido."
+              },
+              "page": {
+                "title": "Oops! Algo salió mal.",
+                "message": "Estamos trabajando para solucionarlo. Por favor, inténtalo de nuevo más tarde.",
+                "img": "500.png",
+                "button": {
+                  "route": "/",
+                  "label": "Volver al Inicio"
+                }
+              }
+            }
+          },
+          "timeout": {
+            "data": {
+              "modal": {
+                "title": "Tiempo de espera agotado",
+                "message": "El servidor tardó demasiado en responder. Por favor, verifica tu conexión o inténtalo de nuevo."
+              }
+            }
           }
         },
-        "500": {
-          "status": "500",
-          "title": "Oops! Algo salió mal.",
-          "message": "Estamos trabajando para solucionarlo. Por favor, inténtalo de nuevo más tarde.",
-          "img": "500.png",
-          "button": {
-            "route": "/",
-            "label": "Volver al Inicio"
+        "validations": {
+          "generic": "El valor introducido no es correcto.",
+          "required": "Este campo es obligatorio",
+          "minlength": {
+            "=1": "Tiene que tener como mínimo 1 carácter.",
+            "other": "Tiene que tener como mínimo {{ requiredLength }} caracteres."
+          },
+          "maxlength": {
+            "=1": "Tiene que tener como máximo 1 caracter.",
+            "other": "Tiene que tener como máximo {{ requiredLength }} carácteres."
+          },
+          "min": "El mínimo tiene que ser de {{ min }}",
+          "max": "El máximo tiene que ser de {{ max }}",
+          "email": "Tiene que ser un correo válido.",
+          "passwordsNotEqual": "Las contraseñas deben coincidir."
+        }
+      }
+    },
+    "features": {
+      "auth": {
+        "errors": {
+          "validations": {
+            "colorMustBeYellow": "El color tiene que ser amarillo",
+            "email": {
+              "unique": {
+                "data": {
+                  "modal": {
+                    "title": "Oops, algo salió mal",
+                    "message": "El correo {{ email }} que intentaste usar ya está asociado a una cuenta existente."
+                  }
+                }
+              }
+            },
+            "password": {
+              "incorrect": "La contraseña es incorrecta."
+            }
           }
         }
       },
-      "modals": {
-        "404": {
-          "status": "404",
-          "title": "Recurso no encontrado",
-          "message": "El recurso que estás intentando acceder no está disponible o ha sido movido."
-        },
-        "422": {
-          "status": "422",
-          "title": "Entidad no procesable",
-          "message": "Los datos enviados contienen errores o no cumplen con los requisitos esperados. Por favor, verifica la información e inténtalo de nuevo."
-        },
-        "0": {
-          "status": "0",
-          "title": "Error desconocido",
-          "message": "Se ha producido un error inesperado. Por favor, intenta nuevamente más tarde o contacta con soporte."
-        },
-        "timeout": {
-          "status": "0",
-          "title": "Tiempo de espera agotado",
-          "message": "El servidor tardó demasiado en responder. Por favor, verifica tu conexión o inténtalo de nuevo."
-        }
-      }
-    },
-    "img": {
-      "default": "Imagen no disponible",
-      "404": "Tampoco se encontró la imagen"
-    }
-  },
-  "plurals": {
-    "time": {
-      "hours": {
-        "=0": "",
-        "=1": "1 hora",
-        "other": "# horas"
+      "simpsons": {
+        "prueba": "Escribe aqui"
       },
-      "minutes": {
-        "=0": "",
-        "=1": "1 minuto",
-        "other": "# minutos"
-      }
-    },
-    "distance": {
-      "meters": {
-        "=0": "",
-        "=1": "1 metro",
-        "other": "# metros"
-      },
-      "kilometers": {
-        "=0": "",
-        "=1": "1 kilómetro",
-        "other": "# kilómetros"
-      }
-    }
-  },
-  "features": {
-    "simpsons": {
-      "forms": {
-        "create": {}
-      }
-    },
-    "gifs": {
-      "labels": {
+      "gifs": {
         "clearHistory": "Limpiar historial",
-        "searchGifPlaceholder": "Busca aquí un gif..."
-      }
-    },
-    "countries": {
-      "labels": {
+        "searchGif": "Busca aquí un gif..."
+      },
+      "countries": {
         "searchByCapital": "Buscar por capital",
         "formFieldSearchByCapital": "Por capital",
         "searchByCountry": "Buscar por país",
         "formFieldSearchByCountry": "Por país"
-      }
-    },
-    "mapbox": {
-      "labels": {
+      },
+      "mapbox": {
         "modal": "Estilo del mapa",
         "zoom": "Zoom",
         "showCoords": "Mostrar coordenadas",
@@ -131,10 +189,13 @@
         "driving": "Para ir en vehículo con las rutas más rápidas, dando preferencia a las carreteras de alta velocidad, como las autopistas.",
         "walking": "Para rutas de peatones y excursionistas.",
         "cycling": "Para rutas en bicicleta.",
-        "itineraryResume": "{{ time }} ({{ distance }}), para llegar a {{ place }}."
-      },
-      "placeholders": {
+        "itineraryResume": "{{ time }} ({{ distance }}), para llegar a {{ place }}.",
         "inputSiteSearch": "Buscar..."
+      },
+      "tesloshop": {
+        "allProducts": "todos los productos",
+        "productList": "listado de productos",
+        "newProduct": "nuevo producto"
       }
     }
   }

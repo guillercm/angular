@@ -1,5 +1,6 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorModalData } from './interfaces/data.interface';
 
 @Component({
   selector: 'core-http-error-modal',
@@ -10,9 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class HttpErrorModalComponent {
   private readonly _activeModal = inject(NgbActiveModal);
 
-  public title = signal<string>("");
-
-  public message = signal<string>("");
+  public data = signal<ErrorModalData | null>(null);
 
   public clicked = output<string>();
 

@@ -10,6 +10,7 @@ import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfac
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
   selector: 'auth-register-page',
@@ -24,65 +25,91 @@ export class RegisterPageComponent {
   private readonly _authService = inject(AuthService);
 
   protected dataForm: PatoDataForm = {
-    fullName: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required, Validators.minLength(6)],
-      asyncValidators: [],
-      valueChangesSubscribe: true,
-      args: {
-        control: {
-          icon: "person-fill"
+    form: {
+      id: 'tesloshop-login',
+      validators: [FormUtils.isFieldOneEqualFieldTwo('password', 'repeatPassword')]
+    },
+    controls: {
+      fullName: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required, Validators.minLength(6)],
+        asyncValidators: [],
+        valueChangesSubscribe: true,
+        args: {
+          control: {
+            icon: "person-fill"
+          },
+          formField: {
+            "label": "Nombre completo"
+          }
         },
-        formField: {
-          "label": "Nombre completo"
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    }),
-    email: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required, Validators.email],
-      args: {
-        control: {
-          placeholder: "",
-          icon: "envelope-at-fill"
+      }),
+      email: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required, Validators.email],
+        args: {
+          control: {
+            placeholder: "",
+            icon: "envelope-at-fill"
+          },
+          formField: {
+            label: "Correo electrónico"
+          }
         },
-        formField: {
-          label: "Correo electrónico"
+        classes: {
+          formField: "col-12",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "col-12",
-        control: "input-group"
-      }
-    }),
-    password: createPatoControl({
-      component: PatoInputComponent,
-      formFieldComponent: FormFieldComponent,
-      value: "",
-      validators: [Validators.required, Validators.minLength(6), Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)],
-      asyncValidators: [],
-      valueChangesSubscribe: true,
-      args: {
-        control: {
-          icon: "key-fill"
+      }),
+      password: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required, Validators.minLength(6), Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)],
+        asyncValidators: [],
+        valueChangesSubscribe: true,
+        args: {
+          control: {
+            icon: "key-fill"
+          },
+          formField: {
+            "label": "Contraseña"
+          }
         },
-        formField: {
-          "label": "Contraseña"
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
         }
-      },
-      classes: {
-        formField: "mt-3 col-6 mt-4",
-        control: "input-group"
-      }
-    })
+      }),
+      repeatPassword: createPatoControl({
+        component: PatoInputComponent,
+        formFieldComponent: FormFieldComponent,
+        value: "",
+        validators: [Validators.required, Validators.minLength(6), Validators.pattern(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)],
+        asyncValidators: [],
+        valueChangesSubscribe: true,
+        args: {
+          control: {
+            icon: "key-fill"
+          },
+          formField: {
+            "label": "Repite la contraseña"
+          }
+        },
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
+        }
+      })
+    }
   };
 
 

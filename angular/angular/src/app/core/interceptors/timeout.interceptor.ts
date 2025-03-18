@@ -2,11 +2,11 @@ import { environment } from "@environments/environments";
 import { HttpRequest, HttpHandlerFn, HttpEvent } from "@angular/common/http";
 import { inject, DestroyRef } from '@angular/core';
 import { InterceptorService } from "./services/interceptor.service";
-import { LanguageService } from "@core/services/language/language.service";
 import { ModalService } from "@core/services/modal/modal.service";
 import { Observable, timeout, catchError, throwError, TimeoutError } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { TimeoutModalComponent } from "@core/components/timeout-modal/timeout-modal.component";
+import { ErrorModalData } from "@core/components/http-error-modal/interfaces/data.interface";
 
 const timeoutSeconds = environment.timeoutSeconds;
 
@@ -14,21 +14,17 @@ export function timeoutInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
   const interceptorService = inject(InterceptorService);
   const modalService = inject(ModalService);
   const destroyRef = inject(DestroyRef);
-  const languageService = inject(LanguageService);
+  // const languageService = inject(LanguageService);
   const context = interceptorService.getContextFromRequest(req);
 
   const shouldShowErrorModal = (): boolean => Boolean(context.showGlobalModalTimeout);
 
-  const openErrorModal = (status_code: string) => {
-    languageService.getModalHttpStatusErrors(status_code).pipe(
-      takeUntilDestroyed(destroyRef),
-    ).subscribe(({ title, message }) => {
+  const openErrorModal = (data: ErrorModalData) => {
       modalService.open({
         component: TimeoutModalComponent,
         destroyRef: destroyRef,
         args: {
-          title,
-          message,
+          data,
           clicked: (event: string) => {
             //console.log(event)
           }
@@ -37,8 +33,7 @@ export function timeoutInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
           animation: true
         }
       });
-    })
-  }
+    }
 
   return next(req).pipe(
     timeout(timeoutSeconds * 1000),
@@ -56,7 +51,7 @@ export function timeoutInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
     catchError(error => {
       if (!(error instanceof TimeoutError)) return throwError(() => error);
       if (shouldShowErrorModal()) {
-        openErrorModal("timeout");
+        // openErrorModal("timeout");
       }
       interceptorService.addOrUdpateHttpRequest({ state: 'error', timeoutError: error, req, context });
       return throwError(() => error);
