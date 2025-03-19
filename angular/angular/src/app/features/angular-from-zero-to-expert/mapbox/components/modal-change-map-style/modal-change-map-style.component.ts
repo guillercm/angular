@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { dataStyleMap } from '../../interfaces/dataStyleMap.interface';
 import { SharedImageComponent } from "../../../../../shared/components/image/shared-image.component";
 import { StylesMapsService } from '../../services/styles-maps.service';
-import { TranslatePipe } from '@ngx-translate/core';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
 
 @Component({
   selector: 'features-mapbox-modal-change-map-style',
-  imports: [CommonModule, SharedImageComponent, TranslatePipe],
+  imports: [CommonModule, SharedImageComponent, AppTranslatePipe],
   templateUrl: './modal-change-map-style.component.html',
   styleUrl: './modal-change-map-style.component.css'
 })

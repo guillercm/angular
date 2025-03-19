@@ -25,7 +25,7 @@ export class AppTranslatePipe implements PipeTransform {
     ).pipe(
       takeUntilDestroyed(this._destroyRef),
       switchMap(() => this._translate.getTranslate(value, params)),
-      map((value: any) => this._translate.handlePlurals(value, number))
+      map((value: any) => this._translate.handlePlurals(number, value))
     ).subscribe((value) => {
       this.lastValue = value;
     });

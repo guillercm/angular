@@ -5,12 +5,12 @@ import { SharedButtonComponent } from "../../../../../shared/components/button/s
 import { Place } from '../../interfaces/place.interface';
 import { SharedImageComponent } from "../../../../../shared/components/image/shared-image.component";
 import { TranslatePipe } from '@ngx-translate/core';
-import { ItinerariesService } from '../../services/itineraries.service';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'features-mapbox-modal-saved-places',
-  imports: [MiniMapComponent, SharedButtonComponent, SharedImageComponent, TranslatePipe],
+  imports: [MiniMapComponent, SharedButtonComponent, SharedImageComponent, AppTranslatePipe],
   templateUrl: './modal-saved-places.component.html',
   styleUrl: './modal-saved-places.component.css'
 })

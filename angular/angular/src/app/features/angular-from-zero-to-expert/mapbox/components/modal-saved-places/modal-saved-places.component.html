@@ -1,5 +1,5 @@
 <div class="container p-4">
-    <h3 class="mb-5">{{ "features.mapbox.labels.titleSavedPlaces" | translate }}</h3>
+    <h3 class="mb-5">{{ 'i18n.features.mapbox.titleSavedPlaces' | appTranslate }}</h3>
     <div class="row g-3">
         @for (place of savedPlaces(); track $index) {
         <div class="col col-12 col-md-6 col-xxl-4 d-flex text-align-center justify-content-center">
@@ -32,7 +32,7 @@
             <div class="text-center">
                 <shared-image url="img/mapbox/tierra-triste.png" classes="img-fluid"
                     style="height: 200px;"></shared-image>
-                <p class="h3">{{ 'features.mapbox.labels.emtySavePlace' | translate}}</p>
+                <p class="h3">{{ 'i18n.features.mapbox.emtySavePlace' | appTranslate}}</p>
             </div>
         </div>
         }

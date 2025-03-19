@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Place } from '../interfaces/place.interface';
 import { SessionService } from '@core/services/session/session.service';
 import { MapsService } from './maps.service';
@@ -48,7 +48,6 @@ export class ItinerariesService {
     this._places.update((places: Place[]) => {
       return places.map(p => {
         delete p.itinerary;
-        delete p.itineraryResume;
         return p;
       });
     })
@@ -57,13 +56,6 @@ export class ItinerariesService {
   public updateItinerariesOfPlace(placeIndex: number, itinerary: Itinerary) {
     this._places.update((places) => {
       places[placeIndex].itinerary = itinerary;
-      return [...places];
-    })
-  }
-
-  public updateItineraryResumeOfPlace(placeIndex: number, itineraryResume: string) {
-    this._places.update((places) => {
-      places[placeIndex].itineraryResume = itineraryResume;
       return [...places];
     })
   }

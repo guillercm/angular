@@ -18,17 +18,17 @@
               <div class="row">
                 <div class="col">
                   <shared-button [icon]="getIconByTravelMode(index)" variant="primary"
-                    (clicked)="speachItineraryResume(place.itineraryResume)"></shared-button>
+                    (clicked)="speachItineraryResume(index)"></shared-button>
                 </div>
               </div>
-
               <hr>
               <div class="row pt-2">
-                <p class="">{{ place.itineraryResume }}</p>
+                <p class="">{{ dataItinerariesResume()[index] }}</p>
               </div>
 
             </div>
           </ng-template>
+           
         </div>
         }
         } @else {
@@ -46,24 +46,24 @@
               @if (!last) {
               <hr>
               <div class="row pt-2">
-                <p class="">{{ "features.mapbox.labels.nextPlace" | translate : {value: places()[index+1].name} }}</p>
+                <p class="">{{ 'i18n.features.mapbox.nextPlace' | appTranslate : {value: places()[index+1].name} }}</p>
               </div>
               <div class="row">
                 <div class="col"><shared-button [icon]="getIconByTravelMode('driving')"
                     [variant]="getVariant('driving', place)" (clicked)="setTravelMode('driving', index)"
-                    title="features.mapbox.labels.driving"></shared-button></div>
+                    [title]="'i18n.features.mapbox.driving' | appTranslate"></shared-button></div>
                 <div class="col"><shared-button [icon]="getIconByTravelMode('driving-traffic')"
                     [variant]="getVariant('driving-traffic', place)"
                     (clicked)="setTravelMode('driving-traffic', index)"
-                    title="features.mapbox.labels.drivingTraffic"></shared-button></div>
+                    [title]="'i18n.features.mapbox.drivingTraffic' | appTranslate"></shared-button></div>
               </div>
               <div class="row pt-2">
                 <div class="col"><shared-button [icon]="getIconByTravelMode('walking')"
                     [variant]="getVariant('walking', place)" (clicked)="setTravelMode('walking', index)"
-                    title="features.mapbox.labels.walking"></shared-button></div>
+                    [title]="'i18n.features.mapbox.walking' | appTranslate"></shared-button></div>
                 <div class="col"><shared-button [icon]="getIconByTravelMode('cycling')"
                     [variant]="getVariant('cycling', place)" (clicked)="setTravelMode('cycling', index)"
-                    title="features.mapbox.labels.cycling"></shared-button></div>
+                    [title]="'i18n.features.mapbox.cycling' | appTranslate"></shared-button></div>
               </div>
               }
             </div>
@@ -92,7 +92,7 @@
     <shared-button icon="trash" variant="danger" [outline]="true" (clicked)="removeItinerarie()"></shared-button>
     } @else {
     <shared-button icon="arrow-90deg-right" [disabled]="places().length < 2"
-      label="features.mapbox.labels.btnHowToGetToAPlace" (clicked)="initItinerarie()"></shared-button>
+      [label]="'i18n.features.mapbox.getToAPlace' | appTranslate" (clicked)="initItinerarie()"></shared-button>
     }
   </div>
 </div>

@@ -2,16 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, DestroyRef, inject, output, signal, ViewContainerRef } from '@angular/core';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { MapsService } from '../../services/maps.service';
-import { TranslatePipe } from '@ngx-translate/core';
 import { ModalService } from '@core/services/modal/modal.service';
 import { ModalChangeMapStyleComponent } from '../modal-change-map-style/modal-change-map-style.component';
 import { ModalSavedPlacesComponent } from '../modal-saved-places/modal-saved-places.component';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { Place } from '../../interfaces/place.interface';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
 
 @Component({
   selector: 'features-mapbox-side-menu',
-  imports: [CommonModule, SharedButtonComponent, TranslatePipe, CheckboxComponent],
+  imports: [CommonModule, SharedButtonComponent, AppTranslatePipe, CheckboxComponent],
   templateUrl: './side-menu.component.html',
   styleUrl: './side-menu.component.css'
 })

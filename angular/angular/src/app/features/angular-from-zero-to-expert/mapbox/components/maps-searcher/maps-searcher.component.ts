@@ -13,6 +13,7 @@ import { MapsService } from '../../services/maps.service';
 import { FormGroup } from '@angular/forms';
 import { ItinerariesService } from '../../services/itineraries.service';
 import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
+import { AppTranslateService } from '@core/services/translate/app-translate.service';
 
 @Component({
   selector: 'features-mapbox-maps-searcher',
@@ -31,6 +32,8 @@ export class MapsSearcherComponent {
   private readonly _mapService = inject(MapsService);
 
   private readonly _itinerariesService = inject(ItinerariesService);
+
+  private readonly _appTranslateService = inject(AppTranslateService);
 
   private _form = signal<FormGroup | null>(null);
 
@@ -51,7 +54,7 @@ export class MapsSearcherComponent {
         validators: [],
         args: {
           control: {
-            placeholder: "Buscar...",
+            placeholder: this._appTranslateService.get('i18n.common.placeholderSearch'),
             autocomplete: false,
             submitFormOnDebounce: true,
             debounceTimer: 500,

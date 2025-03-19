@@ -1,6 +1,6 @@
 @if (dataStylesMap()) {
 <div class="container p-4">
-  <h3 class="mb-5">{{ "features.mapbox.labels.modal" | translate }}</h3>
+  <h3 class="mb-5">{{ 'i18n.features.mapbox.titleStyle' | appTranslate }}</h3>
   <div class="d-flex justify-content-center align-items-center flex-wrap">
     @for (style of dataStylesMap()?.styles; track style) {
     <div class="col col-12 col-md-6 col-xxl-4 d-flex justify-content-center mb-3">

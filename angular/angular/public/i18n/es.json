@@ -1,6 +1,7 @@
 {
   "i18n": {
     "common": {
+      "placeholderSearch": "Buscar...",
       "description": "descripción",
       "details": "detalles",
       "for": "para",
@@ -174,7 +175,8 @@
         "formFieldSearchByCountry": "Por país"
       },
       "mapbox": {
-        "modal": "Estilo del mapa",
+        "appName": "Mapas",
+        "titleStyle": "Estilo del mapa",
         "zoom": "Zoom",
         "showCoords": "Mostrar coordenadas",
         "rain": "Lluvia",
@@ -183,19 +185,19 @@
         "btnSavedPlaces": "Ver lugares guardados",
         "titleSavedPlaces": "Lugares guardados",
         "emtySavePlace": "No hay lugares guardados",
-        "btnHowToGetToAPlace": "Cómo llegar",
+        "getToAPlace": "Cómo llegar",
         "nextPlace": "Para ir a {{value}}:",
         "drivingTraffic": "Para ir en vehículo teniendo en cuenta las condiciones de tráfico actuales e históricas para evitar demoras.",
         "driving": "Para ir en vehículo con las rutas más rápidas, dando preferencia a las carreteras de alta velocidad, como las autopistas.",
         "walking": "Para rutas de peatones y excursionistas.",
         "cycling": "Para rutas en bicicleta.",
-        "itineraryResume": "{{ time }} ({{ distance }}), para llegar a {{ place }}.",
-        "inputSiteSearch": "Buscar..."
+        "itineraryResume": "{{ time }} ({{ distance }}), para llegar a {{ place }}."
       },
       "tesloshop": {
         "allProducts": "todos los productos",
         "productList": "listado de productos",
-        "newProduct": "nuevo producto"
+        "newProduct": "nuevo producto",
+        "productListEmpty": "no hay productos"
       }
     }
   }

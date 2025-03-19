@@ -5,6 +5,7 @@ import { InterpolationParameters, TranslateService } from '@ngx-translate/core';
 import { combineLatest, distinctUntilChanged, forkJoin, map, merge, Observable, startWith, switchMap, tap } from 'rxjs';
 import { AppConfigService } from '../configuration/app-config.service';
 import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { I18nPluralService } from '../i18nPlural/i18n-plural.service';
 
 
 @Injectable({
@@ -18,7 +19,10 @@ export class AppTranslateService {
 
   private readonly _translate = inject(TranslateService);
 
-  private readonly _i18nPluralPipe = inject(I18nPluralPipe);
+  private readonly _i18nPluralService = inject(I18nPluralService);
+
+  private _currentLang = signal("");
+  public readonly currentLang = this._currentLang.asReadonly();
 
   public readonly changesLangObservables = [
     this._translate.onDefaultLangChange,
@@ -37,17 +41,15 @@ export class AppTranslateService {
   useLang(language?: string) {
     if (!language) return;
     // this._translate.setDefaultLang(language);
+    this._currentLang.set(language);
     this._translate.use(language);
   }
 
 
-  public handlePlurals(value: any, number: number) {
-    console.log(value)
-    return !isNaN(number) &&
-      typeof value === 'object' &&
-      (typeof value["=0"] === 'string' || typeof value["=1"] === 'string')
-      ? this._i18nPluralPipe.transform(number, value)
-      : value;
+  public handlePlurals(number: number, value: any) {
+    const i18nPluralvalue = this._i18nPluralService.get(number, value);
+    if (i18nPluralvalue === null) return value;
+    return i18nPluralvalue;
   }
 
   public getTranslate(key: string | string[], interpolateParams?: InterpolationParameters) {
@@ -71,10 +73,15 @@ export class AppTranslateService {
     ).pipe(
       takeUntilDestroyed(this._destroyRef),
       switchMap(() => this.getTranslate(key, interpolateParams)),
-      map((value: any) => this.handlePlurals(value, number))
+      map((value: any) => this.handlePlurals(number, value))
     ).subscribe((value) => {
       signalValue.set(value);
     });
     return signalValue
+  }
+
+  public getValue(key: string | string[], interpolateParams?: GenericObject) {
+    let number = this.getValueForPlurals(interpolateParams);
+    return this.handlePlurals(number, this._translate.instant(key, interpolateParams));
   }
 }

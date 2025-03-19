@@ -8,7 +8,7 @@ import { ButtonType } from './interfaces/button-types.type';
 
 @Component({
   selector: 'shared-button',
-  imports: [CommonModule, RouterLink, TranslatePipe],
+  imports: [CommonModule, RouterLink],
   templateUrl: './shared-button.component.html',
   styleUrl: './shared-button.component.css'
 })

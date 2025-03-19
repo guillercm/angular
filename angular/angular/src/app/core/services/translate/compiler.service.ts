@@ -10,7 +10,6 @@ export class CompilerService extends TranslateFakeCompiler {
     return super.compile(value, lang)
   }
   public override compileTranslations(translations: Translation, lang: string): InterpolatableTranslationObject {
-    console.log({translations})
     return super.compileTranslations(translations, lang)
   }
 }

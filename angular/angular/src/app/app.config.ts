@@ -19,7 +19,7 @@ import localeEs from '@angular/common/locales/es';
 import localeEsHN from '@angular/common/locales/es-HN';
 import localeFrCA from '@angular/common/locales/fr-CA';
 
-import { AsyncPipe, I18nPluralPipe, registerLocaleData } from '@angular/common';
+import { AsyncPipe, I18nPluralPipe, registerLocaleData, TitleCasePipe } from '@angular/common';
 import { tokenInterceptor } from '@core/interceptors/token.interceptor';
 import { CompilerService } from '@core/services/translate/compiler.service';
 import { LoaderService } from '@core/services/translate/loader.service';
@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
     //provideZoneChangeDetection({ eventCoalescing: true }),
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: I18nPluralPipe },
-    { provide: AsyncPipe },
+    { provide: TitleCasePipe },
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes,
       withInMemoryScrolling({

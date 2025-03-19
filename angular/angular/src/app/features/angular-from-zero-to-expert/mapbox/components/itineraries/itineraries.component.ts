@@ -3,7 +3,7 @@ import { ButtonVariants } from '@shared/components/button/interfaces/button-vari
 import { CdkDragDrop, CdkDropList, CdkDrag, CdkDragStart } from '@angular/cdk/drag-drop';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { CommonModule, I18nPluralPipe } from '@angular/common';
-import { Component, computed, DestroyRef, inject, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, computed, DestroyRef, inject, linkedSignal, OnInit, signal, ViewContainerRef, WritableSignal } from '@angular/core';
 import { concatMap, of, tap } from 'rxjs';
 import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
 import { ItinerariesService } from '../../services/itineraries.service';
@@ -15,13 +15,18 @@ import { SharedButtonComponent } from "@shared/components/button/shared-button.c
 import { SpeechService } from '../../services/speech.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { TravelMode } from '../../interfaces/travel-mode.enum';
-import { TranslatePipe } from '@ngx-translate/core';
 import { AppTranslateService } from '@core/services/translate/app-translate.service';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
 
+interface DataItineraryResume {
+  index: number,
+  itinerary: Itinerary,
+  nextPlace: string
+}
 
 @Component({
   selector: 'features-mapbox-itineraries',
-  imports: [CommonModule, CdkMenuModule, CdkDropList, CdkDrag, SharedButtonComponent, TranslatePipe],
+  imports: [CommonModule, CdkMenuModule, CdkDropList, CdkDrag, SharedButtonComponent, AppTranslatePipe],
   providers: [I18nPluralPipe],
   templateUrl: './itineraries.component.html',
   styleUrl: './itineraries.component.css'
@@ -46,9 +51,25 @@ export class ItinerariesComponent implements OnInit {
 
   protected readonly places = computed(() => this._itinerariesService.places())
 
-  private _pluralsTime = this._appTranslateService.get("i18n.common.time")
+  private _dataItinerariesResume = signal<DataItineraryResume[]>([]);
 
-  private _pluralsDistance = this._appTranslateService.get("i18n.common.distance")
+
+  protected dataItinerariesResume = linkedSignal({
+    source: this._dataItinerariesResume,
+    computation: (data: DataItineraryResume[]): string[] => {
+      return data.map(({ index, itinerary, nextPlace }: DataItineraryResume): string => {
+        const hours = Math.floor(itinerary.duration.minutes / 60);
+        const minutes = Math.round(itinerary.duration.minutes % 60);
+        const { meters, kilometers } = itinerary.distance;
+        const time = [
+          this._appTranslateService.getValue('i18n.common.time.hours', { hours }),
+          this._appTranslateService.getValue('i18n.common.time.minutes', { minutes })
+        ].join(' ');
+        const distance = meters < 1000 ? this._appTranslateService.getValue('i18n.common.distance.meters', { meters: Math.round(meters) }) : this._appTranslateService.getValue('i18n.common.distance.kilometers', { kilometers: Math.round(kilometers) })
+        return this._appTranslateService.getValue('i18n.features.mapbox.itineraryResume', { time, distance, place: nextPlace })
+      })
+    },
+  });
 
   ngOnInit(): void {
 
@@ -99,7 +120,7 @@ export class ItinerariesComponent implements OnInit {
           this._mapsService.addMarker(place, this._viewContainerRef, false)
         }
         if (firstPlace?.itinerary?.steps[0]) {
-          this.goToStepLocation(firstPlace.itinerary.steps[0], firstPlace.itineraryResume);
+          this.goToStepLocation(firstPlace.itinerary.steps[0], true);
         }
       },
       error: () => {
@@ -112,15 +133,14 @@ export class ItinerariesComponent implements OnInit {
     this._itinerariesService.removeItinerariesOfPlaces();
   }
 
-  protected goToStepLocation({ location, instruction }: ItineraryStep, itineraryResume: string = "") {
-    itineraryResume = itineraryResume ? itineraryResume + ".\n" : "";
-    this._speechService.speak(itineraryResume + instruction);
+  protected goToStepLocation({ location, instruction }: ItineraryStep, speekItinerary = false) {
+    const itineraryResume = this.dataItinerariesResume()[0] + "\n";
+    this._speechService.speak((speekItinerary ? itineraryResume : '') + instruction);
     this._mapsService.flyTo(location, 18);
   }
 
-  protected speachItineraryResume(itineraryResume?: string) {
-    if (!itineraryResume) return;
-    this._speechService.speak(itineraryResume);
+  protected speachItineraryResume(index: number) {
+    this._speechService.speak(this.dataItinerariesResume()[index]);
   }
 
   protected getIcon(manuever: ItineraryManeuver): string {
@@ -140,49 +160,23 @@ export class ItinerariesComponent implements OnInit {
 
   private setItinerariesResume() {
     const places = this.places();
-
+    const itinerariesResume: DataItineraryResume[] = [];
     places.forEach((place: Place, index: number) => {
       if (this.shouldSkipPlace(place, index, places)) return;
-
       const nextPlace = places[index + 1].name;
-      const time = this.calculateTime(place.itinerary?.duration.minutes);
-      const distance = this.calculateDistance(place.itinerary?.distance);
-
-      this.updateItineraryResume(index, time, distance, nextPlace);
+      if (place.itinerary)
+        itinerariesResume.push({ index, itinerary: place.itinerary, nextPlace });
     });
+    this._dataItinerariesResume.set(itinerariesResume);
   }
+
+
 
   private shouldSkipPlace(place: Place, index: number, places: Place[]): boolean {
-    return !!place.itineraryResume || !place.itinerary || index === places.length - 1;
+    return !place.itinerary || index === places.length - 1;
   }
 
-  private calculateTime(totalMinutes: number = 0): string {
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = Math.round(totalMinutes % 60);
 
-    return [
-      // this._appTranslateService.get(hours, this._pluralsTime["hours"])
-      // this._i18nPluralPipe.transform(hours, this._plurals["time"].hours),
-      // this._i18nPluralPipe.transform(minutes, this._plurals["time"].minutes),
-    ].join(' ');
-  }
-
-  private calculateDistance(distance: { meters?: number; kilometers?: number } = {}): string {
-    const { meters = 0, kilometers = 0 } = distance;
-    // this._appTranslateService.get('i18n.common.time.hours', {hours: this._pluralsTime()["hours"]})
-    return ""
-    // return meters > 1000
-    //   ? this._i18nPluralPipe.transform(Math.round(kilometers), this._plurals["distance"].kilometers)
-    //   : this._i18nPluralPipe.transform(Math.round(meters), this._plurals["distance"].meters);
-  }
-
-  private updateItineraryResume(index: number, time: string, distance: string, nextPlace: string): void {
-    // this._appTranslateService.get("features.mapbox.labels.itineraryResume", { time, distance, place: nextPlace })
-    //   .pipe(takeUntilDestroyed(this._destroyRef))
-    //   .subscribe((value: string) => {
-    //     this._itinerariesService.updateItineraryResumeOfPlace(index, value);
-    //   });
-  }
 
 
   protected getIconByTravelMode(key: number | string) {
