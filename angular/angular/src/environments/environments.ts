@@ -3,5 +3,5 @@ export const environment = {
   configPath: "static/config.json",
   docsPath: "static/docs/{filename}.md",
   pdfPath: "/static/pdf/{filename}.pdf",
-  timeoutSeconds: 3
+  timeoutSeconds: 1
 };

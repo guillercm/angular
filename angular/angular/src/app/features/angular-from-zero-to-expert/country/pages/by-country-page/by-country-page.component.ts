@@ -41,12 +41,12 @@ export class ByCountryPageComponent {
         validators: [],
         args: {
           control: {
-            placeholder: "features.countries.labels.searchByCountry",
+            placeholder: "Buscar por país",
             autocomplete: false,
             submitFormOnDebounce: true
           },
           formField: {
-            label: "features.countries.labels.formFieldSearchByCountry",
+            label: "Por país",
           }
         },
         classes: {

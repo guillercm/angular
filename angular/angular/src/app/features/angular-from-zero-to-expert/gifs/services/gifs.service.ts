@@ -42,7 +42,7 @@ export class GifsService {
     .set('offset', page * itemsPerPage)
     .set('q', tag);
     const url = this.getEndpoint("search");
-    return this._apiHandlerService.get<SearchResponse>(url, {params, context: {id: 'searchGifs', showGlobalLoader: false} }).pipe();
+    return this._apiHandlerService.get<SearchResponse>(url, {params, context: {id: 'searchGifs', actionsWhileLoadingHttpRequest: []} }).pipe();
   }
 
   public setGifs(gifs: Gif[]) {

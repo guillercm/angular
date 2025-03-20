@@ -277,6 +277,10 @@ constructor() {
 
 [componente imagenes](https://unpic.pics/img/angular/)
 
+[angular image-optimization](https://angular.dev/guide/image-optimization)
+
+
+
 ```
   PS C:\WINDOWS\system32> netstat -ano | findstr :3000
     TCP    0.0.0.0:3000           0.0.0.0:0              LISTENING       10848

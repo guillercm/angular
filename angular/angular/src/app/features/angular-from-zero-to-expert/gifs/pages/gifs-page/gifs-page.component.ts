@@ -64,7 +64,7 @@ export default class GifsPageComponent implements AfterViewInit {
         validators: [],
         args: {
           control: {
-            placeholder: "features.gifs.labels.searchGifPlaceholder",
+            placeholder: "Busca aquí un gif...",
             autocomplete: false
           },
           formField: {

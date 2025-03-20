@@ -13,7 +13,7 @@ export class SpinnerComponent {
   private readonly _interceptorService = inject(InterceptorService);
 
   protected readonly isLoading = computed<boolean>(() =>
-    this._interceptorService.dataHttpRequests().some((value: DataHttpRequest) => value.state === 'loading' && value.context.showGlobalLoader)
+    this._interceptorService.dataHttpRequests().some((value: DataHttpRequest) => value.state === 'loading' && value.context.actionsWhileLoadingHttpRequest?.includes('spinner'))
   );
 
 }

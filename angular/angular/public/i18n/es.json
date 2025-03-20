@@ -5,6 +5,7 @@
       "description": "descripción",
       "details": "detalles",
       "for": "para",
+      "backToHome": "volver al inicio",
       "imageNotAvailable": "imagen no disponible",
       "inventory": "inventario",
       "login": "iniciar sesión",
@@ -58,70 +59,19 @@
       "requiredFieldTag": "*",
       "optionalFieldTag": "(opcional)",
       "errors": {
-        "httpStatus": {
-          "generic": {
-            "status": "0",
-            "data": {
-              "modal": {
-                "title": "Error desconocido",
-                "message": "Se ha producido un error inesperado. Por favor, intenta nuevamente más tarde o contacta con soporte."
-              }
-            }
-          },
-          "404": {
-            "status": "404",
-            "data": {
-              "modal": {
-                "title": "Recurso no encontrado",
-                "message": "El recurso que estás intentando acceder no está disponible o ha sido movido."
-              },
-              "page": {
-                "title": "Página no encontrada",
-                "message": "Lo sentimos, no pudimos encontrar la página que estás buscando. Por favor, verifica la URL o vuelve al inicio.",
-                "img": "404.png",
-                "button": {
-                  "route": "/",
-                  "label": "Volver al Inicio"
-                }
-              }
-            }
-          },
-          "422": {
-            "status": "422",
-            "data": {
-              "modal": {
-                "title": "Entidad no procesable",
-                "message": "Los datos enviados contienen errores o no cumplen con los requisitos esperados. Por favor, verifica la información e inténtalo de nuevo."
-              }
-            }
-          },
-          "500": {
-            "status": "500",
-            "data": {
-              "modal": {
-                "title": "Recurso no encontrado",
-                "message": "El recurso que estás intentando acceder no está disponible o ha sido movido."
-              },
-              "page": {
-                "title": "Oops! Algo salió mal.",
-                "message": "Estamos trabajando para solucionarlo. Por favor, inténtalo de nuevo más tarde.",
-                "img": "500.png",
-                "button": {
-                  "route": "/",
-                  "label": "Volver al Inicio"
-                }
-              }
-            }
-          },
-          "timeout": {
-            "data": {
-              "modal": {
-                "title": "Tiempo de espera agotado",
-                "message": "El servidor tardó demasiado en responder. Por favor, verifica tu conexión o inténtalo de nuevo."
-              }
-            }
-          }
-        },
+        "unknownError": "Error desconocido",
+        "unexpectedError": "Se ha producido un error inesperado. Por favor, intenta nuevamente más tarde o contacta con soporte.",
+        "resourceNotFound": "Recurso no encontrado",
+        "resourceMoved": "El recurso que estás intentando acceder no está disponible o ha sido movido.",
+        "pageNotFound": "Página no encontrada",
+        "verifyUrl": "Lo sentimos, no pudimos encontrar la página que estás buscando. Por favor, verifica la URL o vuelve al inicio.",
+        "unprocessableEntity": "Entidad no procesable",
+        "verifyData": "Los datos enviados contienen errores o no cumplen con los requisitos esperados. Por favor, verifica la información e inténtalo de nuevo.",
+        "serverError": "Oops! Algo salió mal.",
+        "workingOnIt": "Estamos trabajando para solucionarlo. Por favor, inténtalo de nuevo más tarde.",
+        "timeout": "Tiempo de espera agotado",
+        "checkConnection": "El servidor tardó demasiado en responder. Por favor, verifica tu conexión o inténtalo de nuevo.",
+        "theEmailAlreadyExists": "El correo {{ email }} que intentaste usar ya está asociado a una cuenta existente.",
         "validations": {
           "generic": "El valor introducido no es correcto.",
           "required": "Este campo es obligatorio",
@@ -136,43 +86,15 @@
           "min": "El mínimo tiene que ser de {{ min }}",
           "max": "El máximo tiene que ser de {{ max }}",
           "email": "Tiene que ser un correo válido.",
-          "passwordsNotEqual": "Las contraseñas deben coincidir."
+          "passwordsNotEqual": "Las contraseñas deben coincidir.",
+          "incorrectPassword": "La contraseña es incorrecta.",
+          "colorMustBeYellow": "El color tiene que ser amarillo"
         }
       }
     },
     "features": {
-      "auth": {
-        "errors": {
-          "validations": {
-            "colorMustBeYellow": "El color tiene que ser amarillo",
-            "email": {
-              "unique": {
-                "data": {
-                  "modal": {
-                    "title": "Oops, algo salió mal",
-                    "message": "El correo {{ email }} que intentaste usar ya está asociado a una cuenta existente."
-                  }
-                }
-              }
-            },
-            "password": {
-              "incorrect": "La contraseña es incorrecta."
-            }
-          }
-        }
-      },
       "simpsons": {
         "prueba": "Escribe aqui"
-      },
-      "gifs": {
-        "clearHistory": "Limpiar historial",
-        "searchGif": "Busca aquí un gif..."
-      },
-      "countries": {
-        "searchByCapital": "Buscar por capital",
-        "formFieldSearchByCapital": "Por capital",
-        "searchByCountry": "Buscar por país",
-        "formFieldSearchByCountry": "Por país"
       },
       "mapbox": {
         "appName": "Mapas",

@@ -46,6 +46,82 @@
       }
     }
   },
+  "errors": {
+    "httpStatus": {
+      "generic": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.unknownError",
+            "message": "i18n.common.errors.unexpectedError"
+          }
+        }
+      },
+      "404": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.resourceNotFound",
+            "message": "i18n.common.errors.resourceMoved"
+          },
+          "page": {
+            "title": "i18n.common.errors.pageNotFound",
+            "message": "i18n.common.errors.verifyUrl",
+            "img": "404.png",
+            "button": {
+              "route": "/",
+              "label": "i18n.common.backToHome"
+            }
+          }
+        }
+      },
+      "422": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.unprocessableEntity",
+            "message": "i18n.common.errors.verifyData"
+          }
+        }
+      },
+      "500": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.serverError",
+            "message": "i18n.common.errors.workingOnIt"
+          },
+          "page": {
+            "title": "i18n.common.errors.serverError",
+            "message": "i18n.common.errors.workingOnIt",
+            "img": "500.png",
+            "button": {
+              "route": "/",
+              "label": "i18n.common.backToHome"
+            }
+          }
+        }
+      },
+      "408": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.timeout",
+            "message": "i18n.common.errors.checkConnection"
+          }
+        }
+      }
+    },
+    "validations": {
+      "auth": {
+        "email": {
+          "unique": {
+            "data": {
+              "modal": {
+                "title": "i18n.common.errors.serverError",
+                "message": "i18n.common.errors.theEmailAlreadyExists"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "languages": {
     "availables": [
       "es"

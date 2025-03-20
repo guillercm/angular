@@ -4,7 +4,7 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { provideTranslateService, TranslateCompiler, TranslateLoader, TranslateParser } from "@ngx-translate/core";
+import { MissingTranslationHandler, provideTranslateService, TranslateCompiler, TranslateLoader, TranslateParser } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
@@ -24,6 +24,7 @@ import { tokenInterceptor } from '@core/interceptors/token.interceptor';
 import { CompilerService } from '@core/services/translate/compiler.service';
 import { LoaderService } from '@core/services/translate/loader.service';
 import { ParserService } from '@core/services/translate/parser.service';
+import { MissingTranslationHandlerService } from '@core/services/translate/missing-translation-handler.service';
 
 registerLocaleData(localeEs);
 registerLocaleData(localeEsHN);
@@ -68,6 +69,10 @@ export const appConfig: ApplicationConfig = {
       compiler: {
         provide: TranslateCompiler,
         useClass: CompilerService
+      },
+      missingTranslationHandler: {
+        provide: MissingTranslationHandler,
+        useClass: MissingTranslationHandlerService
       }
     }),
 

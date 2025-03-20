@@ -3,7 +3,6 @@ import { Injectable, WritableSignal, inject } from '@angular/core';
 import { DEFAULT_HTTP_CONTEXT } from '@core/interceptors/context/default-http-context';
 import { setHttpContext } from '@core/interceptors/context/http-context';
 import { ApiHandlerParams } from '@core/interfaces/api-handler/api-handler-params.interface';
-import { ApiHandlerPathParams } from '@core/interfaces/api-handler/api-handler-path-params.interface';
 import { Api } from '@core/interfaces/config/config';
 import { Observable, shareReplay } from 'rxjs';
 

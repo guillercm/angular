@@ -42,12 +42,12 @@ export default class ByCapitalPageComponent {
         validators: [],
         args: {
           control: {
-            placeholder: "features.countries.labels.searchByCapital",
+            placeholder: "Buscar por capital",
             autocomplete: false,
             submitFormOnDebounce: true
           },
           formField: {
-            label: "features.countries.labels.formFieldSearchByCapital",
+            label: "Por capital",
           }
         },
         classes: {

@@ -4,13 +4,12 @@ import { PatoFormComponent } from '../pato-form/pato-form.component';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
 import { PatoInputComponent } from '../pato-input/pato-input.component';
 import { ReactiveFormsModule, NG_VALUE_ACCESSOR, AbstractControl } from '@angular/forms';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'pato-input-number',
   templateUrl: './pato-input-number.component.html',
   styleUrl: './pato-input-number.component.css',
-  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
+  imports: [CommonModule, ReactiveFormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

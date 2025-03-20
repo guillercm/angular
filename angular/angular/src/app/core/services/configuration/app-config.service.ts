@@ -13,6 +13,10 @@ export class AppConfigService {
 
   private _config = signal<Config>({
     apis: {},
+    errors: {
+      httpStatus: {},   
+      validations: {}
+    },
     languages: {
       availables: [],
       default: ''

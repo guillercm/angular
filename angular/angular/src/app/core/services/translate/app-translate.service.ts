@@ -66,7 +66,7 @@ export class AppTranslateService {
   }
 
   public get(key: string | string[], interpolateParams?: GenericObject) {
-    let signalValue = signal("")
+    let signalValue = signal<any>("")
     let number = this.getValueForPlurals(interpolateParams);
     merge(
       ...this.changesLangObservables,

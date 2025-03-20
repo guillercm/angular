@@ -6,6 +6,7 @@ import { Observable, catchError, map, switchMap } from 'rxjs';
 import { Simpson } from '../interfaces/simpson.interface';
 import { SimpsonAdapter } from '../adapters/simpsons/simpsons-adapter';
 import { SimpsonResponse } from '../interfaces/api/simpsonsRespose.interface';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -52,13 +53,14 @@ export class SimpsonsService {
     return this._apiHandlerService.get<any>("https://dummyjson.com/RESOURCE/",
       {
         params: { delay: seconds * 1000 },
-        context: { id: "getSimpsonsWithDelay", showGlobalLoader: true }
+        context: { id: "getSimpsonsWithDelay", actionsForAnHttpError: {
+          'modal': {
+            onlyForStatusCodes: [HttpStatusCode.RequestTimeout]
+          }
+        } }
       }).
       pipe(
         switchMap((region) => this.getSimpsons()),
-        catchError(error => {
-          return this.getSimpsons()
-        })
       );
   }
 }

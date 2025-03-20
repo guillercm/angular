@@ -5,7 +5,7 @@
 }
 <input
     [type]="type"
-    [placeholder]="placeholder() | translate"
+    [placeholder]="placeholder()"
     class="form-control"
     [class.is-valid]="control().validator && control().valid && control().touched"
     [class.is-invalid]="control().validator && control().invalid && control().touched"

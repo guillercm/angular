@@ -16,7 +16,8 @@ export class AppTranslatePipe implements PipeTransform {
   private lastValue: string | null = null;
   private subscription: Subscription | null = null;
 
-  transform(value: string, ...args: any[]): any {
+  transform(value: string | undefined, ...args: any[]): any {
+    if (value === undefined) return '';
     if (this.subscription) return this.lastValue;
     const params = args[0];
     let number = this._translate.getValueForPlurals(params);

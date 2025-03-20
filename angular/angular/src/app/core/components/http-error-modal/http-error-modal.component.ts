@@ -1,10 +1,11 @@
 import { Component, inject, input, output, signal } from '@angular/core';
+import { ErrorModalData } from '@core/interfaces/errorModalData/errorModalData.interface';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ErrorModalData } from './interfaces/data.interface';
+import { AppTranslatePipe } from "../../pipes/app-translate.pipe";
 
 @Component({
   selector: 'core-http-error-modal',
-  imports: [],
+  imports: [AppTranslatePipe],
   templateUrl: './http-error-modal.component.html',
   styleUrl: './http-error-modal.component.css'
 })

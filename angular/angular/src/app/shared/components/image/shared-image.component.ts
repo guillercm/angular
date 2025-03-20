@@ -3,17 +3,14 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, input, signal } from '@angular/core';
 import { ImageState } from './interfaces/image-states.type';
 import { SkeletonTextDirective } from '@shared/directives/skeleton/skeleton-text.directive';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
 
-import { TranslatePipe } from '@ngx-translate/core';
-//
-// https://www.youtube.com/watch?v=_JFTg4kL0CY
-// https://angular.dev/guide/image-optimization
 
 @Component({
   selector: 'shared-image',
   templateUrl: './shared-image.component.html',
   styleUrl: './shared-image.component.css',
-  imports: [CommonModule, NgOptimizedImage, SkeletonTextDirective, TranslatePipe, TranslatePipe]
+  imports: [CommonModule, NgOptimizedImage, SkeletonTextDirective, AppTranslatePipe]
 })
 export class SharedImageComponent {
 

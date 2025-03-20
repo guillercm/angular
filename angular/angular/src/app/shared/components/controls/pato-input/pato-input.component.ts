@@ -6,7 +6,6 @@ import { Subject, debounceTime } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PatoFormComponent } from '../pato-form/pato-form.component';
 import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-accessor.interface';
-import { TranslatePipe } from '@ngx-translate/core';
 
 
 
@@ -14,7 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'pato-input',
   templateUrl: './pato-input.component.html',
   styles: ``,
-  imports: [CommonModule, ReactiveFormsModule, TranslatePipe]
+  imports: [CommonModule, ReactiveFormsModule]
 })
 export class PatoInputComponent implements OnInit, PatoControlValueAccessor {
 

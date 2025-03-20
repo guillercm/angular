@@ -19,14 +19,13 @@ import { Simpson } from '@features/simpsons/interfaces/simpson.interface';
 import { SimpsonCardComponent } from "../../components/simpson-card/simpson-card.component";
 import { SimpsonsService } from '@features/simpsons/services/simpsons.service';
 import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
-import { TranslatePipe } from '@ngx-translate/core';
 import { AppTranslateService } from '@core/services/translate/app-translate.service';
 import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
 
 
 @Component({
   selector: 'features-simpsons',
-  imports: [CommonModule, PatoFormComponent, SharedButtonComponent, SimpsonCardComponent, RepeatPipe, TranslatePipe, AppTranslatePipe],
+  imports: [CommonModule, PatoFormComponent, SharedButtonComponent, SimpsonCardComponent, RepeatPipe, AppTranslatePipe],
   templateUrl: './simpsons.component.html',
   styleUrl: './simpsons.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -169,7 +168,7 @@ export default class SimpsonsComponent {
   }
 
   loadSimpsons() {
-    this._simpsonsServices.getSimpsons().pipe(
+    this._simpsonsServices.getSimpsonsWithDelay(4).pipe(
       takeUntilDestroyed(this._destroyRef),
       tap((simpsons: Simpson[]) => {
         this._simpsons.set(simpsons);

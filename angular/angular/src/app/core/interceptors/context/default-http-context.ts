@@ -1,8 +1,12 @@
 import { DataHttpContext } from "../interfaces/data-http-context.interface";
 
 export const DEFAULT_HTTP_CONTEXT: DataHttpContext = {
-  showGlobalLoader: true,
-  showGlobalModalTimeout: true,
+  actionsWhileLoadingHttpRequest: ['spinner'],
+  actionsForAnHttpError: ['modal'],
+  // actionsForAnHttpError: {
+  //   'modal': {
+  //     onlyForStatusCodes: [HttpStatusCode.NotFound]
+  //   }
+  // },
   skipApiKey: false,
-  enableGlobalErrorModal: true
 }
