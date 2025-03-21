@@ -17,7 +17,7 @@ export class PdfComponent {
   public urlPdf = toSignal<string>(
     inject(ActivatedRoute).data.pipe(
       tap(),
-      map(data => environment.pdfPath.replace('{filename}', data['pdf']))
+      map(({pdf}) => environment.pdfPath.replace('{filename}', pdf))
     )
   );
 

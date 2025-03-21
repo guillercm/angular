@@ -4,6 +4,7 @@ import {
   FormGroup,
   ValidationErrors,
 } from '@angular/forms';
+import { Observable, scheduled, asyncScheduler, delay } from 'rxjs';
 
 async function sleep() {
   return new Promise((resolve) => {
@@ -18,6 +19,25 @@ export class FormUtils {
   static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
   static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
   static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
+  static slugPattern = '^[a-z0-9_]+(?:-[a-z0-9_]+)*$';
+
+  public static validatorSimpson(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+
+    return value !== 'yellow' ? { simpsonError: "Los simpsons son amarillos" } : null;
+  }
+
+  public static asycnValidatorSimpson(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    console.log('Validando contra servidor');
+
+    const value = control.value;
+    return scheduled([value !== 'yellow' ? { simpsonError: "Los simpsons son amarillos" } : null], asyncScheduler).pipe(
+      delay(2000)
+    );
+
+  }
 
   static getTextError(errors: ValidationErrors) {
     for (const key of Object.keys(errors)) {

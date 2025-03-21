@@ -10,11 +10,13 @@ import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfac
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormUtils } from '../../../utils/form-utils';
+import { AppTranslateService } from '@core/services/translate/app-translate.service';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
+import { FormUtils } from '../../../../../../../utils/form-utils';
 
 @Component({
   selector: 'auth-register-page',
-  imports: [RouterLink, ReactiveFormsModule, PatoFormComponent, SharedButtonComponent],
+  imports: [RouterLink, ReactiveFormsModule, PatoFormComponent, SharedButtonComponent, AppTranslatePipe],
   templateUrl: './register-page.component.html',
 })
 export class RegisterPageComponent {
@@ -23,6 +25,7 @@ export class RegisterPageComponent {
   private readonly _activatedRoute = inject(ActivatedRoute);
 
   private readonly _authService = inject(AuthService);
+  private readonly _appTranslateService = inject(AppTranslateService);
 
   protected dataForm: PatoDataForm = {
     form: {
@@ -42,7 +45,7 @@ export class RegisterPageComponent {
             icon: "person-fill"
           },
           formField: {
-            "label": "Nombre completo"
+            label: this._appTranslateService.get('i18n.common.fullName'),
           }
         },
         classes: {
@@ -61,7 +64,7 @@ export class RegisterPageComponent {
             icon: "envelope-at-fill"
           },
           formField: {
-            label: "Correo electrónico"
+            label: this._appTranslateService.get('i18n.common.email'),
           }
         },
         classes: {
@@ -81,7 +84,7 @@ export class RegisterPageComponent {
             icon: "key-fill"
           },
           formField: {
-            "label": "Contraseña"
+            label: this._appTranslateService.get('i18n.common.password'),
           }
         },
         classes: {
@@ -101,7 +104,7 @@ export class RegisterPageComponent {
             icon: "key-fill"
           },
           formField: {
-            "label": "Repite la contraseña"
+            label: this._appTranslateService.get('i18n.common.repeatPassoword'),
           }
         },
         classes: {

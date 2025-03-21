@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, forwardRef, input, output, signal } from '@angular/core';
-import { AbstractControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
-import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-accessor.interface';
 
 @Component({
   selector: 'pato-textarea',
@@ -17,7 +16,7 @@ import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-
     }
   ]
 })
-export class PatoTextareaComponent implements PatoControlValueAccessor {
+export class PatoTextareaComponent implements ControlValueAccessor {
 
   protected readonly formField = input.required<PatoFormField>();
 
@@ -49,6 +48,14 @@ export class PatoTextareaComponent implements PatoControlValueAccessor {
 
   _onChange: (_: any) => void = () => {};
   _onTouched: () => void = () => {};
+
+  registerOnChange(fn: any): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this._onTouched = fn;
+  }
 
   writeValue(value: string | null): void {
     this._value.set(value || '');

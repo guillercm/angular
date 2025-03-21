@@ -4,7 +4,6 @@ import { createPatoControl } from '@shared/components/controls/pato-form/utils/c
 import { firstValueFrom, Observable, tap } from 'rxjs';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
 import { FormGroup, Validators } from '@angular/forms';
-import { FormUtils } from '@features/simpsons/utils/custom-validators';
 import { InterceptorService } from '@core/interceptors/services/interceptor.service';
 import { ModalService } from '@core/services/modal/modal.service';
 import { PatoButtonGroupComponent } from '@shared/components/controls/pato-button-group/pato-button-group.component';
@@ -21,6 +20,7 @@ import { SimpsonsService } from '@features/simpsons/services/simpsons.service';
 import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
 import { AppTranslateService } from '@core/services/translate/app-translate.service';
 import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
+import { FormUtils } from '../../../../utils/form-utils';
 
 
 @Component({
@@ -62,12 +62,6 @@ export default class SimpsonsComponent {
 
   prueba = this._appTranslateService.get('i18n.common.time.hours', { hours: 45 })
 
-  lang = 'es'
-  changeLanguage() {
-    this.lang = this.lang === 'es' ? 'en' : 'es'
-    this._appTranslateService.useLang(this.lang)
-
-  }
 
   simpsonEffects = effect(() => {
     this._linkedIdSimpson.set(78)

@@ -1,17 +1,18 @@
 import { AfterViewInit, Component, computed, DestroyRef, effect, inject, input, output, signal, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { distinctUntilChanged } from 'rxjs';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { PatoControlComponent } from '../pato-control/pato-control.component';
 import { PatoDataForm } from './interfaces/data-form.interface';
 import { PatoDataFormChange } from './interfaces/pato-form-change.interface';
 import { ResponsePatoForm } from './interfaces/pato-response-form.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 
 
 @Component({
   selector: 'pato-form',
-  imports: [CommonModule, ReactiveFormsModule, PatoControlComponent],
+  imports: [CommonModule, ReactiveFormsModule, PatoControlComponent, AppTranslatePipe],
   templateUrl: './pato-form.component.html',
   styleUrl: './pato-form.component.css'
 })
@@ -85,6 +86,11 @@ export class PatoFormComponent implements AfterViewInit {
         this.onFormChange.emit({ field: key, newValue: value })
       })
     });
+  }
+
+  getErrors(errors: ValidationErrors | null) {
+    if (!errors) return [];
+    return Object.keys(errors);
   }
 
   // private initFormTouchedEvents() {

@@ -1,1 +1,13 @@
-<p>pato-input-file works!</p>
+<input
+  class="form-control"
+  type="file"
+  required
+  [id]="id()"
+  [attr.disabled]="disabled() ? 'disabled' : null"
+  [attr.accept]="accept_string"
+  [value]="value()"
+  [attr.multiple]="multiple() ? true : null"
+  [attr.webkitdirectory]="directory() ? true : null"
+  [attr.directory]="directory() ? true : null"
+  (change)="onChange($event.target)"
+  (blur)="onBlur()" />

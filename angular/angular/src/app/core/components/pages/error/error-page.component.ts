@@ -1,32 +1,28 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { AppConfigService } from '@core/services/configuration/app-config.service';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
+import { Component, computed, inject } from '@angular/core';
+import { map, take } from 'rxjs';
+import { PageHttpStatus } from '@core/interfaces/http-status/page-http-status.interface';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { SharedImageComponent } from "@shared/components/image/shared-image.component";
-import { switchMap, take } from 'rxjs';
-import { PageHttpStatus } from '@core/interfaces/http-status/page-http-status.interface';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'core-page-error',
-  imports: [SharedImageComponent, SharedButtonComponent],
+  imports: [SharedImageComponent, SharedButtonComponent, AppTranslatePipe],
   templateUrl: './error-page.component.html',
   styleUrl: './error-page.component.css',
 })
-export default class ErrorPageComponent implements OnInit {
+export default class ErrorPageComponent {
 
-  private readonly _activateRoute = inject(ActivatedRoute);
+  protected readonly getImgUrl = computed(() => `img/error-pages/${this.pageData()?.img}`)
 
-  private _httpStatus = signal<PageHttpStatus|null>(null);
+  protected pageData = toSignal<PageHttpStatus | undefined>(
+    inject(ActivatedRoute).data.pipe(
+      take(1),
+      map(({httpStatus}) => inject(AppConfigService).config().errors.httpStatus[httpStatus].data.page)
+    )
+  );
 
-  protected httpStatus = this._httpStatus.asReadonly();
-
-  protected readonly getImgUrl = computed(() => `img/error-pages/${this.httpStatus()?.img}`)
-
-  ngOnInit(): void {
-    // this._activateRoute.data.pipe(
-    //   take(1),
-    //   switchMap((data) => this._languageService.getPageHttpStatusErrors(data['http-status-code']))
-    // ).subscribe((httpStatus) => {
-    //   this._httpStatus.set(httpStatus);
-    // })
-  }
 }

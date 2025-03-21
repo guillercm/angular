@@ -1,16 +1,17 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
 import { Api } from '@core/interfaces/config/config';
-import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
 import { ApiHandlerService } from '@core/services/api-handler/api-handler.service';
 import { AppConfigService } from '@core/services/configuration/app-config.service';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { Coordinates, PlacesResponse } from '../../interfaces/places.interface';
 import { DirectionsResponse } from '../../interfaces/directions.interface';
-import { map, Observable, tap } from 'rxjs';
-import { PlacesAdapter } from '../../adapters/places/places-adapter';
-import { Place } from '../../interfaces/place.interface';
-import { ItineraryAdapter } from '../../adapters/itinerary/itinerary-adapter';
-import { TravelMode } from '../../interfaces/travel-mode.enum';
+import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
 import { Itinerary } from '../../interfaces/itinerary.interface';
+import { ItineraryAdapter } from '../../adapters/itinerary/itinerary-adapter';
+import { map, Observable } from 'rxjs';
+import { Place } from '../../interfaces/place.interface';
+import { PlacesAdapter } from '../../adapters/places/places-adapter';
+import { TravelMode } from '../../interfaces/travel-mode.enum';
+import { AppTranslateService } from '@core/services/translate/app-translate.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +27,12 @@ export class ApiClientService {
   private readonly _itineraryAdapter = inject(ItineraryAdapter);
 
   private _configApi = signal<Api | null>(null);
-  // public readonly configApi = this._configApi.asReadonly();
 
   public readonly apiKey = computed(() => this._configApi()?.apiKey || '')
+  
+  private readonly _appTranslateService = inject(AppTranslateService);
 
-  private readonly _language = computed(() => this._configService.config().languages.default)
+  private readonly _language = computed(() => this._appTranslateService.currentLang() )
 
   constructor() {
     this.initialize();

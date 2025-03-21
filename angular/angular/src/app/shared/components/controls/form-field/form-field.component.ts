@@ -5,10 +5,11 @@ import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-fo
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
 import { AppTranslateService } from '@core/services/translate/app-translate.service';
+import { AppTranslatePipe } from "../../../../core/pipes/app-translate.pipe";
 
 @Component({
   selector: 'features-form-field',
-  imports: [CommonModule],
+  imports: [CommonModule, AppTranslatePipe],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,6 +26,8 @@ export class FormFieldComponent implements OnInit, PatoFormField {
 
   private readonly _formComponent = inject(PatoFormComponent);
 
+  private readonly _appTranslateService = inject(AppTranslateService);
+
   public label = input<string>("");
 
   private _isRequired = signal(false);
@@ -33,8 +36,13 @@ export class FormFieldComponent implements OnInit, PatoFormField {
   private _useCompleteLabel = signal(false);
   protected readonly useCompleteLabel = this._useCompleteLabel.asReadonly();
 
+  public readonly requiredLabel = "i18n.common.requiredFieldTag";
+  public readonly optionalLabel = "i18n.common.optionalFieldTag";
+
+  protected readonly form = computed(() => this._formComponent.form() )
+
   public readonly completeLabel = computed(() => {
-    return (this.isRequired() ? " *" : " (opcional)");
+    return (this.isRequired() ? this.requiredLabel : this.optionalLabel);
   })
 
   ngOnInit(): void {
@@ -88,8 +96,9 @@ export class FormFieldComponent implements OnInit, PatoFormField {
     return control.hasValidator(Validators.required);
   }
 
-  getError(errors: ValidationErrors | null) {
-    // return this._languageService.getValidationsErrors(errors)
+  getErrors(errors: ValidationErrors | null) {
+    if (!errors) return [];
+    return Object.keys(errors);
   }
 
 }

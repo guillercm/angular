@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, computed, DestroyRef, forwardRef, inject, Injector, input, isSignal, OnInit, OutputEmitterRef, OutputRefSubscription, ViewContainerRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { PatoFormComponent } from '../pato-form/pato-form.component';
-import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-accessor.interface';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Args } from '@core/interfaces/args/args.interface';
 
@@ -35,7 +34,7 @@ export class PatoControlComponent implements OnInit, ControlValueAccessor {
 
   private _componentRefFormField!: ComponentRef<any>;
 
-  private readonly _componentInstance = computed<PatoControlValueAccessor>(() => this._componentRef?.instance )
+  private readonly _componentInstance = computed<ControlValueAccessor>(() => this._componentRef?.instance )
 
   private readonly _id = computed(() => this._patoFormComponent.identifier() + '_' + this.formControlName())
 
@@ -116,15 +115,15 @@ export class PatoControlComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnChange(fn: any): void {
-    this._componentInstance()._onChange = fn;
+    this._componentInstance().registerOnChange(fn);
   }
 
   registerOnTouched(fn: any): void {
-    this._componentInstance()._onTouched = fn;
+    this._componentInstance().registerOnTouched(fn);
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this._componentInstance().setDisabledState(isDisabled);
+    this._componentInstance()?.setDisabledState?.(isDisabled);
   }
 
 }

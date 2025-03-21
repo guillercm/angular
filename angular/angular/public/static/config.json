@@ -63,6 +63,7 @@
             "message": "i18n.common.errors.resourceMoved"
           },
           "page": {
+            "status": 404,
             "title": "i18n.common.errors.pageNotFound",
             "message": "i18n.common.errors.verifyUrl",
             "img": "404.png",
@@ -88,6 +89,7 @@
             "message": "i18n.common.errors.workingOnIt"
           },
           "page": {
+            "status": 500,
             "title": "i18n.common.errors.serverError",
             "message": "i18n.common.errors.workingOnIt",
             "img": "500.png",

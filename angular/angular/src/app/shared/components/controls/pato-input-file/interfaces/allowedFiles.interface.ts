@@ -1,0 +1,66 @@
+export interface PatoAllowedFiles {
+    png?: boolean;
+    jpg?: boolean;
+    jpeg?: boolean;
+    gif?: boolean;
+    bmp?: boolean;
+    svg?: boolean;
+    webp?: boolean;
+    tiff?: boolean;
+    pdf?: boolean;
+    csv?: boolean;
+    xls?: boolean;
+    xlsx?: boolean;
+    ods?: boolean;
+    doc?: boolean;
+    docx?: boolean;
+    odt?: boolean;
+    rtf?: boolean;
+    txt?: boolean;
+    md?: boolean;
+   
+    ppt?: boolean;
+    pptx?: boolean;
+    odp?: boolean;
+   
+    mp3?: boolean;
+    wav?: boolean;
+    flac?: boolean;
+    aac?: boolean;
+    ogg?: boolean;
+    wma?: boolean;
+    mp4?: boolean;
+    mkv?: boolean;
+    avi?: boolean;
+    mov?: boolean;
+    wmv?: boolean;
+    flv?: boolean;
+    webm?: boolean;
+   
+    zip?: boolean;
+    rar?: boolean;
+    tar?: boolean;
+    gz?: boolean;
+    bz2?: boolean;
+    "7z"?: boolean;
+    json?: boolean;
+    xml?: boolean;
+    yaml?: boolean;
+    yml?: boolean;
+    exe?: boolean;
+    dmg?: boolean;
+    iso?: boolean;
+    html?: boolean;
+    css?: boolean;
+    js?: boolean;
+    ts?: boolean;
+    php?: boolean;
+    py?: boolean;
+    java?: boolean;
+    c?: boolean;
+    cpp?: boolean;
+    go?: boolean;
+    rb?: boolean;
+    rs?: boolean;
+    swift?: boolean;
+}

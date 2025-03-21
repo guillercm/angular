@@ -5,6 +5,16 @@
         <pato-control [formControlName]="key"></pato-control>
         <!-- <ng-container patoFormControlInjectorDirective [key]="key" #formField></ng-container> -->
     }
-    <ng-container *ngTemplateOutlet="finalFormTemplate()"></ng-container>
+    <div class="invalid-feedback d-block">
+      @if (formInstance.errors) {
+        @for (error of getErrors(formInstance.errors || null); track $index) {
+          <p>{{ 'i18n.common.errors.validations.' + error | appTranslate : formInstance.errors[error] }}<p>
+        }
+      }
+    </div>
+    @if (formInstance.valid) {
+      <ng-container *ngTemplateOutlet="finalFormTemplate()"></ng-container>
+    }
+    
   </form>
 }

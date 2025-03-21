@@ -6,10 +6,17 @@ export const routes: Routes = [
     loadChildren: () => import('./core/core.routes').then(m => m.coreRoutes)
   },
   {
-    path: '**',
+    path: 'internal-server-error',
     data: {
-      'http-status-code': '404'
+      'httpStatus': '500'
     },
     loadComponent: () => import('./core/components/pages/error/error-page.component')
-  }
+  },
+  {
+    path: '**',
+    data: {
+      'httpStatus': '404'
+    },
+    loadComponent: () => import('./core/components/pages/error/error-page.component')
+  },
 ];

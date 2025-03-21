@@ -3,7 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserContextService } from '../../../auth/services/user-context.service';
-import { AppTranslatePipe } from "../../../../../../../core/pipes/app-translate.pipe";
+import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 
 @Component({
   selector: 'front-navbar',

@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 import { ProductCarouselComponent } from '../../../../products/components/product-carousel/product-carousel.component';
 import { Product } from '../../../../products/interfaces/product.interface';
 import { ProductsService } from '../../../../products/services/products.service';
-import { FormUtils } from '../../../../utils/form-utils';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/data-form.interface';
 import { FormFieldComponent } from '@shared/components/controls/form-field/form-field.component';
@@ -30,6 +29,7 @@ import { PatoDefaultOptionsButtonGroup } from '@shared/components/controls/pato-
 import { PlainFormFieldComponent } from '@shared/components/controls/plain-form-field/plain-form-field.component';
 import { AppTranslateService } from '@core/services/translate/app-translate.service';
 import { AppTranslatePipe } from "../../../../../../../../core/pipes/app-translate.pipe";
+import { FormUtils } from '../../../../../../../../utils/form-utils';
 
 @Component({
   selector: 'product-details',

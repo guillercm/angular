@@ -9,7 +9,6 @@
     </div>
   </ng-template>
 </pato-form>
-<shared-button (clicked)="changeLanguage()" label="Cambiar idioma"></shared-button>
 <pre>{{ ('i18n.common.time.hours' | appTranslate : {hours: 45}) }}</pre>
 <pre>{{prueba()}}</pre>
 <shared-button (clicked)="loadSimpsons()" [disabled]="simpsons().length > 0" [label]="simpsons().length > 0 ? 'Simpsons cargados' : 'Cargar simpsons'" ></shared-button>

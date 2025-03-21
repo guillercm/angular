@@ -1,11 +1,11 @@
 <pato-form [data]="dataForm" classes="row pb-4" (onFormSubmit)="onSubmit($event)" [finalFormTemplate]="finalFormTemplate">
   <ng-template #finalFormTemplate>
     <div class="mt-3 w-100">
-      <shared-button label="Register" class="w-100" additionalClasses="w-100" variant="info" type="submit"></shared-button>
+      <shared-button [label]="'i18n.common.register' | appTranslate" class="w-100" additionalClasses="w-100" variant="info" type="submit"></shared-button>
     </div>
     <p class="w-100 container text-center pt-4">
-      ¿Tienes ya una cuenta?
-      <a [routerLink]="['../login']" class="text-secondary">Entra aquí</a>
+      {{ 'i18n.common.haveAccount' | appTranslate }}
+      <a [routerLink]="['../login']" class="text-secondary">{{ 'i18n.common.login' | appTranslate }}</a>
     </p>
   </ng-template>
 </pato-form>

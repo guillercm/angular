@@ -7,9 +7,8 @@ import { input } from '@angular/core';
 import { PatoControlsService } from '../services/pato-controls.service';
 import { PatoDataButtonGroup } from './interfaces/data-button-group.interface';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
-import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ReactiveFormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
-import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-accessor.interface';
 
 @Component({
   selector: 'pato-button-group',
@@ -24,7 +23,7 @@ import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-
     }
   ]
 })
-export class PatoButtonGroupComponent implements PatoControlValueAccessor {
+export class PatoButtonGroupComponent implements ControlValueAccessor {
 
   protected readonly formField = input.required<PatoFormField>();
 
@@ -79,6 +78,14 @@ export class PatoButtonGroupComponent implements PatoControlValueAccessor {
 
   _onChange: (_: any) => void = () => {};
   _onTouched: () => void = () => {};
+
+  registerOnChange(fn: any): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this._onTouched = fn;
+  }
 
   writeValue(items: any): void {
     console.log(items)

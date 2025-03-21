@@ -31,11 +31,23 @@ export class PatoInputNumberComponent {
 
   public autocomplete = input<boolean>(true);
 
+  public additionalClasses = input<string>();
+
+  public showArrows = input<boolean>(false);
+
+  public allowNegative = input<boolean>(false);
+
+  public allowDecimal = input<boolean>(false);
+
+  public allowNotation = input<boolean>(false);
+
+  public min = input<number | null>(null);
+
+  public max = input<number | null>(null);
+
   public control = computed<AbstractControl<any>>(() => this.formField().control() )
 
   public id = computed<string>(() => this.formField().id())
-
-  public additionalClasses = input<string>();
 
   private _value = signal<number>(0);
   protected readonly value = this._value.asReadonly();
@@ -44,6 +56,7 @@ export class PatoInputNumberComponent {
   protected readonly disabled = this._disabled.asReadonly();
 
   protected readonly type = "number";
+  
 
   onChange: (value: number) => void = () => {};
   onTouched: () => void = () => {};

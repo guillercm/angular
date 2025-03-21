@@ -1,5 +1,5 @@
 export interface PageHttpStatus {
-  status: string,
+  status: number,
   message: string,
   img: string,
   button: {

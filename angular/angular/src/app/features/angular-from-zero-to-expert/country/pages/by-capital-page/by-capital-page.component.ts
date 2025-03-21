@@ -10,6 +10,7 @@ import { PatoFormComponent } from "@shared/components/controls/pato-form/pato-fo
 import { PatoInputComponent } from '@shared/components/controls/pato-input/pato-input.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SessionService } from '@core/services/session/session.service';
+import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
 
 @Component({
   selector: 'features-countries-by-capital-page',
@@ -77,8 +78,8 @@ export default class ByCapitalPageComponent {
     this.searchCapital(query);
     form?.controls["query"].patchValue(query)
   }
-
-  onSubmit({ query }: any) {
-    this.searchCapital(query);
+  
+  onSubmit({content}: ResponsePatoForm) {
+    this.searchCapital(content['query']);
   }
 }

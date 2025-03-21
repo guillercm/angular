@@ -1,0 +1,11 @@
+<div class="container border p-2">
+    <label for="radio-language">{{ 'i18n.common.availableLanguages' | appTranslate }}</label>
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="language" id="radio-language">
+        @for (language of languages; track $index) {
+        <mat-radio-button [value]="language" class="d-flex align-items-center">
+            {{ 'i18n.common.' + language | appTranslate }}
+            <img width="20" [src]="'img/i18n/' + language + '.svg'">
+        </mat-radio-button>
+        }
+    </mat-radio-group>
+</div>

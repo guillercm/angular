@@ -2,36 +2,48 @@
   "i18n": {
     "common": {
       "placeholderSearch": "Buscar...",
-      "description": "descripción",
-      "details": "detalles",
-      "for": "para",
-      "backToHome": "volver al inicio",
-      "imageNotAvailable": "imagen no disponible",
-      "inventory": "inventario",
-      "login": "iniciar sesión",
-      "logout": "cerrar sesión",
-      "name": "nombre",
-      "price": "precio",
-      "save": "guardar",
-      "search": "buscar",
-      "slug": "url amigable",
-      "stock": "existencias disponibles",
-      "tags": "etiquetas",
-      "title": "título",
-      "welcome": "bienvenido",
+      "description": "Descripción",
+      "details": "Detalles",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "register": "Regístrate",
+      "authentication": "Autenticación",
+      "repeatPassoword": "Repite la contraseña",
+      "fullName": "Nombre completo",
+      "doNotHaveAccount": "¿No tienes cuenta?",
+      "haveAccount": "¿Tienes ya una cuenta?",
+      "createAccountHere": "Crea una cuenta aquí",
+      "availableLanguages": "Este proyecto está disponible en estos idiomas:",
+      "es": "Español",
+      "en": "Inglés",
+      "for": "Para",
+      "backToHome": "Volver al inicio",
+      "imageNotAvailable": "Imagen no disponible",
+      "inventory": "Inventario",
+      "login": "Iniciar sesión",
+      "logout": "Cerrar sesión",
+      "name": "Nombre",
+      "price": "Precio",
+      "save": "Guardar",
+      "search": "Buscar",
+      "slug": "Url Amigable",
+      "stock": "Existencias disponibles",
+      "tags": "Etiquetas",
+      "title": "Título",
+      "welcome": "Bienvenido",
       "man": {
-        "=1": "hombre",
-        "other": "hombres"
+        "=1": "Hombre",
+        "other": "Hombres"
       },
       "women": {
-        "=1": "mujer",
-        "other": "mujeres"
+        "=1": "Mujer",
+        "other": "Mujeres"
       },
-      "adminPanel": "panel de administración",
-      "children": "niños",
-      "female": "femenino",
-      "male": "masculino",
-      "unisex": "unisex",
+      "adminPanel": "Panel de administración",
+      "children": "Niños",
+      "female": "Femenino",
+      "male": "Masculino",
+      "unisex": "Unisex",
       "time": {
         "hours": {
           "=0": "",
@@ -86,6 +98,7 @@
           "min": "El mínimo tiene que ser de {{ min }}",
           "max": "El máximo tiene que ser de {{ max }}",
           "email": "Tiene que ser un correo válido.",
+          "pattern": "El valor no comple con los requisitos.",
           "passwordsNotEqual": "Las contraseñas deben coincidir.",
           "incorrectPassword": "La contraseña es incorrecta.",
           "colorMustBeYellow": "El color tiene que ser amarillo"
@@ -116,10 +129,10 @@
         "itineraryResume": "{{ time }} ({{ distance }}), para llegar a {{ place }}."
       },
       "tesloshop": {
-        "allProducts": "todos los productos",
-        "productList": "listado de productos",
-        "newProduct": "nuevo producto",
-        "productListEmpty": "no hay productos"
+        "allProducts": "Todos los productos",
+        "productList": "Listado de productos",
+        "newProduct": "Nuevo producto",
+        "productListEmpty": "No hay productos"
       }
     }
   }

@@ -10,11 +10,13 @@ import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-fo
 import { SharedButtonComponent } from '@shared/components/button/shared-button.component';
 import { ResponsePatoForm } from '@shared/components/controls/pato-form/interfaces/pato-response-form.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AppTranslateService } from '@core/services/translate/app-translate.service';
+import { AppTranslatePipe } from '@core/pipes/app-translate.pipe';
 
 
 @Component({
   selector: 'auth-login-page',
-  imports: [RouterLink, ReactiveFormsModule, PatoFormComponent, SharedButtonComponent],
+  imports: [RouterLink, ReactiveFormsModule, PatoFormComponent, SharedButtonComponent, AppTranslatePipe],
   templateUrl: './login-page.component.html',
 })
 export class LoginPageComponent {
@@ -24,6 +26,7 @@ export class LoginPageComponent {
   private readonly _activatedRoute = inject(ActivatedRoute);
 
   private readonly _authService = inject(AuthService);
+  private readonly _appTranslateService = inject(AppTranslateService);
 
   protected dataForm: PatoDataForm = {
     form: {
@@ -41,7 +44,7 @@ export class LoginPageComponent {
             icon: "envelope-at-fill"
           },
           formField: {
-            label: "Correo electrónico"
+            label: this._appTranslateService.get('i18n.common.email'),
           }
         },
         classes: {
@@ -61,7 +64,7 @@ export class LoginPageComponent {
             icon: "key-fill"
           },
           formField: {
-            "label": "Contraseña"
+            label: this._appTranslateService.get('i18n.common.password'),
           }
         },
         classes: {

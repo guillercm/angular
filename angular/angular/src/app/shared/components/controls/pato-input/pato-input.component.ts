@@ -1,11 +1,10 @@
-import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, input, OnInit, output, signal, DestroyRef } from '@angular/core';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
 import { Subject, debounceTime } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PatoFormComponent } from '../pato-form/pato-form.component';
-import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-accessor.interface';
 
 
 
@@ -15,7 +14,7 @@ import { PatoControlValueAccessor } from '../pato-form/interfaces/control-value-
   styles: ``,
   imports: [CommonModule, ReactiveFormsModule]
 })
-export class PatoInputComponent implements OnInit, PatoControlValueAccessor {
+export class PatoInputComponent implements OnInit, ControlValueAccessor {
 
   private readonly _patoFormComponent = inject(PatoFormComponent);
 
@@ -54,9 +53,6 @@ export class PatoInputComponent implements OnInit, PatoControlValueAccessor {
   protected readonly type = "text";
 
 
-  _onChange: (_: any) => void = () => {};
-  _onTouched: () => void = () => {};
-
   ngOnInit(): void {
     this.initialize();
   }
@@ -83,6 +79,18 @@ export class PatoInputComponent implements OnInit, PatoControlValueAccessor {
   onBlur() {
     this._onTouched();
   }
+
+  _onChange: (_: any) => void = () => {};
+  _onTouched: () => void = () => {};
+
+  registerOnChange(fn: any): void {
+    this._onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this._onTouched = fn;
+  }
+
 
   writeValue(value: string|null): void {
     if (!value) value = ''
