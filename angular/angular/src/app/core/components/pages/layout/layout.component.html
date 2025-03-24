@@ -2,7 +2,7 @@
 <div>
   <div class="row g-0 vh-100">
     <div class="col-lg-3">
-      <core-side-menu [routes]="routes" (collapsed)="collapsed($event)"></core-side-menu>
+      <core-side-menu [routes]="routes" (collapsed)="toggleCollapse()"></core-side-menu>
     </div>
     <div class="col-lg-9 border-start">
       <div class="p-5"  [(ngbCollapse)]="isCollapsed">

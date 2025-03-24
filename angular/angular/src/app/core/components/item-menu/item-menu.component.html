@@ -1,5 +1,5 @@
 <li class="mb-1">
-  <button (click)="navigateAction()" routerLinkActive="active" (click)="toggleCollapse()" class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" [attr.aria-expanded]="isCollapsed ? 'false' : 'true'">
+  <button (click)="navigateAction()" routerLinkActive="active" (click)="toggleCollapse()" class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" [attr.aria-expanded]="isCollapsed() ? 'false' : 'true'">
     {{ (index() + 1) + ". " + route().title }}
   </button>
   <div class="collapse show" [(ngbCollapse)]="isCollapsed">

@@ -9,13 +9,16 @@
     <div class="collapse navbar-collapse" [(ngbCollapse)]="isCollapsed">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['./gender/men']" routerLinkActive="text-secondary">{{ ('i18n.common.man' | appTranslate : {number: 2} ) }}</a>
+          <a class="nav-link" [routerLink]="['./']"
+          [queryParams]="{ gender: 'men' }" routerLinkActive="text-secondary">{{ ('i18n.common.man' | appTranslate : {number: 2} ) }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['./gender/women']" routerLinkActive="text-secondary">{{ ('i18n.common.women' | appTranslate : {number: 2} ) }}</a>
+          <a class="nav-link" [routerLink]="['./']"
+          [queryParams]="{ gender: 'women' }" routerLinkActive="text-secondary">{{ ('i18n.common.women' | appTranslate : {number: 2} ) }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['./gender/kid']" routerLinkActive="text-secondary">{{ ('i18n.common.children' | appTranslate : {number: 2} ) }}</a>
+          <a class="nav-link" [routerLink]="['./']"
+          [queryParams]="{ gender: 'kid' }" routerLinkActive="text-secondary">{{ ('i18n.common.children' | appTranslate : {number: 2} ) }}</a>
         </li>
         @if ( authStatus() === 'authenticated' ) {
         <li class="nav-item dropdown" ngbDropdown>

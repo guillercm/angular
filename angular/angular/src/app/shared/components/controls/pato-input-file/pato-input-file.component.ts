@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
 import { PatoAllowedFiles } from './interfaces/allowedFiles.interface';
@@ -31,6 +31,8 @@ export class PatoInputFileComponent {
 
   public allowedFiles = input<PatoAllowedFiles>({});
 
+  public change = output<Event>();
+
 
   get accept_string() {
     const allowedFiles = this.allowedFiles();
@@ -46,7 +48,7 @@ export class PatoInputFileComponent {
   }
 
 
-  onChange(target: any): void {
+  onChange(event: Event): void {
     // TO DO: setear en value los ficheros subidos por el usuario
     /*
     const reader = new FileReader();
@@ -57,7 +59,8 @@ export class PatoInputFileComponent {
     reader.readAsText(target.files[0]);
     this.propagateChange(reader);
     */
-    this._onChange(target.value);
+    this.change.emit(event);
+    // this._onChange(event);
   }
 
   onBlur(): void {
@@ -77,8 +80,7 @@ export class PatoInputFileComponent {
 
 
   writeValue(value: any): void {
-    if (!value) value = ''
-    this._value.set(value);
+    // this._value.set(value);
   }
 
   setDisabledState(isDisabled: boolean): void {

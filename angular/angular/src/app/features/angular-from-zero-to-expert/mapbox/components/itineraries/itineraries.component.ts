@@ -99,7 +99,7 @@ export class ItinerariesComponent implements OnInit {
   protected initItinerarie() {
     const places = this.places();
     if (places.length < 2) return;
-    this._mapsPageComponent.isCollapsed = true;
+    this._mapsPageComponent.setIsCollapsed(true);
     this._mapsService.removeOldMarkers();
     of(...places).pipe(
       takeUntilDestroyed(this._destroyRef),

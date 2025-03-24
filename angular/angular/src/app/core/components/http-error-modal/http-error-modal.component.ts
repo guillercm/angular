@@ -17,7 +17,7 @@ export class HttpErrorModalComponent {
   public clicked = output<string>();
 
   close() {
-    this.clicked.emit("holaaaaaaaaaaaa");
+    this.clicked.emit("closed");
     this._activeModal.close('Close click');
   }
 

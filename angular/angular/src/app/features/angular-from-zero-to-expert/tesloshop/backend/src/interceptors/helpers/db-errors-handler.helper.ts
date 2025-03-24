@@ -19,8 +19,8 @@ export const getFieldDBError = ({detail}: DBError): string | null | object => {
     strField = field;
   }
   return {
-    field: strField,
-    data: results
+    name: strField,
+    args: results
   }
 }
 

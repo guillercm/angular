@@ -104,6 +104,7 @@ export class ProductDetailsComponent implements OnInit {
           .map((tag) => tag.trim()) ?? [],
     };
 
+    console.log(productLike)
     if (this.product().id === 'new') {
       // Crear producto
       const product = await firstValueFrom(

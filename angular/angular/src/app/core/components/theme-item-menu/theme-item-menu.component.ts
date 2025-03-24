@@ -27,7 +27,7 @@ export class ThemeItemMenuComponent {
     this._isCollapsed.set(true);
   }
 
-  public onClickOutside(clickOutside: any) {
+  public clickOutside(clickOutside: any) {
     if (clickOutside) this._isCollapsed.set(true);
   }
 }

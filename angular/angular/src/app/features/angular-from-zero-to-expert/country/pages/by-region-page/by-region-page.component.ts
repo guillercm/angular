@@ -5,7 +5,7 @@ import { CountryTableComponent } from '../../components/country-table/country-ta
 import { Country } from '../../interfaces/country';
 import { CountriesService } from '../../services/countries.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { SharedButtonComponent } from "../../../../../shared/components/button/shared-button.component";
+import { SharedButtonComponent } from "@shared/components/button/shared-button.component";
 import { SessionService } from '@core/services/session/session.service';
 
 @Component({

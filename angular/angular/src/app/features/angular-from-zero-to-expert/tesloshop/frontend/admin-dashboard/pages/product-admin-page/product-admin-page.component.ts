@@ -29,7 +29,7 @@ export class ProductAdminPageComponent {
 
   redirectEffect = effect(() => {
     if (this.productResource.error()) {
-      this.router.navigate(['/admin/products']);
+      this.router.navigate(['../'], {relativeTo: this.activatedRoute});
     }
   });
 }

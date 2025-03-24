@@ -12,9 +12,6 @@
         }
       }
     </div>
-    @if (formInstance.valid) {
-      <ng-container *ngTemplateOutlet="finalFormTemplate()"></ng-container>
-    }
-    
+    <ng-container *ngTemplateOutlet="finalFormTemplate(); context: {formValid: formInstance.valid}"></ng-container>
   </form>
 }

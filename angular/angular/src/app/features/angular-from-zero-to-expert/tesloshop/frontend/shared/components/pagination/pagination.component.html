@@ -1,5 +1,5 @@
 <nav>
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center m-0">
     @for (page of pages() | sharedRepeat; track page) {
       <li class="page-item cursor-pointer" [class.active]="page === activePage()" [routerLink]="[]"
       [queryParams]="{ page: page }"

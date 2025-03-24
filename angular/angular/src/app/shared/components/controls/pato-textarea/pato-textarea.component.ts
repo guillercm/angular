@@ -38,7 +38,6 @@ export class PatoTextareaComponent implements ControlValueAccessor {
 
   onBlur() {
     this._onTouched();
-    console.log({text: this._value()})
   }
 
   change(event: Event): void {

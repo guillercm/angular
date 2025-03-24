@@ -115,6 +115,7 @@ export class ProductsService {
     productLike: Partial<Product>,
     imageFileList?: FileList
   ): Observable<Product> {
+    console.log({productLike})
     const currentImages = productLike.images ?? [];
 
     const url = this.getEndpoint("updateProduct");
@@ -124,7 +125,7 @@ export class ProductsService {
         images: [...currentImages, ...imageNames],
       })),
       switchMap((updatedProduct) =>
-        this._apiHandlerService.patch<Product>(url, updatedProduct, {pathParams: {id}})
+        this._apiHandlerService.patch<Product>(url, updatedProduct, {pathParams: {id}, context: {id: 'productsReq'}})
       ),
       tap((product) => this.updateProductCache(product))
     );
@@ -138,11 +139,18 @@ export class ProductsService {
     productLike: Partial<Product>,
     imageFileList?: FileList
   ): Observable<Product> {
-
     const url = this.getEndpoint("createProduct");
-    return this._apiHandlerService
-      .post<Product>(url, productLike)
-      .pipe(tap((product) => this.updateProductCache(product)));
+    const currentImages = productLike.images ?? [];
+    return this.uploadImages(imageFileList).pipe(
+      map((imageNames) => ({
+        ...productLike,
+        images: [...currentImages, ...imageNames],
+      })),
+      switchMap((updatedProduct) =>
+        this._apiHandlerService.post<Product>(url, updatedProduct, { context: {id: 'productsReq'}})
+      ),
+      tap((product) => this.updateProductCache(product))
+    );
   }
 
   updateProductCache(product: Product) {

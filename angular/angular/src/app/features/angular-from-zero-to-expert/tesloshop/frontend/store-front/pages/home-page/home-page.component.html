@@ -2,11 +2,27 @@
   <blockquote class="blockquote">
     <p>{{ ('i18n.features.tesloshop.allProducts' | appTranslate ) }}</p>
   </blockquote>
+  @if (gender()) {
+    <figcaption class="blockquote-footer">
+      {{ ('i18n.common.for' | appTranslate ) }} <cite title="Source Title">
+        @switch (gender()) {
+          @case ('men') {
+            {{ ( 'i18n.common.man' | appTranslate : { number : 2} ) }}
+          }
+          @case ('women') {
+            {{ ( 'i18n.common.women' | appTranslate : { number : 2} ) }}
+          }
+          @case ('kid') {
+            {{ ( 'i18n.common.children' | appTranslate : { number : 2} ) }}
+          }
+        }
+      </cite>
+    </figcaption>
+  }
 </figure>
+
+<app-pagination class="m-5" [pages]="productsResource.value()?.pages ?? 0"
+  [currentPage]="paginationService.currentPage()" />
 
 <products [products]="productsResource.value()?.products ?? []"></products>
 
-<app-pagination
-  [pages]="productsResource.value()?.pages ?? 0"
-  [currentPage]="paginationService.currentPage()"
-/>

@@ -30,20 +30,21 @@ $customUtilities: (
   ),
   "max-height-rem": (property: max-height,
     class: mh-rem,
-    values: (25: 25rem,20: 20rem,
-    15: 15rem),
+    values: (25: 25rem, 20: 20rem,
+      15: 15rem),
   ),
   "cursor": (property: cursor,
     class: cursor,
     values: (pointer)),
+  "animation-fill-mode": (property: animation-fill-mode,
+    class: animation-fill-mode,
+    values: (forwards: forwards),
+  ),
   "animate": (property: animation,
     class: animate,
-    values: (fadeIn: string.unquote('fadeIn 1s ease-in-out')),
+    values: (fadeIn: string.unquote('fadeIn 1s ease-in-out'), fadeOut: string.unquote('fadeOut forwards 2s')),
   ),
 );
-
-
-// animate-fadeIn
 
 $opacity-hover: (
   0,

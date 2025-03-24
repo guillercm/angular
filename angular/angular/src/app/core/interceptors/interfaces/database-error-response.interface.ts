@@ -1,12 +1,14 @@
+import { GenericObject } from "@core/interfaces/generic-object/generic-object.interface";
+
 interface Field {
-  field: string;
-  value: string;
+  name: string;
+  args: GenericObject;
 }
 
 interface DatabaseError {
   feature:    string;
   context:    string;
-  fields:     Field[];
+  field:     Field;
   error_type: string;
 }
 

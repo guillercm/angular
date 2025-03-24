@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, model, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SideMenuComponent } from '@core/components/side-menu/side-menu.component';
 import { featuresRoutes } from '@features/features.routes';
@@ -19,20 +19,10 @@ export default class LayoutComponent {
 
   public readonly version = VERSION.full
 
-  private _isCollapsed = signal<boolean>(false);
+  protected isCollapsed = model<boolean>(false);
 
-  get isCollapsed(): boolean {
-    return this._isCollapsed();
+  protected toggleCollapse() {
+    this.isCollapsed.update((isCollapsed) => !isCollapsed)
   }
-
-  set isCollapsed(value: boolean) {
-    this._isCollapsed.set(value);
-  }
-
-  collapsed(collapse: boolean) {
-    this.isCollapsed = !collapse;
-  }
-
-
 
 }

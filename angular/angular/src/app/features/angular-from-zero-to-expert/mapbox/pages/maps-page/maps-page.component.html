@@ -3,17 +3,17 @@
   <div class="side-menu position-absolute w-50 collapse top-0 hide" [(ngbCollapse)]="isCollapsed" [animation]="true"
     [horizontal]="true">
 
-    <features-mapbox-side-menu (onOpenPlace)="isCollapsed = true">
+    <features-mapbox-side-menu (onOpenPlace)="isCollapsed()">
       <shared-button icon="x" variant="" additionalClasses="p-0 border-0" class="w-auto" [fontSizeIcon]="3"
         (clicked)="toggleCollapse()" data-bs-toggle="collapse"
-        [attr.aria-expanded]="isCollapsed ? 'false' : 'true'"></shared-button>
+        [attr.aria-expanded]="isCollapsed() ? 'false' : 'true'"></shared-button>
     </features-mapbox-side-menu>
   </div>
 
   <features-mapbox-maps-searcher>
     <shared-button icon="list" variant="" additionalClasses="p-0 border-0" [fontSizeIcon]="5"
       (clicked)="toggleCollapse()" data-bs-toggle="collapse"
-      [attr.aria-expanded]="isCollapsed ? 'false' : 'true'"></shared-button>
+      [attr.aria-expanded]="isCollapsed() ? 'false' : 'true'"></shared-button>
   </features-mapbox-maps-searcher>
 
   <features-mapbox-itineraries></features-mapbox-itineraries>

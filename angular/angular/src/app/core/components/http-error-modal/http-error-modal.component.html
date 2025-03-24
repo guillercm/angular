@@ -5,7 +5,7 @@
   <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="dismiss()"></button>
 </div>
 <div class="modal-body text-center">
-  <p class="mt-3">{{data()?.message | appTranslate}}</p>
+  <p class="mt-3">{{data()?.message | appTranslate: data()?.data }}</p>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-danger" (click)="close()">Close</button>

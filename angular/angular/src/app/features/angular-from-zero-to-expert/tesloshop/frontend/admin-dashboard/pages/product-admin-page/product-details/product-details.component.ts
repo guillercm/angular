@@ -2,16 +2,13 @@ import {
   Component,
   computed,
   inject,
-  input,
-  OnInit,
-  signal,
+  input, signal
 } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
 
-import { FormErrorLabelComponent } from '../../../../shared/components/form-error-label/form-error-label.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCarouselComponent } from '../../../../products/components/product-carousel/product-carousel.component';
 import { Product } from '../../../../products/interfaces/product.interface';
 import { ProductsService } from '../../../../products/services/products.service';
@@ -28,32 +25,41 @@ import { PatoButtonGroupComponent } from '@shared/components/controls/pato-butto
 import { PatoDefaultOptionsButtonGroup } from '@shared/components/controls/pato-button-group/interfaces/default-options-button-group.interface';
 import { PlainFormFieldComponent } from '@shared/components/controls/plain-form-field/plain-form-field.component';
 import { AppTranslateService } from '@core/services/translate/app-translate.service';
-import { AppTranslatePipe } from "../../../../../../../../core/pipes/app-translate.pipe";
+import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 import { FormUtils } from '../../../../../../../../utils/form-utils';
+import { PatoInputFileComponent } from '@shared/components/controls/pato-input-file/pato-input-file.component';
+import { InterceptorService } from '@core/interceptors/services/interceptor.service';
+import { AnimationEndDirective } from '@shared/directives/animationEnd/animation-end.directive';
 
 @Component({
   selector: 'product-details',
   imports: [
     ProductCarouselComponent,
     ReactiveFormsModule,
-    FormErrorLabelComponent,
     PatoFormComponent,
     SharedButtonComponent,
-    AppTranslatePipe
-],
+    AppTranslatePipe,
+    AnimationEndDirective
+  ],
   templateUrl: './product-details.component.html',
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent {
 
   private readonly _appTranslateService = inject(AppTranslateService);
+
+  private readonly _interceptorService = inject(InterceptorService);
+
+  private readonly _activatedRoute = inject(ActivatedRoute);
+
+  protected productsRequest = computed(() => this._interceptorService.getHttpRequestById("productsReq"))
+
+  protected form = signal<FormGroup | null>(null);
 
   product = input.required<Product>();
 
   router = inject(Router);
-  fb = inject(FormBuilder);
 
   productsService = inject(ProductsService);
-  wasSaved = signal(false);
 
   imageFileList: FileList | undefined = undefined;
   tempImages = signal<string[]>([]);
@@ -190,7 +196,12 @@ export class ProductDetailsComponent implements OnInit {
           control: {
             options: {
               value: "value",
+              selected: (item: any) => {
+                return this.product().gender.includes(item.value)
+              },
             },
+            maxSelectableElements: 1,
+            returnType: 'obj',
             items: [
               {
                 label: this._appTranslateService.get('i18n.common.male'),
@@ -228,7 +239,10 @@ export class ProductDetailsComponent implements OnInit {
           control: {
             options: {
               value: "value",
-              label: "value"
+              label: "value",
+              selected: (item: any, index: number) => {
+                return this.product().sizes.includes(item.value)
+              }
             },
             items: [
               {
@@ -258,104 +272,63 @@ export class ProductDetailsComponent implements OnInit {
           formField: "mt-3 col-6 mt-4",
           control: "input-group"
         }
+      }),
+      images: createPatoControl({
+        component: PatoInputFileComponent,
+        formFieldComponent: FormFieldComponent,
+        value: '',
+        validators: [],
+        asyncValidators: [],
+        args: {
+          control: {
+            // change: this.onFilesChanged,
+            change: (event: Event) => {
+              console.log(event)
+
+              const fileList = (event.target as HTMLInputElement).files;
+              this.imageFileList = fileList ?? undefined;
+
+              const imageUrls = Array.from(fileList ?? []).map((file) =>
+                URL.createObjectURL(file)
+              );
+
+              this.tempImages.set(imageUrls);
+            }
+          },
+          formField: {
+          }
+        },
+        classes: {
+          formField: "mt-3 col-6 mt-4",
+          control: "input-group"
+        }
       })
     }
   };
 
-  /*
-   title: ['', Validators.required],
-    description: ['', Validators.required],
-    slug: [
-      '',
-      [Validators.required, Validators.pattern(FormUtils.slugPattern)],
-    ],
-    price: [0, [Validators.required, Validators.min(0)]],
-    stock: [0, [Validators.required, Validators.min(0)]],
-    sizes: [['']],
-    images: [[]],
-    tags: [''],
-    gender: [
-      'men',
-      [Validators.required, Validators.pattern(/men|women|kid|unisex/)],
-    ],
-  */
-
-  submit(data: ResponsePatoForm) {
+  async submit(data: ResponsePatoForm) {
     console.log(data.content)
-  }
-
-  buildForm(form: FormGroup | null) {
+    const form = this.form();
     if (!form) return;
-    form.reset(this.product() as any);
-    console.log(this.product().sizes)
-    form.patchValue({ tags: this.product().tags?.join(',') });
-  }
 
-  productForm = this.fb.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    slug: [
-      '',
-      [Validators.required, Validators.pattern(FormUtils.slugPattern)],
-    ],
-    price: [0, [Validators.required, Validators.min(0)]],
-    stock: [0, [Validators.required, Validators.min(0)]],
-    sizes: [['']],
-    images: [[]],
-    tags: [''],
-    gender: [
-      'men',
-      [Validators.required, Validators.pattern(/men|women|kid|unisex/)],
-    ],
-  });
+    const formValue = data.content;
 
-  sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-
-  ngOnInit(): void {
-    this.setFormValue(this.product());
-  }
-
-  setFormValue(formLike: Partial<Product>) {
-    this.productForm.reset(this.product() as any);
-    this.productForm.patchValue({ tags: formLike.tags?.join(',') });
-    // this.productForm.patchValue(formLike as any);
-  }
-
-  onSizeClicked(size: string) {
-    const currentSizes = this.productForm.value.sizes ?? [];
-
-    if (currentSizes.includes(size)) {
-      currentSizes.splice(currentSizes.indexOf(size), 1);
-    } else {
-      currentSizes.push(size);
-    }
-
-    this.productForm.patchValue({ sizes: currentSizes });
-  }
-
-  async onSubmitOld() {
-    const isValid = this.productForm.valid;
-    this.productForm.markAllAsTouched();
-
-    if (!isValid) return;
-    const formValue = this.productForm.value;
-
+    const images = this.product().images ?? [];
     const productLike: Partial<Product> = {
       ...(formValue as any),
+      images: [...images],
       tags:
-        formValue.tags
+        formValue['tags']
           ?.toLowerCase()
           .split(',')
-          .map((tag) => tag.trim()) ?? [],
+          .map((tag: string) => tag.trim()) ?? [],
     };
-
+    console.log(productLike)
     if (this.product().id === 'new') {
-      // Crear producto
       const product = await firstValueFrom(
         this.productsService.createProduct(productLike, this.imageFileList)
       );
-
-      this.router.navigate(['/admin/products', product.id]);
+      this.router.navigate(['../'], {relativeTo: this._activatedRoute});
     } else {
       await firstValueFrom(
         this.productsService.updateProduct(
@@ -365,22 +338,15 @@ export class ProductDetailsComponent implements OnInit {
         )
       );
     }
-
-    this.wasSaved.set(true);
-    setTimeout(() => {
-      this.wasSaved.set(false);
-    }, 3000);
   }
 
-  // Images
-  onFilesChanged(event: Event) {
-    const fileList = (event.target as HTMLInputElement).files;
-    this.imageFileList = fileList ?? undefined;
-
-    const imageUrls = Array.from(fileList ?? []).map((file) =>
-      URL.createObjectURL(file)
-    );
-
-    this.tempImages.set(imageUrls);
+  buildForm(form: FormGroup | null) {
+    if (!form) return;
+    this.form.set(form);
+    form.reset(this.product() as any);
+    form.patchValue({ tags: this.product().tags?.join(',') });
   }
+
+  sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
 }

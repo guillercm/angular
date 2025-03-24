@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, model, output, signal } from '@angular/core';
 import { ItemMenuComponent } from "../item-menu/item-menu.component";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Route, Routes } from '@angular/router';
@@ -20,19 +20,11 @@ export class SideMenuComponent {
 
   protected readonly getRoutes = computed<Route[]>(() => this.routes().filter((route) => route && route.title) )
 
-  private _isCollapsed = signal<boolean>(true);
-
-  get isCollapsed(): boolean {
-    return this._isCollapsed();
-  }
-
-  set isCollapsed(value: boolean) {
-    this._isCollapsed.set(value);
-  }
+  public isCollapsed = model<boolean>(true);
 
   public toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
-    this.collapsed.emit(this.isCollapsed);
+    this.isCollapsed.update((isCollapsed) => !isCollapsed)
+    this.collapsed.emit(this.isCollapsed());
   }
 
   navigate() {

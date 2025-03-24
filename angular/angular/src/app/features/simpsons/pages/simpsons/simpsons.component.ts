@@ -162,7 +162,7 @@ export default class SimpsonsComponent {
   }
 
   loadSimpsons() {
-    this._simpsonsServices.getSimpsonsWithDelay(4).pipe(
+    this._simpsonsServices.getSimpsonsWithDelay(1).pipe(
       takeUntilDestroyed(this._destroyRef),
       tap((simpsons: Simpson[]) => {
         this._simpsons.set(simpsons);

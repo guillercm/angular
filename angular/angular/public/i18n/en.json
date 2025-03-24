@@ -68,6 +68,7 @@
           "other": "{{ kilometers }} kilometers"
         }
       },
+      "dateUpdated": "Data updated correctly",
       "requiredFieldTag": "*",
       "optionalFieldTag": "(optional)",
       "errors": {
@@ -131,6 +132,7 @@
         "allProducts": "All products",
         "productList": "Product list",
         "newProduct": "New product",
+        "checkProduct": "See product",
         "productListEmpty": "No products"
       }
     }

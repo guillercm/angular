@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, model } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,24 +15,16 @@ export class FrontNavbarComponent {
 
   private readonly _userContextServiceService = inject(UserContextService);
 
-  private _isCollapsed = signal<boolean>(false);
-
   protected readonly authStatus = computed(() => this._authService.authStatus() )
 
   protected readonly user = computed(() => this._userContextServiceService.user() )
 
   protected readonly isAdmin = computed(() => this._userContextServiceService.isAdmin() )
 
-  get isCollapsed(): boolean {
-    return this._isCollapsed();
-  }
-
-  set isCollapsed(value: boolean) {
-    this._isCollapsed.set(value);
-  }
+  protected isCollapsed = model<boolean>(false);
 
   protected toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
+    this.isCollapsed.update((isCollapsed) => !isCollapsed)
   }
 
   protected logout() {

@@ -1,4 +1,4 @@
-<div class="dropdown" sharedClickOutside (onClickOutside)="onClickOutside($event)">
+<div class="dropdown" sharedClickOutside (clickOutside)="clickOutside($event)">
   <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
     aria-haspopup="true" aria-expanded="false" (click)="toggleCollapse()">
     <i class="bi"[class.bi-sun-fill]="theme() !== 'dark'" [class.bi-moon-stars-fill]="theme() === 'dark'"></i>

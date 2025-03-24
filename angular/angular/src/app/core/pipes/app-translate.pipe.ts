@@ -1,4 +1,4 @@
-import { DestroyRef, inject, Pipe, PipeTransform } from '@angular/core';
+import { ChangeDetectorRef, DestroyRef, inject, Pipe, PipeTransform } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AppTranslateService } from '@core/services/translate/app-translate.service';
 import { map, merge, Subscription, switchMap } from 'rxjs';
@@ -12,6 +12,8 @@ export class AppTranslatePipe implements PipeTransform {
   private readonly _translate = inject(AppTranslateService);
 
   private readonly _destroyRef = inject(DestroyRef);
+
+  private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
   private lastValue: string | null = null;
   private subscription: Subscription | null = null;
@@ -29,6 +31,7 @@ export class AppTranslatePipe implements PipeTransform {
       map((value: any) => this._translate.handlePlurals(number, value))
     ).subscribe((value) => {
       this.lastValue = value;
+      this._changeDetectorRef.markForCheck();
     });
     return this.lastValue;
   }

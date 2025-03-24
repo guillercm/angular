@@ -29,11 +29,17 @@ export class PatoButtonGroupComponent implements ControlValueAccessor {
 
   public readonly items = input.required<GenericObject[]>();
 
+  public readonly maxSelectableElements = input<number | null>(null);
+
+  public returnType = input<'array' | 'obj'>('array');
+
   public readonly options = input<PatoOptionsButtonGroup>({});
 
   public readonly disabled = input<boolean>();
   private _isDisabled = linkedSignal(() => this.disabled() );
   protected readonly isDisabled = this._isDisabled.asReadonly();
+
+
 
 
   private _data = linkedSignal({
@@ -61,9 +67,14 @@ export class PatoButtonGroupComponent implements ControlValueAccessor {
 
   protected toggleSelected(data: PatoDataButtonGroup) {
     if (this.dataDisabled(data)) return;
-    PatoControlsService.toggleSelected(this._data, data)
+    PatoControlsService.toggleSelected(this._data, data, this.maxSelectableElements())
     this._onTouched();
-    this._onChange(PatoControlsService.getValues(this.options(), this.data()));
+    const values = PatoControlsService.getValues(this.options(), this.data());
+    if (this.returnType() === 'array') {
+      this._onChange(values);
+      return;
+    }
+    this._onChange(values.length ? values[0] : null);
   }
 
   private getOption(item: GenericObject, index: number, key: string) {
@@ -88,7 +99,7 @@ export class PatoButtonGroupComponent implements ControlValueAccessor {
   }
 
   writeValue(items: any): void {
-    console.log(items)
+
   }
 
   setDisabledState(isDisabled: boolean): void {

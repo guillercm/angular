@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, model, OnInit, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationEnd, Route, Router, RouterLinkActive, RouterModule } from '@angular/router';
@@ -26,18 +26,10 @@ export class ItemMenuComponent implements OnInit {
 
   private _url = signal<string>("");
 
-  private _isCollapsed = signal<boolean>(false);
-
-  get isCollapsed(): boolean {
-    return this._isCollapsed();
-  }
-
-  set isCollapsed(value: boolean) {
-    this._isCollapsed.set(value);
-  }
+  protected isCollapsed = model<boolean>(false);
 
   protected toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
+    this.isCollapsed.update((isCollapsed) => !isCollapsed)
   }
 
   ngOnInit(): void {
@@ -57,7 +49,7 @@ export class ItemMenuComponent implements OnInit {
   }
 
   protected isItemActive(childrenPath?: string) {
-    return this._url().startsWith(("/" + this.route().path + (childrenPath ? "/" + childrenPath : '')))
+    return this._url().endsWith(("/" + this.route().path + (childrenPath ? "/" + childrenPath : '')))
   }
 
 

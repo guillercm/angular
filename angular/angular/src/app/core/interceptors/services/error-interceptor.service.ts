@@ -7,6 +7,7 @@ import { AppTranslateService } from '@core/services/translate/app-translate.serv
 import { AppConfigService } from '@core/services/configuration/app-config.service';
 import { ModalService } from '@core/services/modal/modal.service';
 import { HttpErrorModalComponent } from '@core/components/http-error-modal/http-error-modal.component';
+import { DatabaseErrorResponse } from '../interfaces/database-error-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -45,22 +46,30 @@ export class ErrorInterceptorService {
     return false;
   }
 
-  executeActions(statusCode: HttpStatusCode) {
+  executeActions(statusCode: HttpStatusCode, databaseErrorResponse?: DatabaseErrorResponse) {
 
     if (!this.shouldExecuteAction('modal', statusCode, true)) return;
 
     const config = this._configService.config();
 
-    const data = config.errors.httpStatus[statusCode] || config.errors.httpStatus["generic"];
-    
-    // TO DO: Configurar back para recibir los 3 strings:
-    console.log(config.errors.validations["auth"]["email"]["unique"].data)
-    
+    let data = null;
+    let values = {}
+    if (databaseErrorResponse) {
+      const {databaseError: {context, field: {name: field, args}, error_type }} = databaseErrorResponse;
+      values = args;
+      data = config.errors.validations?.[context]?.[field]?.[error_type] || null;
+    } else {
+      data = config.errors.httpStatus[statusCode];
+    }
+    if (!data) {
+      data = config.errors.httpStatus["generic"];
+    }
+
     this._modalService.open({
       component: HttpErrorModalComponent,
       destroyRef: this._destroyRef,
       args: {
-        data: data.data.modal,
+        data: {...data.data.modal, data: values},
         clicked: (event: string) => {
           //console.log(event)
         }
