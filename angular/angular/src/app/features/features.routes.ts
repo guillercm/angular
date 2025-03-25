@@ -105,6 +105,23 @@ export const featuresRoutes: Routes = [
     ]
   },
   {
+    title: 'Lleva tus bases al siguiente nivel',
+    path: 'take-your-foundations-to-the-next-level',
+    loadComponent: () => import('./take-your-foundations-to-the-next-level/layout/layout.component'),
+    children: [
+      {
+        path: 'installations',
+        title: 'Instalación',
+        component: DocsComponent
+      },
+      {
+        path: 'calculator',
+        title: 'Calculadora',
+        loadChildren: () => import('./take-your-foundations-to-the-next-level/features/calculator/calculator.routes').then(m => m.routes)
+      }
+    ]
+  },
+  {
     title: 'Traducciones',
     path: 'translate',
     loadComponent: () => import('./translate/pages/translate/translate.component'),

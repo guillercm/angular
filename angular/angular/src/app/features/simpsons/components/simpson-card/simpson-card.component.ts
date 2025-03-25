@@ -10,7 +10,10 @@ import { FilledTextPipe } from '@shared/pipes/filled-text/filled-text.pipe';
   selector: 'features-simpson-card',
   imports: [CommonModule, SharedImageComponent, SkeletonGlowDirective, SkeletonTextDirective, FilledTextPipe],
   templateUrl: './simpson-card.component.html',
-  styleUrl: './simpson-card.component.css'
+  styleUrl: './simpson-card.component.css',
+  host: {
+    class: 'col col-12 col-md-6 col-xxl-4'
+  }
 })
 export class SimpsonCardComponent {
 

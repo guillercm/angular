@@ -53,14 +53,16 @@ export class SimpsonsService {
     return this._apiHandlerService.get<any>("https://dummyjson.com/RESOURCE/",
       {
         params: { delay: seconds * 1000 },
-        context: { id: "getSimpsonsWithDelay", actionsForAnHttpError: {
-          'modal': {
-            onlyForStatusCodes: [HttpStatusCode.RequestTimeout]
+        context: {
+          id: "getSimpsonsWithDelay", actionsForAnHttpError: {
+            'modal': {
+              // onlyForStatusCodes: [HttpStatusCode.RequestTimeout]
+            }
           }
-        } }
+        }
       }).
       pipe(
-        switchMap((region) => this.getSimpsons()),
+        switchMap(() => this.getSimpsons()),
       );
   }
 }

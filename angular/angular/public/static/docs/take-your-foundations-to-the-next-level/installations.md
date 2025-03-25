@@ -2,15 +2,15 @@
   <a href="https://angular.dev" target="blank"><img src="img/angular/angular-logo.png" width="700" alt="Angular Logo" /></a>
 </p>
 
+# Angular Pro
+
 Descargar esta hoja de atajos:
-[Guías de atajos - Angular ](http://localhost:4201/angular-from-zero-to-expert/angular-cheat-sheet-v2)
+[Guías de atajos - Angular ](https://github.com/Klerith/mas-talento/blob/main/angular/angular-cheat-sheet.pdf)
 
 
 1. [Node JS](https://nodejs.org/es/)
 
 2. [VSCode - Visual Studio Code](https://code.visualstudio.com/)
-
-3. [Google Chrome](https://www.google.com.mx/intl/es-419/chrome/?brand=CHBD&gclid=Cj0KCQiAtrnuBRDXARIsABiN-7AAMm13Ae3KDIib46Laxfe6tzD_w4yvDdpq5XsPw1eNlOkZ_0-3x3IaAvLEEALw_wcB&gclsrc=aw.ds)
 
 4. [Postman](https://www.postman.com/downloads/)
 
@@ -20,13 +20,8 @@ git config --global user.name "Tu nombre"
 git config --global user.email "Tu correo"
 ```
 
-6. [Docker Desktop](https://www.docker.com/get-started)
-
-7. Table Plus: (opcional)
-  * [Windows / Mac OSX](https://tableplus.com/)
-  * [Linux](https://tableplus.com/linux)
+5. [Docker Desktop](https://www.docker.com/get-started)
   
-8. [Mongo Compass](https://www.mongodb.com/try/download/compass)
 
 ## AngularCLI
 Documentación [oficial de Angular CLI](https://angular.io/cli)
@@ -35,8 +30,6 @@ Ejecutar el siguiente comando como __administrador__
 ```
 npm install -g @angular/cli
 ```
-
-
 
 ## Extensiones de VSCode
 
@@ -50,17 +43,13 @@ npm install -g @angular/cli
 
 * [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)
 
-* [Activitus Bar](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.activitusbar)
-
-* [Auto import](https://marketplace.visualstudio.com/items?itemName=steoates.autoimport)
-
 * [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
+
+* [Console Ninja](https://marketplace.visualstudio.com/items?itemName=WallabyJs.console-ninja)
 
 * [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
 
 * [Paste JSON as Code](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype)
-
-* [TypeScript Importer - optional](https://marketplace.visualstudio.com/items?itemName=pmneo.tsimporter)
 
 * [Editor Config for VSCode](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 
@@ -70,17 +59,18 @@ npm install -g @angular/cli
 
 * [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
-## Extensiones de Chrome
-
-* [Angular DevTools](https://chrome.google.com/webstore/detail/angular-devtools/ienfalfjdbdpebioblfackkekamfmbnh/related)
-
-* [Json Viewer Awesome](https://chrome.google.com/webstore/detail/json-viewer-pro/eifflpmocdbdmepbjaopkkhbfmdgijcc)
-
 
 ### Tema que estoy usando en VSCode y Wallpaper del curso:
 
 * [Aura Theme](https://marketplace.visualstudio.com/items?itemName=DaltonMenezes.aura-theme)
 
-* [Iconos](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+* [Tokyo Night](https://marketplace.visualstudio.com/items?itemName=enkia.tokyo-night)
+
+* [Tokyo Night Dark](https://marketplace.visualstudio.com/items?itemName=drewxs.tokyo-night-dark)
+
+* [Material Icons](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+
+* [Bearded Icons](https://marketplace.visualstudio.com/items?itemName=BeardedBear.beardedicons)
 
 * [Wallpapers Developer](https://drive.google.com/drive/folders/1ItU8rbSGJjnh2USOBGwaCo9nYKifPJ6m?usp=sharing)
+

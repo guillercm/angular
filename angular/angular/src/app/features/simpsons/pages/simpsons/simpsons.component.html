@@ -16,18 +16,14 @@
   @switch (simpsonsRequest()?.state) {
     @case ("complete") {
       @for (simpson of simpsons(); track $index) {
-        <div class="col col-12 col-md-6 col-xxl-4">
           <features-simpson-card [simpson]="simpson"></features-simpson-card>
-        </div>
       } @empty {
         <div>No hay simpsons</div>
       }
     }
     @case ("loading") {
       @for (_ of 5 | sharedRepeat; track $index) {
-        <div class="col col-12 col-md-6 col-xxl-4">
-          <features-simpson-card></features-simpson-card>
-        </div>
+        <features-simpson-card></features-simpson-card>
       }
     }
     @case ("error") {
