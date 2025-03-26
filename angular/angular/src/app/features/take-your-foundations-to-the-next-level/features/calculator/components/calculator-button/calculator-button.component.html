@@ -1,3 +1,3 @@
-<button [ngClass]="{'bg-indigo-700/20': isPressed()}" (click)="handleClick()" #button class="w-full h-16 outline-none focus:outline-none hover:bg-indigo-700/20 text-white text-opacity-50 !text-xl font-light">
+<button [ngClass]="{'bg-indigo-700/20': isPressed()}" type="button" (click)="handleClick()" #button class="w-full h-16 outline-none focus:outline-none hover:bg-indigo-700/20 text-white text-opacity-50 !text-xl font-light">
   <ng-content></ng-content>
 </button>
