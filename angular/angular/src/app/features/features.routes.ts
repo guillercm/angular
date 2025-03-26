@@ -118,7 +118,12 @@ export const featuresRoutes: Routes = [
         path: 'calculator',
         title: 'Calculadora',
         loadChildren: () => import('./take-your-foundations-to-the-next-level/features/calculator/calculator.routes').then(m => m.routes)
-      }
+      },
+      {
+        path: 'testing',
+        title: 'Testing',
+        component: DocsComponent
+      },
     ]
   },
   {

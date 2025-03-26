@@ -4,15 +4,16 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4201",
-    "build": "ng build",
+    "build": "npm run test && ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
     "envs": "node ./src/scripts/set-envs/set-envs.js",
     "json-server": "json-server --watch data/simpsons/db_simpsons.json --port 3001",
     "backend-server": "cd src/app/features/angular-from-zero-to-expert/tesloshop/backend && npm run start:dev",
     "kill-backend:port": "kill-port --port 3000",
     "sass:build": "cd src/styles && sass scss/main.scss css/main.css",
-    "sass:watch": "cd src/styles && sass --watch scss/main.scss:css/main.css"
+    "sass:watch": "cd src/styles && sass --watch scss/main.scss:css/main.css",
+    "test": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
+    "test:coverage": "ng test --code-coverage"
   },
   "private": true,
   "dependencies": {

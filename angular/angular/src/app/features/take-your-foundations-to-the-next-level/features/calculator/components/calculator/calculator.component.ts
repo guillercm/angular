@@ -10,7 +10,7 @@ import { CalculatorService } from '../../services/calculator.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'w-full mx-auto rounded-xl bg-gray-100 shadow-xl text-gray-800 relative overflow-hidden',
-    style: 'max-width:300px',
+    style: 'max-width:400px',
     'data-example': 'Calculadora',
     '(document:keyup)': 'handleKeyboardEvent($event)',
   }

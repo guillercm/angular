@@ -13,6 +13,8 @@ import { ThemeService } from '@core/services/theme/theme.service';
 })
 export class AppComponent {
 
+  title = signal<string>('Angular');
+
   private readonly _configService = inject(AppConfigService);
 
   private readonly _themeService = inject(ThemeService);
@@ -25,7 +27,6 @@ export class AppComponent {
 
   public readonly theme = this._themeService.theme
 
-  title = signal<string>('Angular');
 
   effectTheme = effect(() => this._renderer.setAttribute(document.documentElement, 'data-bs-theme', this.theme()))
 
