@@ -21,6 +21,8 @@ export class CalculatorComponent {
 
   private readonly _calculatorButtons = viewChildren(CalculatorButtonComponent);
 
+  public readonly calculatorButtons = computed(() => this._calculatorButtons() )
+
   public resultText = computed(() => this._calculatorService.resultText());
   public subResultText = computed(() => this._calculatorService.subResultText());
   public lastOperator = computed(() => this._calculatorService.lastOperator());

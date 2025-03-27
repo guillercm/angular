@@ -124,6 +124,16 @@ export const featuresRoutes: Routes = [
         title: 'Testing',
         component: DocsComponent
       },
+      {
+        path: 'testings-examples',
+        title: 'Ejemplos de testing',
+        component: DocsComponent
+      },
+      {
+        path: 'create-snippets',
+        title: 'Crear snippets personalizados',
+        component: DocsComponent
+      }
     ]
   },
   {

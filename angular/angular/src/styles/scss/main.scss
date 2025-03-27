@@ -29,6 +29,12 @@
   // $font-family-sans-serif: $font-family-sans-serif
 );
 
+@include bootstrap.media-breakpoint-only(lg) { 
+  .vh-lg-100 {
+    height: 100vh;
+  }
+}
+
 .cdk-drag-preview.list-group-item {
   background-color: bootstrap.$card-bg !important;
   padding: bootstrap.$list-group-item-padding-y bootstrap.$list-group-item-padding-x;

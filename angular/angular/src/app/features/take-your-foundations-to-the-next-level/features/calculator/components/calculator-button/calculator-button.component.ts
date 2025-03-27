@@ -18,9 +18,11 @@ export class CalculatorButtonComponent {
 
   private _isPressed = signal(false);
 
-  protected isPressed = this._isPressed.asReadonly();
+  public isPressed = this._isPressed.asReadonly();
 
   private readonly _contentValue = viewChild<ElementRef<HTMLButtonElement>>('button')
+
+  public readonly contentValue = computed(() => this._contentValue() )
 
   public clicked = output<string>();
 

@@ -54,7 +54,6 @@ describe('AppComponent', () => {
   });
 
   it('should render router-outlet', () => {
-    // fixture.detectChanges();
     // expect(compiled.querySelector('router-outlet')).not.toEqual(null);
     expect(compiled.querySelector('router-outlet')).not.toBeNull();
   });
