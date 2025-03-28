@@ -1,10 +1,10 @@
 <core-spinner></core-spinner>
 <div>
   <div class="row g-0 vh-100">
-    <div class="col-lg-3 vh-lg-100" style="overflow-y: auto;">
+    <div class="col-lg-3 vh-lg-100 vh-xl-100 vh-xxl-100" style="overflow-y: auto;">
       <core-side-menu [routes]="routes" (collapsed)="toggleCollapse()"></core-side-menu>
     </div>
-    <div class="col-lg-9 border-start vh-lg-100" style="overflow-y: auto;">
+    <div class="col-lg-9 border-start vh-lg-100 vh-xl-100 vh-xxl-100" style="overflow-y: auto;">
       <div class="p-5"  [(ngbCollapse)]="isCollapsed">
         <h1>Angular {{version}}</h1>
         <shared-breadcrumb/>

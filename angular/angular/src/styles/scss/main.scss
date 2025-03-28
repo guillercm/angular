@@ -1,11 +1,6 @@
 @use "sass:map";
 
 
-
-
-
-// @forward "tailwindcss" as tailwind-*;
-
 @use 'bootstrap-icons/font/bootstrap-icons.min.css';
 @use 'animate.css/animate.min.css';
 @use 'prismjs/themes/prism-okaidia.css';
@@ -15,32 +10,17 @@
 
 
 @use 'utilities/animations';
-@use 'utilities/variables' as *;
 @use 'utilities/functions';
-@use 'utilities/mixins';
 @use 'utilities/helpers';
+@use 'utilities/mixins';
+
 
 @use 'base/reset';
 @use 'base/typography';
 @use 'base/base';
+@use 'bootstrap';
 
-@use 'bootstrap/scss/bootstrap.scss' with (
-  $utilities: map.merge($bootstrapUtilities, $customUtilities),
-  // $font-family-sans-serif: $font-family-sans-serif
-);
 
-@include bootstrap.media-breakpoint-only(lg) { 
-  .vh-lg-100 {
-    height: 100vh;
-  }
-}
-
-.cdk-drag-preview.list-group-item {
-  background-color: bootstrap.$card-bg !important;
-  padding: bootstrap.$list-group-item-padding-y bootstrap.$list-group-item-padding-x;
-  border: bootstrap.$list-group-border-width solid bootstrap.$list-group-border-color;
-  overflow: hidden;
-}
 
 
 

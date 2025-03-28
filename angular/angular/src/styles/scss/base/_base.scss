@@ -1,4 +1,14 @@
 // Estilos base (elementos HTML, etc.)
+@use '../bootstrap';
+
+
+
+.cdk-drag-preview.list-group-item {
+  background-color: bootstrap.$card-bg !important;
+  padding: bootstrap.$list-group-item-padding-y bootstrap.$list-group-item-padding-x;
+  border: bootstrap.$list-group-border-width solid bootstrap.$list-group-border-color;
+  overflow: hidden;
+}
 
 .row {
   margin: 0 !important;

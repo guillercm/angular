@@ -1,8 +1,8 @@
 // Variables (colores, tipografía, etc.)
 @use "sass:string";
+@use "sass:map";
 
 $font-family-sans-serif: 'Stocky';
-
 
 
 $bootstrapUtilities: (
@@ -23,39 +23,4 @@ $bootstrapUtilities: (
 );
 
 
-$customUtilities: (
-  "width-rem": (property: width,
-    class: w-rem,
-    values: (18: 18rem, 15: 15rem),
-  ),
-  "max-height-rem": (property: max-height,
-    class: mh-rem,
-    values: (25: 25rem, 20: 20rem,
-      15: 15rem),
-  ),
-  "cursor": (property: cursor,
-    class: cursor,
-    values: (pointer)),
-  "animation-fill-mode": (property: animation-fill-mode,
-    class: animation-fill-mode,
-    values: (forwards: forwards),
-  ),
-  "animate": (property: animation,
-    class: animate,
-    values: (fadeIn: string.unquote('fadeIn 1s ease-in-out'), fadeOut: string.unquote('fadeOut forwards 2s')),
-  ),
-);
-
-$opacity-hover: (
-  0,
-  .25,
-  .50,
-  .75,
-  1
-);
-
-@each $op in $opacity-hover {
-  .opacity-hover-#{$op*100}:hover {
-    opacity: #{$op} !important;
-  }
-}
+$customUtilities: ();

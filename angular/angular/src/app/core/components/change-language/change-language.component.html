@@ -1,4 +1,4 @@
-<div class="container border p-2">
+<div class="border p-2">
     <label for="radio-language">{{ 'i18n.common.availableLanguages' | appTranslate }}</label>
     <mat-radio-group aria-label="Select an option" [(ngModel)]="language" id="radio-language">
         @for (language of languages; track $index) {
