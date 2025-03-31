@@ -1,9 +1,9 @@
-import { Component, computed, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 import { AuthService } from '../../../auth/services/auth.service';
+import { Component, computed, inject } from '@angular/core';
 import { SharedButtonComponent } from "@shared/components/button/shared-button.component";
 import { UserContextService } from '../../../auth/services/user-context.service';
-import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 
 @Component({
   selector: 'app-admin-dashboard-layout',

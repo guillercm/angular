@@ -133,6 +133,16 @@ export const featuresRoutes: Routes = [
         path: 'create-snippets',
         title: 'Crear snippets personalizados',
         component: DocsComponent
+      },
+      {
+        path: 'seo-ssr-ssg-hydration',
+        title: 'SEO SSR SSG Hydration',
+        component: DocsComponent
+      },
+      {
+        path: 'pokemon-ssr',
+        title: 'Pokemon ssr',
+        loadChildren: () => import('./take-your-foundations-to-the-next-level/features/pokemon-ssr/pokemon-ssr.routes').then(m => m.routes)
       }
     ]
   },

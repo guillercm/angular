@@ -1,1 +1,4 @@
 @use "../../../../../../styles/scss/tailwindcss";
+a:not(:hover) {
+  text-decoration: none;
+}
