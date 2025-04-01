@@ -37,3 +37,5 @@ Para ello, se optimiza la estructura y los metadatos de la web.
 
 Referencia:
 https://medium.com/@sehban.alam/server-side-rendering-ssr-vs-static-site-generation-ssg-vs-pre-rendering-with-hydration-in-49ff2ef59427#:~:text=Angular%20offers%20various%20rendering%20strategies,with%20these%20strategies%20is%20hydration.
+
+[Añadir SSR](https://angular.dev/guide/ssr)

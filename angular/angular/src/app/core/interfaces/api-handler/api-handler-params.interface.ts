@@ -13,7 +13,7 @@ export interface ApiHandlerParams {
   };
   pathParams?: ApiHandlerPathParams,
   reportProgress?: boolean;
-  responseType?: 'json';
+  responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
   withCredentials?: boolean;
   transferCache?: {
       includeHeaders?: string[];

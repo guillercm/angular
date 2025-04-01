@@ -55,6 +55,7 @@ export class ErrorInterceptorService {
     let data = null;
     let values = {}
     if (databaseErrorResponse) {
+      console.log(databaseErrorResponse)
       const {databaseError: {context, field: {name: field, args}, error_type }} = databaseErrorResponse;
       values = args;
       data = config.errors.validations?.[context]?.[field]?.[error_type] || null;

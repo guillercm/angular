@@ -3,19 +3,22 @@
 >
   <a
     class="hover:underline"
-    routerLinkActive="text-blue-500 underline"
+    routerLinkActive=""
+    [routerLinkActiveOptions]="{exact: true}"
     [routerLink]="['./about']"
     >About</a
   >
   <a
     class="hover:underline"
-    routerLinkActive="text-blue-500 underline"
+    routerLinkActive="text-blue-500 !underline"
+    [routerLinkActiveOptions]="{exact: true}"
     routerLink="./pricing"
     >Pricing</a
   >
   <a
     class="hover:underline"
-    routerLinkActive="text-blue-500 underline"
+    routerLinkActive="text-blue-500 !underline"
+    [routerLinkActiveOptions]="{exact: true}"
     routerLink="./contact"
     >Contact</a
   >

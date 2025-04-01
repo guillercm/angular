@@ -1,7 +1,8 @@
-import { Injectable, OutputEmitterRef, OutputRefSubscription, inject } from '@angular/core';
+import { Injectable, OutputEmitterRef, OutputRefSubscription, PLATFORM_ID, inject } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DataModal } from './interfaces/data-modal.interface';
 import { GenericObject } from '@core/interfaces/generic-object/generic-object.interface';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,10 @@ export class ModalService {
 
   private readonly _modalService = inject(NgbModal);
 
-  open<T>(data: DataModal<T>): NgbModalRef {
+  protected readonly isPlatformServer = isPlatformServer(inject(PLATFORM_ID));
+
+  open<T>(data: DataModal<T>): NgbModalRef | null {
+    if (this.isPlatformServer) return null;
     const { component, destroyRef, args, options } = data;
     const activeElement = document.activeElement as HTMLElement;
     if (activeElement) {

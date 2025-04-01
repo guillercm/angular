@@ -5,6 +5,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { Country } from '../interfaces/country';
 import { inject, Injectable, signal } from '@angular/core';
 import { Region } from '../interfaces/region.type';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -34,29 +35,26 @@ export class CountriesService {
     return this._apiHandlerService.get<Country[]>(url, { pathParams: { code } })
       .pipe(
         map(countries => countries.length > 0 ? countries[0] : null),
-        catchError((e) => of(null)),
       );
   }
 
   searchCapital(capital: string): Observable<Country[]> {
     const url = this.getEndpoint("searchCapital");
-    return this._apiHandlerService.get<Country[]>(url, { pathParams: { capital } })
+    return this._apiHandlerService.get<Country[]>(url, { pathParams: { capital }, context: {actionsForAnHttpError: {modal: {excludeStatusCodes: [HttpStatusCode.NotFound]}}} })
       .pipe(
-        catchError((e) => of([])),
       );
   }
 
   searchCountry(country: string): Observable<Country[]> {
     const url = this.getEndpoint("searchCountry");
-    return this._apiHandlerService.get<Country[]>(url, { pathParams: { country } })
+    return this._apiHandlerService.get<Country[]>(url, { pathParams: { country }, context: {actionsForAnHttpError: {modal: {excludeStatusCodes: [HttpStatusCode.NotFound]}}} })
       .pipe(
-        catchError((e) => of([])),
       );
   }
 
   searchRegion(region: Region): Observable<Country[]> {
     const url = this.getEndpoint("searchRegion");
-    return this._apiHandlerService.get<Country[]>(url, { pathParams: { region } })
+    return this._apiHandlerService.get<Country[]>(url, { pathParams: { region }, context: {actionsForAnHttpError: {modal: {excludeStatusCodes: [HttpStatusCode.NotFound]}}} })
       .pipe(
         catchError((e) => of([])),
       );

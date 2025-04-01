@@ -19,7 +19,7 @@ export function errorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn)
     catchError(err => {
       if (!(err instanceof HttpErrorResponse)) return throwError(() => err); //  || error.error instanceof ErrorEvent
       console.log(err)
-      const {status, databaseErrorResponse = {}} = err.error || {};
+      const {status, databaseErrorResponse = null} = err.error || {};
       errorInterceptorService.executeActions(status, databaseErrorResponse);
       switch (status) {
         case HttpStatusCode.Unauthorized:

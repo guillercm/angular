@@ -3,7 +3,7 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
 import { MissingTranslationHandler, provideTranslateService, TranslateCompiler, TranslateLoader, TranslateParser } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
@@ -25,6 +25,7 @@ import { CompilerService } from '@core/services/translate/compiler.service';
 import { LoaderService } from '@core/services/translate/loader.service';
 import { ParserService } from '@core/services/translate/parser.service';
 import { MissingTranslationHandlerService } from '@core/services/translate/missing-translation-handler.service';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 registerLocaleData(localeEs);
 registerLocaleData(localeEsHN);
@@ -49,6 +50,7 @@ export const appConfig: ApplicationConfig = {
       return firstValueFrom(_appConfig.load())
     }),
     provideHttpClient(
+      withFetch(),
       withInterceptors(
         [timeoutInterceptor, errorInterceptor, loaderInterceptor, tokenInterceptor]
       )
@@ -74,7 +76,7 @@ export const appConfig: ApplicationConfig = {
         provide: MissingTranslationHandler,
         useClass: MissingTranslationHandlerService
       }
-    })
+    }), provideClientHydration(withEventReplay())
 
   ]
 };

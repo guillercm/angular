@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'pokemon-ssr-pricing-page',
@@ -9,5 +10,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PricingPageComponent {
+  private readonly _title = inject(Title);
 
+  ngOnInit(): void {
+    this.initialize();
+  }
+
+  initialize() {
+    this._title.setTitle("Pricing page")
+  }
 }
