@@ -1,0 +1,21 @@
+<h3 class="text-3xl">Listado de pókemons</h3>
+<h4 class="text-xl">Página actual {{ currentPage() }}</h4>
+<hr class="my-2">
+
+@if (pokemonsRxResource.isLoading()) {
+<pokemon-list-skeleton></pokemon-list-skeleton>
+} @else if (pokemonsRxResource.hasValue()) {
+<pokemon-list [pokemons]="pokemonsRxResource.value()"></pokemon-list>
+} @else if (pokemonsRxResource.error()) {
+<div class="col-span-5 text-center border-white h-28 flex justify-center items-center">
+    Hubo un error al intentar obtener los pokemons
+</div>
+}
+<div class="flex justify-between">
+  <shared-button label="Anteriores" (clicked)="changePage(-1)" additionalClasses="mt-2"></shared-button>
+  <shared-button label="Siguientes" (clicked)="changePage(1)" additionalClasses="mt-2"></shared-button>
+
+    <!-- <button (click)="currentName.set('Otro Nombre')" class="mt-2">
+      {{ currentName() }}
+    </button> -->
+</div>

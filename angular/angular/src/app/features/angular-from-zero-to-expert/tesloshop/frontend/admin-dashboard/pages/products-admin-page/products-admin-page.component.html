@@ -2,7 +2,7 @@
   <div class="card-header">
     <div class="d-flex">
       <div class="flex-grow-1">{{ ('i18n.features.tesloshop.productList' | appTranslate ) }} ({{ productsResource.value()?.count }})</div>
-      <app-pagination [pages]="productsResource.value()?.pages ?? 0" [currentPage]="paginationService.currentPage()" />
+      <app-pagination [pages]="productsResource.value()?.pages ?? 0" [currentPage]="currentPage()" />
       <select class="form-select w-20 ms-2" (change)="productsPerPage.set(+selectPerPage.value)" #selectPerPage>
         <option value="10">10</option>
         <option value="20">20</option>

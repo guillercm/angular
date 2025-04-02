@@ -12,9 +12,9 @@ import { RepeatPipe } from "@shared/pipes/repeat/repeat.pipe";
   templateUrl: './pagination.component.html',
 })
 export class PaginationComponent {
-  pages = input(0);
-  currentPage = input<number>(1);
+  public pages = input(0);
+  public currentPage = input<number>(1);
 
-  activePage = linkedSignal(this.currentPage);
+  public activePage = linkedSignal(this.currentPage);
 
 }

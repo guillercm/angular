@@ -2,11 +2,11 @@ import { Component, inject } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { ProductsService } from '../../../products/services/products.service';
-import { PaginationService } from '../../../shared/components/pagination/services/pagination.service';
 import { ProductsComponent } from "../../../products/components/products/products.component";
 import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
+import { PaginationService } from '@core/services/paginator/pagination.service';
 
 
 @Component({

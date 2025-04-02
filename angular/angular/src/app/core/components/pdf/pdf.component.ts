@@ -14,7 +14,7 @@ import { SharedPdfComponent } from "@shared/components/shared-pdf/shared-pdf.com
 })
 export class PdfComponent {
 
-  protected readonly isPlatformBrowser = typeof window !== 'undefined';
+  protected readonly isPlatformBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   public urlPdf = toSignal<string>(
     inject(ActivatedRoute).data.pipe(

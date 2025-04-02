@@ -6,8 +6,8 @@ import { ProductTableComponent } from '../../../products/components/product-tabl
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { RouterLink } from '@angular/router';
 import { ProductsService } from '../../../products/services/products.service';
-import { PaginationService } from '../../../shared/components/pagination/services/pagination.service';
 import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
+import { PaginationService } from '@core/services/paginator/pagination.service';
 
 @Component({
   selector: 'app-products-admin-page',
@@ -15,18 +15,19 @@ import { AppTranslatePipe } from "@core/pipes/app-translate.pipe";
   templateUrl: './products-admin-page.component.html',
 })
 export class ProductsAdminPageComponent {
-  productsService = inject(ProductsService);
-  paginationService = inject(PaginationService);
+  private readonly _productsService = inject(ProductsService);
+  private readonly _paginationService = inject(PaginationService);
+  protected readonly currentPage = this._paginationService.currentPage;
 
   productsPerPage = signal(10);
 
   productsResource = rxResource({
     request: () => ({
-      page: this.paginationService.currentPage() - 1,
+      page: this._paginationService.currentPage() - 1,
       limit: this.productsPerPage(),
     }),
     loader: ({ request }) => {
-      return this.productsService.getProducts({
+      return this._productsService.getProducts({
         offset: request.page * 9,
         limit: request.limit,
       });

@@ -1,7 +1,7 @@
 <!-- @defer (when urlPdf(); on idle) { -->
 <div id="outerContainer">
   <div class="pdf-container">
-    @if (true) {
+    @if (isPlatformBrowser) {
     <shared-pdf [urlPdf]="urlPdf() || ''"></shared-pdf>
     }
   </div>

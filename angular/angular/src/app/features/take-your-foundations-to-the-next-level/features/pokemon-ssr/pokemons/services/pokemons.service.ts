@@ -1,0 +1,57 @@
+import { Injectable, inject, signal } from '@angular/core';
+import { Api } from '@core/interfaces/config/config';
+import { ApiHandlerService } from '@core/services/api-handler/api-handler.service';
+import { AppConfigService } from '@core/services/configuration/app-config.service';
+import { PokeAPIResponse } from '../interfaces/pokemon-api.response';
+import { SimplePokemon } from '../interfaces/simple-pokemon.interface';
+import { Observable, map } from 'rxjs';
+import { Pokemon } from '../interfaces/pokemon.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PokemonsService {
+
+  private readonly _apiHandlerService = inject(ApiHandlerService);
+
+  private readonly _configService = inject(AppConfigService);
+
+  private _configApi = signal<Api | null>(null);
+
+  constructor() {
+    this.initialize();
+  }
+
+  private initialize() {
+    this._configApi.set(this._configService.config().apis["pokemons"]);
+  }
+
+  private getEndpoint(endpoint: string): string {
+    return this._apiHandlerService.getEndpoint(this._configApi, endpoint)
+  }
+
+  public loadPage(page: number): Observable<SimplePokemon[]> {
+    if (page !== 0) {
+      --page;
+    }
+    page = Math.max(0, page);
+    const url = this.getEndpoint("getPokemons");
+    return this._apiHandlerService.get<PokeAPIResponse>(url, {pathParams: {page: page * 20, limit: 20}}).pipe(
+      map((resp) => {
+        const simplePokemons: SimplePokemon[] = resp.results.map(
+          (pokemon) => ({
+            id: pokemon.url.split('/').at(-2) ?? '',
+            name: pokemon.name,
+          })
+        );
+        return simplePokemons;
+      })
+    );
+  }
+
+  public loadPokemon(id: string) {
+    const url = this.getEndpoint("getPokemonById");
+    return this._apiHandlerService.get<Pokemon>(url, {pathParams: {id}});
+  }
+
+}

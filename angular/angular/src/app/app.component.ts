@@ -29,7 +29,7 @@ export class AppComponent {
 
   public readonly theme = this._themeService.theme;
 
-  private document = inject(DOCUMENT);
+  private readonly document = inject(DOCUMENT);
 
 
   effectTheme = effect(() =>{this._renderer.setAttribute(this.document.documentElement, 'data-bs-theme', this.theme())})

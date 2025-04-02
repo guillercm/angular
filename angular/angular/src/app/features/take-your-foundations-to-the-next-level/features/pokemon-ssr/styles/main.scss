@@ -1,4 +1,33 @@
-@use "../../../../../../styles/scss/tailwindcss";
+@forward "../../../../../../styles/scss/tailwindcss";
+
 a:not(:hover) {
   text-decoration: none;
 }
+
+// $bg-color: #1e293b; // slate-900
+// $text-color: white;
+// $blue-500: #3b82f6;
+// $blue-600: #2563eb;
+// $disabled-bg: #475569; // slate-600
+
+// // Mixin para el botón
+// @mixin button-styles {
+//   background-color: $blue-500;
+//   color: $text-color;
+//   padding: 0.5rem 1rem;
+//   border-radius: 0.375rem; // rounded
+//   transition: all 0.3s ease;
+
+//   &:hover {
+//     background-color: $blue-600;
+//   }
+
+//   &:disabled {
+//     background-color: $disabled-bg;
+//   }
+// }
+
+// // Estilo para el botón
+// button {
+//   @include button-styles;
+// }

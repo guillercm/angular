@@ -44,6 +44,13 @@
         "createProduct": "/products",
         "uploadImage": "/files/product"
       }
+    },
+    "pokemons": {
+      "baseUrl": "https://pokeapi.co/api/v2",
+      "endpoints": {
+        "getPokemons": "/pokemon?offset={page}&limit={limit}",
+        "getPokemonById": "/pokemon/{id}"
+      }
     }
   },
   "errors": {
