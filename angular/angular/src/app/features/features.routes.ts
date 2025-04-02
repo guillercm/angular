@@ -143,6 +143,11 @@ export const featuresRoutes: Routes = [
         path: 'pokemon-ssr',
         title: 'Pokemon ssr',
         loadChildren: () => import('./take-your-foundations-to-the-next-level/features/pokemon-ssr/pokemon-ssr.routes').then(m => m.routes)
+      },
+      {
+        path: 'netlify',
+        title: 'Netlify',
+        component: DocsComponent
       }
     ]
   },

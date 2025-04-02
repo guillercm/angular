@@ -8,10 +8,10 @@
 
 <section class="flex flex-col justify-center items-center w-full">
     <div class="w-64 h-64">
-        <shared-image [url]="pokemon.sprites.other?.['official-artwork']?.front_default || ''" 
+        <shared-image [url]="pokemon.sprites.other?.['official-artwork']?.front_default || ''"
         [alt]="pokemon.name"></shared-image>
     </div>
-    
+
 
     @if( pokemon.cries.latest !== null ) {
     <audio controls class="my-10">
@@ -31,7 +31,9 @@
     </div>
 </section>
 } @else if (pokemonRxResource.isLoading()) {
-<div class="flex justify-center">
-    <h1 class="text-4xl font-bold">Loading...</h1>
-</div>
+  <section class="flex flex-col justify-center">
+    <div class="flex justify-center">
+        <h1 class="text-4xl font-bold capitalize my-5">Cargando...</h1>
+    </div>
+</section>
 }
