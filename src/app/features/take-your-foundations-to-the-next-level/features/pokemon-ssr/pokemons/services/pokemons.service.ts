@@ -54,7 +54,7 @@ export class PokemonsService {
 
   private initListOfIds() {
     const total = 1302;
-    for (let i = 1; i <= 1025; i++) {
+    for (let i = 2; i <= 1025; i++) {
       this.listIds.push({ id: i.toString() });
     }
 

@@ -31,7 +31,7 @@ export class AppConfigService {
         take(1),
         tap((config: Config) => this._config.set(config)),
         tap((config: Config) => this.isLoaded.set(true)),
-        tap((config: Config) => console.log(config)),
+        // tap((config: Config) => console.log(config)),
       )
   }
 

@@ -19,6 +19,7 @@ export default class PokemonPageComponent {
   private _route = inject(ActivatedRoute);
   private _title = inject(Title);
   private _meta = inject(Meta);
+  protected readonly date = new Date();
 
   // private _pokemon = signal<Pokemon | null>(null);
   // protected readonly pokemon = this._pokemon.asReadonly();
