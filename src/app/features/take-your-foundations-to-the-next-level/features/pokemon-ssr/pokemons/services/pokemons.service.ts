@@ -55,12 +55,12 @@ export class PokemonsService {
   private initListOfIds() {
     const total = 1302;
     for (let i = 1; i <= 1025; i++) {
-      this.listIds.push({ id: i });
+      this.listIds.push({ id: i.toString() });
     }
 
     // Agregar IDs del 10001 en adelante hasta alcanzar un total de 1302 IDs
     for (let i = 10001; this.listIds.length < 1302; i++) {
-      this.listIds.push({ id: i });
+      this.listIds.push({ id: i.toString() });
     }
   }
 
