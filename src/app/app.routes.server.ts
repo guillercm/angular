@@ -1,9 +1,13 @@
-import { RenderMode, ServerRoute } from '@angular/ssr';
+import { RenderMode, ServerRoute, ServerRoutePrerenderWithParams } from '@angular/ssr';
+
 // ServerRoutePrerenderWithParams
-export const serverRoutes: ServerRoute[] = [
+export const serverRoutes: (ServerRoute | ServerRoutePrerenderWithParams)[] = [
   {
     path: 'take-your-foundations-to-the-next-level/pokemon-ssr/pokemons/:id',
-    renderMode: RenderMode.Server,
+    renderMode: RenderMode.Prerender,
+    async getPrerenderParams() {
+      return [{ id: '1' }, { id: '2' }, { id: '3' }]; // Generates paths like: [{ id: '1' }, { id: '2' }, { id: '3' }]
+    }
   },
   {
     path: 'angular-from-zero-to-expert/countries/by/:id',
