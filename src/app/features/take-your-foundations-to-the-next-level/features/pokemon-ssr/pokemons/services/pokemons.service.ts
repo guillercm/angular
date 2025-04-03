@@ -18,8 +18,11 @@ export class PokemonsService {
 
   private _configApi = signal<Api | null>(null);
 
+  public listIds:any[] = [];
+
   constructor() {
     this.initialize();
+    this.initListOfIds();
   }
 
   private initialize() {
@@ -30,13 +33,13 @@ export class PokemonsService {
     return this._apiHandlerService.getEndpoint(this._configApi, endpoint)
   }
 
-  public loadPage(page: number): Observable<SimplePokemon[]> {
+  public loadPage(page: number, limit = 20): Observable<SimplePokemon[]> {
     if (page !== 0) {
       --page;
     }
     page = Math.max(0, page);
     const url = this.getEndpoint("getPokemons");
-    return this._apiHandlerService.get<PokeAPIResponse>(url, {pathParams: {page: page * 20, limit: 20}}).pipe(
+    return this._apiHandlerService.get<PokeAPIResponse>(url, {pathParams: {page: page * limit, limit}}).pipe(
       map((resp) => {
         const simplePokemons: SimplePokemon[] = resp.results.map(
           (pokemon) => ({
@@ -47,6 +50,18 @@ export class PokemonsService {
         return simplePokemons;
       })
     );
+  }
+
+  private initListOfIds() {
+    const total = 1302;
+    for (let i = 1; i <= 1025; i++) {
+      this.listIds.push({ id: i });
+    }
+
+    // Agregar IDs del 10001 en adelante hasta alcanzar un total de 1302 IDs
+    for (let i = 10001; this.listIds.length < 1302; i++) {
+      this.listIds.push({ id: i });
+    }
   }
 
   public loadPokemon(id: string) {
