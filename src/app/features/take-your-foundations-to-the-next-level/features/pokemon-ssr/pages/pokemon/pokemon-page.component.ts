@@ -40,19 +40,19 @@ export default class PokemonPageComponent {
           const pageDescription = `Página del Pokémon ${name}`;
           this._title.setTitle(pageTitle);
 
-          this._meta.updateTag({
-            name: 'description',
-            content: pageDescription,
-          });
-          this._meta.updateTag({ name: 'og:title', content: pageTitle });
-          this._meta.updateTag({
-            name: 'og:description',
-            content: pageDescription,
-          });
-          this._meta.updateTag({
-            name: 'og:image',
-            content: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
-          });
+          // this._meta.updateTag({
+          //   name: 'description',
+          //   content: pageDescription,
+          // });
+          // this._meta.updateTag({ name: 'og:title', content: pageTitle });
+          // this._meta.updateTag({
+          //   name: 'og:description',
+          //   content: pageDescription,
+          // });
+          // this._meta.updateTag({
+          //   name: 'og:image',
+          //   content: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+          // });
         }))
   }
 }
