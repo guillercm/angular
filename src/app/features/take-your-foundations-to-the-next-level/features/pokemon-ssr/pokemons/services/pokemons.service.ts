@@ -34,12 +34,7 @@ export class PokemonsService {
   }
 
   public loadPage(page: number, limit = 20): Observable<SimplePokemon[]> {
-    if (page !== 0) {
-      --page;
-    }
-    page = Math.max(0, page);
-    const url = this.getEndpoint("getPokemons");
-    return this._apiHandlerService.get<PokeAPIResponse>(url, {pathParams: {page: page * limit, limit}}).pipe(
+    return this.loadsPokemons(page, limit).pipe(
       map((resp) => {
         const simplePokemons: SimplePokemon[] = resp.results.map(
           (pokemon) => ({
@@ -52,7 +47,17 @@ export class PokemonsService {
     );
   }
 
+  public loadsPokemons(page: number, limit = 20): Observable<PokeAPIResponse> {
+    if (page !== 0) {
+      --page;
+    }
+    page = Math.max(0, page);
+    const url = this.getEndpoint("getPokemons");
+    return this._apiHandlerService.get<PokeAPIResponse>(url, {pathParams: {page: page * limit, limit}})
+  }
+
   private initListOfIds() {
+    this.loadPage(0, 9999)
     const total = 1302;
     for (let i = 2; i <= 1025; i++) {
       this.listIds.push({ id: i.toString() });
