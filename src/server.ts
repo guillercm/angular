@@ -63,26 +63,15 @@ if (isMainModule(import.meta.url)) {
 /**
  * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
  */
-import { AngularAppEngine, createRequestHandler } from "@angular/ssr";
-import { getContext } from "@netlify/angular-runtime/context";
+export const reqHandler = createNodeRequestHandler(app);
+import { CommonEngine } from "@angular/ssr/node";
+import { render } from "@netlify/angular-runtime/common-engine";
 
-const angularAppEngine = new AngularAppEngine();
+const commonEngine = new CommonEngine();
 
-export async function netlifyAppEngineHandler(request: Request): Promise<Response> {
-  const context = getContext();
-
-  // Example API endpoints can be defined here.
-  // Uncomment and define endpoints as necessary.
-  // const pathname = new URL(request.url).pathname;
-  // if (pathname === '/api/hello') {
-  //   return Response.json({ message: 'Hello from the API' });
-  // }
-
-  const result = await angularAppEngine.handle(request, context);
-  return result || new Response("Not found", { status: 404 });
+export async function netlifyCommonEngineHandler(
+  request: Request,
+  context: any
+): Promise<Response> {
+  return await render(commonEngine);
 }
-
-/**
- * The request handler used by the Angular CLI (dev-server and during build).
- */
-export const reqHandler = createRequestHandler(netlifyAppEngineHandler);
