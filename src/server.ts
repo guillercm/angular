@@ -63,9 +63,12 @@ if (isMainModule(import.meta.url)) {
 /**
  * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
  */
-export const reqHandler = createNodeRequestHandler(app);
+
 import { CommonEngine } from "@angular/ssr/node";
 import { render } from "@netlify/angular-runtime/common-engine";
+import { AngularAppEngine } from '@angular/ssr';
+
+const angularAppEngine = new AngularAppEngine();
 
 const commonEngine = new CommonEngine();
 
@@ -73,5 +76,7 @@ export async function netlifyCommonEngineHandler(
   request: Request,
   context: any
 ): Promise<Response> {
-  return await render(commonEngine);
+  const result = await angularAppEngine.handle(request, context);
+  return result || new Response("Not found", { status: 404 });
 }
+export const reqHandler = createNodeRequestHandler(app);
