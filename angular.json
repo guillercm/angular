@@ -37,9 +37,7 @@
               "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.js"
             ],
             "server": "src/main.server.ts",
-            "prerender": {
-              "routesFile": "routes.txt"
-            },
+            "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
             }
