@@ -1,4 +1,3 @@
-import 'animate.css';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, input, signal } from '@angular/core';
 import { ImageState } from './interfaces/image-states.type';

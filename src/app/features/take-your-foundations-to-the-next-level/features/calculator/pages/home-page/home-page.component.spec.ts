@@ -21,7 +21,7 @@ describe('HomePageComponent', () => {
   });
 
   it('should create the app', () => {
-    console.log(compiled);
+    // console.log(compiled);
     expect(component).toBeTruthy();
   });
 
@@ -31,7 +31,7 @@ describe('HomePageComponent', () => {
 
   it('should contain basic css classes', () => {
     const divElement = compiled.querySelector('calculator')?.parentElement;
-    console.log(divElement)
+    // console.log(divElement)
     const divClasses = divElement?.classList.value.split(' ');
 
     const shouldHave =

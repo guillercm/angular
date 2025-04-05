@@ -22,6 +22,14 @@ export const serverRoutes: (ServerRoute | ServerRoutePrerenderWithParams)[] = [
       ))
     }
   },
+  {
+    path: 'angular-from-zero-to-expert',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'angular-from-zero-to-expert/**',
+    renderMode: RenderMode.Client,
+  },
   // {
   //   path: 'angular-from-zero-to-expert/countries/by/:id',
   //   renderMode: RenderMode.Server,
@@ -36,6 +44,6 @@ export const serverRoutes: (ServerRoute | ServerRoutePrerenderWithParams)[] = [
   // },
   {
     path: '**',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   }
 ];

@@ -50,7 +50,6 @@ export class CalculatorButtonComponent {
     const value = this.key();
 
     if (value !== key) return;
-    console.log({value, key})
     this._isPressed.set(true);
     setTimeout(() => {
       this._isPressed.set(false);

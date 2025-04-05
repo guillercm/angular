@@ -101,9 +101,9 @@ describe('CalculatorComponent', () => {
         mockCalculatorService.subResultText.and.returnValue('10');
         mockCalculatorService.lastOperator.and.returnValue('-');
         fixture.detectChanges();
-        console.log(compiled.querySelector('#sub-result'))
+        // console.log(compiled.querySelector('#sub-result'))
         expect(component.resultText()).toBe('123');
-        
+
         expect(compiled.querySelector('#sub-result')?.textContent).toContain(
             '10 -'
         );

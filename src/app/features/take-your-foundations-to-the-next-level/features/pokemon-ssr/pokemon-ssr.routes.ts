@@ -24,14 +24,14 @@ export const routes: Routes = [
       {
         path: 'contact',
         loadComponent: () => import('./pages/contact/contact-page.component'),
+      },
+      {
+        path: '**',
+        redirectTo: () => {
+          // se pueden inyectar servicios y aplicar lógica
+          return 'pokemons';
+        }
       }
     ]
-  },
-  {
-    path: '**',
-    redirectTo: () => {
-      // se pueden inyectar servicios y aplicar lógica
-      return '';
-    }
   }
 ];

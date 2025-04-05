@@ -19,6 +19,17 @@
     expect(app.title()).toEqual('Angular');
   });
 
+  it('should apply w-2/4 doubleSize is true', () => {
+    fixture.componentRef.setInput('isDoubleSize', true);
+    
+    fixture.detectChanges();
+
+    const hostCssClasses: string[] = compiled.classList.value.split(' ');
+
+    expect(hostCssClasses).toContain('w-2/4');
+    expect(component.isDoubleSize()).toBeTrue();
+  });
+
   it('should render router-outlet', () => {
     // expect(compiled.querySelector('router-outlet')).not.toEqual(null);
     expect(compiled.querySelector('router-outlet')).not.toBeNull();
@@ -110,6 +121,47 @@
     })
   }
 
+  let component: LayoutComponent;
+  let fixture: ComponentFixture<LayoutComponent>;
+  let compiled: HTMLDivElement;
+
+  @Component({
+    selector: 'pokemon-ssr-navbar',
+    template: '<p>NAV</p>'
+  })
+  class NavbarComponentMock {
+
+  }
+
+  beforeEach(async () => {
+
+    // await TestBed.overrideComponent(LayoutComponent, {
+    //   set: {
+    //     imports: [NavbarComponentMock],
+    //     schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    //   }
+    // })
+
+    //Forma recomendada
+    await TestBed.configureTestingModule({
+      imports: [LayoutComponent],
+      providers: [provideRouter([])]
+    })
+    // .compileComponents();
+    .overrideComponent(LayoutComponent, {
+      add: {
+        imports: [ NavbarComponentMock ]
+      },
+      remove: {
+        imports: [ NavbarComponent ]
+      }
+    }).compileComponents();
+    fixture = TestBed.createComponent(LayoutComponent);
+    component = fixture.componentInstance;
+    compiled = fixture.nativeElement;
+    fixture.detectChanges();
+  });
+
 
   describe('CalculatorComponent', () => {
     let fixture: ComponentFixture<CalculatorComponent>;
@@ -153,5 +205,107 @@
         expect(component.subResultText()).toBe('456');
         expect(component.lastOperator()).toBe('*');
     });
-  }
+
+    let router: Router;
+    let location: Location;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          provideRouter(routes)
+        ]
+      });
+
+      router = TestBed.inject(Router);
+      location = TestBed.inject(Location);
+    })
+
+    it('should navigate to "pokemons" if page not exists', async () => {
+      await router.navigate(['unknown-page'])
+      expect(location.path()).toBe('/pokemons');
+    })
+
+    it('should load the proper component', async () => {
+      const baseRoute = routes.find((route) => route.path === '')?.children!;
+      expect(baseRoute).toBeDefined();
+      const abouteRoute = baseRoute.find((route) => route.path === 'about')!;
+      expect(abouteRoute).toBeDefined();
+      const aboutComponent = await abouteRoute.loadComponent!();
+      expect((aboutComponent as any).default.name).toBe("AboutPageComponent")
+      // await router.navigate(['unknown-page'])
+      // expect(location.path()).toBe('/pokemons');
+    })
+    }
+
+    let service: PokemonsService;
+    let httpMock: HttpTestingController;
+
+    beforeEach(async () => {
+      TestBed.configureTestingModule({
+        providers: [
+          provideHttpClient(),
+          provideHttpClientTesting(),
+        ],
+      }).compileComponents();
+
+      httpMock = TestBed.inject(HttpTestingController);
+      service = TestBed.inject(PokemonsService);
+      (service as any)._configApi.set(api)
+
+    });
+
+    afterEach(() => {
+      httpMock.verify();
+    });
+
+    it('should be created', () => {
+      expect(service).toBeTruthy();
+    });
+
+    it('should load a page of SimplePokemons', async () => {
+
+      // usando subscribe
+      // service.loadPage(1).subscribe((pokemons) => {
+      //   console.log(expectedPokemons)
+      //   expect(pokemons).toEqual(expectedPokemons);
+      // });
+
+      // usando firstValueFrom
+      firstValueFrom(service.loadPage(5).pipe(tap((pokemons) => {
+        expect(pokemons).toEqual(expectedPokemons);
+      })));
+
+
+      // Para obtener la url real
+      // httpMock.expectOne(request => {
+      //   console.log("url: ", request.url);
+      //   return true;
+      // });
+
+      const req = httpMock.expectOne(
+        `${apiBaseUrl}/pokemon?offset=80&limit=20`
+      );
+
+      console.log(req)
+
+      expect(req.request.method).toBe('GET');
+
+      req.flush(mockPokeApiResponse);
+    });
+
+    it('should load a Pokémon by ID', () => {
+      const pokemonId = '1';
+
+      firstValueFrom(service.loadPokemon(pokemonId).pipe(tap((pokemon: any) => {
+        expect(pokemon).toEqual(mockPokemon);
+      })));
+
+      const req = httpMock.expectOne(
+        `${apiBaseUrl}/pokemon/${pokemonId}`
+      );
+
+      expect(req.request.method).toBe('GET');
+
+      req.flush(mockPokemon);
+    });
 ```
