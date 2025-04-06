@@ -60,7 +60,9 @@ export default class SimpsonsComponent {
 
   private readonly _appTranslateService = inject(AppTranslateService);
 
-  prueba = this._appTranslateService.get('i18n.common.time.hours', { hours: 45 })
+  protected prueba = this._appTranslateService.get('i18n.common.time.hours', { hours: 45 })
+
+  protected readonly simpsonsCargados = computed(() => this.simpsons().length > 0);
 
 
   simpsonEffects = effect(() => {

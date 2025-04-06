@@ -11,7 +11,8 @@
 </pato-form>
 <pre>{{ ('i18n.common.time.hours' | appTranslate : {hours: 45}) }}</pre>
 <pre>{{prueba()}}</pre>
-<shared-button (clicked)="loadSimpsons()" [disabled]="simpsons().length > 0" [label]="simpsons().length > 0 ? 'Simpsons cargados' : 'Cargar simpsons'" ></shared-button>
+<shared-button (clicked)="loadSimpsons()" [disabled]="simpsonsCargados()"
+[label]="simpsonsCargados() ? 'Simpsons cargados' : 'Cargar simpsons'" ></shared-button>
 <div class="row g-3 pt-4">
   @switch (simpsonsRequest()?.state) {
     @case ("complete") {
