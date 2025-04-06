@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { DocsComponent } from '@core/components/docs/docs.component';
-import { PdfComponent } from '@core/components/pdf/pdf.component';
 import { FlexCssComponent } from './my-methodology/pages/flex-css/flex-css.component';
 
 export const featuresRoutes: Routes = [
@@ -12,17 +10,17 @@ export const featuresRoutes: Routes = [
       {
         path: 'installations',
         title: 'Instalaciones',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'maps-vs-sets',
         title: 'Maps Vs Sets',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'typescript_bases',
         title: 'Bases de typescript',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'angular_bases',
@@ -64,43 +62,43 @@ export const featuresRoutes: Routes = [
         path: 'angular-cheat-sheet',
         title: 'Trucos de angular',
         data: {pdf: 'angular-cheat-sheet'},
-        component: PdfComponent
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
       },
       {
         path: 'angular-cheat-sheet-v2',
         title: 'Trucos de angular v2',
         data: {pdf: 'angular-cheat-sheet-v2'},
-        component: PdfComponent
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
       },
       {
         path: 'angular-notes-for-professionals',
         title: 'Notas para profesionales',
         data: {pdf: 'Angular2NotesForProfessionals'},
-        component: PdfComponent
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
       },
       {
         path: 'docker',
         title: 'Docker',
         data: {pdf: 'docker'},
-        component: PdfComponent
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
       },
       {
         path: 'docker-cheat-sheet',
         title: 'Trucos de docker',
         data: {pdf: 'docker-cheat-sheet'},
-        component: PdfComponent
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
       },
       {
         path: 'nest-cheatsheet',
         title: 'Trucos de nest',
         data: {pdf: 'nest-cheatsheet'},
-        component: PdfComponent
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
       },
       {
         path: 'refactoring-ui',
         title: 'Refactoring UI',
         data: {pdf: 'refactoring-ui'},
-        component: PdfComponent
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
       }
     ]
   },
@@ -112,7 +110,7 @@ export const featuresRoutes: Routes = [
       {
         path: 'installations',
         title: 'Instalación',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'calculator',
@@ -122,22 +120,22 @@ export const featuresRoutes: Routes = [
       {
         path: 'testing',
         title: 'Testing',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'testings-examples',
         title: 'Ejemplos de testing',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'create-snippets',
         title: 'Crear snippets personalizados',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'seo-ssr-ssg-hydration',
         title: 'SEO SSR SSG Hydration',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'pokemon-ssr',
@@ -147,7 +145,22 @@ export const featuresRoutes: Routes = [
       {
         path: 'netlify',
         title: 'Netlify',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'github-issues',
+        title: 'Github issues',
+        loadChildren: () => import('./take-your-foundations-to-the-next-level/features/github-issues/github-issues.routes').then(m => m.routes)
+      },
+      {
+        path: 'tanstack-query',
+        title: 'Tanstack Query',
+        loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'github-api',
+        title: 'Github Api',
+        loadComponent: () => import('../core/components/docs/docs.component'),
       }
     ]
   },
@@ -159,12 +172,12 @@ export const featuresRoutes: Routes = [
       {
         path: 'installation',
         title: 'Instalación',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'configuration-use',
         title: 'Configuración y uso',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
     ]
   },
@@ -181,7 +194,7 @@ export const featuresRoutes: Routes = [
       {
         path: 'notes',
         title: 'Notas',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'flexbox',
@@ -198,12 +211,12 @@ export const featuresRoutes: Routes = [
       {
         path: 'installation',
         title: 'Instalación',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
         path: 'configuration-use',
         title: 'Configuración y uso',
-        component: DocsComponent
+        loadComponent: () => import('../core/components/docs/docs.component'),
       },
     ]
   },

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './docs.component.html',
   styleUrl: './docs.component.css'
 })
-export class DocsComponent implements OnInit {
+export default class DocsComponent implements OnInit {
 
   private readonly _container = viewChild.required('container', { read: ViewContainerRef })
 

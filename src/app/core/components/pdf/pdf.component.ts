@@ -12,7 +12,7 @@ import { SharedPdfComponent } from "@shared/components/shared-pdf/shared-pdf.com
   templateUrl: './pdf.component.html',
   styleUrl: './pdf.component.css'
 })
-export class PdfComponent {
+export default class PdfComponent {
 
   protected readonly isPlatformBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 

@@ -26,6 +26,11 @@ import { LoaderService } from '@core/services/translate/loader.service';
 import { ParserService } from '@core/services/translate/parser.service';
 import { MissingTranslationHandlerService } from '@core/services/translate/missing-translation-handler.service';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {
+  provideTanStackQuery,
+  QueryClient,
+  withDevtools,
+} from '@tanstack/angular-query-experimental'
 
 registerLocaleData(localeEs);
 registerLocaleData(localeEsHN);
@@ -41,6 +46,7 @@ export const appConfig: ApplicationConfig = {
     { provide: I18nPluralPipe },
     { provide: TitleCasePipe },
     provideExperimentalZonelessChangeDetection(),
+    provideTanStackQuery(new QueryClient(), withDevtools()),
     provideRouter(routes,
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',

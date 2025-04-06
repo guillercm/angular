@@ -51,6 +51,12 @@
         "getPokemons": "/pokemon?offset={page}&limit={limit}",
         "getPokemonById": "/pokemon/{id}"
       }
+    },
+    "github": {
+      "baseUrl": "https://api.github.com",
+      "endpoints": {
+        "listLabelsForIssue": "/repos/{owner}/{repo}/issues/{issue_number}/labels"
+      }
     }
   },
   "errors": {
