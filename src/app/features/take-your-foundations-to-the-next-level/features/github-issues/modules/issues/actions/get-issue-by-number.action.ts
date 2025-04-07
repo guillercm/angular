@@ -11,20 +11,19 @@ export const getIssueByNumber = async (
   await sleep(1500);
 
   try {
-    // const resp = await fetch(`${BASE_URL}/issues/${issueNumber}/comments`, {
     const resp = await fetch(`${BASE_URL}/issues/${issueNumber}`, {
       headers: {
         ...authorization()
       },
     });
 
-    if (!resp.ok) throw "Can't load issue";
+    if (!resp.ok) throw `Can't load issue ${issueNumber}`;
 
     const issue: GitHubIssue = await resp.json();
     console.log({ issue });
 
     return issue;
   } catch (error) {
-    throw "Can't load issue";
+    throw `Can't load issue ${issueNumber}`;
   }
 };

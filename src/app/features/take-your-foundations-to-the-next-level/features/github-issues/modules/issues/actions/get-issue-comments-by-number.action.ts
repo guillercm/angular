@@ -17,13 +17,13 @@ export const getIssueCommentsByNumber = async (
       },
     });
 
-    if (!resp.ok) throw "Can't load issues";
+    if (!resp.ok) throw `Can't load comments issue ${issueNumber}`;
 
     const issues: GitHubIssue[] = await resp.json();
     console.log({ issues });
 
     return issues;
   } catch (error) {
-    throw "Can't load issues";
+    throw `Can't load comments issue ${issueNumber}`;
   }
 };
