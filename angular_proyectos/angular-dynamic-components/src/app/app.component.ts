@@ -1,4 +1,4 @@
-import { Component, ComponentRef, ElementRef, inject, TemplateRef, viewChild, ViewContainerRef } from "@angular/core";
+import { Component, ComponentRef, ElementRef, inject, OnInit, TemplateRef, viewChild, ViewContainerRef } from "@angular/core";
 import { WidgetComponent } from "./widget/widget.component";
 import { WeatherContentComponent } from "./widget/weather-content.component";
 @Component({
@@ -19,26 +19,30 @@ import { WeatherContentComponent } from "./widget/weather-content.component";
   `,
     imports: [WeatherContentComponent]
 })
-export class AppComponent {
-  vcr = viewChild('container', { read: ViewContainerRef });
+export class AppComponent implements OnInit {
+  ngOnInit(): void {
+    this.createComponent();
+  }
+  container = viewChild('container', { read: ViewContainerRef });
   content = viewChild<TemplateRef<unknown>>('content');
   #componentRef?: ComponentRef<WidgetComponent>;
   createComponent() {
-    this.vcr()?.clear();
-    const contentView = this.vcr()?.createEmbeddedView(this.content()!)
-    this.#componentRef = this.vcr()?.createComponent(WidgetComponent, {
+    this.container()?.clear();
+    const contentView = this.container()?.createEmbeddedView(this.content()!)
+    console.log(contentView)
+    this.#componentRef = this.container()?.createComponent(WidgetComponent, {
       projectableNodes: [
         contentView?.rootNodes!
       ]
     })
-    this.#componentRef?.setInput('title', 'Weather'); 
+    this.#componentRef?.setInput('title', 'Weather');
     this.#componentRef?.setInput('description', 'Currently in Vienna:');
-
+    console.log(this.#componentRef?.instance)
     this.#componentRef?.instance.closed.subscribe(
       () => this.#componentRef?.destroy()
     )
   }
   destroyComponent() {
-    this.vcr()?.clear();
+    this.container()?.clear();
   }
 }
