@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-
+  <!-- https://www.youtube.com/watch?v=ncbftt3NWVo -->
   <!-- Lista de Juegos Favoritos -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Favoritos</label>
@@ -52,7 +52,7 @@
       $index) {
       <div class="mb-1">
         <div class="input-group">
-          <input class="form-control" [formControlName]="i" />
+          <app-input [formControlName]="i"  [isDisabled]="false"  ></app-input>
 
           <button
             class="btn btn-outline-danger"

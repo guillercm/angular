@@ -102,7 +102,7 @@ export default class SimpsonsComponent {
         component: PatoInputComponent,
         formFieldComponent: FormFieldComponent,
         value: "",
-        validators: [Validators.required, Validators.minLength(2), Validators.maxLength(6), FormUtils.validatorSimpson],
+        validators: [Validators.required, Validators.minLength(3), Validators.maxLength(6)],
         args: {
           control: {
             debounceTimer: 1000,
@@ -121,33 +121,33 @@ export default class SimpsonsComponent {
           control: "input-group"
         }
       }),
-      buttons: createPatoControl({
-        component: PatoButtonGroupComponent,
-        formFieldComponent: FormFieldComponent,
-        value: "",
-        validators: [Validators.required],
-        valueChangesSubscribe: true,
-        args: {
-          control: {
-            items: this.simpsons,
-            disabled: false,
-            options: {
-              label: (item: Simpson, index: number) => item.fullName,
-              value: (item: any, index: number) => item,
-              disabled: (item: any, index: number) => index === 3,
-              selected: (item: any, index: number) => index === 4,
-              variant: (item: any, index: number) => index === 0 ? "danger" : "info",
-            }
-          },
-          formField: {
-            label: "Personalidad"
-          }
-        },
-        classes: {
-          formField: "mt-3 col-6",
-          control: "input-group"
-        }
-      })
+      // buttons: createPatoControl({
+      //   component: PatoButtonGroupComponent,
+      //   formFieldComponent: FormFieldComponent,
+      //   value: "",
+      //   validators: [Validators.required],
+      //   valueChangesSubscribe: true,
+      //   args: {
+      //     control: {
+      //       items: this.simpsons,
+      //       disabled: false,
+      //       options: {
+      //         label: (item: Simpson, index: number) => item.fullName,
+      //         value: (item: any, index: number) => item,
+      //         disabled: (item: any, index: number) => index === 3,
+      //         selected: (item: any, index: number) => index === 4,
+      //         variant: (item: any, index: number) => index === 0 ? "danger" : "info",
+      //       }
+      //     },
+      //     formField: {
+      //       label: "Personalidad"
+      //     }
+      //   },
+      //   classes: {
+      //     formField: "mt-3 col-6",
+      //     control: "input-group"
+      //   }
+      // })
     }
   };
 

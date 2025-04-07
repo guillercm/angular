@@ -9,10 +9,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
+import { InputComponent } from '../../components/input/input.component';
 
 @Component({
   selector: 'app-dynamic-page',
-  imports: [JsonPipe, ReactiveFormsModule],
+  imports: [JsonPipe, ReactiveFormsModule, InputComponent],
   templateUrl: './dynamic-page.component.html',
 })
 export class DynamicPageComponent {

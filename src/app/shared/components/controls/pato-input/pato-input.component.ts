@@ -65,15 +65,17 @@ export class PatoInputComponent implements OnInit, ControlValueAccessor {
     )
     .subscribe( value => {
       this.debounce.emit(value);
-      this._onTouched();
+
       if (this.submitFormOnDebounce())
       this._patoFormComponent.onSubmit();
     });
   }
 
   keyPress( searchTerm: string ) {
+    this._onTouched();
     this._onChange(searchTerm);
-    this._debouncer.next(searchTerm);
+    console.log(searchTerm)
+    // this._debouncer.next(searchTerm);
   }
 
   onBlur() {

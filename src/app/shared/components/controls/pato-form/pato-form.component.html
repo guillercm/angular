@@ -1,8 +1,9 @@
 @if (form()) {
   @let formInstance = form()!;
   <form [formGroup]="formInstance" (ngSubmit)="onSubmit()" [ngClass]="additionalClasses()" novalidate>
-    @for (key of formKeys; track $index) {
-        <pato-control [formControlName]="key"></pato-control>
+
+    @for (controlName of formControlNames(); track controlName) {
+        <pato-control [formControlName]="controlName"></pato-control>
         <!-- <ng-container patoFormControlInjectorDirective [key]="key" #formField></ng-container> -->
     }
     <div class="invalid-feedback d-block">

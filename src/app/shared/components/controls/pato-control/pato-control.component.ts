@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, computed, DestroyRef, forwardRef, inject, Injector, input, isSignal, OnInit, OutputEmitterRef, OutputRefSubscription, ViewContainerRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormControlName, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { PatoFormComponent } from '../pato-form/pato-form.component';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Args } from '@core/interfaces/args/args.interface';
@@ -73,21 +73,19 @@ export class PatoControlComponent implements OnInit, ControlValueAccessor {
       const componentRefFormField = this._componentRefFormField;
       const setInputsOutputs = (args: Partial<Args<any>> | undefined, componentRef: ComponentRef<any>) => {
         if (!args) return;
-        Object.keys(args).forEach((argProperty: string) => {
+        const keys = Object.keys(args);
+        keys.forEach((argProperty: string) => {
           const argValue = args[argProperty];
           const componentProperty = componentRef.instance[argProperty];
           switch (typeof componentProperty) {
             case 'function':
-              const nameFunction: string = componentProperty.name;
-              if (nameFunction.includes("input")) {
-                if (isSignal(argValue)) {
-                  const obs = toObservable(argValue, {
-                    injector: this._injector
-                  }).subscribe(() => componentRef.setInput(argProperty, argValue()))
-                  this._destroyRef.onDestroy(() => obs.unsubscribe());
-                } else {
-                  componentRef.setInput(argProperty, argValue)
-                }
+              if (isSignal(argValue)) {
+                const obs = toObservable(argValue, {
+                  injector: this._injector
+                }).subscribe(() => componentRef.setInput(argProperty, argValue()))
+                this._destroyRef.onDestroy(() => obs.unsubscribe());
+              } else {
+                componentRef.setInput(argProperty, argValue)
               }
               break;
             case 'object':

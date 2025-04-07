@@ -24,7 +24,7 @@ export class FormUtils {
   public static validatorSimpson(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
 
-    return value !== 'yellow' ? { simpsonError: "Los simpsons son amarillos" } : null;
+    return value !== 'yellow' ? { colorMustBeYellow: true } : null;
   }
 
   public static asycnValidatorSimpson(
@@ -33,7 +33,7 @@ export class FormUtils {
     console.log('Validando contra servidor');
 
     const value = control.value;
-    return scheduled([value !== 'yellow' ? { simpsonError: "Los simpsons son amarillos" } : null], asyncScheduler).pipe(
+    return scheduled([value !== 'yellow' ? { colorMustBeYellow: true } : null], asyncScheduler).pipe(
       delay(2000)
     );
 

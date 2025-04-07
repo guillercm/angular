@@ -26,8 +26,6 @@ export class FormFieldComponent implements OnInit, PatoFormField {
 
   private readonly _formComponent = inject(PatoFormComponent);
 
-  private readonly _appTranslateService = inject(AppTranslateService);
-
   public label = input<string>("");
 
   private _isRequired = signal(false);
