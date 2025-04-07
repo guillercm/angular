@@ -37,10 +37,10 @@ export class IssuesService {
     this._selectedLabels.update((labels) => {
       if (this.labelIsSelected(label)) {
         labels.delete(label);
-        return labels;
+      } else {
+        labels.add(label);
       }
-      labels.add(label)
-      return labels;
+      return new Set([...labels]);
     })
   }
 

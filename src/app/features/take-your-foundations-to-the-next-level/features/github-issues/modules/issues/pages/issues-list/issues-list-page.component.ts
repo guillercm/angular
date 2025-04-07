@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { IssuesService } from '../../services/issues.service';
 import { LabelsSelectorComponent } from "../../components/labels-selector/labels-selector.component";
 import { IssueItemComponent } from "../../components/issue-item/issue-item.component";
@@ -10,7 +9,7 @@ import { STATE_VALUES } from '../../../../helpers/state-values';
 @Component({
   selector: 'github-issues-issues-list-page',
   templateUrl: './issues-list-page.component.html',
-  imports: [CommonModule, RouterLink, LabelsSelectorComponent, IssueItemComponent],
+  imports: [CommonModule, LabelsSelectorComponent, IssueItemComponent],
   styleUrls: ['../../../../styles/main.scss', './issues-list-page.component.css'],
 })
 export default class IssuesListPageComponent {
