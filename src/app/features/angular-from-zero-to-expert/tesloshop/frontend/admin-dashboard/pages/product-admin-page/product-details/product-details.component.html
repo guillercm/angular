@@ -10,8 +10,8 @@
   <legend>{{ product().title }}</legend>
   <div class="row">
     <div class="col-6">
-      <pato-form [data]="dataForm" [finalFormTemplate]="finalFormTemplate" (buildForm)="buildForm($event)" (onFormSubmit)="submit($event)">
-        <ng-template #finalFormTemplate let-formValid="formValid">
+      <pato-form [data]="dataForm" [templates]="{afterFormTemplate}" (buildForm)="buildForm($event)" (formSubmit)="submit($event)">
+        <ng-template #afterFormTemplate let-formValid="formValid">
           <div class="mt-3 w-100">
             <shared-button [disabled]="!formValid" [label]="'i18n.common.save' | appTranslate" class="w-100" additionalClasses="w-100" type="submit"></shared-button>
           </div>

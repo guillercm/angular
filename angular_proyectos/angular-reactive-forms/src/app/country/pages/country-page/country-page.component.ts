@@ -25,7 +25,7 @@ export class CountryPageComponent {
     border: ['', Validators.required],
   });
 
-  onFormChanged = effect((onCleanup) => {
+  formChanged = effect((onCleanup) => {
     const regionSubscription = this.onRegionChanged();
     const countrySubscription = this.onCountryChanged();
 

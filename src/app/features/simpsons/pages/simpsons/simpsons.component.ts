@@ -108,6 +108,7 @@ export default class SimpsonsComponent {
             debounceTimer: 1000,
             placeholder: this._appTranslateService.get('i18n.features.simpsons.prueba'),
             icon: "person-circle",
+            autocomplete: false,
             debounce: (value: string) => {
               //console.log(value)
             }

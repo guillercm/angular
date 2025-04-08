@@ -1,0 +1,40 @@
+<div class="container pt-4">
+  <grcm-form [data]="dataForm" classes="row pb-4" (buildForm)="buildForm($event)" (formChange)="onChangeControl($event)"
+    (formSubmit)="onSubmit($event)" [templates]="{afterFormTemplate, after_fullName}">
+    <!-- <ng-template #before_fullName>, before_fullName
+    nombreeee antes
+    @if (control.valid) {
+      VÁLIDO
+    } @else {
+      INVÁLIDO
+    }
+  </ng-template> -->
+    <ng-template #after_fullName let-control="control">
+      <div class="invalid-feedback d-block">
+        @if (control.errors) {
+        @for (error of getErrors(control.errors); track $index) {
+        <p>{{ error }}
+        <p>
+          }
+          }
+      </div>
+    </ng-template>
+    <ng-template #afterFormTemplate let-form="form">
+      <div class="invalid-feedback d-block">
+        @if (form.errors) {
+        @for (error of getErrors(form); track $index) {
+        <p>{{ error }}
+        <p>
+          }
+          }
+      </div>
+      <div class="mt-3 col-6">
+        <shared-button label="Limpiar" variant="info" type="reset"></shared-button>
+      </div>
+      <div class="mt-3 col-6">
+        <shared-button label="Guardar" [disabled]="!form.valid" type="submit"></shared-button>
+      </div>
+    </ng-template>
+  </grcm-form>
+
+</div>

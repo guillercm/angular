@@ -1,5 +1,5 @@
-<pato-form [data]="dataForm" classes="row pb-4" (onFormSubmit)="onSubmit($event)" [finalFormTemplate]="finalFormTemplate">
-  <ng-template #finalFormTemplate let-formValid="formValid">
+<pato-form [data]="dataForm" classes="row pb-4" (formSubmit)="onSubmit($event)" [templates]="{afterFormTemplate}">
+  <ng-template #afterFormTemplate let-formValid="formValid">
     <div class="mt-3 w-100">
       <shared-button [label]="'i18n.common.register' | appTranslate" [disabled]="!formValid" class="w-100" additionalClasses="w-100" variant="info" type="submit"></shared-button>
     </div>

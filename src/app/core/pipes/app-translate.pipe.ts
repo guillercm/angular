@@ -20,9 +20,11 @@ export class AppTranslatePipe implements PipeTransform {
 
   transform(value: string | undefined, ...args: any[]): any {
     if (value === undefined) return '';
-    if (this.subscription) return this.lastValue;
+    if (this.lastValue === value) return this.lastValue;
     const params = args[0];
     let number = this._translate.getValueForPlurals(params);
+    this.subscription?.unsubscribe();
+    this.subscription = null;
     this.subscription = merge(
       ...this._translate.changesLangObservables,
     ).pipe(

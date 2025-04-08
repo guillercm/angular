@@ -1,10 +1,22 @@
-@if (form()) {
-  @let formInstance = form()!;
+@let formInstance = form();
+@if (formInstance) {
+  {{formInstance.pristine}}
   <form [formGroup]="formInstance" (ngSubmit)="onSubmit()" [ngClass]="additionalClasses()" novalidate>
-
+    @let beforeFormTemplate = templates()["beforeFormTemplate"];
+    @if (beforeFormTemplate) {
+      <ng-container *ngTemplateOutlet="beforeFormTemplate; context: {formValid: formInstance.valid}"></ng-container>
+    }
     @for (controlName of formControlNames(); track controlName) {
-        <pato-control [formControlName]="controlName"></pato-control>
-        <!-- <ng-container patoFormControlInjectorDirective [key]="key" #formField></ng-container> -->
+      @let beforeControlTemplate = templates()["before_" + controlName];
+      @let controlValid = formInstance.controls![controlName].valid;
+      @if (beforeControlTemplate) {
+        <ng-container *ngTemplateOutlet="beforeControlTemplate; context: {controlValid}"></ng-container>
+      }
+      <pato-control [formControlName]="controlName"></pato-control>
+      @let afterControlTemplate = templates()["after_" + controlName];
+      @if (afterControlTemplate) {
+        <ng-container *ngTemplateOutlet="afterControlTemplate; context: {controlValid}"></ng-container>
+      }
     }
     <div class="invalid-feedback d-block">
       @if (formInstance.errors) {
@@ -13,8 +25,9 @@
         }
       }
     </div>
-    @if (finalFormTemplate()) {
-      <ng-container *ngTemplateOutlet="finalFormTemplate(); context: {formValid: formInstance.valid}"></ng-container>
+    @let afterFormTemplate = templates()["afterFormTemplate"];
+    @if (afterFormTemplate) {
+      <ng-container *ngTemplateOutlet="afterFormTemplate; context: {formValid: formInstance.valid}"></ng-container>
     }
   </form>
 }

@@ -1,11 +1,10 @@
 import { AbstractControl, ValidationErrors, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, ViewContainerRef, computed, inject, input, signal, viewChild } from '@angular/core';
-import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
-import { AppTranslateService } from '@core/services/translate/app-translate.service';
 import { AppTranslatePipe } from "../../../../core/pipes/app-translate.pipe";
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, ViewContainerRef, computed, inject, input, signal, viewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';
+import { PatoFormField } from '../pato-form/interfaces/pato-form-field.interface';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'features-form-field',

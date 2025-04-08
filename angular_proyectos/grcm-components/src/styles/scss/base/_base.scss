@@ -1,0 +1,53 @@
+// Estilos base (elementos HTML, etc.)
+@use '../bootstrap';
+
+
+
+.cdk-drag-preview.list-group-item {
+  background-color: bootstrap.$card-bg !important;
+  padding: bootstrap.$list-group-item-padding-y bootstrap.$list-group-item-padding-x;
+  border: bootstrap.$list-group-border-width solid bootstrap.$list-group-border-color;
+  overflow: hidden;
+}
+
+.row {
+  margin: 0 !important;
+}
+.mapboxgl-ctrl-attrib-inner {
+  display: none;
+}
+.component-host-scrollable {
+  overflow: auto !important;
+}
+
+// Terminal
+html[data-bs-theme="light"] :where(.token.punctuation, .token.operator)  {
+  color: var(--bs-body-color) !important;
+}
+html[data-bs-theme="light"] :where(.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted) {
+  color: #7cb40c !important;
+}
+html[data-bs-theme="light"] :where(.token.atrule, .token.attr-value, .token.function, .token.class-name) {
+  color: #5e560f !important;
+}
+html[data-bs-theme="light"] .token.keyword {
+  color: #089ab6 !important;
+}
+
+features-simpson-card img {
+  filter: drop-shadow(5px 5px 5px #222);
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
+}
+
+features-simpson-card img:hover {
+  filter: drop-shadow(10px 10px 10px #222);
+  z-index: 1;
+  // transform: scale(1.1);
+}
+
+html[data-bs-theme="dark"] features-simpson-card img {
+  filter: drop-shadow(5px 5px 5px #ffffff);
+}
+html[data-bs-theme="dark"] features-simpson-card img:hover {
+  filter: drop-shadow(10px 10px 10px #ffffff);
+}

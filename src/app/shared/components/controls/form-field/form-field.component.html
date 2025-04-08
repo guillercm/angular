@@ -4,11 +4,11 @@
 <div class="input-group has-validation form-field-invalid">
     <ng-container #controlView></ng-container>
     <div class="invalid-feedback d-block">
-      @if (touched && errors) {
-        @for (error of getErrors(errors); track $index) {
-          <p>{{ 'i18n.common.errors.validations.' + error }}<p>
+        @if (touched && errors) {
+          @for (error of getErrors(errors); track $index) {
+            <p>{{ (('i18n.common.errors.validations.' + error) | appTranslate : errors[error] ) }}<p>
+          }
         }
-      }
     </div>
      <!-- @else {
     <div class="valid-feedback d-block">
