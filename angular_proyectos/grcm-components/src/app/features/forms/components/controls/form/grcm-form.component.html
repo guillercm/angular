@@ -1,3 +1,23 @@
+<!-- <ng-template myDirective #myDirective>
+  <p>This is one template fragment</p>
+</ng-template>
+ -->
+ <ng-template select let-data>
+  <p class="data-view">The data is: {{data}}</p>
+</ng-template>
+
+<ng-template #renderTemplate let-templateKey let-controlName>
+  @let tmpl = templates()[templateKey];
+  @if (tmpl) {
+    <ng-container *ngTemplateOutlet="tmpl; context: getDataForTemplateContext(controlName)"></ng-container>
+  }
+</ng-template>
+
+<!-- <ng-container *ngTemplateOutlet="renderTemplate; context: {
+  templateKey: 'before_' + controlName,
+  controlName: controlName
+}"></ng-container> -->
+
 @let formInstance = form();
 @if (formInstance) {
   <form [formGroup]="formInstance" (ngSubmit)="onSubmit()" [ngClass]="additionalClasses()" novalidate>

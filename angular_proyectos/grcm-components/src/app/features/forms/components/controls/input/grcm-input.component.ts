@@ -6,7 +6,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { GrcmFormComponent } from '../form/grcm-form.component';
 import { GrcmFormField } from '../form/interfaces/form-field.interface';
 
-
+// https://angular.dev/guide/directives/structural-directives#typing-the-directives-context
+// https://angular.dev/guide/directives/structural-directives
+// https://angular.dev/guide/templates/ng-template
 
 @Component({
   selector: 'grcm-input',
@@ -52,7 +54,6 @@ export class GrcmInputComponent implements OnInit, ControlValueAccessor {
 
   protected readonly type = "text";
 
-
   ngOnInit(): void {
     this.initialize();
   }
@@ -65,7 +66,6 @@ export class GrcmInputComponent implements OnInit, ControlValueAccessor {
     )
     .subscribe( value => {
       this.debounce.emit(value);
-
       if (this.submitFormOnDebounce())
       this._grcmFormComponent.onSubmit();
     });

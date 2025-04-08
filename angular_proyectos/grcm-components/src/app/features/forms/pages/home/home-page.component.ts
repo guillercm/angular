@@ -4,11 +4,11 @@ import { SharedButtonComponent } from '../../../../shared/components/button/shar
 import { GrcmDataForm } from '../../components/controls/form/interfaces/data-form.interface';
 import { createGrcmControl } from '../../components/controls/form/utils/createGrcmControl';
 import { GrcmInputComponent } from '../../components/controls/input/grcm-input.component';
-import { PlainFormFieldComponent } from '../../components/controls/plain-form-field/plain-form-field.component';
 import { FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { GrcmDataFormChange } from '../../components/controls/form/interfaces/form-change.interface';
 import { ResponseGrcmForm } from '../../components/controls/form/interfaces/response-form.interface';
 import { CommonModule } from '@angular/common';
+import { GrcmFormFieldComponent } from '../../components/controls/form-field/grcm-form-field.component';
 
 @Component({
   selector: 'forms-home-page',
@@ -25,7 +25,7 @@ export default class HomePageComponent {
     controls: {
       fullName: createGrcmControl({
         component: GrcmInputComponent,
-        formFieldComponent: PlainFormFieldComponent,
+        formFieldComponent: GrcmFormFieldComponent,
         value: "",
         validators: [Validators.required, Validators.minLength(3), Validators.maxLength(6)],
         args: {
@@ -39,7 +39,7 @@ export default class HomePageComponent {
             }
           },
           formField: {
-
+            label: "Usuario"
           }
         },
         classes: {

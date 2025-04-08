@@ -59,13 +59,11 @@ export class GrcmControlComponent implements OnInit, ControlValueAccessor {
     const { component, formFieldComponent } = this._data();
     const viewContainer = this._container();
     if (!formFieldComponent || !viewContainer) return;
-    console.log(viewContainer)
     this._componentRefFormField = viewContainer.createComponent(formFieldComponent);
     this._componentRefFormField.setInput('control', this._control())
     this._componentRefFormField.setInput('id', this._id())
     const formFieldInstance = this._componentRefFormField.instance;
     this._componentRef = formFieldInstance.controlView().createComponent(component);
-    console.log(this._componentRef)
     this._componentRef.setInput("formField", this._componentRefFormField.instance);
   }
 

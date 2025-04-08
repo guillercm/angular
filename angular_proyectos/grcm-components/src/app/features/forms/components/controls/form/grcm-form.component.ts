@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, DestroyRef, inject, input, OnInit, output, signal, TemplateRef, viewChild, viewChildren, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, computed, DestroyRef, Directive, inject, Input, input, OnInit, output, signal, TemplateRef, viewChild, viewChildren, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { distinctUntilChanged } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
@@ -10,9 +10,26 @@ import { GrcmDataFormChange } from './interfaces/form-change.interface';
 import { GenericObject } from './interfaces/generic-object.interface';
 import { GrcmFormComponentType } from './interfaces/form-component-type.interface';
 
+@Directive({
+  selector: '[select]',
+})
+export class SelectDirective implements OnInit {
+  private templateRef = inject(TemplateRef);
+  private viewContainerRef = inject(ViewContainerRef);
+
+  ngOnInit() {
+    console.log(this.templateRef.elementRef.nativeElement)
+    this.viewContainerRef.createEmbeddedView(this.templateRef, {
+      // Create the embedded view with a context object that contains
+      // the data via the key `$implicit`.
+      $implicit: "hola",
+    });
+  }
+}
+
 @Component({
   selector: 'grcm-form',
-  imports: [CommonModule, ReactiveFormsModule, GrcmControlComponent],
+  imports: [CommonModule, ReactiveFormsModule, GrcmControlComponent, SelectDirective],
   templateUrl: './grcm-form.component.html',
   styleUrl: './grcm-form.component.css'
 })
