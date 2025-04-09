@@ -100,6 +100,8 @@ export class GrcmFormFieldComponent implements OnInit, GrcmFormField {
         return `Tiene que tener como mínimo ${data.requiredLength} caracteres.`;
       case 'maxlength':
         return `Tiene que tener como máximo ${data.requiredLength} caracteres.`;
+      case 'pattern':
+        return 'La contraseña debe contener al menos una letra mayúscula, una minúscula y un símbolo especial.';
       default:
         return 'Revisa el valor ingresado.'
     }

@@ -161,6 +161,11 @@ export const featuresRoutes: Routes = [
         path: 'github-api',
         title: 'Github Api',
         loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'npm',
+        title: 'npm',
+        loadComponent: () => import('../core/components/docs/docs.component'),
       }
     ]
   },
@@ -217,8 +222,39 @@ export const featuresRoutes: Routes = [
         path: 'configuration-use',
         title: 'Configuración y uso',
         loadComponent: () => import('../core/components/docs/docs.component'),
-      },
+      }
     ]
+  },
+  {
+    path: 'testing',
+    title: 'Testing',
+    children: [
+      {
+        path: 'introduction',
+        title: 'Introducción',
+        loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'jasmine',
+        title: 'Jasmine',
+        loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'cypress',
+        title: 'Cypress',
+        loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'playwright',
+        title: 'Playwright',
+        loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'login-tests',
+        title: 'Login para pruebas',
+        loadChildren: () => import('./testing/testing.routes').then(m => m.routes)
+      }
+    ],
   },
   {
     path: '',

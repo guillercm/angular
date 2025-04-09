@@ -1,0 +1,7 @@
+{
+    "baseUrl": "url",
+    "credentials": {
+      "username": "admin",
+      "password": "admin1234"
+    }
+  }

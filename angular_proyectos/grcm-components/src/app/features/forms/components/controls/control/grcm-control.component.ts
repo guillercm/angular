@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, computed, DestroyRef, forwardRef, inject, Injector, input, isSignal, OnInit, OutputEmitterRef, OutputRefSubscription, viewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, computed, DestroyRef, forwardRef, inject, Injector, input, isSignal, OnDestroy, OnInit, OutputEmitterRef, OutputRefSubscription, viewChild, ViewContainerRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { GrcmFormComponent } from '../form/grcm-form.component';
@@ -18,7 +18,7 @@ import { Args } from '../form/interfaces/args.interface';
     }
   ]
 })
-export class GrcmControlComponent implements OnInit, ControlValueAccessor {
+export class GrcmControlComponent implements OnInit, ControlValueAccessor, OnDestroy {
 
   private readonly _injector = inject(Injector);
 
@@ -122,6 +122,12 @@ export class GrcmControlComponent implements OnInit, ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this._componentInstance()?.setDisabledState?.(isDisabled);
+  }
+
+  ngOnDestroy(): void {
+    this._componentRef.destroy();
+    this._componentRefFormField.destroy();
+    this._container()?.clear();
   }
 
 }

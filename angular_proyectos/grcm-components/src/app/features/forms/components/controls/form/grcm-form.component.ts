@@ -10,26 +10,10 @@ import { GrcmDataFormChange } from './interfaces/form-change.interface';
 import { GenericObject } from './interfaces/generic-object.interface';
 import { GrcmFormComponentType } from './interfaces/form-component-type.interface';
 
-@Directive({
-  selector: '[select]',
-})
-export class SelectDirective implements OnInit {
-  private templateRef = inject(TemplateRef);
-  private viewContainerRef = inject(ViewContainerRef);
-
-  ngOnInit() {
-    console.log(this.templateRef.elementRef.nativeElement)
-    this.viewContainerRef.createEmbeddedView(this.templateRef, {
-      // Create the embedded view with a context object that contains
-      // the data via the key `$implicit`.
-      $implicit: "hola",
-    });
-  }
-}
 
 @Component({
   selector: 'grcm-form',
-  imports: [CommonModule, ReactiveFormsModule, GrcmControlComponent, SelectDirective],
+  imports: [CommonModule, ReactiveFormsModule, GrcmControlComponent],
   templateUrl: './grcm-form.component.html',
   styleUrl: './grcm-form.component.css'
 })

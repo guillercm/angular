@@ -4,7 +4,7 @@
   </span>
 }
 <input
-    [type]="type"
+    [type]="type()"
     [placeholder]="placeholder()"
     class="form-control"
     [class.is-valid]="control().validator && control().valid && control().touched"

@@ -8,7 +8,8 @@ const environments =
   configPath: 'CONFIG_PATH',
   docsPath: 'DOCS_PATH',
   pdfPath: 'PDF_PATH',
-  timeoutSeconds: 'TIMEOUT_SECONDS'
+  timeoutSeconds: 'TIMEOUT_SECONDS',
+  playwrightTestsPath: 'PLAYWRIGHT_TESTS_PATH'
 }
 
 const { writeFileSync, mkdirSync } = require('fs');

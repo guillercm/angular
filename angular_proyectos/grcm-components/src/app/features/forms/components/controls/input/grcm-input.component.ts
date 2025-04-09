@@ -24,6 +24,8 @@ export class GrcmInputComponent implements OnInit, ControlValueAccessor {
 
   protected readonly formField = input.required<GrcmFormField>();
 
+  public type = input<'text' | 'password'>('text');
+
   public placeholder = input<string>('');
 
   public debounceTimer = input<number>(300);
@@ -51,8 +53,6 @@ export class GrcmInputComponent implements OnInit, ControlValueAccessor {
   protected readonly disabled = this._disabled.asReadonly();
 
   private _debouncer: Subject<string> = new Subject<string>();
-
-  protected readonly type = "text";
 
   ngOnInit(): void {
     this.initialize();

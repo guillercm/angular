@@ -1,0 +1,15 @@
+// Estilos de tipografía
+
+@layer base {
+
+  @font-face {
+    font-family: Stocky;
+    src: url('/static/fonts/stocky/stocky.ttf') format("truetype");
+  }
+
+  @font-face {
+    font-family: Montserrat;
+    src: url('/static/fonts/Montserrat/Montserrat-Medium.ttf') format("truetype");
+  }
+
+}

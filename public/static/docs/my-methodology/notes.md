@@ -241,6 +241,8 @@ constructor() {
 
 [tailwind](https://tailwindcss.com/docs/installation/framework-guides/angular)
 
+[tailwind-css-dashboard](https://www.creative-tim.com/twcomponents/component/tailwind-css-dashboard-1)
+
 [zoneless](https://angular.dev/guide/experimental/zoneless)
 
 [galeria de fotos para pruebas](https://flowbite.com/docs/components/gallery/)
@@ -315,3 +317,24 @@ constructor() {
   ```
   </details>
 </code-block> -->
+
+
+<!-- @Directive({
+  selector: '[select]',
+})
+export class SelectDirective implements OnInit {
+  private templateRef = inject(TemplateRef);
+  private viewContainerRef = inject(ViewContainerRef);
+
+  ngOnInit() {
+    console.log(this.templateRef.elementRef.nativeElement)
+    this.viewContainerRef.createEmbeddedView(this.templateRef, {
+      // Create the embedded view with a context object that contains
+      // the data via the key `$implicit`.
+      $implicit: "hola",
+    });
+  }
+}
+ <ng-template select let-data>
+  <p class="data-view">The data is: {{data}}</p>
+</ng-template> -->
