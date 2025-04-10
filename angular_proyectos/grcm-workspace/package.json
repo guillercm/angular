@@ -8,13 +8,17 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "grcm-components:test": "ng test grcm-components --no-watch --no-progress --browsers=ChromeHeandless",
-    "grcm-components:lint": "ng lint grcm-components",
-    "grcm-components:build": "ng build grcm-components",
-    "grcm-components:publish": "npm run grcm-components:test && npm run grcm-components:lint && grcm-components:build && npm publish dist/grcm-components",
-    "grcm-testbed-app:build": "ng build grcm-testbed-app",
+    "build:grcm-testbed-app": "ng build grcm-testbed-app",
     "start:grcm-testbed-app": "ng serve grcm-testbed-app",
-    "serve:ssr:grcm-testbed-app": "node dist/grcm-testbed-app/server/server.mjs"
+    "serve:ssr:grcm-testbed-app": "node dist/grcm-testbed-app/server/server.mjs",
+    "build:grcm-components": "ng build grcm-components",
+    "lint:grcm-components": "ng lint grcm-components",
+    "test:grcm-components": "ng test grcm-components --no-watch --no-progress --browsers=ChromeHeadless",
+    "pack:grcm-components": "cd ./dist/grcm-components && npm pack",
+    "release-major:grcm-components": "cd projects/grcm-components && npm run release -- --release-as major",
+    "release-minor:grcm-components": "cd projects/grcm-components && npm run release -- --release-as minor",
+    "release-patch:grcm-components": "cd projects/grcm-components && npm run release -- --release-as patch",
+    "publish:grcm-components": "cd dist/grcm-components && npm publish"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +55,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^19.2.0",
+    "release": "^6.3.1",
     "typescript": "~5.7.2",
     "typescript-eslint": "8.27.0"
   }

@@ -30,7 +30,8 @@ import {
   provideTanStackQuery,
   QueryClient,
   withDevtools,
-} from '@tanstack/angular-query-experimental'
+} from '@tanstack/angular-query-experimental';
+import {SsrCookieService} from 'ngx-cookie-service-ssr';
 
 registerLocaleData(localeEs);
 registerLocaleData(localeEsHN);
@@ -45,6 +46,7 @@ export const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: I18nPluralPipe },
     { provide: TitleCasePipe },
+    SsrCookieService,
     provideExperimentalZonelessChangeDetection(),
     provideTanStackQuery(new QueryClient(), withDevtools()),
     provideRouter(routes,

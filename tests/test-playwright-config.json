@@ -1,7 +1,7 @@
 {
-    "baseUrl": "url",
+    "baseUrl": "http://localhost:4201/testing",
     "credentials": {
       "username": "admin",
-      "password": "admin1234"
+      "password": "Admin1234*"
     }
   }

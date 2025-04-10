@@ -1,0 +1,30 @@
+<lib-grcm-form [data]="dataForm" classes="row pb-4" (buildForm)="buildForm($event)" (formChange)="onChangeControl($event)"
+  (formSubmit)="onSubmit($event)" [templates]="{afterFormTemplate}">
+  <!-- <ng-template #before_username>, before_username
+    nombreeee antes
+    @if (control.valid) {
+      VÁLIDO
+    } @else {
+      INVÁLIDO
+    }
+  </ng-template> -->
+  <ng-template #afterFormTemplate let-form="form">
+    <div class="invalid-feedback d-block">
+      @if (form.errors) {
+      @for (error of getErrors(form); track $index) {
+      <p>{{ error }}
+      <p>
+        }
+        }
+    </div>
+    <lib-grcm-button label="Entrar" [disabled]="form.invalid" type="submit"></lib-grcm-button>
+  </ng-template>
+</lib-grcm-form>
+@if (responseForm()) {
+  <div class="container mt-4">
+    <p>Respuesta del formulario</p>
+    <div class="highlight p-2">
+      <pre><code class="language-javascript" data-lang="js">{{responseForm()  | json }}</code></pre>
+    </div>
+  </div>
+}

@@ -4,4 +4,7 @@ Cypress es una herramienta de pruebas front-end de última generación diseñada
 
 [Documentación oficial de Cypress](https://docs.cypress.io/app/get-started/why-cypress)
 
-
+### Instalación
+```bash
+    npm install cypress --save-dev
+```

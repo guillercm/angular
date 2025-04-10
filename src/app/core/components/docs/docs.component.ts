@@ -61,9 +61,12 @@ export default class DocsComponent implements OnInit {
       codeBlock.innerHTML = ""
       codeBlock.appendChild(comp.location.nativeElement)
     });
-    Array.from(document.links)
+    const markdown = this._markdownComponent()?.element.nativeElement as HTMLElement;
+    Array.from(markdown.getElementsByTagName("img")).forEach(img => img.classList.add("mw-100"));
+    Array.from(markdown.getElementsByTagName("a"))
     .filter(link => link.hostname != window.location.hostname)
     .forEach(link => link.target = '_blank');
+    Array.from(document.links)
   }
 
 

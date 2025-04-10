@@ -166,6 +166,11 @@ export const featuresRoutes: Routes = [
         path: 'npm',
         title: 'npm',
         loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'cookies',
+        title: 'Cookies',
+        loadComponent: () => import('../core/components/docs/docs.component'),
       }
     ]
   },

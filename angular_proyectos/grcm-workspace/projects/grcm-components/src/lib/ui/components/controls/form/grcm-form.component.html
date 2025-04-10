@@ -1,0 +1,38 @@
+
+
+<ng-template #renderTemplate let-templateKey let-controlName>
+  @let tmpl = templates()[templateKey];
+  @if (tmpl) {
+    <ng-container *ngTemplateOutlet="tmpl; context: getDataForTemplateContext(controlName)"></ng-container>
+  }
+</ng-template>
+
+<!-- <ng-container *ngTemplateOutlet="renderTemplate; context: {
+  templateKey: 'before_' + controlName,
+  controlName: controlName
+}"></ng-container> -->
+
+@let formInstance = form();
+@if (formInstance) {
+  <form [formGroup]="formInstance" (ngSubmit)="onSubmit()" [ngClass]="additionalClasses()" novalidate>
+    @let beforeFormTemplate = templates()["beforeFormTemplate"];
+    @if (beforeFormTemplate) {
+      <ng-container *ngTemplateOutlet="beforeFormTemplate; context: getDataForTemplateContext()"></ng-container>
+    }
+    @for (controlName of formControlNames(); track controlName) {
+      @let beforeControlTemplate = templates()["before_" + controlName];
+      @if (beforeControlTemplate) {
+        <ng-container *ngTemplateOutlet="beforeControlTemplate; context: getDataForTemplateContext(controlName)"></ng-container>
+      }
+      <lib-grcm-control [formControlName]="controlName"></lib-grcm-control>
+      @let afterControlTemplate = templates()["after_" + controlName];
+      @if (afterControlTemplate) {
+        <ng-container *ngTemplateOutlet="afterControlTemplate; context: getDataForTemplateContext(controlName)"></ng-container>
+      }
+    }
+    @let afterFormTemplate = templates()["afterFormTemplate"];
+    @if (afterFormTemplate) {
+      <ng-container *ngTemplateOutlet="afterFormTemplate; context: getDataForTemplateContext()"></ng-container>
+    }
+  </form>
+}

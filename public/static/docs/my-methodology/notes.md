@@ -337,4 +337,8 @@ export class SelectDirective implements OnInit {
 }
  <ng-template select let-data>
   <p class="data-view">The data is: {{data}}</p>
-</ng-template> -->
+</ng-template> 
+ https://angular.dev/guide/directives/structural-directives#typing-the-directives-context
+ https://angular.dev/guide/directives/structural-directives
+ https://angular.dev/guide/templates/ng-template
+-->

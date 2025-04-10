@@ -1,6 +1,17 @@
 {
-  "name": "grcm-components",
+  "name": "grcm-components_",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guillercm/grcm-workspace"
+  },
+  "keywords": ["grcm", "forms"],
+  "author": "Guillermo Ruiz-Cortina Martínez",
+  "bugs": {
+    "url": "https://github.com/guillercm/grcm-workspace/issues"
+  },
+  "license": "MIT",
+  "homepage": "https://guillercm.github.io/guillercm/",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0"

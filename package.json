@@ -14,7 +14,10 @@
     "sass:watch": "cd src/styles && sass --watch scss/main.scss:css/main.css",
     "test": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "test:coverage": "ng test --code-coverage",
-    "serve:ssr:angular": "node dist/angular/server/server.mjs"
+    "serve:ssr:angular": "node dist/angular/server/server.mjs",
+    "test:playwright": "npx playwright test",
+    "test:playwright:ui": "npx playwright test --ui",
+    "test:playwright:report": "npx playwright show-report"
   },
   "private": true,
   "dependencies": {
@@ -43,9 +46,11 @@
     "bootstrap-icons": "^1.11.3",
     "dotenv": "^16.4.7",
     "express": "^4.18.2",
+    "grcm-components_": "^0.0.1",
     "json-server": "^1.0.0-beta.3",
     "mapbox-gl": "^3.10.0",
     "marked": "^15.0.6",
+    "ngx-cookie-service-ssr": "^19.1.2",
     "ngx-markdown": "^19.0.0",
     "polyline": "^0.2.0",
     "postcss": "^8.5.3",
