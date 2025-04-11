@@ -58,7 +58,7 @@ $custom-classes: (
   $breakpoints: if(map.has-key($config, breakpoints), map.get($config, breakpoints), ());
 
   @each $value, $output in $values {
-    .#{$class}-#{$value} #{$state} {
+    .#{$class}-#{$value}#{$state} {
       #{$property}: #{if($output, $output, $value)}#{$unit}#{if($important, ' !important', '')};
     }
   }
