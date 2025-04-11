@@ -103,7 +103,7 @@ Tendremos que importar la directiva o el pipe, según que queramos usar a nuestr
   ```typescript
   {{ 'app.hello' | translate }}
 
-  {{ 'app.hello' | translate:{value: name()} }}
+  {{ 'app.hello' | translate:{value: name()}}}
 
   app.hello
   ```
