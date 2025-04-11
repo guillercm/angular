@@ -7,6 +7,7 @@ import { AppConfigService } from '../configuration/app-config.service';
 import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { I18nPluralService } from '../i18nPlural/i18n-plural.service';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { CookiesService } from '../session/cookies.service';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class AppTranslateService {
 
   private readonly _destroyRef = inject(DestroyRef);
 
-  private readonly _ssrCookiesService = inject(SsrCookieService);
+  private readonly _cookiesService = inject(CookiesService);
 
   private readonly _configService = inject(AppConfigService);
 
@@ -37,16 +38,20 @@ export class AppTranslateService {
     this.initialize();
   }
 
-  initialize() {
+  private initialize() {
     this._translate.addLangs(this._configService.config().languages.availables);
   }
 
-  useLang(language?: string) {
+  public useLang(language?: string) {
     if (!language) return;
-    // this._translate.setDefaultLang(language);
     this._currentLang.set(language);
     this._translate.use(language);
-    this._ssrCookiesService.set('lang', language)
+    this._cookiesService.set('lang', language)
+  }
+
+  initializeLang() {
+    const cookie = this._cookiesService.get('lang', this._configService.config().languages.default);
+    this.useLang(cookie);
   }
 
 

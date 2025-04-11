@@ -95,6 +95,12 @@ export const featuresRoutes: Routes = [
         loadComponent: () => import('../core/components/pdf/pdf.component'),
       },
       {
+        path: 'angular-certificate',
+        title: 'Certificado',
+        data: {pdf: 'angular-certificate'},
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
+      },
+      {
         path: 'refactoring-ui',
         title: 'Refactoring UI',
         data: {pdf: 'refactoring-ui'},
@@ -167,11 +173,17 @@ export const featuresRoutes: Routes = [
         title: 'npm',
         loadComponent: () => import('../core/components/docs/docs.component'),
       },
+      // {
+      //   path: 'cookies',
+      //   title: 'Cookies',
+      //   loadComponent: () => import('../core/components/docs/docs.component'),
+      // }
       {
-        path: 'cookies',
-        title: 'Cookies',
-        loadComponent: () => import('../core/components/docs/docs.component'),
-      }
+        path: 'angular-pro-certificate',
+        title: 'Certificado',
+        data: {pdf: 'angular-pro-certificate'},
+        loadComponent: () => import('../core/components/pdf/pdf.component'),
+      },
     ]
   },
   {
