@@ -19,9 +19,9 @@
     "test:playwright:ui": "npx playwright test --ui",
     "test:playwright:report": "npx playwright show-report",
     "build:href": "ng build --base-href ./",
-    "delete:docs": "del docs",
+    "delete:docs": "rmdir docs -r",
     "copy:dist": "xcopy dist\\angular\\browser docs\\ /s /e /h",
-    "build:github": "npm run delete:docs && npm run build:href && npm run copy:dist"
+    "build:github": "npm run delete:docs & npm run build:href && npm run copy:dist"
   },
   "private": true,
   "dependencies": {
