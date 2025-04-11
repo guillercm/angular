@@ -1,0 +1,1 @@
+import"./chunk-75BJGDCN.js";var t=[{path:"",loadComponent:()=>import("./chunk-IXQY5INN.js"),children:[{path:"auth",children:[{path:"login",loadComponent:()=>import("./chunk-WRMB6JCA.js")},{path:"**",redirectTo:"login"}]},{path:"**",redirectTo:"auth"}]}];export{t as routes};

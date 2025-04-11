@@ -17,7 +17,11 @@
     "serve:ssr:angular": "node dist/angular/server/server.mjs",
     "test:playwright": "npx playwright test",
     "test:playwright:ui": "npx playwright test --ui",
-    "test:playwright:report": "npx playwright show-report"
+    "test:playwright:report": "npx playwright show-report",
+    "build:href": "ng build --base-href ./",
+    "delete:docs": "del docs",
+    "copy:dist": "copyfiles dist/angular/browser/* ./docs -f",
+    "build:github": "npm run delete:docs && npm run build:href && npm run copy:dist"
   },
   "private": true,
   "dependencies": {
@@ -44,6 +48,7 @@
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "copyfiles": "^2.4.1",
     "dotenv": "^16.4.7",
     "express": "^4.18.2",
     "grcm-components_": "^0.0.1",

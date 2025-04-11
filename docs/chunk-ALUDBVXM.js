@@ -1,0 +1,1 @@
+var t={production:!1,configPath:"static/config.json",docsPath:"static/docs/{filename}.md",pdfPath:"/static/pdf/{filename}.pdf",timeoutSeconds:3,playwrightTestsPath:"tests/test-playwright-config.json"};export{t as a};

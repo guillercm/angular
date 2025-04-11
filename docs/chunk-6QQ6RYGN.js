@@ -1,0 +1,2 @@
+import{c as u}from"./chunk-VGIZYUEZ.js";import"./chunk-GTJUILT2.js";import"./chunk-KP3CEOU7.js";import{Db as n,bc as a,cc as l,dc as s,sc as i}from"./chunk-MHIS6V2U.js";import"./chunk-75BJGDCN.js";var t=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=n({type:o,selectors:[["features-layout"]],decls:3,vars:0,consts:[[1,"text-3xl","font-bold","underline"]],template:function(e,m){e&1&&(a(0,"h2",0),i(1,` Angular Pro: Lleva tus bases al siguiente nivel
+`),l(),s(2,"router-outlet"))},dependencies:[u],encapsulation:2})};export{t as default};
