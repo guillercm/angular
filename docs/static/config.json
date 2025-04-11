@@ -1,0 +1,140 @@
+{
+  "apis": {
+    "simpsons": {
+      "baseUrl": "http://localhost:3001",
+      "endpoints": {
+        "getSimpsons": "/simpsons",
+        "getSimpsonById": "/simpsons/{id}"
+      }
+    },
+    "gifs": {
+      "baseUrl": "https://api.giphy.com/v1/gifs",
+      "apiKey": "LTzWS1dhphwtkpsWkEwh8nMjQrKRMSF4",
+      "endpoints": {
+        "search": "/search"
+      }
+    },
+    "countries": {
+      "baseUrl": "https://restcountries.com/v3.1",
+      "endpoints": {
+        "searchCountryByAlphaCode": "/alpha/{code}",
+        "searchCapital": "/capital/{capital}",
+        "searchCountry": "/name/{country}",
+        "searchRegion": "/region/{region}"
+      }
+    },
+    "mapbox": {
+      "baseUrl": "https://api.mapbox.com",
+      "apiKey": "pk.eyJ1IjoiZ3VpbGxlMzIyIiwiYSI6ImNtNm1oOGR5cjBmbzAya3NtNmgyNTRlaTAifQ.eDSKFHVd3Igasd503Rr6aw",
+      "endpoints": {
+        "getDirections": "/directions/v5/mapbox/{profile}/{startLong},{startLat};{endLong},{endLat}",
+        "getPlaces": "/search/geocode/v6/forward"
+      }
+    },
+    "tesloshop": {
+      "baseUrl": "http://localhost:3000/api",
+      "endpoints": {
+        "login": "/auth/login",
+        "register": "/auth/register",
+        "checkStatus": "/auth/check-status",
+        "getProducts": "/products",
+        "getProductByIdSlug": "/products/{idSlug}",
+        "getProductById": "/products/{id}",
+        "updateProduct": "/products/{id}",
+        "createProduct": "/products",
+        "uploadImage": "/files/product"
+      }
+    },
+    "pokemons": {
+      "baseUrl": "https://pokeapi.co/api/v2",
+      "endpoints": {
+        "getPokemons": "/pokemon?offset={page}&limit={limit}",
+        "getPokemonById": "/pokemon/{id}"
+      }
+    }
+  },
+  "errors": {
+    "httpStatus": {
+      "generic": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.unknownError",
+            "message": "i18n.common.errors.unexpectedError"
+          }
+        }
+      },
+      "404": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.resourceNotFound",
+            "message": "i18n.common.errors.resourceMoved"
+          },
+          "page": {
+            "status": 404,
+            "title": "i18n.common.errors.pageNotFound",
+            "message": "i18n.common.errors.verifyUrl",
+            "img": "404.png",
+            "button": {
+              "route": "/",
+              "label": "i18n.common.backToHome"
+            }
+          }
+        }
+      },
+      "422": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.unprocessableEntity",
+            "message": "i18n.common.errors.verifyData"
+          }
+        }
+      },
+      "500": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.serverError",
+            "message": "i18n.common.errors.workingOnIt"
+          },
+          "page": {
+            "status": 500,
+            "title": "i18n.common.errors.serverError",
+            "message": "i18n.common.errors.workingOnIt",
+            "img": "500.png",
+            "button": {
+              "route": "/",
+              "label": "i18n.common.backToHome"
+            }
+          }
+        }
+      },
+      "408": {
+        "data": {
+          "modal": {
+            "title": "i18n.common.errors.timeout",
+            "message": "i18n.common.errors.checkConnection"
+          }
+        }
+      }
+    },
+    "validations": {
+      "auth": {
+        "email": {
+          "unique": {
+            "data": {
+              "modal": {
+                "title": "i18n.common.errors.serverError",
+                "message": "i18n.common.errors.theEmailAlreadyExists"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "languages": {
+    "availables": [
+      "es"
+    ],
+    "default": "es"
+  }
+}

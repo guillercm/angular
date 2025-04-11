@@ -1,0 +1,141 @@
+{
+  "i18n": {
+    "common": {
+      "placeholderSearch": "Buscar...",
+      "description": "Descripción",
+      "details": "Detalles",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "register": "Regístrate",
+      "authentication": "Autenticación",
+      "repeatPassoword": "Repite la contraseña",
+      "fullName": "Nombre completo",
+      "doNotHaveAccount": "¿No tienes cuenta?",
+      "haveAccount": "¿Tienes ya una cuenta?",
+      "createAccountHere": "Crea una cuenta aquí",
+      "availableLanguages": "Este proyecto está disponible en estos idiomas:",
+      "es": "Español",
+      "en": "Inglés",
+      "for": "Para",
+      "backToHome": "Volver al inicio",
+      "imageNotAvailable": "Imagen no disponible",
+      "inventory": "Inventario",
+      "login": "Iniciar sesión",
+      "logout": "Cerrar sesión",
+      "name": "Nombre",
+      "price": "Precio",
+      "save": "Guardar",
+      "search": "Buscar",
+      "slug": "Url Amigable",
+      "stock": "Existencias disponibles",
+      "tags": "Etiquetas",
+      "title": "Título",
+      "welcome": "Bienvenido",
+      "man": {
+        "=1": "Hombre",
+        "other": "Hombres"
+      },
+      "women": {
+        "=1": "Mujer",
+        "other": "Mujeres"
+      },
+      "adminPanel": "Panel de administración",
+      "children": "Niños",
+      "female": "Femenino",
+      "male": "Masculino",
+      "unisex": "Unisex",
+      "time": {
+        "hours": {
+          "=0": "",
+          "=1": "1 hora",
+          "other": "{{ hours }} horas"
+        },
+        "minutes": {
+          "=0": "",
+          "=1": "1 minuto",
+          "other": "{{ minutes }} minutos"
+        }
+      },
+      "distance": {
+        "meters": {
+          "=0": "",
+          "=1": "1 metro",
+          "other": "{{ meters }} metros"
+        },
+        "kilometers": {
+          "=0": "",
+          "=1": "1 kilómetro",
+          "other": "{{ kilometers }} kilómetros"
+        }
+      },
+      "dateUpdated": "Datos actualizados correctamente",
+      "requiredFieldTag": "*",
+      "optionalFieldTag": "(opcional)",
+      "errors": {
+        "unknownError": "Error desconocido",
+        "unexpectedError": "Se ha producido un error inesperado. Por favor, intenta nuevamente más tarde o contacta con soporte.",
+        "resourceNotFound": "Recurso no encontrado",
+        "resourceMoved": "El recurso que estás intentando acceder no está disponible o ha sido movido.",
+        "pageNotFound": "Página no encontrada",
+        "verifyUrl": "Lo sentimos, no pudimos encontrar la página que estás buscando. Por favor, verifica la URL o vuelve al inicio.",
+        "unprocessableEntity": "Entidad no procesable",
+        "verifyData": "Los datos enviados contienen errores o no cumplen con los requisitos esperados. Por favor, verifica la información e inténtalo de nuevo.",
+        "serverError": "Oops! Algo salió mal.",
+        "workingOnIt": "Estamos trabajando para solucionarlo. Por favor, inténtalo de nuevo más tarde.",
+        "timeout": "Tiempo de espera agotado",
+        "checkConnection": "El servidor tardó demasiado en responder. Por favor, verifica tu conexión o inténtalo de nuevo.",
+        "theEmailAlreadyExists": "El correo {{ email }} que intentaste usar ya está asociado a una cuenta existente.",
+        "validations": {
+          "generic": "El valor introducido no es correcto.",
+          "required": "Este campo es obligatorio",
+          "minlength": {
+            "=1": "Tiene que tener como mínimo 1 carácter.",
+            "other": "Tiene que tener como mínimo {{ requiredLength }} caracteres."
+          },
+          "maxlength": {
+            "=1": "Tiene que tener como máximo 1 caracter.",
+            "other": "Tiene que tener como máximo {{ requiredLength }} carácteres."
+          },
+          "min": "El mínimo tiene que ser de {{ min }}",
+          "max": "El máximo tiene que ser de {{ max }}",
+          "email": "Tiene que ser un correo válido.",
+          "pattern": "El valor no comple con los requisitos.",
+          "passwordsNotEqual": "Las contraseñas deben coincidir.",
+          "incorrectPassword": "La contraseña es incorrecta.",
+          "colorMustBeYellow": "El color tiene que ser amarillo"
+        }
+      }
+    },
+    "features": {
+      "simpsons": {
+        "prueba": "Escribe aqui"
+      },
+      "mapbox": {
+        "appName": "Mapas",
+        "titleStyle": "Estilo del mapa",
+        "zoom": "Zoom",
+        "showCoords": "Mostrar coordenadas",
+        "rain": "Lluvia",
+        "snow": "Nieve",
+        "btnChangeStyle": "Cambiar estilo del mapa",
+        "btnSavedPlaces": "Ver lugares guardados",
+        "titleSavedPlaces": "Lugares guardados",
+        "emtySavePlace": "No hay lugares guardados",
+        "getToAPlace": "Cómo llegar",
+        "nextPlace": "Para ir a {{value}}:",
+        "drivingTraffic": "Para ir en vehículo teniendo en cuenta las condiciones de tráfico actuales e históricas para evitar demoras.",
+        "driving": "Para ir en vehículo con las rutas más rápidas, dando preferencia a las carreteras de alta velocidad, como las autopistas.",
+        "walking": "Para rutas de peatones y excursionistas.",
+        "cycling": "Para rutas en bicicleta.",
+        "itineraryResume": "{{ time }} ({{ distance }}), para llegar a {{ place }}."
+      },
+      "tesloshop": {
+        "allProducts": "Todos los productos",
+        "productList": "Listado de productos",
+        "newProduct": "Nuevo producto",
+        "checkProduct": "Ver producto",
+        "productListEmpty": "No hay productos"
+      }
+    }
+  }
+}

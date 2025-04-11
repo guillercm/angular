@@ -20,7 +20,7 @@
     "test:playwright:report": "npx playwright show-report",
     "build:href": "ng build --base-href ./",
     "delete:docs": "del docs",
-    "copy:dist": "copyfiles dist/angular/browser/* ./docs -f",
+    "copy:dist": "xcopy dist\\angular\\browser docs\\ /s /e /h",
     "build:github": "npm run delete:docs && npm run build:href && npm run copy:dist"
   },
   "private": true,

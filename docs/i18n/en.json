@@ -1,0 +1,140 @@
+{
+  "i18n": {
+    "common": {
+      "placeholderSearch": "Search...",
+      "description": "Description",
+      "details": "Details",
+      "email": "Email",
+      "password": "Password",
+      "register": "Register",
+      "authentication": "Authentication",
+      "repeatPassoword": "Repeat Password",
+      "fullName": "Full Name",
+      "doNotHaveAccount": "Don't have an account?",
+      "haveAccount": "Already have an account?",
+      "createAccountHere": "Create an account here",
+      "availableLanguages": "This project is available in these languages:",
+      "es": "Spanish",
+      "en": "English",
+      "for": "For",
+      "backToHome": "Back to Home",
+      "imageNotAvailable": "Image not available",
+      "inventory": "Inventory",
+      "login": "Login",
+      "logout": "Logout",
+      "name": "Name",
+      "price": "Price",
+      "save": "Save",
+      "search": "Search",
+      "slug": "Friendly URL",
+      "stock": "Available Stock",
+      "tags": "Tags",
+      "title": "Title",
+      "welcome": "Welcome",
+      "man": {
+        "=1": "Man",
+        "other": "Men"
+      },
+      "women": {
+        "=1": "Woman",
+        "other": "Women"
+      },
+      "adminPanel": "Admin Panel",
+      "children": "Children",
+      "female": "Female",
+      "male": "Male",
+      "unisex": "Unisex",
+      "time": {
+        "hours": {
+          "=0": "",
+          "=1": "1 hour",
+          "other": "{{ hours }} hours"
+        },
+        "minutes": {
+          "=0": "",
+          "=1": "1 minute",
+          "other": "{{ minutes }} minutes"
+        }
+      },
+      "distance": {
+        "meters": {
+          "=0": "",
+          "=1": "1 meter",
+          "other": "{{ meters }} meters"
+        },
+        "kilometers": {
+          "=0": "",
+          "=1": "1 kilometer",
+          "other": "{{ kilometers }} kilometers"
+        }
+      },
+      "dateUpdated": "Data updated correctly",
+      "requiredFieldTag": "*",
+      "optionalFieldTag": "(optional)",
+      "errors": {
+        "unknownError": "Unknown error",
+        "unexpectedError": "An unexpected error occurred. Please try again later or contact support.",
+        "resourceNotFound": "Resource not found",
+        "resourceMoved": "The resource you are trying to access is not available or has been moved.",
+        "pageNotFound": "Page not found",
+        "verifyUrl": "Sorry, we couldn't find the page you are looking for. Please check the URL or go back to the home page.",
+        "unprocessableEntity": "Unprocessable entity",
+        "verifyData": "The submitted data contains errors or does not meet the expected requirements. Please check the information and try again.",
+        "serverError": "Oops! Something went wrong.",
+        "workingOnIt": "We are working to fix it. Please try again later.",
+        "timeout": "Timeout",
+        "checkConnection": "The server took too long to respond. Please check your connection or try again.",
+        "theEmailAlreadyExists": "The email {{ email }} you tried to use is already associated with an existing account.",
+        "validations": {
+          "generic": "The entered value is incorrect.",
+          "required": "This field is required",
+          "minlength": {
+            "=1": "It must be at least 1 character long.",
+            "other": "It must be at least {{ requiredLength }} characters long."
+          },
+          "maxlength": {
+            "=1": "It must be at most 1 character long.",
+            "other": "It must be at most {{ requiredLength }} characters long."
+          },
+          "min": "The minimum must be {{ min }}",
+          "max": "The maximum must be {{ max }}",
+          "email": "It must be a valid email.",
+          "passwordsNotEqual": "Passwords must match.",
+          "incorrectPassword": "The password is incorrect.",
+          "colorMustBeYellow": "The color must be yellow"
+        }
+      }
+    },
+    "features": {
+      "simpsons": {
+        "prueba": "Write here"
+      },
+      "mapbox": {
+        "appName": "Maps",
+        "titleStyle": "Map Style",
+        "zoom": "Zoom",
+        "showCoords": "Show Coordinates",
+        "rain": "Rain",
+        "snow": "Snow",
+        "btnChangeStyle": "Change Map Style",
+        "btnSavedPlaces": "View Saved Places",
+        "titleSavedPlaces": "Saved Places",
+        "emtySavePlace": "No saved places",
+        "getToAPlace": "How to get there",
+        "nextPlace": "To go to {{value}}:",
+        "drivingTraffic": "To drive considering current and historical traffic conditions to avoid delays.",
+        "driving": "To drive with the fastest routes, prioritizing high-speed roads like highways.",
+        "walking": "For pedestrian and hiking routes.",
+        "cycling": "For cycling routes.",
+        "itineraryResume": "{{ time }} ({{ distance }}), to get to {{ place }}."
+      },
+      "tesloshop": {
+        "allProducts": "All products",
+        "productList": "Product list",
+        "newProduct": "New product",
+        "checkProduct": "See product",
+        "productListEmpty": "No products"
+      }
+    }
+  }
+}
