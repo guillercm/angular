@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {GrcmExampleLoginComponent} from 'grcm-components_';
+import {GrcmExampleLoginComponent} from 'grcm-components';
 @Component({
   selector: 'testing-login',
   imports: [GrcmExampleLoginComponent],
