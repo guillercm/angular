@@ -1,6 +1,5 @@
 @let formInstance = form();
 @if (formInstance) {
-  {{formInstance.pristine}}
   <form [formGroup]="formInstance" (ngSubmit)="onSubmit()" [ngClass]="additionalClasses()" novalidate>
     @let beforeFormTemplate = templates()["beforeFormTemplate"];
     @if (beforeFormTemplate) {
