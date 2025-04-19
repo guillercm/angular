@@ -12,7 +12,7 @@ import { filter } from 'rxjs';
   styleUrl: './item-menu.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ItemMenuComponent implements OnInit {
+export class ItemMenuComponent {
 
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -24,38 +24,10 @@ export class ItemMenuComponent implements OnInit {
 
   public readonly navigate = output<string>();
 
-  private _url = signal<string>("");
-
   protected isCollapsed = model<boolean>(false);
 
   protected toggleCollapse() {
     this.isCollapsed.update((isCollapsed) => !isCollapsed)
   }
 
-  ngOnInit(): void {
-    this.initialize();
-  }
-
-  private initialize() {
-    this._url.set(this._router.url);
-    this._router.events
-      .pipe(
-        takeUntilDestroyed(this._destroyRef),
-        filter(event => event instanceof NavigationEnd)
-      )
-      .subscribe((event: NavigationEnd) => {
-        this._url.set(event.urlAfterRedirects);
-      });
-  }
-
-  protected isItemActive(childrenPath?: string) {
-    return this._url().endsWith(("/" + this.route().path + (childrenPath ? "/" + childrenPath : '')))
-  }
-
-
-  protected navigateAction(childrenPath?: string) {
-    const path = this.route().path + (childrenPath ? "/" + childrenPath : '');
-    this.navigate.emit(path);
-    this._router.navigate([path]);
-  }
 }

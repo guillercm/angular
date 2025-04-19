@@ -1,7 +1,27 @@
 import { Routes } from '@angular/router';
-import { FlexCssComponent } from './my-methodology/pages/flex-css/flex-css.component';
 
 export const featuresRoutes: Routes = [
+  {
+    path: 'initiation',
+    title: 'Inicio',
+    loadComponent: () => import('./my-methodology/pages/my-methodology/my-methodology.component'),
+    children: [
+      {
+        path: 'introduction',
+        title: 'Introducción',
+        loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: 'notes',
+        title: 'Notas',
+        loadComponent: () => import('../core/components/docs/docs.component'),
+      },
+      {
+        path: '**',
+        redirectTo: 'introduction'
+      }
+    ]
+  },
   {
     title: 'Angular de cero a experto',
     path: 'angular-from-zero-to-expert',
@@ -105,6 +125,10 @@ export const featuresRoutes: Routes = [
         title: 'Refactoring UI',
         data: {pdf: 'refactoring-ui'},
         loadComponent: () => import('../core/components/pdf/pdf.component'),
+      },
+      {
+        path: '**',
+        redirectTo: 'mapbox'
       }
     ]
   },
@@ -184,6 +208,10 @@ export const featuresRoutes: Routes = [
         data: {pdf: 'angular-pro-certificate'},
         loadComponent: () => import('../core/components/pdf/pdf.component'),
       },
+      {
+        path: '**',
+        redirectTo: 'npm'
+      }
     ]
   },
   {
@@ -203,28 +231,11 @@ export const featuresRoutes: Routes = [
       },
     ]
   },
-  {
-    path: 'simpsons',
-    title: 'Simpsons',
-    loadComponent: () => import('./simpsons/pages/simpsons/simpsons.component'),
-  },
-  {
-    path: 'my-methodology',
-    title: 'Mi metodología',
-    loadComponent: () => import('./my-methodology/pages/my-methodology/my-methodology.component'),
-    children: [
-      {
-        path: 'notes',
-        title: 'Notas',
-        loadComponent: () => import('../core/components/docs/docs.component'),
-      },
-      {
-        path: 'flexbox',
-        title: 'Flexbox',
-        component: FlexCssComponent
-      }
-    ]
-  },
+  // {
+  //   path: 'simpsons',
+  //   title: 'Simpsons',
+  //   loadComponent: () => import('./simpsons/pages/simpsons/simpsons.component'),
+  // },
   {
     path: 'markdown',
     title: 'Markdown',
@@ -252,13 +263,13 @@ export const featuresRoutes: Routes = [
         loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
-        path: 'jasmine',
-        title: 'Jasmine',
-        loadComponent: () => import('../core/components/docs/docs.component'),
+        path: 'login-tests',
+        title: 'Login para pruebas',
+        loadChildren: () => import('./testing/testing.routes').then(m => m.routes)
       },
       {
-        path: 'cypress',
-        title: 'Cypress',
+        path: 'jasmine',
+        title: 'Jasmine',
         loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
@@ -267,15 +278,15 @@ export const featuresRoutes: Routes = [
         loadComponent: () => import('../core/components/docs/docs.component'),
       },
       {
-        path: 'login-tests',
-        title: 'Login para pruebas',
-        loadChildren: () => import('./testing/testing.routes').then(m => m.routes)
+        path: 'cypress',
+        title: 'Cypress',
+        loadComponent: () => import('../core/components/docs/docs.component'),
       }
     ],
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'angular-from-zero-to-expert'
+    redirectTo: 'initiation'
   }
 ];
