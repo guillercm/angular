@@ -1,9 +1,0 @@
-<form class="row" (ngSubmit)="emitCharacter()">
-  <input type="text" [(ngModel)]="character.name" name="name" class="form-control mb-2" placeholder="Nombre">
-  <input type="number" [(ngModel)]="character.power" name="power" class="form-control mb-2" placeholder="Poder" min="0">
-  <button type="submit" class="btn btn-primary">
-    Agregar
-  </button>
-  <span *ngIf="error" [class.bg-danger]="error">{{ error }}</span>
-  <pre>{{ character | json}}</pre>
-</form>

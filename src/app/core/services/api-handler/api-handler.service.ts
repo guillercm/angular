@@ -32,10 +32,10 @@ export class ApiHandlerService {
     return this._httpClient.delete<T>(url, {...options, context: context, responseType: options?.responseType ? options?.responseType as 'json' : 'json'}).pipe(shareReplay(1));
   }
 
-  public put<T>(url: string, options?: ApiHandlerParams): Observable<T> {
+  public put<T>(url: string, body: any, options?: ApiHandlerParams): Observable<T> {
     const context = this.getContext(url, options);
     url = this.setPathParams(url, options);
-    return this._httpClient.put<T>(url, {...options, context: context, responseType: options?.responseType ? options?.responseType as 'json' : 'json'}).pipe(shareReplay(1));
+    return this._httpClient.put<T>(url, body, {...options, context: context, responseType: options?.responseType ? options?.responseType as 'json' : 'json'}).pipe(shareReplay(1));
   }
 
   public patch<T>(url: string, body: any, options?: ApiHandlerParams): Observable<T> {
@@ -43,6 +43,8 @@ export class ApiHandlerService {
     url = this.setPathParams(url, options);
     return this._httpClient.patch<T>(url, body, {...options, context: context, responseType: options?.responseType ? options?.responseType as 'json' : 'json'}).pipe(shareReplay(1));
   }
+
+
 
   public getEndpoint(api: WritableSignal<Api | null>, endpoint: string) {
     const configApi = api();
