@@ -10,4 +10,3 @@ Para instalar este paquete ejecutaremos:
   npm i @ngx-translate/http-loader
   ```
 </code-block>
-

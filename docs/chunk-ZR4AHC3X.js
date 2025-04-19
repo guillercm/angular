@@ -1,1 +1,0 @@
-import{Gb as i}from"./chunk-MHIS6V2U.js";var n=class r{transform(e){return[...Array.from({length:e},(t,a)=>a+1)]}static \u0275fac=function(t){return new(t||r)};static \u0275pipe=i({name:"sharedRepeat",type:r,pure:!0})};export{n as a};

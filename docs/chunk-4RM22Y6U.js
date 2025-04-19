@@ -1,0 +1,1 @@
+import"./chunk-75BJGDCN.js";var o=[{path:"",loadComponent:()=>import("./chunk-P2YWVWGG.js"),children:[{path:"pokemons/:id",loadComponent:()=>import("./chunk-L7V2WWIM.js")},{path:"pokemons",loadComponent:()=>import("./chunk-R6E5NLY6.js")},{path:"**",redirectTo:()=>"pokemons"}]}];export{o as routes};

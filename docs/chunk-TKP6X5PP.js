@@ -1,1 +1,0 @@
-import{ea as a}from"./chunk-MHIS6V2U.js";var n=class p{adapt(u,t){return t(u)}adaptArray(u,t){return u.map(i=>this.adapt(i,t))}static \u0275fac=function(t){return new(t||p)};static \u0275prov=a({token:p,factory:p.\u0275fac,providedIn:"root"})};export{n as a};
