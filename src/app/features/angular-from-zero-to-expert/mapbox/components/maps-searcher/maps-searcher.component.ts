@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DestroyRef, inject, Injector, signal, ViewContainerRef } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal, ViewContainerRef } from '@angular/core';
 import { createPatoControl } from '@shared/components/controls/pato-form/utils/createPatoControl.function';
 import { PatoDataForm } from '@shared/components/controls/pato-form/interfaces/data-form.interface';
 import { PatoFormComponent } from '@shared/components/controls/pato-form/pato-form.component';

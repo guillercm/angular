@@ -1,7 +1,10 @@
-import { Directive, ElementRef, HostListener, inject, output, computed } from '@angular/core';
+import { Directive, ElementRef, inject, output } from '@angular/core';
 
 @Directive({
-  selector: '[sharedClickOutside]'
+  selector: '[sharedClickOutside]',
+  host: {
+    '(document:click)': 'documentClick($event)'
+  }
 })
 export class SharedClickOutsideDirective {
 
@@ -9,9 +12,8 @@ export class SharedClickOutsideDirective {
 
   public readonly clickOutside = output<boolean>();
 
-  @HostListener('document:click', ['$event.target'])
-  onClick(target: any): void {
-    this.clickOutside.emit(!this._element.nativeElement.contains(target));
+  documentClick(event: PointerEvent): void {
+    this.clickOutside.emit(!this._element.nativeElement.contains(event.target));
   }
 
 }
